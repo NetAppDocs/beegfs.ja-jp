@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-recommended-volume-percentages.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 第2世代ビルディングブロックのストレージプール構成ごとに標準4つのボリュームを使用する場合は、上記の推奨割合を参照してください。 
+---
+= ストレージプールのオーバープロビジョニングの割合を推奨します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+第2世代のビルディングブロックでストレージプールあたりの標準の4ボリューム構成に従う場合は、次の表を参照してください。
+
+次の表に、BeeGFSメタデータまたはストレージ・ターゲットごとの'eseries_storage_pool_configuration'でボリューム・サイズとして使用する推奨パーセンテージを示します。
+
+|===
+| ドライブサイズ | サイズ 
+
+
+| 1.92TB | 18 
+
+
+| 3.84TB | 21.5 
+
+
+| 7.68TB | 22.5インチ 
+
+
+| 15.3TB | 24 
+|===
+
+NOTE: 上記のガイダンスは、管理サービスが含まれるストレージプールには適用されません。この場合、管理データ用にストレージプールの1%を割り当てるために、25%上のサイズを縮小する必要があります。
+
+これらの値の決定方法については、を参照してください https://www.netapp.com/media/17009-tr4800.pdf["TR-4800『Appendix A：Understanding SSD持久力とオーバープロビジョニング』"^]。

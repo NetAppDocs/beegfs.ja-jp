@@ -1,0 +1,38 @@
+---
+sidebar: sidebar 
+permalink: beegfs-gens.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: NetApp解決策 のBeeGFSは、現在第2世代の設計です。 
+---
+= 設計世代
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp解決策 のBeeGFSは、現在第2世代の設計です。
+
+第1世代と第2世代には、BeeGFSファイルシステムとNVMe EF600ストレージシステムを組み込んだベースアーキテクチャが含まれます。ただし、第2世代は、次のような追加の利点を最初に備えています。
+
+* 2Uのラックスペースだけで、パフォーマンスと容量を2倍に向上
+* 共有ディスクの2層ハードウェア設計に基づくハイアベイラビリティ（HA）
+* NVIDIAのDGX A100 SuperPODの外部認定
+
+
+
+
+== 第2世代のデザイン
+
+ネットアップの第2世代BeeGFSは、ハイパフォーマンスコンピューティング（HPC）とHPCスタイルの機械学習（ML）、ディープラーニング（DL）、同様の人工知能（AI）手法など、要求の厳しいワークロードのパフォーマンス要件を満たすように最適化されています。共有ディスクのハイアベイラビリティ（HA）アーキテクチャを採用したBeeGFS on NetApp解決策 は、ワークロードやユースケースに合わせて拡張できるストレージを求めてダウンタイムやデータ損失を許容できない企業やその他の組織のデータ保持と可用性の要件にも対応します。この解決策 はネットアップによって検証されたばかりでなく、NVIDIA DGX SuperPODのストレージオプションとして外部認定にも合格しました。
+
+
+
+== 最初の世代のデザイン
+
+ネットアップの第1世代のBeeGFSは、NetApp EF600 NVMeストレージシステム、BeeGFS並列ファイルシステム、NVIDIA DGX™A100システム、NVIDIA®Mellanox®Quantum™QM8700 200Gbps IBスイッチを使用して、機械学習（ML）と人工知能（AI）のワークロード向けに設計されました。この設計では、ストレージとコンピューティングクラスタのインターコネクトファブリックに100Gbps InfiniBand（IB）を搭載しており、ハイパフォーマンスワークロードに完全なIBベースのアーキテクチャを提供します。
+
+第1世代の詳細については、を参照してください link:https://www.netapp.com/pdf.html?item=/media/25445-nva-1156-design.pdf["NVIDIA DGX A100 システムと BeeGFS を搭載した NetApp EF シリーズ AI"^]。

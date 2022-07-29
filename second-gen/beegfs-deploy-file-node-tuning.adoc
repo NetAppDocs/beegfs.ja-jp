@@ -1,0 +1,213 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-file-node-tuning.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: パフォーマンスを最大化するために、ファイルノードとして使用するサーバモデルでシステム設定を構成することをお勧めします。 
+---
+= パフォーマンスのファイルノードシステム設定を調整します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+パフォーマンスを最大化するには、ファイルノードとして使用するサーバーモデルでシステム設定を構成することをお勧めします。
+
+システム設定は、ファイルノードとして使用するサーバーモデルによって異なります。この項では、検証済みLenovo ThinkSystem SR665サーバーファイルノードのシステム設定を構成する方法について説明します。
+
+
+
+== UEFIインターフェイスを使用して、システム設定を調整します
+
+Lenovo SR665サーバーのシステムファームウェアには、UEFIインターフェイスから設定できる多数のチューニングパラメータが含まれています。これらのチューニングパラメータは、サーバの機能とサーバのパフォーマンスのすべての側面に影響を与える可能性があります。
+
+UEFI Setup（UEFIセットアップ）> System Settings（システム設定）*で、次のシステム設定を調整します。
+
+
+
+=== Operating Mode（操作モード）メニュー
+
+[cols=","]
+|===
+| *システム設定* | *「*」に変更します 
+
+
+ a| 
+動作モード
+ a| 
+カスタム
+
+
+
+ a| 
+CTDP
+ a| 
+手動
+
+
+
+ a| 
+CTDPマニュアル
+ a| 
+350
+
+
+
+ a| 
+パッケージの電力制限
+ a| 
+手動
+
+
+
+ a| 
+効率モード
+ a| 
+無効にします
+
+
+
+ a| 
+GLOBAL-Cstate-Controlの略
+ a| 
+無効にします
+
+
+
+ a| 
+SOCの状態
+ a| 
+P0
+
+
+
+ a| 
+DF C -状態
+ a| 
+無効にします
+
+
+
+ a| 
+P-State 1
+ a| 
+無効にします
+
+
+
+ a| 
+Memory Power Down Enable (メモリの電源オフ有効
+ a| 
+無効にします
+
+
+
+ a| 
+ソケットごとのNUMAノード
+ a| 
+NPS1
+
+|===
+
+
+=== デバイスとI/Oポートのメニュー
+
+[cols=","]
+|===
+| *システム設定* | *「*」に変更します 
+
+
+ a| 
+IOMMUを使用します
+ a| 
+無効にします
+
+|===
+
+
+=== 電源メニュー
+
+[cols=","]
+|===
+| *システム設定* | *「*」に変更します 
+
+
+ a| 
+PCIeパワーブレーキ
+ a| 
+無効にします
+
+|===
+
+
+=== [プロセッサ]メニュー
+
+[cols=","]
+|===
+| *システム設定* | *「*」に変更します 
+
+
+ a| 
+グローバルCステートコントロール
+ a| 
+無効にします
+
+
+
+ a| 
+DF C -状態
+ a| 
+無効にします
+
+
+
+ a| 
+SMTモード
+ a| 
+無効にします
+
+
+
+ a| 
+CPPC
+ a| 
+無効にします
+
+|===
+
+
+== Redfish APIを使用して、システム設定を調整します
+
+UEFIセットアップのほかに、Redfish APIを使用してシステム設定を変更することもできます。
+
+....
+curl --request PATCH \
+  --url https://<BMC_IP_ADDRESS>/redfish/v1/Systems/1/Bios/Pending \
+  --user <BMC_USER>:<BMC- PASSWORD> \
+  --header 'Content-Type: application/json' \
+  --data '{
+"Attributes": {
+"OperatingModes_ChooseOperatingMode": "CustomMode",
+"Processors_cTDP": "Manual",
+"Processors_PackagePowerLimit": "Manual",
+"Power_EfficiencyMode": "Disable",
+"Processors_GlobalC_stateControl": "Disable",
+"Processors_SOCP_states": "P0",
+"Processors_DFC_States": "Disable",
+"Processors_P_state1": "Disable",
+"Memory_MemoryPowerDownEnable": "Disable",
+"DevicesandIOPorts_IOMMU": "Disable",
+"Power_PCIePowerBrake": "Disable",
+"Processors_GlobalC_stateControl": "Disable",
+"Processors_DFC_States": "Disable",
+"Processors_SMTMode": "Disable",
+"Processors_CPPC": "Disable",
+"Memory_NUMANodesperSocket":"NPS1"
+}
+}
+'
+....
+Redfishスキーマの詳細については、を参照してください https://redfish.dmtf.org/redfish/schema_index["DMTFのWebサイト"^]。

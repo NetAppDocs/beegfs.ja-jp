@@ -1,0 +1,14 @@
+---
+permalink: upgrade/overview.html 
+sidebar: sidebar 
+keywords: upgrade, overview 
+summary: アップグレードの概要 
+---
+= アップグレードの概要
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lorem ipsum dolor sit、conectetur adipiscing elit、sed do eusmod tempm or incidunt labore et dolore magna aliqua。

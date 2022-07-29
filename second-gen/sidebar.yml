@@ -1,0 +1,54 @@
+---
+section: second-gen
+title: 第2世代のNVAを使用します
+entries:
+- title: はじめに
+  entries:
+  - title: 解決策の概要
+    url: "/beegfs-solution-overview.html"
+  - title: 技術要件
+    url: "/beegfs-technology-requirements.html"
+- title: 設計
+  entries:
+  - title: 概要
+    url: "/beegfs-design-overview.html"
+  - title: ハードウェア設計
+    url: "/beegfs-design-hardware-architecture.html"
+  - title: ソフトウェア設計
+    url: "/beegfs-design-software-architecture.html"
+  - title: 検証
+    url: "/beegfs-design-solution-verification.html"
+  - title: サイジングガイドライン
+    url: "/beegfs-design-solution-sizing-guidelines.html"
+  - title: パフォーマンスの調整
+    url: "/beegfs-design-performance-tuning.html"
+- title: 導入
+  entries:
+  - title: 概要
+    url: "/beegfs-deploy-overview.html"
+  - title: Ansibleの詳細をご覧ください
+    url: "/beegfs-deploy-learn-ansible.html"
+  - title: ベストプラクティス
+    url: "/beegfs-deploy-bestpractice.html"
+  - title: ハードウェアを導入
+    url: "/beegfs-deploy-hardware.html"
+  - title: ソフトウェアを導入
+    entries:
+    - title: ファイルノードとブロックノードをセットアップ
+      url: "/beegfs-deploy-setup-nodes.html"
+    - title: Ansibleコントロールノードをセットアップします
+      url: "/beegfs-deploy-setting-up-an-ansible-control-node.html"
+    - title: Ansibleインベントリを作成する
+      url: "/beegfs-deploy-beegfs-general-config.html"
+    - title: BeeGFSビルディングブロックを定義します
+      url: "/beegfs-deploy-beegfs-build-inventory.html"
+    - title: BeeGFSを導入します
+      url: "/beegfs-deploy-beegfs-playbook.html"
+    - title: BeeGFSクライアントを設定します
+      url: "/beegfs-deploy-beegfs-configure-clients.html"
+    - title: パフォーマンスのシステム設定を調整します
+      url: beegfs-deploy-file-node-tuning.html
+  - title: BeeGFSクラスタの拡張
+    url: "/beegfs-deploy-beegfs-scale.html"
+  - title: 推奨されるボリュームの割合
+    url: "/beegfs-deploy-recommended-volume-percentages.html"

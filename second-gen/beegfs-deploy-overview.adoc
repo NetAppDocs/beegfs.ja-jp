@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-overview.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: NetAppのBeeGFSビルディング・ブロック設計の第2世代を使用して、NetAppにBeeGFSを導入し、検証済みのファイル・ノードとブロック・ノードを導入できます。 
+---
+= 導入の概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetAppのBeeGFSビルディング・ブロック設計の第2世代を使用して、NetAppにBeeGFSを導入し、検証済みのファイル・ノードとブロック・ノードを導入できます。
+
+
+
+== Ansibleのコレクションとロール
+
+アプリケーションの導入を自動化するために広く使用されているIT自動化エンジンであるAnsibleを使用して、NetApp解決策 にBeeGFSを導入します。Ansibleは、展開するBeeGFSファイルシステムをモデル化するインベントリとしてまとめて呼ばれる一連のファイルを使用します。
+
+Ansibleを使用すると、ネットアップなどの企業は、Ansible Galaxyのコレクションを使用して組み込みの機能を拡張できます（を参照） https://galaxy.ansible.com/netapp_eseries["NetApp EシリーズBeeGFSのコレクション"^]）。コレクションには、特定の機能やタスク（Eシリーズボリュームの作成など）を実行するモジュールや、複数のモジュールやその他の役割を呼び出すことができるロールが含まれます。この自動化されたアプローチにより、BeeGFSファイルシステムと基盤となるHAクラスタの導入に要する時間が短縮されます。さらに、ビルディングブロックの追加が簡単になり、既存のファイルシステムを拡張できます。
+
+詳細については、を参照してください link:beegfs-deploy-learn-ansible.html["Ansibleのインベントリを確認できます"]。
+
+
+NOTE: NetApp解決策 へのBeeGFSの導入には多数の手順が含まれるため、解決策 の手動による導入はサポートされません。
+
+
+
+== BeeGFSビルディングブロックの構成プロファイル
+
+導入手順では、次の設定プロファイルについて説明します。
+
+* 管理、メタデータ、ストレージサービスを含む1つのベースとなるビルディングブロックです。
+* メタデータとストレージサービスを含む2つ目のビルディングブロック。
+* ストレージサービスのみを含む3つ目のビルディングブロック。
+
+
+これらのプロファイルは、NetApp BeeGFSビルディングブロックに推奨されるすべての構成プロファイルを示しています。環境ごとに、メタデータおよびストレージのビルディングブロックまたはストレージサービス専用のビルディングブロックの数は、容量とパフォーマンスの要件に応じて手順によって異なります。
+
+
+
+== 導入手順の概要
+
+の導入では、次の作業を実行します。
+
+.ハードウェアの導入
+. 各ビルディングブロックを物理的に組み立てます。
+. ラックに設置してケーブルを配線する。詳細な手順については、を参照してください link:beegfs-deploy-hardware.html["ハードウェアを導入"]。
+
+
+.ソフトウェアの導入
+. link:beegfs-deploy-setup-nodes.html["ファイルノードとブロックノードをセットアップ"]。
++
+** ファイルノードにBMCのIPを設定します
+** サポートされているオペレーティングシステムをインストールし、ファイルノードに管理ネットワークを設定します
+** ブロックノードに管理IPを設定します
+
+
+. link:beegfs-deploy-setting-up-an-ansible-control-node.html["Ansibleコントロールノードをセットアップします"]。
+. link:beegfs-deploy-file-node-tuning.html["パフォーマンスのシステム設定を調整します"]。
+. link:beegfs-deploy-create-inventory.html["Ansibleインベントリを作成します"]。
+. link:beegfs-deploy-define-inventory.html["BeeGFSビルディングブロックのAnsibleインベントリを定義します"]。
+. link:beegfs-deploy-playbook.html["Ansibleを使用してBeeGFSを導入します"]。
+. link:beegfs-deploy-configure-clients.html["BeeGFSクライアントを設定します"]。
+
+
+
+NOTE: 展開手順には、テキストをファイルにコピーする必要があるいくつかの例が含まれています。特定の導入環境で変更する必要があるもの、または変更可能なものについては、「#」または「/」文字で示されるインラインコメントに十分に注意してください。例：'beegfs_ha_ntp_server_pools:#これはコメントの例です-「pool 0.pool.ntp.org iBurst maxsources 3」-「pool 1.pool.ntp.org iBurst maxsources 3」

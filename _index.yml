@@ -1,0 +1,35 @@
+---
+indexpage:
+  lead: NetApp解決策 のBeeGFSは、NetApp Verified Architecture（NVA）であり、BeeGFS並列ファイルシステムとNetApp
+    EF600ストレージシステムを組み合わせたものです。この解決策 は、信頼性と拡張性に優れ、コスト効率に優れたインフラで、きわめて高いワークロードの処理速度を維持します。
+  tiles:
+  - title: はじめに
+    links:
+    - title: 解決策の概要
+      url: "/beegfs-solution-overview.html"
+    - title: アーキテクチャの概要
+      url: "/beegfs-architecture-overview.html"
+    - title: ブログ- BeeGFSとEシリーズの詳細をご確認ください
+      url: https://www.netapp.com/blog/solution-support-for-beegfs-and-e-series/
+    - title: ブログ- BeeGFS（初心者向け
+      url: https://www.netapp.com/blog/beegfs-for-beginners/
+    - title: ブログ- BeeGFSのHA
+      url: https://www.netapp.com/blog/high-availability-beegfs/
+    - title: ネットアップのBeeGFSでAIワークロードを高速化するビデオです
+      url: https://www.netapp.tv/details/28905?mcid=04158305605030681010298851103052321172
+  - title: その他のドキュメント
+    links:
+    - title: ネットアップの製品マニュアル
+      url: https://www.netapp.com/support-and-training/documentation/
+    - title: BeeGFSのマニュアル
+      url: https://doc.beegfs.io/
+  - title: ツールのサポート
+    links:
+    - title: Ansible GalaxyでのNetApp Eシリーズコレクション
+      url: https://galaxy.ansible.com/netapp_eseries
+    - title: NetApp Interoperability Matrix を参照してください
+      url: http://mysupport.netapp.com/matrix/
+    - title: ネットアップナレッジベース
+      url: https://kb.netapp.com/
+    - title: Active IQ （ログインが必要）
+      url: https://activeiq.netapp.com/?source=aiqnsspage

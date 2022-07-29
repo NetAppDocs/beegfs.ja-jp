@@ -1,0 +1,76 @@
+---
+settings:
+  name: BeeGFS on NetApp with E-Series Storage
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: ja-jp,us-en,zh-cn,zh-tw,ko-kr
+sidebar:
+  entries:
+  - title: NetAppドキュメントのBeeGFS
+    url: "/index.html"
+  - title: はじめに
+    entries:
+    - title: このサイトに含まれている情報
+      url: "/whats-included.html"
+    - title: 用語と概念
+      url: "/beegfs-terms.html"
+    - title: 設計世代
+      url: "/beegfs-gens.html"
+    - title: 解決策の概要
+      url: "/beegfs-solution-overview.html"
+    - title: アーキテクチャの概要
+      url: "/beegfs-architecture-overview.html"
+    - title: 技術要件
+      url: "/beegfs-technology-requirements.html"
+  - title: 解決策 の設計を確認します
+    entries:
+    - title: 設計の概要
+      url: "/beegfs-design-overview.html"
+    - title: ハードウェア構成
+      url: "/beegfs-design-hardware-architecture.html"
+    - title: ソフトウェア構成
+      url: "/beegfs-design-software-architecture.html"
+    - title: 設計の検証
+      url: "/beegfs-design-solution-verification.html"
+    - title: サイジングガイドライン
+      url: "/beegfs-design-solution-sizing-guidelines.html"
+    - title: パフォーマンスの調整
+      url: "/beegfs-design-performance-tuning.html"
+  - title: 解決策 を導入します
+    entries:
+    - title: 導入の概要
+      url: "/beegfs-deploy-overview.html"
+    - title: Ansibleのインベントリを確認できます
+      url: "/beegfs-deploy-learn-ansible.html"
+    - title: ベストプラクティスを確認
+      url: "/beegfs-deploy-bestpractice.html"
+    - title: ハードウェアを導入
+      url: "/beegfs-deploy-hardware.html"
+    - title: ソフトウェアを導入
+      entries:
+      - title: ファイルノードとブロックノードをセットアップ
+        url: "/beegfs-deploy-setup-nodes.html"
+      - title: パフォーマンスのシステム設定を調整します
+        url: beegfs-deploy-file-node-tuning.html
+      - title: Ansibleコントロールノードをセットアップします
+        url: "/beegfs-deploy-setting-up-an-ansible-control-node.html"
+      - title: Ansibleインベントリを作成する
+        url: "/beegfs-deploy-create-inventory.html"
+      - title: BeeGFSビルディングブロックを定義します
+        url: "/beegfs-deploy-define-inventory.html"
+      - title: BeeGFSを導入します
+        url: "/beegfs-deploy-playbook.html"
+      - title: BeeGFSクライアントを設定します
+        url: "/beegfs-deploy-configure-clients.html"
+    - title: BeeGFSクラスタの拡張
+      url: "/beegfs-deploy-scale-building-blocks.html"
+    - title: 推奨されるボリュームの割合
+      url: "/beegfs-deploy-recommended-volume-percentages.html"
+  - title: 法的通知
+    url: "/legal-notices.html"
+product-family:
+  name: E-Series
+  repo: e-series-family

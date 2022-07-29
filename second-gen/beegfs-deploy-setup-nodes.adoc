@@ -1,0 +1,75 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-setup-nodes.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
+summary: 各サーバのBaseboard Management Controller（BMC；ベースボード管理コントローラ）のネットワークを設定し、各コントローラの管理ポートを設定します。 
+---
+= ファイルノードとブロックノードをセットアップ
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ほとんどのソフトウェア設定タスクはネットアップが提供するAnsibleコレクションを使用して自動化されていますが、各サーバのBaseboard Management Controller（BMC；ベースボード管理コントローラ）でネットワークを設定し、各コントローラの管理ポートを設定する必要があります。
+
+
+
+== ファイルノードをセットアップします
+
+. 各サーバのベースボード管理コントローラ（BMC）のネットワークを設定します。
++
+検証済みLenovo SR665ファイルノードのネットワークを設定する方法については、を参照してください https://thinksystem.lenovofiles.com/help/index.jsp?topic=%2F7D2W%2Fset_the_network_connection.html["Lenovo ThinkSystemのドキュメント"^]。
+
++
+
+NOTE: ベースボード管理コントローラ（BMC）は、サービスプロセッサとも呼ばれ、オペレーティングシステムがインストールされていない場合やアクセスできない場合でもリモートアクセスを提供できるさまざまなサーバプラットフォームに組み込まれているアウトオブバンド管理機能の一般的な名前です。ベンダーは通常、この機能を独自のブランドで販売しています。たとえば、Lenovo SR665では、BMCは_Lenovo XClarity Controller（XCC）_と呼ばれています。
+
+. 最大のパフォーマンスを得るためにシステムを設定します。
++
+システム設定は、UEFIセットアップ（旧BIOS）を使用するか、多くのBMCが提供するRedfish APIを使用して設定します。システム設定は、ファイルノードとして使用するサーバモデルによって異なります。
+
++
+検証済みLenovo SR665ファイルノードのシステム設定を構成する方法については、を参照してください link:beegfs-deploy-file-node-tuning.html["パフォーマンスのシステム設定を調整します"]。
+
+. Red Hat 8.4をインストールし、AnsibleコントロールノードからのSSH接続など、オペレーティングシステムの管理に使用するホスト名とネットワークポートを設定します。
++
+この時点では、InfiniBandポートにIPを設定しないでください。
+
++
+
+NOTE: 厳密には必須ではありませんが、以降のセクションでは、ホスト名には順番に番号が付けられ（h1-hNなど）、奇数ホストと偶数ホストで完了する必要のあるタスクを参照するようにしています。
+
+. Red Hatの公式リポジトリから必要なパッケージをインストールできるようにしたり、Red Hatのサポートされているバージョンに対する更新を制限するには、Red Hat Subscription Managerを使用してシステムを登録およびサブスクライブします。手順については、を参照してください https://access.redhat.com/solutions/253273["RHELシステムを登録および登録する方法"^] および  https://access.redhat.com/solutions/2761031["更新を制限する方法"^]。
+. ハイアベイラビリティに必要なパッケージを含むRed Hatリポジトリを有効にします。
++
+....
+subscription-manager repo-override --repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+....
+. すべてのConnectX-6 HCAファームウェアを、で推奨されているバージョンにアップデートします link:beegfs-technology-requirements.html["テクノロジ要件"]。
++
+この更新を行うには'推奨ファームウェアをバンドルするmlxupツールのバージョンをダウンロードして実行しますこのツールはからダウンロードできます https://www.mellanox.com/support/firmware/mlxup-mft["mlxup -アップデートとクエリユーティリティ"^]。
+
+
+
+
+
+== ブロックノードをセットアップする
+
+各コントローラの管理ポートを設定してEF600ブロックノードをセットアップします。
+
+. 各EF600コントローラに管理ポートを設定します。
++
+ポートの設定手順については、を参照してください https://docs.netapp.com/us-en/e-series/maintenance-ef600/hpp-overview-supertask-concept.html["Eシリーズドキュメントセンター"^]。
+
+. 必要に応じて、各システムのストレージアレイ名を設定します。
++
+名前を設定すると、以降のセクションで各システムを簡単に参照できるようになります。アレイ名の設定手順については、を参照してください https://docs.netapp.com/us-en/e-series/maintenance-ef600/hpp-overview-supertask-concept.html["Eシリーズドキュメントセンター"^]。
+
+
+
+
+NOTE: 必須ではありませんが、以降のトピックでは、ストレージアレイ名には必ず順番に番号を付け（c1-CNなど）、奇数のシステムでも偶数のシステムでも完了する必要がある手順を参照してください。
