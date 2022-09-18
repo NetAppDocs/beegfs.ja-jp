@@ -52,7 +52,7 @@ summary: ファイルノードとブロックノードの設定を定義する�
 
 . 「host_vars/`」で、「<hostname>.yml」という名前のBeeGFSファイルノードごとに次の内容のファイルを作成します。BeeGFSクラスタのIPおよび奇数で終わるホスト名と偶数で終わるホスト名には、内容に関する注意を払って入力してください。
 +
-最初は、ファイルノードのインターフェイス名が、ここに記載されている名前と一致しています（ib0やibs1f0など）。これらのカスタム名は、で設定します <<Step 4: Define configuration that should apply to all file nodes>>。
+最初は、ファイルノードのインターフェイス名が、ここに記載されている名前と一致しています（ib0やibs1f0など）。これらのカスタム名は、で設定します  4: Define configuration that should apply to all file nodes。
 
 +
 ....
