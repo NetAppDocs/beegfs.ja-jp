@@ -53,11 +53,34 @@
   <link rel="stylesheet" href="/ja-jp/beegfs/css/tabbed-blocks.css" type="text/css">
   <!-- Canonical url -->
   <link rel='stylesheet' href='/ja-jp/beegfs/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
-    if (document.location.hostname === "docs.netapp.com") {
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
       var head = document.getElementsByTagName('head')[0];
       var onetrustConsent = document.createElement("script");
       onetrustConsent.type = "text/javascript";
-      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
       head.appendChild(onetrustConsent);
 
       var onetrustScript = document.createElement("script");
@@ -65,30 +88,11 @@
       onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
       onetrustScript.charset = "UTF-8";
       onetrustScript.dataset.documentLanguage = "true";
-      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      onetrustScript.dataset.domainScript = consentId;
       head.appendChild(onetrustScript);
-    }
-
-    function OptanonWrapper() { }
-
-    if (document.location.hostname === "docs.netapp.com") {
-      var adobe = document.createElement("script");
-      adobe.type = "text/plain";
-      adobe.className = "optanon-category-C0002";
-      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
-      head.appendChild(adobe);
-
-      var google = document.createElement("script");
-      google.type = "text/plain";
-      google.className = "optanon-category-C0002";
-      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
-      head.appendChild(google);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-81697994-3');
-    }
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -169,7 +173,7 @@
   
   <!-- Start Page Toolbar -->
   
-  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/beegfs/issues/new?body=Page%3A%20[ハードウェアを導入](https://docs.netapp.com/ja-jp/beegfs/beegfs-deploy-hardware.html)" class="page-nav-contribute-link" role="button"><img src="/ja-jp/beegfs/images/discuss-sm.svg" alt="" class="github-icon" />ドキュメントの変更をリクエスト</a><a target="_blank" href="https://github.com/NetAppDocs/beegfs/blob/main/second-gen/beegfs-deploy-hardware.adoc" class="page-nav-contribute-link" role="button"><img src="/ja-jp/beegfs/images/edit-sm.svg" alt="" class="github-icon" />GitHub で編集</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/ja-jp/beegfs/images/article-sm.svg" alt="" class="github-icon" />寄稿者向けガイド</a></div>
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/beegfs/issues/new?body=Page%3A%20[ハードウェアを導入](https://docs.netapp.com/ja-jp/beegfs/beegfs-deploy-hardware.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/ja-jp/beegfs/images/discuss-sm.svg" alt="" class="github-icon" />ドキュメントの変更をリクエスト</a><a target="_blank" href="https://github.com/NetAppDocs/beegfs/blob/main/second-gen/beegfs-deploy-hardware.adoc" class="page-nav-contribute-link" role="button"><img src="/ja-jp/beegfs/images/edit-sm.svg" alt="" class="github-icon" />GitHub で編集</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/ja-jp/beegfs/images/article-sm.svg" alt="" class="github-icon" />寄稿者向けガイド</a></div>
     <div class="page-nav-container">
       <nav class="page-nav-fixed">
         <div class="page-nav-title">このページ</div>
@@ -341,6 +345,7 @@
   <!-- Sidebar Column -->
   
   <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/ja-jp/beegfs/images/collapse.png" alt="ナビゲーション パネルを閉じる"></button>
       <div class="n-pdf-header">
   <a id="toggleButtonPdf" class="n-pdf-button" type="button">
     <img src="/ja-jp/beegfs/images/pdf.png" alt="" width="16" height="16"/>利用可能なPDF<span>
@@ -538,71 +543,230 @@
     $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
   });
 </script><div class="sidebar-nav-container" id="mysidebardiv">
-  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/index.html">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="NetAppドキュメントのBeeGFS"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/index.html">
         NetAppドキュメントのBeeGFS
-      </a></li><li class="subfolders "><a href="#">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="はじめに"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
         <div class="na-navbar-padding"> はじめに</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/whats-included.html">
+      <ul>
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="このサイトに含まれている情報"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/whats-included.html">
         このサイトに含まれている情報
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-terms.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="用語と概念"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-terms.html">
         用語と概念
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-gens.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設計世代"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-gens.html">
         設計世代
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-solution-overview.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="解決策の概要"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-solution-overview.html">
         解決策の概要
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-architecture-overview.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="アーキテクチャの概要"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-architecture-overview.html">
         アーキテクチャの概要
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-technology-requirements.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="技術要件"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-technology-requirements.html">
         技術要件
-      </a></li></ul></li><li class="subfolders "><a href="#">
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="解決策 の設計を確認します"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
         <div class="na-navbar-padding"> 解決策 の設計を確認します</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-overview.html">
+      <ul>
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設計の概要"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-overview.html">
         設計の概要
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-hardware-architecture.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ハードウェア構成"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-hardware-architecture.html">
         ハードウェア構成
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-software-architecture.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ソフトウェア構成"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-software-architecture.html">
         ソフトウェア構成
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-solution-verification.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="設計の検証"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-solution-verification.html">
         設計の検証
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-solution-sizing-guidelines.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="サイジングガイドライン"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-solution-sizing-guidelines.html">
         サイジングガイドライン
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-performance-tuning.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="パフォーマンスの調整"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-design-performance-tuning.html">
         パフォーマンスの調整
-      </a></li></ul></li><li class="subfolders "><a href="#">
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="解決策 を導入します"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
         <div class="na-navbar-padding"> 解決策 を導入します</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-overview.html">
+      <ul>
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="導入の概要"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-overview.html">
         導入の概要
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-learn-ansible.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ansibleのインベントリを確認できます"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-learn-ansible.html">
         Ansibleのインベントリを確認できます
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-bestpractice.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ベストプラクティスを確認"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-bestpractice.html">
         ベストプラクティスを確認
-      </a></li><li class="  active "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-hardware.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ハードウェアを導入"
+      data-li-level="2#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-hardware.html">
         ハードウェアを導入
-      </a></li><li class="subfolders "><a href="#">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ソフトウェアを導入"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
         <div class="na-navbar-padding"> ソフトウェアを導入</div>
       </a>
-      <ul><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-setup-nodes.html">
+      <ul>
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ファイルノードとブロックノードをセットアップ"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-setup-nodes.html">
         ファイルノードとブロックノードをセットアップ
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-file-node-tuning.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="パフォーマンスのシステム設定を調整します"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-file-node-tuning.html">
         パフォーマンスのシステム設定を調整します
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-setting-up-an-ansible-control-node.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ansibleコントロールノードをセットアップします"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-setting-up-an-ansible-control-node.html">
         Ansibleコントロールノードをセットアップします
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-create-inventory.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ansibleインベントリを作成する"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-create-inventory.html">
         Ansibleインベントリを作成する
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-define-inventory.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFSビルディングブロックを定義します"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-define-inventory.html">
         BeeGFSビルディングブロックを定義します
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-playbook.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFSを導入します"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-playbook.html">
         BeeGFSを導入します
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-configure-clients.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFSクライアントを設定します"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-configure-clients.html">
         BeeGFSクライアントを設定します
-      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-scale-building-blocks.html">
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="BeeGFSクラスタの拡張"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-scale-building-blocks.html">
         BeeGFSクラスタの拡張
-      </a></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-recommended-volume-percentages.html">
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="推奨されるボリュームの割合"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/beegfs-deploy-recommended-volume-percentages.html">
         推奨されるボリュームの割合
-      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/ja-jp/beegfs/legal-notices.html">
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="法的通知"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/ja-jp/beegfs/legal-notices.html">
         法的通知
       </a></li></ul>
 </div>
@@ -621,8 +785,9 @@
   
 
   <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
-    <!-- Begin of page container --><article class="page-content">
+    <!-- Begin of page container --><article class="page-content" id="main">
       <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/ja-jp/beegfs/images/expand.png" alt="ナビゲーション パネルを展開する"></button>
   <div class="ie-menu">
     <div class="n-breadcrumb">
       <ul class="n-breadcrumb__list">
