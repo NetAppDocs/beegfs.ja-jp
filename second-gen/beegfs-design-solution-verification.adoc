@@ -131,8 +131,8 @@ NOTE: 既知の問題 がある（を参照） https://github.com/netappeseries/
 
 
 
-== NVIDIA DGX A100 SuperPODの検証
+== NVIDIA DGX A100 SuperPODおよびBasePODの検証
 
-ネットアップでは、3つのビルディングブロックにメタデータとストレージ構成プロファイルが適用されたBeeGFSファイルシステムを使用して、NVDIA DGX A100 SuperPOD向けのストレージ解決策 の検証を実施しました。認定には、このNVAで説明した解決策 を、さまざまなストレージ、機械学習、ディープラーニングのベンチマークを実行している20台のDGX A100 GPUサーバでテストすることが含まれます。
+ネットアップでは、3つのビルディングブロックにメタデータとストレージ構成プロファイルが適用されたBeeGFSファイルシステムを使用して、NVDIA DGX A100 SuperPOD向けのストレージ解決策 の検証を実施しました。認定には、このNVAで説明した解決策 を、さまざまなストレージ、機械学習、ディープラーニングのベンチマークを実行している20台のDGX A100 GPUサーバでテストすることが含まれます。NVIDIAのDGX A100 SuperPODの使用が認定されたストレージは、NVIDIA BasePODアーキテクチャでも自動的に認定されます。
 
-詳細については、を参照してください https://www.netapp.com/pdf.html?item=/media/72718-nva-1167-DESIGN.pdf["NVIDIA DGX SuperPODとネットアップ"^]。
+詳細については、を参照してください https://www.netapp.com/pdf.html?item=/media/72718-nva-1167-DESIGN.pdf["NVIDIA DGX SuperPODとネットアップ"^] および https://www.nvidia.com/en-us/data-center/dgx-basepod/["NVIDIA DGX BasePOD"^]。
