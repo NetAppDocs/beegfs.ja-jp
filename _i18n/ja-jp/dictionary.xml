@@ -1078,4 +1078,15 @@
   <block id="33d753992c8525a016e60650889ef7a9" category="paragraph">詳細については、を参照してください<block ref="917e0b817a1bc5579c3d00c8de7a0790" category="inline-link-rx"></block> および<block ref="d4d49ddfca3de3daecdc231399362db8" category="inline-link-rx"></block>。</block>
   <block id="e79ef600cb60c3e821f1cef23dcb17c1" category="list-text">NVIDIAのDGX A100 SuperPODおよびNVIDIA BasePodアーキテクチャの外部認定</block>
   <block id="1e5b7e91f7684d1e82eca499bd3e9f00" category="paragraph">ネットアップの第2世代BeeGFSは、ハイパフォーマンスコンピューティング（HPC）とHPCスタイルの機械学習（ML）、ディープラーニング（DL）、同様の人工知能（AI）手法など、要求の厳しいワークロードのパフォーマンス要件を満たすように最適化されています。共有ディスクのハイアベイラビリティ（HA）アーキテクチャを採用したBeeGFS on NetApp解決策 は、ワークロードやユースケースに合わせて拡張できるストレージを求めてダウンタイムやデータ損失を許容できない企業やその他の組織のデータ保持と可用性の要件にも対応します。この解決策 はネットアップによって検証されたばかりでなく、NVIDIA DGX SuperPODおよびDGX BasePODのストレージオプションとして外部認定にも合格しました。</block>
+  <block id="53c31a8ba69af9d096629948d271d34d" category="paragraph-title">帯域幅を活用するためのケーブル接続</block>
+  <block id="bbe48fb854ea022537208eeeff822f91" category="paragraph-title">このタスクについて</block>
+  <block id="48c7c41b72e1d678923ce3571aa65b2d" category="paragraph-title">ステップ</block>
+  <block id="015dd422187100bd2a53cae756db5bcd" category="paragraph-title">BeeGFSベース（管理、メタデータ、ストレージ）ビルディングブロック×1</block>
+  <block id="2eb32f267ab2864aa50a3171522c1574" category="paragraph-title">BeeGFSメタデータとストレージビルディングブロック</block>
+  <block id="2cf619569e1d3422599fa7ba3fff04f2" category="paragraph-title">BeeGFSストレージ専用のビルディングブロック</block>
+  <block id="9443a11095bad63a50d95ece24842fb2" category="paragraph-title">3つのBeeGFSビルディングブロック</block>
+  <block id="3c793d71f0d81892f28ab10f661381c8" category="paragraph-title">BeeGFSメタデータとストレージビルディングブロック×1</block>
+  <block id="94c5de0e8c5b79f8b061a00a2d638234" category="paragraph-title">BeeGFSメタデータとストレージビルディングブロックが2つずつ搭載されています</block>
+  <block id="aa00436c66c8456a1c9ef0a12178a4ab" category="paragraph-title">サブネットA：100.127.0.0.0/16</block>
+  <block id="079e5887eeb92f6f17c9fa25fd464e2a" category="paragraph-title">サブネットB：100.128.0.0/16</block>
 </blocks>

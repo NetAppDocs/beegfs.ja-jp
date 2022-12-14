@@ -54,18 +54,22 @@ IORでは次のパラメータを使用し、1つのビルディングブロッ�
 ....
 mpirun --allow-run-as-root --mca btl tcp -np 48 -map-by node -hostfile 10xnodes ior -b 1024k --posix.odirect -e -t 1024k -s 54613 -z -C -F -E -k
 ....
+.BeeGFSベース（管理、メタデータ、ストレージ）ビルディングブロック×1
 次の図に、1つのBeeGFSベース（管理、メタデータ、ストレージ）ビルディングブロックを使用したIORテスト結果を示します。
 
 image:beegfs-design-image13.png[""]
 
+.BeeGFSメタデータとストレージビルディングブロック
 次の図は、1つのBeeGFSメタデータとストレージビルディングブロックを使用したIORテスト結果を示しています。
 
 image:beegfs-design-image14.png[""]
 
+.BeeGFSストレージ専用のビルディングブロック
 次の図に、1つのBeeGFSストレージ専用ビルディングブロックを使用したIORテスト結果を示します。
 
 image:beegfs-design-image15.png[""]
 
+.3つのBeeGFSビルディングブロック
 次の図に、3つのBeeGFSビルディングブロックを使用したIORテスト結果を示します。
 
 image:beegfs-design-image16.png[""]
@@ -104,10 +108,12 @@ mpirun -h 10xnodes –map-by node np $processes mdtest -e 4k -w 4k -i 3 -I 16 -z
 ....
 メタデータパフォーマンスは、まずメタデータとストレージのビルディングブロックを2つずつ使用して測定し、ビルディングブロックを追加してパフォーマンスがどのようにスケールアップするかを示しました。
 
+.BeeGFSメタデータとストレージビルディングブロック×1
 次の図は、BeeGFSメタデータとストレージビルディングブロックを1つずつ使用したMDTestの結果を示しています。
 
 image:beegfs-design-image18.png[""]
 
+.BeeGFSメタデータとストレージビルディングブロックが2つずつ搭載されています
 次の図は、2つのBeeGFSメタデータとストレージビルディングブロックを使用したMDTestの結果を示しています。
 
 image:beegfs-design-image19.png[""]
