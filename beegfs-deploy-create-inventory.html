@@ -828,7 +828,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-09-18 20:16:05 +0000">09/18/2022</time>
+    <time datetime="2022-12-14 18:18:46 +0000">12/14/2022</time>
     
   
 
@@ -898,7 +898,7 @@
 <li>
 <p>「host_vars/`」で、「&lt;hostname&gt;.yml」という名前のBeeGFSファイルノードごとに次の内容のファイルを作成します。BeeGFSクラスタのIPおよび奇数で終わるホスト名と偶数で終わるホスト名には、内容に関する注意を払って入力してください。</p>
 <div class="paragraph">
-<p>最初は、ファイルノードのインターフェイス名が、ここに記載されている名前と一致しています（ib0やibs1f0など）。これらのカスタム名は、で設定します  4: Define configuration that should apply to all file nodes。</p>
+<p>最初は、ファイルノードのインターフェイス名が、ここに記載されている名前と一致しています（ib0やibs1f0など）。これらのカスタム名は、で設定します <a href="#手順4：すべてのファイルノードに適用する設定を定義する">[手順4：すべてのファイルノードに適用する設定を定義する]</a>。</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1008,12 +1008,14 @@ eseries_controller_nvme_ib_port:
 <p>グループに対応するファイル名に&#8217;GROLE_vars&#8217;の下にあるホストのグループに共通する構成を定義できますこれにより、複数の場所で共有設定を繰り返す必要がなくなります。</p>
 </div>
 <div class="paragraph">
+<div class="title">このタスクについて</div>
 <p>ホストは複数のグループに含めることができ、実行時に、Ansibleは、変数の優先順位ルールに基づいて、特定のホストに適用する変数を選択します。（これらのルールの詳細については、Ansibleのドキュメントを参照してください <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html" target="_blank" rel="noopener">"変数を使用します"</a>. ）</p>
 </div>
 <div class="paragraph">
 <p>ホストとグループの割り当ては、実際のAnsibleインベントリファイルに定義されます。このファイルは、この手順 の末尾に作成されます。</p>
 </div>
 <div class="paragraph">
+<div class="title">ステップ</div>
 <p>Ansibleでは、すべてのホストに適用する構成は「all」というグループで定義できます。次の内容で&#8217;ファイル&#8217;group_vars/all.yml&#8217;を作成します</p>
 </div>
 <div class="literalblock">
