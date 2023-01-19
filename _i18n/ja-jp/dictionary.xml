@@ -358,17 +358,9 @@
   <block id="070e4137f478af27755d228dba080d41" category="cell">ドライブサイズ（8+2 RAID 6）ストレージボリュームグループ</block>
   <block id="785d80cc95b60fc3365e05e3ae013331" category="cell">ストレージ容量（ファイル内容）</block>
   <block id="be3ca1ec15ca4657e5ca3ec84a561090" category="cell">1.92TB</block>
-  <block id="b3d001728e8adb3f05f589ac92f74f0a" category="cell">1,797,120,000</block>
-  <block id="fefd735cb2121d34d8f975c4cca195db" category="cell">47.91TB</block>
   <block id="71839d6e6fb59e239ad941d08b5e2519" category="cell">3.84TB</block>
-  <block id="e9e99d07bbdcffb429da9dbfd9096692" category="cell">3,594,240,000人</block>
-  <block id="82ace9685542f458c6ee0c7ed4223ebc" category="cell">95.84TB</block>
   <block id="a98c228c0d8903ba6926546f64321cc4" category="cell">7.68TB</block>
-  <block id="92c5dedeb0266d552efd70d90ed2a193" category="cell">7、557、120、000</block>
-  <block id="0a9502953839027f49cab071512da640" category="cell">1、01.5 TB</block>
   <block id="1f04a7c587f50d269f44d43229c966ac" category="cell">15.3TB</block>
-  <block id="e7f4882484562f3729ee8d601f2dded3" category="cell">16,156,800,000</block>
-  <block id="4a4a2289f7f73e11c0d1524c657e4909" category="cell">430.84TB</block>
   <block id="a966f153f6f429bbd39c3ac2390ef970" category="admonition">メタデータとストレージビルディングブロックのサイジングを行う場合、メタデータボリュームグループとストレージボリュームグループに使用するドライブを小型化することでコストを削減できます。</block>
   <block id="f9fb1e607e840d5610c34a9f15da540e" category="section-title">ストレージ専用のビルディングブロックの容量サイジング</block>
   <block id="cd9db38cfde636fa7c304f8e67d8708d" category="paragraph">次の表に、ストレージ専用のビルディングブロックの容量をルールベースの設定値で示します。</block>
@@ -1060,16 +1052,6 @@
   <block id="da7f5c02044100badae24523f01941a2" category="sidebar">BeeGFSビルディングブロックを定義します</block>
   <block id="8025f3ce3e3e1dd003430788c4be8b5e" category="sidebar">BeeGFSクラスタの拡張</block>
   <block id="e304a70d2f42f62cefb9b474f73a1e91" category="sidebar">推奨されるボリュームの割合</block>
-  <block id="6c3aa57299c744740f84a63119dc81e6" category="sidebar">第2世代のNVAを使用します</block>
-  <block id="1afa74da05ca145d3418aad9af510109" category="sidebar">設計</block>
-  <block id="3b878279a04dc47d60932cb294d96259" category="sidebar">概要</block>
-  <block id="a010ec8776a6b938a2d13ff22c787a20" category="sidebar">ハードウェア設計</block>
-  <block id="8335ea7b2998e81f942bcacfecd63a78" category="sidebar">ソフトウェア設計</block>
-  <block id="9fd18f658328ee903c083b8a79b8c6be" category="sidebar">検証</block>
-  <block id="507a3a88cebc46603ce2be8eaa924eee" category="sidebar">導入</block>
-  <block id="90d276687cc6ad8d3b72b9d9e953c581" category="sidebar">Ansibleの詳細をご覧ください</block>
-  <block id="50802d3e5a25b93d471686a10da03dd8" category="sidebar">ベストプラクティス</block>
-  <block id="5d6f0f2ec8814a4c4e63b18ea908577b" category="sidebar">BeeGFSクライアントを設定します</block>
   <block id="ba13e086fe19056a379b6240e05651a8" category="sidebar">TR-4915 - AI向けのEシリーズとBeeGFSを使用したデータ移動</block>
   <block id="bc893b2686532fc683cb056beffd08aa" category="cell">ドライブサイズ（10+2 RAID 6）のストレージボリュームグループ</block>
   <block id="132789d9474eae064aef2cd5266138d8" category="section-title">NVIDIA DGX A100 SuperPODおよびBasePODの検証</block>
@@ -1089,4 +1071,64 @@
   <block id="94c5de0e8c5b79f8b061a00a2d638234" category="paragraph-title">BeeGFSメタデータとストレージビルディングブロックが2つずつ搭載されています</block>
   <block id="aa00436c66c8456a1c9ef0a12178a4ab" category="paragraph-title">サブネットA：100.127.0.0.0/16</block>
   <block id="079e5887eeb92f6f17c9fa25fd464e2a" category="paragraph-title">サブネットB：100.128.0.0/16</block>
+  <block id="02cf3373667b246c17c8d054c073a372" category="paragraph">導入に関する推奨事項にバリエーションを伴う派生アーキテクチャ：</block>
+  <block id="2e93d3c37349d17095fd0dca7d6fe097" category="inline-link-macro">大容量ビルディングブロック</block>
+  <block id="8a43f7c3e77834cf43b5398c116033e3" category="list-text"><block ref="8a43f7c3e77834cf43b5398c116033e3" category="inline-link-macro-rx"></block></block>
+  <block id="119c6b2e3908d75335ad13f9fead045a" category="cell">1,938,577,200</block>
+  <block id="753b107ce954fb125f0557af947a86c5" category="cell">51.77TB</block>
+  <block id="bb586a502f621b433b3966d68c887364" category="cell">3,880,388,400</block>
+  <block id="8b2e1597e74fb68a87ef415a1ce004fc" category="cell">103.55TB</block>
+  <block id="9c0aa8a6ddcfe00cef8951f0edd99c58" category="cell">8、125、278,000</block>
+  <block id="b0baa6e5c027744d7e7f2a93d8686bf5" category="cell">216.74TB</block>
+  <block id="edd8590257b34c7c6f57e06f28bb9460" category="cell">17、269、854、000</block>
+  <block id="0d9c02ec5b1f4c4a835073aa142d0b7f" category="cell">460.60TB</block>
+  <block id="f8ed0cba5469cc89e05fa4d3025eca1b" category="summary">大容量のビルディングブロックの設計バリエーション。</block>
+  <block id="8b074fc693c7d8fd35c61de8fe2dee9a" category="doc">大容量のビルディングブロック</block>
+  <block id="fb5708557d5e7c6d44ac55ef4c09a054" category="paragraph">標準のBeeGFS解決策 設計は、ハイパフォーマンスのワークロードを念頭に置いて構築されます。大容量のユースケースを検討している場合は、ここで紹介するような設計やパフォーマンスの特徴の違いを確認する必要があります。</block>
+  <block id="800f7da804cf784ad962d085fbc70486" category="section-title">ハードウェアとソフトウェアの設定</block>
+  <block id="90f177623f1131fc7f45e82db6189a1b" category="paragraph">大容量ビルディングブロック用のハードウェアとソフトウェアの設定は標準です。ただし、EF600コントローラをEF300コントローラに交換し、各ストレージアレイ用に60本のドライブを搭載した1 ~ 7個のIOM拡張トレイを取り付けることができます。ビルディングブロックあたり2～14台の拡張トレイを搭載。</block>
+  <block id="467fccc62f2ea7630303f15d47a54aa7" category="paragraph">大容量のビルディングブロック設計を導入する場合、使用されるのは、BeeGFSの管理、メタデータ、ストレージの各サービスで構成される基本ビルディングブロック形式の設定のみです。コスト効率を高めるために、大容量のストレージノードでは、EF300コントローラエンクロージャ内のNVMeドライブにメタデータボリュームをプロビジョニングし、拡張トレイ内のNL-SASドライブにストレージボリュームをプロビジョニングする必要があります。</block>
+  <block id="774f4231e5651061791e65cf90314897" category="paragraph"><block ref="774f4231e5651061791e65cf90314897" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="267aa4fef181a2097a06345c854cc106" category="paragraph">これらのサイジングガイドラインでは、大容量のビルディングブロックが、ベースEF300エンクロージャ内のメタデータ用に2+2のNVMe SSDボリュームグループ1つ、ストレージ用にIOM拡張トレイあたり6x8+2のNL-SASボリュームグループ1つで構成されていることを前提としています。</block>
+  <block id="963320465e8fcfa25188a669a43858c4" category="cell">ドライブサイズ（大容量HDD）</block>
+  <block id="55fd8e839de07671a6869fad80279ab9" category="cell">BBあたりの容量(1トレイ)</block>
+  <block id="001115a96afe0add22e654316239365a" category="cell">BBあたりの容量（トレイ×2）</block>
+  <block id="b9781606af717d9b153714ca7a3a2d33" category="cell">BBあたりの容量（トレイ×3）</block>
+  <block id="345ffe7c9ac213823037fbcdca8f4ef2" category="cell">BBあたりの容量(4トレイ)</block>
+  <block id="6b7e0bcfc566b639bc0d10bad9f871dd" category="cell">4TB</block>
+  <block id="676efbc64df1b4909842616f91027d96" category="cell">439TB</block>
+  <block id="25c359cf674976f1bd282922ff6ed0e3" category="cell">878 TB</block>
+  <block id="1416acbb13ce37c62934fde6e37b3c6b" category="cell">1、317 TB</block>
+  <block id="3aa071e61efaac2113f5fc251c03b688" category="cell">1、1756 TB</block>
+  <block id="0706c165b0123479cffaac9b374484f0" category="cell">8 TB</block>
+  <block id="76a91245e71b558dbe0040ea8b7b3c21" category="cell">2、634 TB</block>
+  <block id="dd9fa1084ca34ce21c6b127bd37446b9" category="cell">3、512TB</block>
+  <block id="1191f788083da9194f8eef9400d10898" category="cell">10 TB</block>
+  <block id="6587b6d3747beeadda1eccb500e9771b" category="cell">1、097 TB</block>
+  <block id="3a89d830e84dc7715fe902bb9adac448" category="cell">2195 TB</block>
+  <block id="1024776bf84a4c2469e49539ac248790" category="cell">3、3292 TB</block>
+  <block id="0af601e969fa263e021792cfd1dfd4af" category="cell">4390 TB</block>
+  <block id="aad11c7dd0feb18c08cb728eea0a8c46" category="cell">12TB</block>
+  <block id="0fc4914bd341e29e4eef438ff8c44bdb" category="cell">3951 TB</block>
+  <block id="4d63a00ef9361479d55d2914d7f75e28" category="cell">5268 TB</block>
+  <block id="324f218b8144e744b54eb58e0bf14eea" category="cell">16 TB</block>
+  <block id="af4d6969d11876b269a31ebb39d7c34e" category="cell">7024 TB</block>
+  <block id="7ba1b40b5eed0a67df50aa00c907f9ac" category="cell">18 TB</block>
+  <block id="23f86ea0b6ba63be94542d36e1d0ac20" category="cell">1975 TB</block>
+  <block id="01dbb09e4b3f7243c1cae305daf2972a" category="cell">5927TB</block>
+  <block id="547259566f92db3383cbd2575b9d68c1" category="cell">7902 TB</block>
+  <block id="585389cefc924819e7ab6d5b7eba5f03" category="paragraph">設計とパフォーマンスの違いを伴う派生アーキテクチャ：</block>
+  <block id="f45c646cffcf39011c125e7523fa9149" category="summary">大容量のビルディングブロックの導入方法の違い。</block>
+  <block id="fc6e06f3e4cfc328095f04c8f44c28f1" category="paragraph">標準のBeeGFS解決策 導入ガイドには、ハイパフォーマンスなワークロードの要件に関する手順と推奨事項が記載されています。大容量の要件を満たすことを検討しているお客様は、ここで紹介する導入方法や推奨事項の違いを確認する必要があります。</block>
+  <block id="cbfb14f470701bf93424d757c624369a" category="section-title">コントローラ</block>
+  <block id="174e6193fff9ed7c9b1839367e007f13" category="paragraph">大容量ビルディングブロックの場合は、EF600コントローラをEF300コントローラに交換し、それぞれのコントローラにSAS拡張用のカスケードHICを取り付ける必要があります。各ブロックノードには、BeeGFSメタデータストレージ用の最小限の数のNVMe SSDがアレイエンクロージャに搭載され、BeeGFSストレージボリューム用にNL-SAS HDDが搭載された拡張シェルフに接続されます。</block>
+  <block id="1ec9226d3745f2995d2686d2450831c7" category="paragraph">ファイルノードからブロックノードへの構成は変更されません。</block>
+  <block id="af932b84cc0c8562c0e572647564048f" category="section-title">ドライブの配置</block>
+  <block id="f96a95c482225ca6a9b4c17bfa47d918" category="paragraph">BeeGFSメタデータストレージの各ブロックノードには、少なくとも4本のNVMe SSDが必要です。これらのドライブは、エンクロージャの一番外側のスロットに取り付ける必要があります。</block>
+  <block id="778e10a0753cc201500f1209098b9b5f" category="paragraph"><block ref="778e10a0753cc201500f1209098b9b5f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fdd528ca6f274d102819b008b189961c" category="section-title">拡張トレイ</block>
+  <block id="6627fde89324d2cbb6afd245e3d32d35" category="paragraph">大容量ビルディングブロックのサイズは、ストレージアレイごとに1~7、60本のドライブ拡張トレイを使用して設定できます。</block>
+  <block id="80b4ce0c4b11e4d8c7c4a14614b871f7" category="inline-link-macro">ドライブシェルフのEF300ケーブル接続を参照してください</block>
+  <block id="25ada85328148d5356ce4edd989b1f40" category="paragraph">各拡張トレイのケーブル接続手順については、 <block ref="8c170f7da852d665db7cd9113b2ed6bb" category="inline-link-macro-rx"></block>。</block>
+  <block id="0607ff4a53c90b270dd9fd9fce5c3d92" category="sidebar">大容量オプション</block>
 </blocks>

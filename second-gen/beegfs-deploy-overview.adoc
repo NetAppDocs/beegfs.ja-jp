@@ -71,3 +71,8 @@ NOTE: NetApp解決策 へのBeeGFSの導入には多数の手順が含まれる�
 
 
 NOTE: 展開手順には、テキストをファイルにコピーする必要があるいくつかの例が含まれています。特定の導入環境で変更する必要があるもの、または変更可能なものについては、「#」または「/」文字で示されるインラインコメントに十分に注意してください。例：'beegfs_ha_ntp_server_pools:#これはコメントの例です-「pool 0.pool.ntp.org iBurst maxsources 3」-「pool 1.pool.ntp.org iBurst maxsources 3」
+
+導入に関する推奨事項にバリエーションを伴う派生アーキテクチャ：
+
+* link:beegfs-design-high-capacity-building-block.html["大容量ビルディングブロック"]
+

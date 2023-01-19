@@ -24,3 +24,8 @@ BeeGFS並列ファイルシステムとNetApp EF600ストレージシステム�
 * link:beegfs-design-solution-sizing-guidelines.html["サイジングガイドライン"]
 * link:beegfs-design-performance-tuning.html["パフォーマンスの調整"]
 
+
+設計とパフォーマンスの違いを伴う派生アーキテクチャ：
+
+* link:beegfs-design-high-capacity-building-block.html["大容量ビルディングブロック"]
+

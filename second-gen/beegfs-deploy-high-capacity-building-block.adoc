@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: beegfs-deploy-high-capacity-building-block.html 
+keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600, EF300, HDD, Expansion 
+summary: 大容量のビルディングブロックの導入方法の違い。 
+---
+= 大容量のビルディングブロック
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+標準のBeeGFS解決策 導入ガイドには、ハイパフォーマンスなワークロードの要件に関する手順と推奨事項が記載されています。大容量の要件を満たすことを検討しているお客様は、ここで紹介する導入方法や推奨事項の違いを確認する必要があります。
+
+image:high-capacity-rack-diagram.png[""]
+
+
+
+== コントローラ
+
+大容量ビルディングブロックの場合は、EF600コントローラをEF300コントローラに交換し、それぞれのコントローラにSAS拡張用のカスケードHICを取り付ける必要があります。各ブロックノードには、BeeGFSメタデータストレージ用の最小限の数のNVMe SSDがアレイエンクロージャに搭載され、BeeGFSストレージボリューム用にNL-SAS HDDが搭載された拡張シェルフに接続されます。
+
+ファイルノードからブロックノードへの構成は変更されません。
+
+
+
+== ドライブの配置
+
+BeeGFSメタデータストレージの各ブロックノードには、少なくとも4本のNVMe SSDが必要です。これらのドライブは、エンクロージャの一番外側のスロットに取り付ける必要があります。
+
+image:high-capacity-drive-slots-diagram.png[""]
+
+
+
+== 拡張トレイ
+
+大容量ビルディングブロックのサイズは、ストレージアレイごとに1~7、60本のドライブ拡張トレイを使用して設定できます。
+
+各拡張トレイのケーブル接続手順については、 link:https://docs.netapp.com/us-en/e-series/install-hw-cabling/driveshelf-cable-task.html#cabling-ef300^["ドライブシェルフのEF300ケーブル接続を参照してください"]。
