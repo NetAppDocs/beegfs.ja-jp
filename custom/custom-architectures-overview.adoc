@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-overview.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: NetApp解決策 のBeeGFSは、BeeGFS並列ファイルシステムとNetApp Eシリーズストレージシステムを組み合わせることで、信頼性と拡張性に優れた対費用効果の高いインフラを実現し、要件の厳しいワークロードに対応します。 
+---
+= 概要と要件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Ansibleを使用してBeeGFSハイアベイラビリティクラスタを導入する場合は、任意のNetApp E / EFシリーズストレージシステムをBeeGFSブロックノードとして使用し、x86サーバをBeeGFSファイルノードとして使用します。
+
+
+TIP: このセクションで使用する用語の定義については、を参照してください link:beegfs-terms.html["用語と概念"] ページ
+
+
+
+== はじめに
+
+間 link:beegfs-solution-overview.html["NetApp Verified Architectureレポート"] 事前定義されたリファレンス構成とサイジングのガイダンスを提供します。お客様やパートナーによっては、特定の要件やハードウェアの好みに適したカスタムアーキテクチャを設計する方が適しています。ネットアップでBeeGFSを選択する主なメリットの1つは、Ansibleを使用してBeeGFS共有ディスクHAクラスタを導入できることです。これにより、クラスタ管理が簡易化され、ネットアップがオーサリングするHAコンポーネントによって信頼性が向上します。ネットアップへのカスタムBeeGFSアーキテクチャの導入はAnsibleでも実行されるため、アプライアンスと同様のアプローチでハードウェアを柔軟に選択することができます。
+
+このセクションでは、ネットアップハードウェアにBeeGFSファイルシステムを導入し、Ansibleを使用してBeeGFSファイルシステムを設定するための一般的な手順を説明します。BeeGFSファイルシステムの設計と最適化された例に関するベストプラクティスの詳細については、を参照してください link:beegfs-solution-overview.html["NetApp Verified Architectureレポート"] セクション。
+
+
+
+== 導入の概要
+
+通常、BeeGFSファイルシステムを導入するには、次の手順を実行します。
+
+* 初期セットアップ：
++
+** ハードウェアの設置/ケーブル接続
+** ファイルノードとブロックノードをセットアップ
+** Ansibleコントロールノードをセットアップします。
+
+
+* BeeGFSファイルシステムをAnsibleインベントリとして定義します。
+* ファイルノードとブロックノードに対してAnsibleを実行して、BeeGFSを導入します。
++
+** 必要に応じて、クライアントをセットアップし、BeeGFSをマウントします。
+
+
+
+
+以降のセクションでは、これらの手順について詳しく説明します。
+
+[NOTE]
+====
+Ansibleは、ソフトウェアのプロビジョニングタスクと設定タスクをすべて処理します。
+
+* ブロックノードでのボリュームの作成/マッピング
+* ファイルノードでのボリュームのフォーマットと調整
+* ファイルノードへのソフトウェアのインストール/設定
+* HAクラスタを確立し、BeeGFSリソースとファイルシステムサービスを設定します。
+
+
+====
+
+
+== 要件
+
+AnsibleでBeeGFSがサポートされるようになりました link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"] BeeGFS HAクラスタのエンドツーエンドの導入と管理を自動化するロールとモジュールの集合として。
+
+BeeGFS自体は、<major> .BeeGFSバージョンに準拠してバージョン管理されます。<patch> バージョンのバージョン管理スキームとコレクションでは、サポートされる<major> ごとに役割が維持されます。たとえば、BeeGFS 7.2やBeeGFS 7.3などのBeeGFSバージョンの<minor> <minor> バージョンです。コレクションの更新がリリースされると、各ロールのパッチバージョンが更新され、そのリリースブランチで利用可能な最新のBeeGFSバージョン（例：7.2.8）が示されます。また、各バージョンのコレクションもテストされ、特定のLinuxディストリビューションおよびバージョン、現在はファイルノード用のRed Hat、クライアント用のRedHatおよびUbuntuでサポートされています。他のディストリビューションを実行することはサポートされていません。また、他のバージョン（特に他のメジャーバージョン）を実行することはお勧めしません。
+
+
+
+=== Ansibleコントロールノード
+
+このノードには、BeeGFSの管理に使用するインベントリとプレイブックが含まれます。次のものが必要です。
+
+* Ansible 6.x（Ansibleコア2.13）
+* Python 3.6（またはそれ以降）
+* python（pip）パッケージ：ipaddrおよびnetaddr
+
+
+また、制御ノードからすべてのBeeGFSファイルノードとクライアントにパスワードなしのSSHを設定することを推奨します。
+
+
+
+=== BeeGFSファイルノード
+
+ファイルノードはRedHat 8.4を実行しており、必要なパッケージ（Pacemaker、corosync、fence-agents-all、resource-key）を含むHAリポジトリにアクセスできる必要があります。たとえば、次のコマンドを実行して、RedHat 8上の適切なリポジトリを有効にできます。
+
+[source, bash]
+----
+subscription-manager repo-override repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+----
+
+
+=== BeeGFSクライアントノード
+
+BeeGFSクライアントのAnsibleロールを使用して、BeeGFSクライアントパッケージをインストールし、BeeGFSマウントを管理できます。このロールは、RedHat 8.4およびUbuntu 22.04でテスト済みです。
+
+Ansibleを使用してBeeGFSクライアントをセットアップしない場合は、BeeGFSをマウントします link:https://doc.beegfs.io/latest/release_notes.html#supported-linux-distributions-and-kernels["BeeGFSはLinuxディストリビューションとカーネルをサポートしています"] を使用できます。

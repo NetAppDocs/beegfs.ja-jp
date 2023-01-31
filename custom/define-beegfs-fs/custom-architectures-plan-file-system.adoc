@@ -1,0 +1,83 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-plan-file-system.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: Ansibleインベントリを構築する前に、ファイルシステムの導入を計画します。 
+---
+= ファイルシステムを計画
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Ansibleインベントリを構築する前に、ファイルシステムの導入を計画します。
+
+
+
+== 概要
+
+ファイルシステムを導入する前に、クラスタ内で実行されているすべてのファイルノード、ブロックノード、およびBeeGFSサービスで必要となるIPアドレス、ポート、およびその他の設定を定義する必要があります。具体的な構成はクラスタのアーキテクチャによって異なりますが、ここでは、一般に適用されるベストプラクティスと手順について説明します。
+
+
+
+== 手順
+
+. IPベースのストレージプロトコル（iSER、iSCSI、NVMe/IB、NVMe/RoCEなど）を使用してファイルノードをブロックノードに接続する場合は、ビルディングブロックごとに次のワークシートに記入します。1つのビルディングブロック内の各直接接続には、一意のサブネットが必要であり、クライアント/サーバ接続に使用されるサブネットと重複しないようにする必要があります。
++
+|===
+
+
+| ファイルノード | IBポート | IP アドレス | ブロックノード | IBポート | 物理IP | 仮想IP（HDR IBを使用するEF600のみ） 
+
+
+| <HOSTNAME> | <PORT> | <IP/SUBNET> | <HOSTNAME> | <PORT> | <IP/SUBNET> | <IP/SUBNET> 
+|===
++
+
+NOTE: 各ビルディングブロックのファイルノードとブロックノードが直接接続されている場合、複数のビルディングブロックで同じIP/スキームを再利用することがよくあります。
+
+. ストレージネットワークにInfiniBandまたはRDMA over Converged Ethernet（RoCE）を使用しているかどうかに関係なく、次のワークシートに記入して、HAクラスタサービス、BeeGFSファイルサービス、およびクライアントが通信するために使用するIP範囲を決定します。
++
+|===
+| 目的 | InfiniBandポート | IPアドレスまたはIP範囲 
+
+
+| BeeGFSクラスタIP | <INTERFACE(s)> | <RANGE> 
+
+
+| BeeGFS Managementの略 | <INTERFACE(s)> | <IP(s)> 
+
+
+| BeeGFSメタデータ | <INTERFACE(s)> | <RANGE> 
+
+
+| BeeGFS Storage（BeeGFSストレージ） | <INTERFACE(s)> | <RANGE> 
+
+
+| BeeGFSクライアント | <INTERFACE(s)> | <RANGE> 
+|===
++
+.. 単一のIPサブネットを使用する場合は、ワークシートが1つだけ必要です。それ以外の場合は、2つ目のサブネットのワークシートにも記入してください。
+
+
+. 上記に基づいて、クラスタ内の各ビルディングブロックに対して、実行するBeeGFSサービスを定義する次のワークシートに記入します。各サービスについて、優先/セカンダリファイルノード、ネットワークポート、フローティングIP、NUMAゾーン割り当て（必要な場合）、およびターゲットに使用するブロックノードを指定します。ワークシートに記入する際は、次のガイドラインを参照してください。
++
+.. BeeGFSサービスをいずれかとして指定します `mgmt.yml`、 `meta_<ID>.yml`または `storage_<ID>.yml` ここで'IDは'このファイルシステム内のすべてのBeeGFSサービスの一意の番号を表しますこの規則により、以降のセクションでは、各サービスを設定するためのファイルを作成する際に、このワークシートを簡単に参照できます。
+.. BeeGFSサービスのポートは、特定のビルディングブロック全体で一意である必要があります。ポートの競合を回避するために、同じポート番号のサービスを同じファイルノード上で実行することはできません。
+.. 必要なサービスが複数のブロックノード/ストレージプール（すべてのボリュームを同じコントローラに所有する必要はない）のボリュームを使用できる場合。複数のサービスで同じブロックノードやストレージプール構成を共有することもできます（個 々 のボリュームはこのあとのセクションで定義します）。
++
+|===
+| BeeGFSサービス（ファイル名） | ファイルノード | ポート | フローティングIP | NUMAゾーン | ブロックノード | ストレージプール | 所有コントローラ 
+
+
+| <SERVICE TYPE> _<ID> .yml | <PREFERRED FILE NODE> <SECONDARY FILE NODE(s)> | <PORT> | <INTERFACE> ：<IP/SUBNET> <INTERFACE> ：<IP/SUBNET> | <NUMA NODE/ZONE> | <BLOCK NODE> | <STORAGE POOL/VOLUME GROUP> | <A OR B> 
+|===
+
+
+
+
+標準的な規則、ベストプラクティス、および記入例ワークシートの詳細については、を参照してください link:beegfs-deploy-bestpractice.html["ベストプラクティス"^] および link:beegfs-deploy-define-inventory.html["BeeGFSビルディングブロックを定義します"^] NetApp Verified Architecture上のBeeGFSのセクション

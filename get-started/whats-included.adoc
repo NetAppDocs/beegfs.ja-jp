@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: whats-included.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
-summary: このサイトには、NetApp解決策 上のBeeGFSのNetApp Verified Architecture（NVA）に関する情報が含まれています。 
+summary: このサイトには、ネットアップでBeeGFSを導入して管理する方法が記載されています。 
 ---
 = このサイトに含まれている情報
 :hardbreaks:
@@ -14,12 +14,4 @@ summary: このサイトには、NetApp解決策 上のBeeGFSのNetApp Verified 
 
 
 [role="lead"]
-このサイトには、NetAppでBeeGFSを使用する第2世代のNetApp Verified Architecture（NVA）に関する情報が掲載されています。
-
-このサイトの情報は次のとおりです。
-
-* アーキテクチャの設計上の考慮事項は、アーキテクチャをサポートするために必要な機器、ケーブル、構成を決定する際に使用します。詳細については、を参照してください link:beegfs-design-overview.html["設計の概要"]。
-* ブロックストレージシステム（ブロックノード）に接続された検証済みのBeeGFSファイルサーバ（ファイルノード）を使用した導入ガイドライン詳細については、を参照してください link:beegfs-deploy-overview.html["導入の概要"]。
-
-
-このサイトは、解決策 の第1世代の設計および導入情報を含みません。前世代のコンテンツの詳細については、を参照してください link:https://www.netapp.com/pdf.html?item=/media/25445-nva-1156-design.pdf["NVIDIA DGX A100 システムと BeeGFS を搭載した NetApp EF シリーズ AI"^]。
+このサイトには、NetApp Verified Architectures（NVA）とカスタムアーキテクチャの両方を使用して、ネットアップのBeeGFSを導入して管理する方法が記載されています。NVA設計は徹底的にテストされており、導入リスクを最小限に抑え、製品化サイクルを短縮するためのリファレンス構成とサイジングに関するガイダンスをお客様に提供します。また、ネットアップのハードウェアで実行されるカスタムのBeeGFSアーキテクチャもサポートするため、お客様やパートナーはさまざまな要件に合わせてファイルシステムを柔軟に設計できます。どちらのアプローチも導入にAnsibleを活用しているため、柔軟なハードウェア範囲であらゆる規模のBeeGFSを管理するアプライアンスのようなアプローチを提供します。

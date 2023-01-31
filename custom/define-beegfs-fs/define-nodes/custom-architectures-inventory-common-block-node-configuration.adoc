@@ -1,0 +1,108 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-inventory-common-block-node-configuration.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: グループ変数（group_vars）を使用して共通ブロックノード設定を指定します。 
+---
+= Common Block Node Configurationを指定します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+グループ変数（group_vars）を使用して共通ブロックノード設定を指定します。
+
+
+
+== 概要
+
+すべてのブロックノードに対してAppleが実施する必要がある設定は、で定義します `group_vars/eseries_storage_systems.yml`。一般的には次のものが含ま
+
+* Ansible制御ノードが、ブロックノードとして使用されるEシリーズストレージシステムに接続する方法の詳細。
+* ノードで実行するファームウェア、NVSRAM、およびドライブファームウェアのバージョン。
+* キャッシュ設定、ホスト構成、ボリュームのプロビジョニング方法に関する設定を含むグローバル構成。
+
+
+
+NOTE: このファイルで設定したオプションは、個 々 のブロックノードに定義することもできます。たとえば、異なるハードウェアモデルを混在させる場合や、ノードごとに異なるパスワードを設定する場合などです。個 々 のブロックノードの設定は、このファイルの設定よりも優先されます。
+
+
+
+== 手順
+
+ファイルを作成します `group_vars/eseries_storage_systems.yml` 次のように入力します。
+
+. Ansibleは、SSHを使用してブロックノードに接続するのではなく、REST APIを使用します。これを実現するには、以下を設定する必要があります
++
+[source, yaml]
+----
+ansible_connection: local
+----
+. 各ノードを管理するためのユーザ名とパスワードを指定してください。ユーザ名はオプションで省略できます（デフォルトはadmin）。それ以外の場合はadmin権限を持つ任意のアカウントを指定できます。また、SSL証明書を検証するかどうかを指定します。無視するかどうかを指定します。
++
+[source, yaml]
+----
+eseries_system_username: admin
+eseries_system_password: <PASSWORD>
+eseries_validate_certs: false
+----
++
+
+WARNING: プレーンテキストでパスワードを一覧表示することは推奨されません。Ansibleバックアップツールを使用するか、を提供します `eseries_system_password` --extra -varsを使用してAnsibleを実行している場合。
+
+. 必要に応じて、ノードにインストールするコントローラファームウェア、NVSRAM、ドライブファームウェアを指定します。これらのファイルは、にダウンロードする必要があります `packages/` Ansibleを実行する前のディレクトリ。EシリーズコントローラのファームウェアとNVSRAMをダウンロードできます link:https://mysupport.netapp.com/site/products/all/details/eseries-santricityos/downloads-tab/["こちらをご覧ください"^] ドライブファームウェアを定義できます link:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["こちらをご覧ください"^]：
++
+[source, yaml]
+----
+eseries_firmware_firmware: "packages/<FILENAME>.dlp" # Ex. "packages/RCB_11.70.2_6000_61b1131d.dlp"
+eseries_firmware_nvsram: "packages/<FILENAME>.dlp" # Ex. "packages/N6000-872834-D06.dlp"
+eseries_drive_firmware_firmware_list:
+  - "packages/<FILENAME>.dlp"
+  # Additional firmware versions as needed.
+eseries_drive_firmware_upgrade_drives_online: true # Recommended unless BeeGFS hasn't been deployed yet, as it will disrupt host access if set to "false".
+----
++
+
+WARNING: この設定を指定すると、コントローラのリブート（必要な場合）を含むすべてのファームウェアがAnsibleで自動的に更新され、追加のプロンプトは表示されません。これはBeeGFS/ホストI/Oに影響しないものと想定されていますが、原因 によってパフォーマンスが一時的に低下する可能性があります。
+
+. グローバルシステム構成のデフォルトを調整します。ここに示すオプションと値は、ネットアップのBeeGFSには一般的に推奨される設定ですが、必要に応じて調整することもできます。
++
+[source, yaml]
+----
+eseries_system_cache_block_size: 32768
+eseries_system_cache_flush_threshold: 80
+eseries_system_default_host_type: linux dm-mp
+eseries_system_autoload_balance: disabled
+eseries_system_host_connectivity_reporting: disabled
+eseries_system_controller_shelf_id: 99 # Required by default.
+----
+. グローバルなボリュームプロビジョニングをデフォルトに設定ここに示すオプションと値は、ネットアップのBeeGFSには一般的に推奨される設定ですが、必要に応じて調整することもできます。
++
+[source, yaml]
+----
+eseries_volume_size_unit: pct # Required by default. This allows volume capacities to be specified as a percentage, simplifying putting together the inventory.
+eseries_volume_read_cache_enable: true
+eseries_volume_read_ahead_enable: false
+eseries_volume_write_cache_enable: true
+eseries_volume_write_cache_mirror_enable: true
+eseries_volume_cache_without_batteries: false
+----
+. 必要に応じて、次のベストプラクティスに留意しながら、ストレージプールとボリュームグループ用のドライブがAnsibleで選択される順序を調整します。
++
+.. 管理ボリューム/メタデータボリュームに使用する（小容量の可能性がある）ドライブから先に、ストレージボリュームを最後にリストします。
+.. ディスクシェルフ/ドライブエンクロージャのモデルに基づいて、使用可能なドライブチャネル間でドライブ選択順序を分散してください。たとえば、EF600で拡張が行われていない場合、ドライブ0~11はドライブチャネル1に、ドライブ12~23はドライブチャネルに配置されます。したがって、ドライブ選択のバランスを取るための戦略は、を選択することです `disk shelf:drive` 99：0、99：23、99：1、99：22などエンクロージャが複数ある場合は、1桁目の数字がドライブシェルフIDを表します。
++
+[source, yaml]
+----
+# Optimal/recommended order for the EF600 (no expansion):
+eseries_storage_pool_usable_drives: "99:0,99:23,99:1,99:22,99:2,99:21,99:3,99:20,99:4,99:19,99:5,99:18,99:6,99:17,99:7,99:16,99:8,99:15,99:9,99:14,99:10,99:13,99:11,99:12"
+----
+
+
+
+
+をクリックします link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/eseries_storage_systems.yml["こちらをご覧ください"^] に、一般的なブロックノード構成を表す完全なインベントリファイルの例を示します。

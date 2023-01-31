@@ -1,0 +1,82 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-deploy-playbook-overview.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: Ansibleを使用したBeeGFS HAクラスタの導入と管理 
+---
+= Ansible Playbookの概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Ansibleを使用したBeeGFS HAクラスタの導入と管理
+
+
+
+== 概要
+
+前のセクションでは、BeeGFS HAクラスタを表すAnsibleインベントリを構築するために必要な手順を説明しました。このセクションでは、ネットアップがクラスタの導入と管理を行うAnsibleによる自動化を紹介します。
+
+
+
+== Ansible：重要な概念
+
+開始する前に、Ansibleの主要な概念を理解しておくと役立ちます。
+
+* Ansibleインベントリに対して実行されるタスクは、* Playbook *と呼ばれるもので定義されています。
++
+** Ansibleのほとんどのタスクは*べき等値*となるように設計されているため、何度も実行して、必要な構成や状態が適用されていることを確認することができます。その際、作業を中断したり、不要な更新を加える必要はありません。
+
+
+* Ansibleで実行される最小単位は*モジュール*です。
++
+** 一般的なプレイブックでは、複数のモジュールを使用
++
+*** 例：パッケージのダウンロード、構成ファイルの更新、サービスの開始/有効化
+
+
+** NetApp Eシリーズシステムを自動化するために、モジュールを配布
+
+
+* 複雑な自動化はロールとしてより適切にパッケージ化されています。
++
+** 基本的には、再利用可能なプレイブックを配布するための標準形式です。
+** LinuxホストとBeeGFSファイルシステムに役割を配布します。
+
+
+
+
+
+
+== AnsibleのBeeGFS HAロール：主な概念
+
+ネットアップ上のBeeGFSの各バージョンの導入と管理に必要なすべての自動化機能がAnsibleのロールとしてパッケージ化され、の一部として提供されます link:https://galaxy.ansible.com/netapp_eseries/beegfs["BeeGFSに対応したNetApp EシリーズAnsibleコレクション"^]：
+
+* この役割は、BeeGFS用の*インストーラ*と最新の*導入/管理*エンジンの間にあると考えることができます。
++
+** コードの手法や理念として最新のインフラを活用し、あらゆる規模のストレージインフラをシンプルに管理できます。
+** 方法に似ています link:https://kubernetes.io/docs/setup/production-environment/tools/kubespray/["久保スプレー"^] Projectを使用すると、Kubernetesディストリビューション全体を導入/保守して、スケールアウトコンピューティングインフラを構築できます。
+
+
+* この役割は、ネットアップのソリューションでBeeGFSをパッケージ化、配布、保守するためにネットアップが使用する*ソフトウェア定義*形式です。
++
+** Linuxディストリビューション全体や大きなイメージを配布することなく、「アプライアンスのような」エクスペリエンスを実現できるように努力してください。
+** カスタムのBeeGFSターゲットとIPアドレスに対応したネットアップがオーサリングしたOpen Cluster Framework（OCF）準拠のクラスタリソースエージェントで構成され、高度なPacemakerとBeeGFSを統合するための監視機能が提供されます。
+
+
+* この役割は、単に導入を「自動化」するものではなく、以下を含むファイルシステムのライフサイクル全体を管理することを目的としています。
++
+** サービス単位またはクラスタ全体の設定変更および更新を適用する。
+** ハードウェアの問題が解決されたあとのクラスタの修復とリカバリの自動化
+** BeeGFSとネットアップのボリュームを使用した広範なテストに基づいてデフォルト値を設定することで、パフォーマンスの調整を簡易化
+** 構成のずれの検証と修正
+
+
+
+
+ネットアップは、向けのAnsibleのロールも提供しています link:https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_client["BeeGFSクライアント"^]必要に応じて、BeeGFSのインストールとファイルシステムのマウントを行い、/GPU/ログインノードを計算します。

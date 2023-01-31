@@ -1,0 +1,309 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-inventory-common-file-node-configuration.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: グループ変数（group_vars）を使用して共通ファイルノード設定を指定します。 
+---
+= Common File Node Configurationを指定します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+グループ変数（group_vars）を使用して共通ファイルノード設定を指定します。
+
+
+
+== 概要
+
+Appleがすべてのファイルノードに適用される構成は、で定義されます `group_vars/ha_cluster.yml`。一般的には次のものが含ま
+
+* 各ファイルノードに接続してログインする方法の詳細。
+* 一般的なネットワーク構成。
+* 自動リブートが許可されるかどうか。
+* ファイアウォールとSELinuxの状態を設定する方法。
+* アラートやフェンシングなどのクラスタ構成。
+* パフォーマンスの調整。
+* Common BeeGFSサービスの設定
+
+
+
+NOTE: このファイルで設定したオプションは、たとえば、異なるハードウェアモデルを混在させる場合や、ノードごとに異なるパスワードを設定する場合など、個 々 のファイルノードに定義することもできます。個 々 のファイルノードの設定は、このファイルの設定よりも優先されます。
+
+
+
+== 手順
+
+ファイルを作成します `group_vars/ha_cluster.yml` 次のように入力します。
+
+. リモートホストでAnsible Controlノードがどのように認証されるかを指定します。
++
+[source, yaml]
+----
+ansible_ssh_user: root
+ansible_become_password: <PASSWORD>
+----
++
+
+WARNING: 特に本番環境では、パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（を参照） link:https://docs.ansible.com/ansible/latest/vault_guide/index.html["Ansible Vaultを使用したコンテンツの暗号化"^]）またはをクリックします `--ask-become-pass` プレイブックを実行する際のオプション。状況に応じて `ansible_ssh_user` はすでにrootであるため、必要に応じてを省略できます `ansible_become_password`。
+
+. イーサネットインターフェイスまたはInfiniBandインターフェイス（クラスタIPなど）に静的IPを設定していて、複数のインターフェイスが同じIPサブネットにある場合（たとえば、ib0が192.168.1.10/24を使用し、ib1が192.168.1.11/24を使用している場合）、マルチホームサポートが正常に機能するためには、追加のIPルーティングテーブルとルールを設定する必要があります。提供されているネットワークインターフェイス設定フックを次のように有効にします。
++
+[source, yaml]
+----
+eseries_ip_default_hook_templates:
+  - 99-multihoming.j2
+----
+. クラスタを導入する際は、ストレージプロトコルによっては、リモートブロックデバイスを検出しやすくするためにノードをリブートしたり（Eシリーズボリューム）、構成の他の要素を適用したりする必要があります。デフォルトでは、ノードはリブート前にプロンプトを表示しますが、次の項目を指定することでノードの自動再起動を許可できます。
++
+[source, yaml]
+----
+eseries_common_allow_host_reboot: true
+----
++
+.. リブート後のデフォルトでは、ブロックデバイスやその他のサービスの準備ができていることを確認するために、Ansibleはsystemdまで待機します `default.target` は、導入を続行する前に到達しています。NVMe/IBを使用する場合は、リモートデバイスの初期化、検出、および接続に時間がかかることがあります。その結果、導入の途中で自動化が失敗し続ける可能性があります。NVMe/IBを使用する場合にこの問題を回避するには、以下の条件も定義します。
++
+[source, yaml]
+----
+eseries_common_reboot_test_command: "! systemctl status eseries_nvme_ib.service || systemctl --state=exited | grep eseries_nvme_ib.service"
+----
+
+
+. BeeGFSサービスとHAクラスタサービスが通信するためには、多数のファイアウォールポートが必要です。firwallを手動で設定する場合を除き（非推奨）、必要なファイアウォールゾーンを作成し、ポートを自動的に開くように次のように指定します。
++
+[source, yaml]
+----
+beegfs_ha_firewall_configure: True
+----
+. SELinuxは現時点でサポートされていないため、競合を回避するために（特にRDMAを使用している場合）状態をdisabledに設定することを推奨します。SELinuxが無効になっていることを確認するには、次のように設定
++
+[source, yaml]
+----
+eseries_beegfs_ha_disable_selinux: True
+eseries_selinux_state: disabled
+----
+. ファイルノードが通信できるように認証を設定し、組織のポリシーに基づいてデフォルト設定を必要に応じて調整します。
++
+[source, yaml]
+----
+beegfs_ha_cluster_name: hacluster                  # BeeGFS HA cluster name.
+beegfs_ha_cluster_username: hacluster              # BeeGFS HA cluster username.
+beegfs_ha_cluster_password: hapassword             # BeeGFS HA cluster username's password.
+beegfs_ha_cluster_password_sha512_salt: randomSalt # BeeGFS HA cluster username's password salt.
+----
+. に基づきます link:custom-architectures-plan-file-system.html["ファイルシステムを計画"^] セクションでは、このファイルシステムのBeeGFS管理IPを指定します。
++
+[source, yaml]
+----
+beegfs_ha_mgmtd_floating_ip: <IP ADDRESS>
+----
++
+
+NOTE: 一見冗長に見えても'beegfs_ha_gmtd_floating_ip'は'1つのHAクラスタを超えてBeeGFSファイルシステムを拡張する場合に重要です以降のHAクラスタは、BeeGFS管理サービスを追加せずに導入され、最初のクラスタが提供する管理サービスをポイントします。
+
+. 必要に応じてEメールアラートを有効にします。
++
+[source, yaml]
+----
+beegfs_ha_enable_alerts: True
+# E-mail recipient list for notifications when BeeGFS HA resources change or fail.
+beegfs_ha_alert_email_list: ["<EMAIL>"]
+# This dictionary is used to configure postfix service (/etc/postfix/main.cf) which is required to set email alerts.
+beegfs_ha_alert_conf_ha_group_options:
+      # This parameter specifies the local internet domain name. This is optional when the cluster nodes have fully qualified hostnames (i.e. host.example.com)
+      mydomain: <MY_DOMAIN>
+beegfs_ha_alert_verbosity: 3
+#  1) high-level node activity
+#  3) high-level node activity + fencing action information + resources (filter on X-monitor)
+#  5) high-level node activity + fencing action information + resources
+----
+. フェンシングを有効にすることを強く推奨します。そうしないと、プライマリノードで障害が発生したときに、セカンダリノードでサービスが開始されないようにブロックされます。
++
+.. 次の項目を指定して、フェンシングをグローバルに有効にします
++
+[source, yaml]
+----
+beegfs_ha_cluster_crm_config_options:
+  stonith-enabled: True
+----
++
+... サポートされていることを確認し link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["クラスタ・プロパティ"^] 必要に応じてここで指定することもできます。BeeGFS HAロールには十分にテストされた数の情報が付属しているため、これらの値を調整する必要は通常ありません link:https://github.com/netappeseries/beegfs/blob/ae038bb2f7617d18a36cc4df8ca9464bd5039b8b/roles/beegfs_ha_7_2/defaults/main.yml#L54["デフォルト値です"^]。
+
+
+.. 次に、フェンシングエージェントを選択して構成します。
++
+... オプション1：APC Power Distribution Unit（PDU;配電ユニット）を使用してフェンシングをイネーブルにするには、次の手順
++
+[source, yaml]
+----
+beegfs_ha_fencing_agents:
+  fence_apc:
+    - ipaddr: <PDU_IP_ADDRESS>
+      login: <PDU_USERNAME>
+      passwd: <PDU_PASSWORD>
+      pcmk_host_map: "<HOSTNAME>:<PDU_PORT>,<PDU_PORT>;<HOSTNAME>:<PDU_PORT>,<PDU_PORT>"
+----
+... オプション2：Lenovo XCC（および他のBMC）が提供するRedfish APIを使用してフェンシングを有効にするには、次の手順を実行します。
++
+[source, yaml]
+----
+redfish: &redfish
+  username: <BMC_USERNAME>
+  password: <BMC_PASSWORD>
+  ssl_insecure: 1 # If a valid SSL certificate is not available specify “1”.
+
+beegfs_ha_fencing_agents:
+  fence_redfish:
+    - pcmk_host_list: <HOSTNAME>
+      ip: <BMC_IP>
+      <<: *redfish
+    - pcmk_host_list: <HOSTNAME>
+      ip: <BMC_IP>
+      <<: *redfish
+----
+... 他のフェンシングエージェントの設定の詳細については、を参照してください link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHatのマニュアル"^]。
+
+
+
+
+. BeeGFS HAロールでは、パフォーマンスをさらに最適化するために、さまざまなチューニングパラメータを適用できます。これには、カーネルメモリ使用率の最適化や、ブロックデバイスI/Oなどのパラメータが含まれます。ロールには、適切な権限セットが付属しています link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L106["デフォルト値です"^] NetApp Eシリーズのブロックノードでのテストに基づく値ですが、次のように指定しないかぎり、デフォルトでは適用されません。
++
+[source, yaml]
+----
+beegfs_ha_enable_performance_tuning: True
+----
++
+.. 必要に応じて、ここでデフォルトのパフォーマンス調整に変更を加えます。全体を参照してください link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/docs/performance_tuning.md["パフォーマンス調整パラメータ"^] 詳細については、ドキュメントを参照してください。
+
+
+. BeeGFSサービスに使用されるフローティングIPアドレス（論理インターフェイスとも呼ばれます）がファイルノード間でフェイルオーバーできるようにするには、すべてのネットワークインターフェイスに一貫した名前を付ける必要があります。デフォルトでは、ネットワークインターフェイス名はカーネルによって生成されます。これは、同じPCIeスロットにネットワークアダプタが搭載された同一のサーバモデルであっても、一貫した名前が生成される保証はありません。これは、装置が展開され、生成されたインターフェイス名が認識される前にインベントリを作成する場合にも役立ちます。サーバまたはのブロック図に基づいて、一貫したデバイス名を使用できるようにします `lshw  -class network -businfo` 出力で、目的のPCIeアドレスと論理インターフェイスのマッピングを次のように指定します。
++
+.. InfiniBand（IPoIB）ネットワークインターフェイスに対応しています。
++
+[source, yaml]
+----
+eseries_ipoib_udev_rules:
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: i1a
+----
+.. イーサネットネットワークインターフェイスの場合：
++
+[source, yaml]
+----
+eseries_ip_udev_rules:
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: e1a
+----
++
+
+IMPORTANT: インターフェイスの名前を変更したときの競合を回避するには（名前を変更できないようにするため）、eth0、ens9f0、ib0、ibs4f0などの潜在的なデフォルト名は使用しないでください。一般的な命名規則としては、イーサネットまたはInfiniBandには「e」または「i」を使用し、続いてPCIeスロット番号とポートを示す文字を使用します。たとえば、スロット3にInfiniBandアダプタの2番目のポートはi3bとなります。
+
++
+
+NOTE: 検証済みファイルノードモデルを使用している場合は、をクリックします link:https://docs.netapp.com/us-en/beegfs/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["こちらをご覧ください"^] PCIeアドレスと論理ポートのマッピングの例
+
+
+
+. 必要に応じて、クラスタ内のすべてのBeeGFSサービスに適用する設定を指定します。デフォルトの設定値が見つかります link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L159["こちらをご覧ください"^]、およびサービスごとの設定は、他の場所で指定します。
++
+.. BeeGFS管理サービス：
++
+[source, yaml]
+----
+beegfs_ha_beegfs_mgmtd_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+.. BeeGFSメタデータサービス：
++
+[source, yaml]
+----
+beegfs_ha_beegfs_meta_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+.. BeeGFSストレージサービス：
++
+[source, yaml]
+----
+beegfs_ha_beegfs_storage_conf_ha_group_options:
+  <OPTION>: <VALUE>
+----
+
+
+. BeeGFS 7.2.7および7.3.1以降 link:https://doc.beegfs.io/latest/advanced_topics/authentication.html["接続認証"^] 設定または明示的に無効にする必要があります。Ansibleベースの導入を使用してこれを設定するには、いくつかの方法があります。
++
+.. デフォルトでは、展開によって自動的に接続認証が設定され、が生成されます `connauthfile` これはすべてのファイルノードに配布され、BeeGFSサービスとともに使用されます。このファイルは、Ansibleの制御ノードにも配置/管理されます `<INVENTORY>/files/beegfs/<sysMgmtdHost>_connAuthFile` このファイルシステムにアクセスする必要のあるクライアントで再利用できるように、安全に保管する必要があります。
++
+... 新しいキーを生成するには、をクリックします `-e "beegfs_ha_conn_auth_force_new=True` Ansibleプレイブックを実行している場合。注：これは、がの場合は無視されます `beegfs_ha_conn_auth_secret` が定義されている。
+... 詳細オプションについては、に付属のすべてのデフォルト設定を参照してください link:https://github.com/netappeseries/beegfs/blob/release-3.1.0/roles/beegfs_ha_7_3/defaults/main.yml#L32["BeeGFS HAロール"^]。
+
+
+.. カスタムシークレットを使用するには、で以下を定義します `ha_cluster.yml`：
++
+[source, yaml]
+----
+beegfs_ha_conn_auth_secret: <SECRET>
+----
+.. 接続認証は完全に無効にできます（非推奨）。
++
+[source, yaml]
+----
+beegfs_ha_conn_auth_enabled: false
+----
+
+
+
+
+をクリックします link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/ha_cluster.yml["こちらをご覧ください"^] 一般的なファイルノード設定を表す完全なインベントリファイルの例を次に示します。
+
+
+
+=== NetApp EF600ブロックノードでHDR（200GB）InfiniBandを使用：
+
+EF600でHDR（200GB）InfiniBandを使用するには、サブネットマネージャが仮想化をサポートしている必要があります。ファイルノードとブロックノードがスイッチを使用して接続されている場合は、ファブリック全体に対してサブネットマネージャで有効にする必要があります。
+
+ブロックノードとファイルノードがInfiniBandで直接接続されている場合は、のインスタンスです `opensm` ブロックノードに直接接続された各インターフェイスについて、各ファイルノードに設定する必要があります。これを行うには、を指定します `configure: true` いつ link:custom-architectures-inventory-configure-file-nodes.html["ファイルノードストレージインターフェイスを設定しています"^]。
+
+現在、の受信ボックスバージョンです `opensm` サポートされているLinuxディストリビューションには、仮想化はサポートされていません。代わりに、のバージョンをインストールして設定する必要があります `opensm` Mellanox OpenFabrics Enterprise Distribution（OFED）から入手できます。Ansibleによる導入もサポートされていますが、いくつかの追加手順が必要です。
+
+. curlまたは目的のツールを使用して、に記載されているOpenSMのバージョンに対応するパッケージをダウンロードします link:beegfs-technology-requirements.html["テクノロジ要件"^] MellanoxのWebサイトからへのセクション `<INVENTORY>/packages/` ディレクトリ。例：
++
+[source, bash]
+----
+curl -o packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+
+curl -o packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+----
+. の下 `group_vars/ha_cluster.yml` 次の設定を定義します。
++
+[source, yaml]
+----
+### OpenSM package and configuration information
+eseries_ib_opensm_allow_upgrades: true
+eseries_ib_opensm_skip_package_validation: true
+eseries_ib_opensm_rhel_packages: []
+eseries_ib_opensm_custom_packages:
+  install:
+    - files:
+        add:
+          "packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+          "packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+    - packages:
+        add:
+          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+  uninstall:
+    - packages:
+        remove:
+          - opensm
+          - opensm-libs
+      files:
+        remove:
+          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+
+eseries_ib_opensm_options:
+  virt_enabled: "2"
+----
+

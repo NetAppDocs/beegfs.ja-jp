@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: administer-clusters-reconfigure.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, Ansible, pcs 
+summary: Ansibleを使用してクラスタを再構成します。 
+---
+= HAクラスタとBeeGFSを再設定します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Ansibleを使用してクラスタを再構成します。
+
+
+
+== 概要
+
+通常は、BeeGFS HA clusterのすべての要素を再設定するには、Ansibleインベントリを更新してを再度実行します `ansible-playbook` コマンドを実行しますこれには、アラートの更新、永続的なフェンシング設定の変更、BeeGFSサービス設定の調整などが含まれます。これらは、を使用して調整します `group_vars/ha_cluster.yml` ファイルとすべてのオプションの一覧については、を参照してください link:custom-architectures-inventory-common-file-node-configuration.html["Common File Node Configurationを指定します"^] セクション。
+
+一部の設定オプションについては、以下を参照してください。これらのオプションを選択した場合、管理者は、クラスタのメンテナンスやサービスを行う際に注意が必要になります。
+
+
+
+== フェンシングを無効にして有効にする方法
+
+フェンシングは、クラスタのセットアップ時にデフォルトで有効/必要になります。場合によっては、フェンシングを一時的に無効にして、特定のメンテナンス処理（オペレーティングシステムのアップグレードなど）の実行時にノードが誤ってシャットダウンされないようにすることが望ましい場合もあります。この機能は手動で無効にできますが、管理者が注意する必要があるトレードオフがあります。
+
+
+
+=== オプション1：Ansibleによるフェンシングを無効にします（推奨）。
+
+Ansibleを使用してフェンシングを無効にすると、BeeGFSモニタの失敗時のアクションが「フェンス」から「standby」に変更されます。つまり、BeeGFSモニタが障害を検出すると、ノードがスタンバイ状態になり、すべてのBeeGFSサービスをフェイルオーバーしようとします。一般的に、オプション2よりも、外部のアクティブなトラブルシューティング/テストの方が望ましい。短所は、あるリソースが元のノードで停止しないと、そのリソースが他の場所からブロックされる場合です（そのため、通常は本番環境のクラスタでフェンシングが必要となります）。
+
+. Ansibleのインベントリで `groups_vars/ha_cluster.yml` 次の構成を追加します。
++
+[source, console]
+----
+beegfs_ha_cluster_crm_config_options:
+    stonith-enabled: False
+----
+. Ansibleプレイブックを再実行して、クラスタに変更を適用します。
+
+
+
+
+=== オプション2：フェンシングを手動で無効にする
+
+場合によっては、Ansibleなしでフェンシングを一時的に無効にすることもできます。たとえば、クラスタのトラブルシューティングやテストを実施する場合などです。
+
+
+WARNING: この設定では、BeeGFSモニタが障害を検出すると、クラスタは対応するリソースグループの停止を試みます。フルフェイルオーバーはトリガーされず、影響を受けるリソースグループを再起動したり別のホストに移動したりすることもありません。リカバリするには、問題を解決してからを実行します `pcs resource cleanup` または、手動でノードをスタンバイにします。
+
+手順
+
+. フェンシング（stonith）がグローバルに有効になっているか無効になっているかを確認するには、次のコマンドを実行 `pcs property show stonith-enabled`
+. フェンシングをディセーブルにするには、 `pcs property set stonith-enabled=false`
+. フェンシングを有効にするには、次の `pcs property set stonith-enabled=true`
+
+
+注：この設定は、次回Ansibleプレイブックを実行したときに上書きされます。

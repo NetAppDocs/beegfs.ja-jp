@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-deploy-verify.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: ファイルシステムを本番環境に導入する前に、ファイルシステムの導入を確認してください。 
+---
+= BeeGFSの導入を確認します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ファイルシステムを本番環境に導入する前に、ファイルシステムの導入を確認してください。
+
+
+
+== 概要
+
+BeeGFSファイルシステムを本番環境に移行する前に、いくつかの検証チェックを実行します。
+
+
+
+=== 手順
+
+. クライアントにログインして次のコマンドを実行し、想定されるすべてのノードが存在するか到達可能であり、不整合やその他の問題が報告されていないことを確認します。
++
+[source, bash]
+----
+beegfs-fsck --checkfs
+----
+. クラスタ全体をシャットダウンし、再起動します。任意のファイルノードから、次のコマンドを実行します。
++
+[source, bash]
+----
+pcs cluster stop --all # Stop the cluster on all file nodes.
+pcs cluster start --all  # Start the cluster on all file nodes.
+pcs status # Verify all nodes and services are started and no failures are reported (the command may need to be reran a few times to allow time for all services to start).
+----
+. 各ノードをスタンバイにし、BeeGFSサービスがセカンダリノードにフェイルオーバーできることを確認します。このログインを任意のファイルノードに行うには、次のコマンドを実行します。
++
+[source, bash]
+----
+pcs status # Verify the cluster is healthy at the start.
+pcs node standby <FILE NODE HOSTNAME> # Place the node under test in standby.
+pcs status # Verify services are started on a secondary node and no failures are reported.
+pcs node unstandby <FILE NODE HOSTNAME> # Take the node under test out of standby.
+pcs status # Verify the file node is back online and no failures are reported.
+pcs resource relocate run # Move all services back to their preferred nodes.
+pcs status # Verify services have moved back to the preferred node.
+----
+. IORやMDTestなどのパフォーマンスベンチマークツールを使用して、ファイルシステムのパフォーマンスが期待どおりであることを確認します。BeeGFSで使用される一般的なテストとパラメータの例については、を参照してください link:/beegfs-design-solution-verification.html["設計検証"^] NetApp Verified ArchitectureのBeeGFSのセクション
+
+
+追加テストは、特定のサイト/設置環境に対して定義された受け入れ基準に基づいて実施する必要があります。

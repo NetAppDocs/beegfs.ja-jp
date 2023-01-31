@@ -1,0 +1,74 @@
+---
+sidebar: sidebar 
+permalink: administer-clusters-examine-state.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, pcs 
+summary: PCを使用してクラスタの状態を表示します。 
+---
+= クラスタの状態を確認します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+PCを使用してクラスタの状態を表示します。
+
+
+
+== 概要
+
+実行中です `pcs status` いずれかのクラスタノードから、クラスタの全体的な状態と各リソースのステータス（BeeGFSサービスやその依存関係など）を確認する最も簡単な方法があります。このセクションでは、の出力で確認できる内容について説明します `pcs status` コマンドを実行します
+
+
+
+== からの出力を理解する `pcs status`
+
+を実行します `pcs status` クラスタサービス（PacemakerとCorosync）が開始されているクラスタノードで実行します。出力の一番上にクラスタの概要が表示されます。
+
+[source, console]
+----
+[root@ictad22h01 ~]# pcs status
+Cluster name: hacluster
+Cluster Summary:
+  * Stack: corosync
+  * Current DC: ictad22h01 (version 2.0.5-9.el8_4.3-ba59be7122) - partition with quorum
+  * Last updated: Fri Jul  1 13:37:18 2022
+  * Last change:  Fri Jul  1 13:23:34 2022 by root via cibadmin on ictad22h01
+  * 6 nodes configured
+  * 235 resource instances configured
+----
+次のセクションには、クラスタ内のノードが表示されます。
+
+[source, console]
+----
+Node List:
+  * Node ictad22h06: standby
+  * Online: [ ictad22h01 ictad22h02 ictad22h04 ictad22h05 ]
+  * OFFLINE: [ ictad22h03 ]
+----
+これは、スタンバイまたはオフラインのノードを示します。スタンバイ状態のノードは引き続きクラスタに参加していますが、リソースを実行する資格がありません。ノードがオフラインの場合は、そのノードでクラスタサービスが実行されていないことを示します。これは、手動で停止されているか、ノードがリブートまたはシャットダウンされたことが原因です。
+
+
+NOTE: ノードの初回起動時にクラスタサービスが停止し、リソースが異常なノードに誤ってフェイルバックされないように手動で開始する必要があります。
+
+管理者以外の理由（障害など）によりノードがスタンバイまたはオフラインになっている場合、ノードの状態の横に括弧内に追加のテキストが表示されます。たとえば、フェンシングが無効で、リソースに障害が発生した場合などです `Node <HOSTNAME>: standby (on-fail)`。もう1つの状態はです `Node <HOSTNAME>: UNCLEAN (offline)`を使用すると、ノードがフェンシングされていると短時間だけ表示されますが、クラスタがノードの状態を確認できないことを示すフェンシングが失敗した場合も維持されます（これにより、リソースが他のノードで開始されない場合があります）。
+
+次のセクションでは、クラスタ内のすべてのリソースとその状態のリストを示します。
+
+[source, console]
+----
+Full List of Resources:
+  * mgmt-monitor	(ocf::eseries:beegfs-monitor):	 Started ictad22h01
+  * Resource Group: mgmt-group:
+    * mgmt-FS1	(ocf::eseries:beegfs-target):	 Started ictad22h01
+    * mgmt-IP1	(ocf::eseries:beegfs-ipaddr2):	 Started ictad22h01
+    * mgmt-IP2	(ocf::eseries:beegfs-ipaddr2):	 Started ictad22h01
+    * mgmt-service	(systemd:beegfs-mgmtd):	 Started ictad22h01
+[...]
+----
+ノードと同様に、リソースに問題がある場合は、リソースの状態の横にかっこで囲んだテキストが追加で表示されます。たとえば、Pacemakerがリソースの停止を要求し、割り当てられた時間内に完了できなかった場合、Pacemakerはノードの遮断を試みます。フェンシングが無効になっているか、フェンシング処理が失敗した場合、リソースの状態はになります `FAILED <HOSTNAME> (blocked)` また、Pacemakerは別のノードで起動できません。
+
+BeeGFS HAクラスタでは、最適化されたいくつかのBeeGFSカスタムOCFリソースエージェントを使用することに注意してください。特に、BeeGFSモニタは、特定のノードのBeeGFSリソースを使用できない場合にフェイルオーバーをトリガーします。

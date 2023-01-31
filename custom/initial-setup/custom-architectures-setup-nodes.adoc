@@ -1,0 +1,79 @@
+---
+sidebar: sidebar 
+permalink: custom-architectures-setup-nodes.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: Ansibleを実行する前に、ファイルノードとブロックノードを手動でセットアップする必要があります。 
+---
+= ファイルノードとブロックノードをセットアップします
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Ansibleを実行する前に、ファイルノードとブロックノードを手動でセットアップする必要があります。
+
+
+
+== ファイルノード
+
+
+
+=== ベースボード管理コントローラ（BMC）の設定
+
+ベースボード管理コントローラ（BMC）は、サービスプロセッサとも呼ばれ、オペレーティングシステムがインストールされていない場合やアクセスできない場合でもリモートアクセスを提供できるさまざまなサーバプラットフォームに組み込まれているアウトオブバンド管理機能の一般的な名前です。ベンダーは通常、この機能を独自のブランドで販売しています。たとえば、Lenovo SR665では、BMCはLenovo XClarity Controller（XCC）と呼ばれています。
+
+サーバベンダーのマニュアルに従って、この機能へのアクセスに必要なライセンスを有効にし、BMCがネットワークに接続され、リモートアクセス用に適切に設定されていることを確認してください。
+
+
+NOTE: Redfishを使用したBMCベースのフェンシングが必要な場合は、Redfishが有効になっており、BMCインターフェイスにファイルノードにインストールされているOSからアクセスできることを確認します。BMCと動作環境が同じ物理ネットワークインターフェイスを共有している場合は、ネットワークスイッチで特別な設定が必要になることがあります。
+
+
+
+=== システム設定を調整します
+
+セットアップユーティリティ（BIOS/UEFI）インターフェイスを使用して、パフォーマンスを最大化するように設定されていることを確認します。正確な設定と最適な値は、使用しているサーバーモデルによって異なります。のガイダンスを提供します link:beegfs-deploy-file-node-tuning.html["ファイルノードモデルを確認しました"^]を参照してください。そうでない場合は、ご使用のモデルに基づくサーバベンダーのマニュアルおよびベストプラクティスを参照してください。
+
+
+
+=== オペレーティングシステムをインストールします
+
+リストされているファイルノード要件に基づいて、サポートされているオペレーティングシステムをインストールします link:beegfs-technology-requirements.html#file-node-requirements["こちらをご覧ください"^]。Linuxディストリビューションに基づいて、以下の追加手順を参照してください。
+
+
+
+==== RedHat
+
+Red Hatの公式リポジトリから必要なパッケージをインストールできるようにしたり、アップデートをサポートされているバージョンのRed Hatに制限するには、Red Hat Subscription Managerを使用してシステムを登録およびサブスクライブします。 `subscription-manager release --set=<MAJOR_VERSION>.<MINOR_VERSION>`。手順については、を参照してください https://access.redhat.com/solutions/253273["RHELシステムを登録および登録する方法"^] および  https://access.redhat.com/solutions/2761031["更新を制限する方法"^]。
+
+ハイアベイラビリティに必要なパッケージを含むRed Hatリポジトリを有効にします。
+
+....
+subscription-manager repo-override --repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+....
+
+
+=== 管理ネットワークを設定します
+
+オペレーティングシステムのインバンド管理に必要なネットワークインターフェイスを設定します。具体的な手順は、使用しているLinuxのディストリビューションとバージョンによって異なります。
+
+
+NOTE: SSHが有効になっていて、Ansibleコントロールノードからすべての管理インターフェイスにアクセスできることを確認します。
+
+
+
+=== HCAとHBAファームウェアを更新します
+
+すべてのHBAおよびHCAが、に記載されているサポート対象のファームウェアバージョンを実行していることを確認します link:https://imt.netapp.com/matrix/["NetApp Interoperability Matrix を参照してください"^] 必要に応じてアップグレードします。NVIDIA ConnectXアダプタに関するその他の推奨事項を参照できます link:beegfs-technology-requirements.html#file-node-requirements["こちらをご覧ください"^]。
+
+
+
+== ブロックノード
+
+手順~を実行します link:https://docs.netapp.com/us-en/e-series/getting-started/getup-run-concept.html["Eシリーズの運用を開始"^] 各ブロックノードコントローラに管理ポートを設定し、必要に応じて各システムのストレージアレイ名を設定します。
+
+
+NOTE: Ansible制御ノードからすべてのブロックノードにアクセスできるようにする以外に、追加の設定は必要ありません。残りのシステム構成はAnsibleで適用/管理されます。
