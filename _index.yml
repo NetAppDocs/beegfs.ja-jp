@@ -1,7 +1,10 @@
 ---
 indexpage:
-  lead: NetApp解決策 のBeeGFSは、NetApp Verified Architecture（NVA）であり、BeeGFS並列ファイルシステムとNetApp
-    EF600ストレージシステムを組み合わせたものです。この解決策 は、信頼性と拡張性に優れ、コスト効率に優れたインフラで、きわめて高いワークロードの処理速度を維持します。
+  title: Eシリーズストレージを使用したネットアップのBeeGFS
+  summary: ハイパフォーマンスで低レイテンシのNetApp Eシリーズストレージ上で実行されるBeeGFS並列クラスタファイルシステムが解決策 でサポートされます。ネットアップのサポートにより、コスト効率に優れ、管理しやすく、可用性に優れたHPC解決策
+    を実現します。
+  keywords: beegfs e-series
+  lead: BeeGFS on NetApp with Eシリーズストレージは、きわめて要件の厳しいワークロードにも対応できる、シンプルで信頼性、拡張性、コスト効率に優れたHPCインフラを備えた、実績ある統合解決策です。
   tiles:
   - title: はじめに
     links:

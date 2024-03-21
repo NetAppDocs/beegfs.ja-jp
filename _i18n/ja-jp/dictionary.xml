@@ -1016,7 +1016,6 @@
   <block id="2dae7f81af3097152530b0bc519d7eb1" category="paragraph"><block ref="2dae7f81af3097152530b0bc519d7eb1" category="inline-link-rx"></block></block>
   <block id="e3b88cba18358b065044f4788449026b" category="summary">ハイパフォーマンスで低レイテンシのNetApp Eシリーズストレージ上で実行されるBeeGFS並列クラスタファイルシステムが解決策 でサポートされます。ネットアップのサポートにより、コスト効率に優れ、管理しやすく、可用性に優れたHPC解決策 を実現します。</block>
   <block id="28e8b3e83af233fe7085ba954fc6fd36" category="doc">Eシリーズストレージを使用したネットアップのBeeGFS</block>
-  <block id="4929a64464b43e326e35b25ce7e3ceeb" category="sidebar">NetApp解決策 のBeeGFSは、NetApp Verified Architecture（NVA）であり、BeeGFS並列ファイルシステムとNetApp EF600ストレージシステムを組み合わせたものです。この解決策 は、信頼性と拡張性に優れ、コスト効率に優れたインフラで、きわめて高いワークロードの処理速度を維持します。</block>
   <block id="be11c74c1dd7f307bb80183a90dc2067" category="sidebar">はじめに</block>
   <block id="12623d7cc9dff74b7325aa809ffc84df" category="sidebar">ブログ- BeeGFSとEシリーズの詳細をご確認ください</block>
   <block id="0af9e7bf64a8e8c1b37ec554248f3d14" category="sidebar">ブログ- BeeGFS（初心者向け</block>
@@ -1862,4 +1861,5 @@
   <block id="dd38f906b37d412de7d1c1dcf4cbf31c" category="paragraph"><block ref="dd38f906b37d412de7d1c1dcf4cbf31c" category="inline-link-macro-rx"></block></block>
   <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
   <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
+  <block id="e8afe31a21b6aae9717484d865743dae" category="sidebar">BeeGFS on NetApp with Eシリーズストレージは、きわめて要件の厳しいワークロードにも対応できる、シンプルで信頼性、拡張性、コスト効率に優れたHPCインフラを備えた、実績ある統合解決策です。</block>
 </blocks>
