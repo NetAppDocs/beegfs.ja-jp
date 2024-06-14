@@ -527,7 +527,6 @@
   <block id="d1da0cd6852302b521f35aeee065f5ea" category="summary">NetApp解決策 にBeeGFSを導入する際は、ベストプラクティスのガイドラインに従ってください。</block>
   <block id="38b622e4d5c9d918330c81663f61a4e3" category="doc">ベストプラクティスを確認</block>
   <block id="d780de93793370946b2449b88a29b5ea" category="section-title">標準規則</block>
-  <block id="2028bcc5ed7fdc8ba437b0150866ff2c" category="paragraph">Ansibleインベントリファイルを物理的に構築して作成する場合は、以下の標準的な規則に従ってください（詳細については、を参照してください） <block ref="ecd3f3fdba3715697adf284eecd1c932" category="inline-link-macro-rx"></block>）。</block>
   <block id="b4d19c971bd6ad93985147c0ce9477c8" category="list-text">ファイル・ノードのホスト名は'順番に番号が付けられ（H01-HN）'ラックの一番上に番号が小さい'下に数字が大きい</block>
   <block id="0a4e8ee6eb2b3c9ae6b2864c18db1a80" category="paragraph">たとえば'[location][row][rack][hn']という命名規則は'ictad22h01'のようになります</block>
   <block id="7bf4bcec78c083e165c31432234ebef8" category="list-text">各ブロックノードは2台のストレージコントローラで構成され、コントローラごとに独自のホスト名が付けられます。</block>
@@ -1862,4 +1861,5 @@
   <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
   <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
   <block id="e8afe31a21b6aae9717484d865743dae" category="sidebar">BeeGFS on NetApp with Eシリーズストレージは、きわめて要件の厳しいワークロードにも対応できる、シンプルで信頼性、拡張性、コスト効率に優れたHPCインフラを備えた、実績ある統合解決策です。</block>
+  <block id="3a9aabbbb8c331319a41788bf5d1786a" category="paragraph">Ansibleインベントリファイルを物理的に構築して作成する場合は、以下の標準的な規則に従ってください（詳細については、を参照してください） <block ref="dbbcb9482f49ee969cddb7f10864cbd0" category="inline-link-macro-rx"></block>）。</block>
 </blocks>
