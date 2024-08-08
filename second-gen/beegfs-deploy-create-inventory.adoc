@@ -23,8 +23,7 @@ summary: ファイルノードとブロックノードの設定を定義する�
 どの構成プロファイルを個別に適用できるかに関係なく、環境 のすべての構成ブロックを定義します。
 
 .作業を開始する前に
-* BitBucketやGitなどのソース管理システムを使用して、AnsibleのインベントリファイルとPlaybookファイルが格納されているディレクトリのコンテンツを保存します。
-* Gitが無視するファイルを指定する「.gitignore」ファイルを作成します。これにより、Gitに大きなファイルを保存することを回避できます。
+* 導入環境に適したサブネットアドレッシング方式を選択します。に記載されている利点のため、 link:beegfs-design-software-architecture.html#beegfs-network-configuration["ソフトウェアアーキテクチャ"]単一のサブネットアドレッシング方式を使用することを推奨します。
 
 
 .手順
@@ -61,7 +60,7 @@ eseries_ipoib_interfaces:  # Used to configure BeeGFS cluster IP addresses.
   - name: i1b
     address: 100.127.100. <NUMBER_FROM_HOSTNAME>/16
   - name: i4b
-    address: 100.128.100. <NUMBER_FROM_HOSTNAME>/16
+    address: 100.127.100. <NUMBER_FROM_HOSTNAME>/16
 beegfs_ha_cluster_node_ips:
   - <MANAGEMENT_IP>
   - <i1b_BEEGFS_CLUSTER_IP>
@@ -176,10 +175,13 @@ beegfs_ha_ntp_server_pools:  # Modify the NTP server addressess if desired.
 ansible_ssh_user: root
 ansible_become_password: <PASSWORD>
 eseries_ipoib_default_hook_templates:
-  - 99-multihoming.j2 # This is required when configuring additional static IPs (for example cluster IPs) when multiple IB ports are in the same IPoIB subnet.
+  - 99-multihoming.j2   # This is required for single subnet deployments, where static IPs containing multiple IB ports are in the same IPoIB subnet. i.e: cluster IPs, multirail, single subnet, etc.
 # If the following options are specified, then Ansible will automatically reboot nodes when necessary for changes to take effect:
 eseries_common_allow_host_reboot: true
-eseries_common_reboot_test_command: "systemctl --state=active,exited | grep eseries_nvme_ib.service"
+eseries_common_reboot_test_command: "! systemctl status eseries_nvme_ib.service || systemctl --state=exited | grep eseries_nvme_ib.service"
+eseries_ib_opensm_options:
+  virt_enabled: "2"
+  virt_max_ports_in_process: "0"
 ....
 +
 
@@ -221,7 +223,7 @@ beegfs_ha_alert_verbosity: 3
 
 NOTE: 一見冗長に見えても'beegfs_ha_gmtd_floating_ip'は'1つのHAクラスタを超えてBeeGFSファイルシステムを拡張する場合に重要です以降のHAクラスタは、BeeGFS管理サービスを追加せずに導入され、最初のクラスタが提供する管理サービスをポイントします。
 
-. フェンシングエージェントを設定します。（詳細については、を参照してください https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["Red Hatハイアベイラビリティクラスタでフェンシングを設定します"^].） 次の出力は、一般的なフェンシングエージェントを設定する例を示しています。次のいずれかのオプションを選択します。
+. フェンシングエージェントを設定します。（詳細については、を参照してください https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["Red Hatハイアベイラビリティクラスタでフェンシングを設定します"^]）。次の出力は、一般的なフェンシングエージェントの設定例を示しています。次のいずれかのオプションを選択します。
 +
 この手順では、次の点に注意してください。
 
@@ -253,7 +255,7 @@ beegfs_ha_fencing_agents:
     - pcmk_host_list: <HOSTNAME>
       ip: <BMC_IP>
       <<: *redfish
-# For details on configuring other fencing agents see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters.
+# For details on configuring other fencing agents see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters.
 ....
 
 
@@ -271,45 +273,17 @@ beegfs_ha_enable_performance_tuning: True
 ....
 . （オプション）Linux OSのパフォーマンス調整パラメータを必要に応じて調整できます。
 +
-調整可能なチューニングパラメータの一覧については、のBeeGFS HAロールの「Performance Tuning Defaults」セクションを参照してください https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_2/defaults/main.yml["EシリーズBeeGFS GitHubサイト"^]。このファイル内のクラスタ内のすべてのノードまたは個々のノードの'host_vars'ファイルで'デフォルト値を上書きできます
+調整可能なチューニングパラメータの包括的なリストについては、のBeeGFS HAロールの「Performance Tuning Defaults」セクションを参照してください https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4/defaults/main.yml["EシリーズBeeGFS GitHubサイト"^]。 デフォルト値は、このファイルのクラスタ内のすべてのノードまたは個 々 のノードのファイルで上書きできます `host_vars` 。
 
-. ブロックノードとファイルノードの間に200Gb / HDRを完全に接続できるようにするには、Mellanox Open Fabrics Enterprise Distribution（MLNx_OFED）のOpen Subnet Manager（OpenSM）パッケージを使用します。(受信箱openssl'パッケージは必要な仮想化機能をサポートしていません) Ansibleによる導入もサポートされていますが、最初に目的のパッケージをBeeGFSロールの実行に使用するAnsibleコントロールノードにダウンロードする必要があります。
+. ブロックノードとファイルノード間の200GB/HDR接続を完全に許可するには、NVIDIA Open Fabrics Enterprise Distribution（MLNX_OFED）のOpen Subnet Manager（OpenSM）パッケージを使用します。に記載されているMLNX_OFEDバージョンは link:beegfs-technology-requirements.html#file-node-requirements["ファイルノードの要件"] 、推奨されるOpenSMパッケージにバンドルされています。Ansibleを使用した導入もサポートされていますが、最初にすべてのファイルノードにMLNX_OFEDドライバをインストールする必要があります。
 +
-.. 「curl」または希望のツールを使用して、MellanoxのWebサイトの技術要件セクションに記載されているOpenSMのバージョン用のパッケージを「packages/」ディレクトリにダウンロードします。例：
-+
-....
-curl -o packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-
-curl -o packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-....
 .. 'group_vars/ha_cluster.yml'の次のパラメータを入力します(必要に応じてパッケージを調整します)
 +
 ....
 ### OpenSM package and configuration information
-eseries_ib_opensm_allow_upgrades: true
-eseries_ib_opensm_skip_package_validation: true
-eseries_ib_opensm_rhel_packages: []
-eseries_ib_opensm_custom_packages:
-  install:
-    - files:
-        add:
-          "packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
-          "packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
-    - packages:
-        add:
-          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-  uninstall:
-    - packages:
-        remove:
-          - opensm
-          - opensm-libs
-      files:
-        remove:
-          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
 eseries_ib_opensm_options:
   virt_enabled: "2"
+  virt_max_ports_in_process: "0"
 ....
 
 
@@ -323,7 +297,18 @@ udevルールは'BeeGFSファイル・ノードとして使用される各サー
 +
 ....
 ### Ensure Consistent Logical IB Port Numbering
-# OPTION 1: Lenovo SR665 PCIe address-to-logical IB port mapping:
+# OPTION 1: Lenovo SR665 V3 PCIe address-to-logical IB port mapping:
+eseries_ipoib_udev_rules:
+  "0000:01:00.0": i1a
+  "0000:01:00.1": i1b
+  "0000:41:00.0": i2a
+  "0000:41:00.1": i2b
+  "0000:81:00.0": i3a
+  "0000:81:00.1": i3b
+  "0000:a1:00.0": i4a
+  "0000:a1:00.1": i4b
+
+# OPTION 2: Lenovo SR665 PCIe address-to-logical IB port mapping:
 eseries_ipoib_udev_rules:
   "0000:41:00.0": i1a
   "0000:41:00.1": i1b
@@ -333,8 +318,6 @@ eseries_ipoib_udev_rules:
   "0000:a1:00.1": i3b
   "0000:81:00.0": i4a
   "0000:81:00.1": i4b
-
-# Note: At this time no other x86 servers have been qualified. Configuration for future qualified file nodes will be added here.
 ....
 . （オプション）メタデータターゲット選択アルゴリズムを更新します。
 +
@@ -375,10 +358,10 @@ NOTE: プレーンテキストでパスワードを一覧表示することは�
 +
 ....
 # Firmware, NVSRAM, and Drive Firmware (modify the filenames as needed):
-eseries_firmware_firmware: "packages/RCB_11.70.2_6000_61b1131d.dlp"
-eseries_firmware_nvsram: "packages/N6000-872834-D06.dlp"
+eseries_firmware_firmware: "packages/RCB_11.80GA_6000_64cc0ee3.dlp"
+eseries_firmware_nvsram: "packages/N6000-880834-D08.dlp"
 ....
-. ブロックノードに取り付けられたドライブに対応する最新のドライブファームウェアをからダウンロードしてインストールします https://mysupport.netapp.com/NOW/download/tools/diskfw_eseries/["ネットアップサポートサイト"^]。これらを手動でアップグレードするか'Ansibleコントロール・ノードのパッケージ/ディレクトリに含めてから'eseries_storage_systemesyml'に以下のパラメータを入力して'Ansibleを使用してアップグレードできます
+. から、ブロックノードに取り付けられているドライブで使用可能な最新のドライブファームウェアをダウンロードしてインストールし https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["ネットアップサポートサイト"^]ます。手動でアップグレードするか、Ansible制御ノードのディレクトリに追加してから、の次のパラメータを入力してAnsibleを使用してアップグレードできます `packages/` `eseries_storage_systems.yml` 。
 +
 ....
 eseries_drive_firmware_firmware_list:

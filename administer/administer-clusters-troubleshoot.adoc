@@ -54,9 +54,9 @@ BeeGFSモニタによってフェイルオーバーがトリガーされた場�
 ----
 journalctl --since "<YYYY-MM-DD HH:MM:SS>" | grep -i unexpected
 [...]
-Jul 01 15:51:03 ictad22h01 pacemaker-schedulerd[9246]:  warning: Unexpected result (error: BeeGFS service is not active!) was recorded for monitor of meta_08-monitor on ictad22h02 at Jul  1 15:51:03 2022
+Jul 01 15:51:03 beegfs_01 pacemaker-schedulerd[9246]:  warning: Unexpected result (error: BeeGFS service is not active!) was recorded for monitor of meta_08-monitor on beegfs_02 at Jul  1 15:51:03 2022
 ----
-このインスタンスでは、何らかの理由でBeeGFSサービスMETA_08が停止しました。トラブルシューティングを続行するには、ictad22h02をブートし、サービスのログを確認する必要があります `/var/log/beegfs-meta-meta_08_tgt_0801.log`。たとえば、BeeGFSサービスで内部問題 やノードの問題が原因でアプリケーションエラーが発生した可能性があります。
+このインスタンスでは、何らかの理由でBeeGFSサービスMETA_08が停止しました。トラブルシューティングを続行するには、beegfs_02を起動し、でサービスのログを確認する必要があります `/var/log/beegfs-meta-meta_08_tgt_0801.log`。たとえば、BeeGFSサービスで内部問題 やノードの問題が原因でアプリケーションエラーが発生した可能性があります。
 
 
 TIP: Pacemakerのログとは異なり、BeeGFSサービスのログはクラスタ内のすべてのノードに分散されるわけではありません。これらのタイプの障害を調査するには、障害が発生した元のノードのログが必要です。
@@ -108,8 +108,8 @@ TIP: Pacemakerのログとは異なり、BeeGFSサービスのログはクラス
 ----
 journalctl --since "<YYYY-MM-DD HH:MM:SS>" | grep -i <HOSTNAME>
 [...]
-Jul 01 16:18:01 ictad22h01 pacemaker-attrd[9245]:  notice: Node ictad22h02 state is now lost
-Jul 01 16:18:01 ictad22h01 pacemaker-controld[9247]:  warning: Stonith/shutdown of node ictad22h02 was not expected
+Jul 01 16:18:01 beegfs_01 pacemaker-attrd[9245]:  notice: Node beegfs_02 state is now lost
+Jul 01 16:18:01 beegfs_01 pacemaker-controld[9247]:  warning: Stonith/shutdown of node beegfs_02 was not expected
 ----
 
 
@@ -119,17 +119,17 @@ Jul 01 16:18:01 ictad22h01 pacemaker-controld[9247]:  warning: Stonith/shutdown 
 
 [source, console]
 ----
-Jul 01 16:18:02 ictad22h01 pacemaker-schedulerd[9246]:  warning: Cluster node ictad22h02 will be fenced: peer is no longer part of the cluster
-Jul 01 16:18:02 ictad22h01 pacemaker-schedulerd[9246]:  warning: Node ictad22h02 is unclean
-Jul 01 16:18:02 ictad22h01 pacemaker-schedulerd[9246]:  warning: Scheduling Node ictad22h02 for STONITH
+Jul 01 16:18:02 beegfs_01 pacemaker-schedulerd[9246]:  warning: Cluster node beegfs_02 will be fenced: peer is no longer part of the cluster
+Jul 01 16:18:02 beegfs_01 pacemaker-schedulerd[9246]:  warning: Node beegfs_02 is unclean
+Jul 01 16:18:02 beegfs_01 pacemaker-schedulerd[9246]:  warning: Scheduling Node beegfs_02 for STONITH
 ----
 フェンシング処理が正常に完了すると、次のようなメッセージが表示されます。
 
 [source, console]
 ----
-Jul 01 16:18:14 ictad22h01 pacemaker-fenced[9243]:  notice: Operation 'off' [2214070] (call 27 from pacemaker-controld.9247) for host 'ictad22h02' with device 'fence_redfish_2' returned: 0 (OK)
-Jul 01 16:18:14 ictad22h01 pacemaker-fenced[9243]:  notice: Operation 'off' targeting ictad22h02 on ictad22h01 for pacemaker-controld.9247@ictad22h01.786df3a1: OK
-Jul 01 16:18:14 ictad22h01 pacemaker-controld[9247]:  notice: Peer ictad22h02 was terminated (off) by ictad22h01 on behalf of pacemaker-controld.9247: OK
+Jul 01 16:18:14 beegfs_01 pacemaker-fenced[9243]:  notice: Operation 'off' [2214070] (call 27 from pacemaker-controld.9247) for host 'beegfs_02' with device 'fence_redfish_2' returned: 0 (OK)
+Jul 01 16:18:14 beegfs_01 pacemaker-fenced[9243]:  notice: Operation 'off' targeting beegfs_02 on beegfs_01 for pacemaker-controld.9247@beegfs_01.786df3a1: OK
+Jul 01 16:18:14 beegfs_01 pacemaker-controld[9247]:  notice: Peer beegfs_02 was terminated (off) by beegfs_01 on behalf of pacemaker-controld.9247: OK
 ----
 何らかの理由でフェンシングアクションが失敗した場合、データ破損のリスクを回避するために別のノードでBeeGFSサービスを再起動できなくなります。たとえば、フェンシングデバイス（PDUまたはBMC）にアクセスできなかったり、誤って設定されていた場合、問題 は個別に調査します。
 
@@ -153,7 +153,7 @@ BeeGFSサービスの実行に必要なリソースに障害が発生すると�
 
 [source, console]
 ----
-  * fence_redfish_2_monitor_60000 on ictad22h01 'not running' (7): call=2248, status='complete', exitreason='', last-rc-change='2022-07-26 08:12:59 -05:00', queued=0ms, exec=0ms
+  * fence_redfish_2_monitor_60000 on beegfs_01 'not running' (7): call=2248, status='complete', exitreason='', last-rc-change='2022-07-26 08:12:59 -05:00', queued=0ms, exec=0ms
 ----
 特定のノードで失敗したリソースアクションを報告するフェンシングエージェントは、そのノードで実行されているBeeGFSサービスのフェールオーバーをトリガーする必要はありません。同じノードまたは別のノードで自動的に再起動されるだけです。
 

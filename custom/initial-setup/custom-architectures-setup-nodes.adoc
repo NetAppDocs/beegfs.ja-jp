@@ -52,7 +52,7 @@ Red Hatの公式リポジトリから必要なパッケージをインストー�
 ハイアベイラビリティに必要なパッケージを含むRed Hatリポジトリを有効にします。
 
 ....
-subscription-manager repo-override --repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
 
 

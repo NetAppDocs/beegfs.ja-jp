@@ -22,7 +22,7 @@ summary: 各サーバのBaseboard Management Controller（BMC；ベースボー�
 
 . 各サーバのベースボード管理コントローラ（BMC）のネットワークを設定します。
 +
-検証済みLenovo SR665ファイルノードのネットワークを設定する方法については、を参照してください https://thinksystem.lenovofiles.com/help/index.jsp?topic=%2F7D2W%2Fset_the_network_connection.html["Lenovo ThinkSystemのドキュメント"^]。
+検証済みLenovo SR665 V3ファイルノードのネットワーク設定方法については、を参照してください https://pubs.lenovo.com/sr665-v3/["Lenovo ThinkSystemのドキュメント"^]。
 
 +
 
@@ -35,7 +35,7 @@ NOTE: ベースボード管理コントローラ（BMC）は、サービスプ�
 +
 検証済みLenovo SR665ファイルノードのシステム設定を構成する方法については、を参照してください link:beegfs-deploy-file-node-tuning.html["パフォーマンスのシステム設定を調整します"]。
 
-. Red Hat 8.4をインストールし、AnsibleコントロールノードからのSSH接続など、オペレーティングシステムの管理に使用するホスト名とネットワークポートを設定します。
+. Red Hat 9.3をインストールし、AnsibleコントロールノードからのSSH接続など、オペレーティングシステムの管理に使用するホスト名とネットワークポートを設定します。
 +
 この時点では、InfiniBandポートにIPを設定しないでください。
 
@@ -43,15 +43,15 @@ NOTE: ベースボード管理コントローラ（BMC）は、サービスプ�
 
 NOTE: 厳密には必須ではありませんが、以降のセクションでは、ホスト名には順番に番号が付けられ（h1-hNなど）、奇数ホストと偶数ホストで完了する必要のあるタスクを参照するようにしています。
 
-. Red Hatの公式リポジトリから必要なパッケージをインストールできるようにしたり、Red Hatのサポートされているバージョンに対する更新を制限するには、Red Hat Subscription Managerを使用してシステムを登録およびサブスクライブします。手順については、を参照してください https://access.redhat.com/solutions/253273["RHELシステムを登録および登録する方法"^] および  https://access.redhat.com/solutions/2761031["更新を制限する方法"^]。
+. Red Hat Subscription Managerを使用してシステムを登録およびサブスクライブし、Red Hatの公式リポジトリから必要なパッケージをインストールできるようにし、サポートされているバージョンのRed Hat:にアップデートを制限し `subscription-manager release --set=9.3`ます。手順については、およびを参照してください https://access.redhat.com/solutions/253273["RHELシステムを登録および登録する方法"^]  https://access.redhat.com/solutions/2761031["更新を制限する方法"^]。
 . ハイアベイラビリティに必要なパッケージを含むRed Hatリポジトリを有効にします。
 +
 ....
-subscription-manager repo-override --repo=rhel-8-for-x86_64-highavailability-rpms --add=enabled:1
+subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. すべてのConnectX-6 HCAファームウェアを、で推奨されているバージョンにアップデートします link:beegfs-technology-requirements.html["テクノロジ要件"]。
+. すべてのHCAファームウェアをで推奨されているバージョンに更新します link:beegfs-technology-requirements.html["テクノロジ要件"]。
 +
-この更新を行うには'推奨ファームウェアをバンドルするmlxupツールのバージョンをダウンロードして実行しますこのツールはからダウンロードできます https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup -アップデートとクエリユーティリティ"^] （link:https://docs.nvidia.com/networking/display/MLXUPFWUTILITY/mlxup+-+Firmware+Utility+User+Guide["ユーザーガイド"^]）。
+この更新を行うには'推奨ファームウェアをバンドルするmlxupツールのバージョンをダウンロードして実行しますこのツールは()からダウンロードできます https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup -アップデートとクエリユーティリティ"^]link:https://docs.nvidia.com/networking/display/mlxupfwutility["ユーザーガイド"^]。
 
 
 

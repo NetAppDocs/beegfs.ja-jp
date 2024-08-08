@@ -37,7 +37,7 @@ CAUTION: インストールを開始する前に、特定のBeeGFS導入に必�
 
 単一のビルディングブロックの例：
 
-image:../media/buildingblock.png["ビルディングブロックの例"]
+image:../media/buildingblock-sr665v3.png["ビルディングブロックの例"]
 
 大規模なBeeGFSインストールの例では、各HAクラスタに複数のビルディングブロックがあり、ファイルシステムに複数のHAクラスタがある場合を示します。
 

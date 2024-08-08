@@ -97,23 +97,23 @@ pcs resource relocate run
 
 個 々 のBeeGFSサービスの優先ファイルノードを永続的に変更するには、Ansibleのインベントリを調整して優先ノードがリストされるようにしてから、Ansibleプレイブックを再実行します。
 
-たとえば、次の例で使用します `inventory.yml` File、ictad22h01は、BeeGFS管理サービスを実行するための優先ファイルノードです。
+たとえば、次のサンプルファイルでは `inventory.yml` 、beegfs_01がBeeGFS管理サービスの実行に優先されるファイルノードです。
 
 [source, yaml]
 ----
         mgmt:
           hosts:
-            ictad22h01:
-            ictad22h02:
+            beegfs_01:
+            beegfs_02:
 ----
-この順序を逆にすると、ictad22h02で管理サービスが優先されます原因 。
+この順序を逆にすると、beegfs_02で管理サービスが優先されます原因 。
 
 [source, yaml]
 ----
         mgmt:
           hosts:
-            ictad22h02:
-            ictad22h01:
+            beegfs_02:
+            beegfs_01:
 ----
 
 
@@ -128,7 +128,7 @@ pcs resource relocate run
 pcs resource move <SERVICE>-monitor <HOSTNAME>
 ----
 
-WARNING: 個 々 のリソースまたはリソースグループを指定しないでください。再配置するBeeGFSサービスのモニタ名を必ず指定しますたとえば、BeeGFS管理サービスをictad22h02に移動するには、次のコマンドを実行します。 `pcs resource move mgmt-monitor ictad22h02`。このプロセスを繰り返して、1つ以上のサービスを優先ノードから移動できます。を使用して確認します `pcs status` 新しいノードでサービスが再配置されたか、開始されました。
+WARNING: 個 々 のリソースまたはリソースグループを指定しないでください。再配置するBeeGFSサービスのモニタ名を必ず指定しますたとえば、BeeGFS管理サービスをbeegfs_02に移動するには、次のコマンドを実行し `pcs resource move mgmt-monitor beegfs_02`ます。このプロセスを繰り返して、1つ以上のサービスを優先ノードから移動できます。サービスが新しいノードで再配置/開始されたことを確認します `pcs status` 。
 
 BeeGFSサービスを優先ノードに戻すには'最初に一時的なリソースの制約を解除します（複数のサービスの場合はこの手順を繰り返します）
 

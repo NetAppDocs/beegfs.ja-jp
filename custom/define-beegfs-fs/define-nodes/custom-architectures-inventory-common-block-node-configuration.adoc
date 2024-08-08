@@ -58,8 +58,8 @@ WARNING: プレーンテキストでパスワードを一覧表示すること�
 +
 [source, yaml]
 ----
-eseries_firmware_firmware: "packages/<FILENAME>.dlp" # Ex. "packages/RCB_11.70.2_6000_61b1131d.dlp"
-eseries_firmware_nvsram: "packages/<FILENAME>.dlp" # Ex. "packages/N6000-872834-D06.dlp"
+eseries_firmware_firmware: "packages/<FILENAME>.dlp" # Ex. "packages/RCB_11.80GA_6000_64cc0ee3.dlp"
+eseries_firmware_nvsram: "packages/<FILENAME>.dlp" # Ex. "packages/N6000-880834-D08.dlp"
 eseries_drive_firmware_firmware_list:
   - "packages/<FILENAME>.dlp"
   # Additional firmware versions as needed.

@@ -5,46 +5,12 @@
   <block id="e95081b0e85f690a9bdcb41ea940c186" category="summary">NetApp解決策 にBeeGFSを実装するには、使用する環境がテクノロジの要件を満たしていることを確認します。</block>
   <block id="de65efa2c0698ededf4229cafcca2d08" category="doc">技術要件</block>
   <block id="47dee50ad0138b8f5ca70e40e86e6c04" category="section-title">ハードウェア要件</block>
-  <block id="d53750273c9ab2292caf240393c86d48" category="paragraph">次の表に、NetApp解決策 上のBeeGFSに単一の第2世代ビルディングブロック設計を実装するために必要なハードウェアコンポーネントを示します。</block>
-  <block id="27d858ba39131558c9ade0aa37a22659" category="admonition">解決策 の特定の実装で使用されるハードウェアコンポーネントは、お客様の要件に応じて異なる場合があります。</block>
-  <block id="e93f994f01c537c4e2f7d8528c3eb5e9" category="cell">カウント</block>
   <block id="16cc6ce48a597aebb8ab5132cb3523dc" category="cell">ハードウェアコンポーネント</block>
   <block id="5a2ebfb8baa378cfcfcba58bbb1380c2" category="cell">要件</block>
   <block id="d41d8cd98f00b204e9800998ecf8427e" category="doc"></block>
   <block id="c81e728d9d4c2f636f067f89cc14862c" category="paragraph">2.</block>
-  <block id="6c6f9283374bfbf220de6327277c1815" category="paragraph">BeeGFSファイルノード</block>
-  <block id="2864e4eb2e0cb17f0531cd785e63c7da" category="paragraph">想定されるパフォーマンスを実現するには、各ファイルノードが次の構成を満たしているか、超えている必要があります。</block>
-  <block id="31d64135897b5391e512521bf41f9777" category="paragraph">*プロセッサー：*</block>
-  <block id="b95b123279b2f800990f9c2191373708" category="list-text">AMD EPYC 7343 16C 3.2 GHz×2。</block>
-  <block id="4616efc57076900a6225244dcfc89027" category="list-text">2つのNUMAゾーンとして構成されています。</block>
-  <block id="13519812c056b113bbb6f853259e7691" category="paragraph">*メモリ：*</block>
-  <block id="2c271e30e1c41fa7fc170637cbe07507" category="list-text">256GB。</block>
-  <block id="4b0f34cee48d8b67ee838abeca68c9a6" category="list-text">16 x 16GB TruDDR4 3200MHz（2Rx8 1.2V）RDIMM A（より小さいDIMMよりも大きいDIMMを優先）。</block>
-  <block id="3449cc07bd9fb49ca5e13dd993a70e88" category="list-text">メモリ帯域幅を最大化するために実装。</block>
-  <block id="9f5ef4bd76579737bfe585f29a5951e8" category="paragraph">* PCIe拡張: PCE Gen4 x16スロット×4：*</block>
-  <block id="f00f227030eb163a017a1730e0ddefb6" category="list-text">NUMAゾーンごとに2つのスロット。</block>
-  <block id="d12719622b3ae7d145ba3994f18ac93f" category="list-text">各スロットには、Mellanox MCX653106A-HDATアダプタに十分な電力/冷却機能が備わっている必要があります。</block>
   <block id="a631c0a4a9b408ccc2559c2a3323af51" category="paragraph">*その他:*</block>
-  <block id="30a4226a3d02d27336f749ae5dcd893b" category="list-text">アウトオブバンドのサーバ管理用に、1GbE BMCとRedfish APIを使用。</block>
-  <block id="173ee7b6334b65c38509a87b47bd79da" category="list-text">ホットスワップ対応のデュアル電源装置とパフォーマンスファン。</block>
-  <block id="84edc2766d3f7158f313edb5aed216f7" category="list-text">ストレージInfiniBandスイッチに接続する必要がある場合は、Mellanox光InfiniBandケーブルをサポートしている必要があります。</block>
-  <block id="2d6de8e1dccd3e2e9834a5a60d4566de" category="paragraph">* Lenovo SR665：*</block>
-  <block id="d89c6895636b2b8a24392a0f977e2684" category="list-text">カスタムのネットアップモデルには、デュアルポートMellanox ConnectX-6アダプタのサポートに必要なXClarityコントローラファームウェアのバージョンが含まれています。注文の詳細については、ネットアップにお問い合わせください。</block>
   <block id="c9f0f895fb98ab9159f51fd0297e236d" category="cell">8.</block>
-  <block id="df57d52bbf8cf40e07c14985e453c567" category="cell">Mellanox ConnectX-6 HCA（ファイルノード用）</block>
-  <block id="ebf2a6ec614aa7ef6c7da2be9e2c23a7" category="list-text">MCX653106A-HDATホストチャネルアダプタ（HDR IB 200GB、デュアルポートQSFP56、PCIe4.0 x16）</block>
-  <block id="151b6979304b49e9f2fa40146bc63177" category="cell">1M HDR InfiniBandケーブル（ファイル/ブロックノードの直接接続用）。</block>
-  <block id="334ee84af8f0aba772fc0297b7d99d85" category="list-text">MCP1650 - H001E30（1 m Mellanoxパッシブカッパーケーブル、IB HDR、最大200Gbps、QSFP56、30AWG）</block>
-  <block id="1d09a937487a970ae4b132b9d1bbd92e" category="paragraph">必要に応じて、ファイルノードとブロックノード間の距離を長くするために、長さを調整できます。</block>
-  <block id="3c947c9bfa7d34adb44f61243d2bdaf0" category="cell">HDR InfiniBandケーブル（ファイルノード/ストレージスイッチ接続用）</block>
-  <block id="826f9c9f2a5a5dd3ddf276fdf6370236" category="paragraph">ファイルノードをストレージリーフスイッチに接続するために、適切な長さのInfiniBand HDRケーブル（QSFP56トランシーバ）が必要です。次のオプションがあります。</block>
-  <block id="43f0edb9f1ba2bdb6e116f1a9ebc5efa" category="list-text">MCP1650 - H002E26（2 m Mellanoxパッシブカッパーケーブル、IB HDR、最大200Gb/秒、QSFP56、30AWG）。</block>
-  <block id="e2c1cd9a1de33e9b1dfe101cbbeac58b" category="list-text">MFS1S00-H003E（3 m Mellanoxアクティブファイバケーブル、IB HDR、最大200Gb/秒、QSFP56）。</block>
-  <block id="5fbc0fc6a38b0dbbeffcd2c2d4dcac9d" category="cell">Eシリーズのブロックノード</block>
-  <block id="604f81d1187ffc116528d5f0ab32fb11" category="paragraph">次のように構成された2台のEF600コントローラ：</block>
-  <block id="577a9a467c2913dcad30956ec32e78e6" category="list-text">メモリ：256GB（コントローラあたり128GB）。</block>
-  <block id="7e4c29cb3d75f6a12c915cb4eaaf3a1e" category="list-text">アダプタ：2ポート200Gb / HDR（NVMe/IB）</block>
-  <block id="d0fbc950f348eb754ea8bad25fabc0a7" category="list-text">ドライブ：必要な容量に合わせて構成</block>
   <block id="7ddb33edf227a18eb76201fcb9e2c9db" category="section-title">ソフトウェア要件</block>
   <block id="440907229edb210984831982728c0047" category="paragraph">パフォーマンスと信頼性を予測するために、NetApp解決策 上のBeeGFSのリリースについて、解決策 の実装に必要な特定のバージョンのソフトウェアコンポーネントを使用してテストします。</block>
   <block id="5fea6233624bde259c99b82e6d7de3c6" category="section-title">ソフトウェア導入の要件</block>
@@ -54,69 +20,27 @@
   <block id="eb57eb77389d7d4e71c5790c9c6ec1a7" category="cell">BeeGFSの場合</block>
   <block id="9197ec103d780b6779cb78eec6afce31" category="cell">7.2.6.</block>
   <block id="51cf7c858a71d06ee12a42cfbff97da7" category="cell">Corosync</block>
-  <block id="5d2d6ad0b2b4cf8622bcf4cddca922d1" category="cell">3.1.5-1</block>
   <block id="d95adee972ae170512bd3bdbce557054" category="cell">ペースメーカー</block>
-  <block id="300cc3f7d5595a3ab5ad8f666e682b51" category="cell">2.1.0.8</block>
   <block id="0a0d34e3921098e12d40efeb9e5b64ff" category="cell">OpenSMを使用します</block>
-  <block id="571ffe54d5507ffba520fd66014b973a" category="paragraph">opensm-5.9.0（MLNx_OFED 5.4-1.0.3.0から）</block>
-  <block id="fc9d1b1033b1fe0ed02e41584f187a0d" category="admonition">仮想化を有効にするために直接接続する場合にのみ必要です。</block>
   <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansibleの制御ノード要件</block>
   <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansibleのドキュメント</block>
   <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp解決策 のBeeGFSは、Ansible制御ノードから導入して管理します。詳細については、を参照してください<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>。</block>
   <block id="158a122309f0454b31e4853755a5962a" category="paragraph">次の表に示すソフトウェア要件は、以下に記載するNetApp BeeGFSコレクションのバージョンに固有のものです。</block>
   <block id="d51d5ee15f404c2f4f7863bebcde1fac" category="cell">Ansible</block>
-  <block id="c34646f8692ab9a9dce46b8b8b249892" category="cell">2.11 pipを使用してインストールした場合：Ansible -4.7.0およびAnsible -core &lt;2.12、&gt;= 2.11.6</block>
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">Python</block>
-  <block id="47588d4b158a37889ddf44eeb8e88b0f" category="cell">3.9.</block>
   <block id="d35d779fe31977939a0a72c5c962d2af" category="cell">その他のPythonパッケージ</block>
-  <block id="77d3bd829df9097aa38d64335f6aad7f" category="cell">暗号化-350.0.0、netaddr-0.8.0</block>
-  <block id="6f82e755e888096a221d29f2d5410b52" category="cell">BeeGFS Ansibleコレクション</block>
-  <block id="272f0a04b740763e0a29316bc4af89a4" category="cell">3.0.0</block>
   <block id="5510cedb08df4208db0688e41cea716f" category="section-title">ファイルのノード要件</block>
   <block id="eae2868fd17cac4569887ad9ccca42c2" category="paragraph">Red Hat Enterprise Linuxの場合</block>
-  <block id="c902ad984234c1eef95b7912574d9aeb" category="paragraph">Red Hat 8.4 Server Physical with High Availability（2ソケット）。</block>
   <block id="1f8b1bc6c0a349e88a3353e347489a9a" category="admonition">ファイルノードには、有効なRed Hat Enterprise Linux ServerサブスクリプションとRed Hat Enterprise Linux High Availabilityアドオンが必要です。</block>
   <block id="2488fead2064d4aeb886afc1a0010ee7" category="cell">Linuxカーネル</block>
-  <block id="d4b0f66130f05055ad49d7919514984a" category="cell">4.18.0～305.25.1.el8_4.x86_64</block>
   <block id="f6883581bd882ffdf705127738982586" category="cell">InfiniBand / RDMAドライバ</block>
-  <block id="3882d32c66e7e768145ecd8f104b0c08" category="cell">受信トレイ</block>
-  <block id="0f8b40e8389c6b79812629492fb9facd" category="cell">ConnectX-6 HCAファームウェア</block>
-  <block id="4ebe5da399ec2e4a8aa42aee4a85eef5" category="cell">FW：20.31.1014</block>
-  <block id="1669d53b71fac20015fb08bdb7e0f816" category="cell">PXE：3.6.0403</block>
-  <block id="56f186085ad1743522ca2a29632d91eb" category="cell">UEFI：14.24.0013</block>
   <block id="fbc534ed33feffdfe8fc56e7cde13e6e" category="section-title">EF600ブロックノードの要件</block>
   <block id="e791d47d690cbc6aa7c7f9434ebd2fa1" category="cell">SANtricity OS の略</block>
-  <block id="aa64d564cff905bb777c7f6cceb9c9d3" category="cell">11.70.2</block>
   <block id="b384b3cf4ffa3a81a88e8687dd6ca028" category="cell">NVSRAM</block>
-  <block id="2bd1a0272130dcc2055e0f904d00fe3c" category="cell">N6000 - 872834 - D06.dlp</block>
   <block id="b89cb5f38b54c6181858af1281dcaeef" category="cell">ドライブファームウェア</block>
   <block id="df4607ba320342072b2dc12271b08d2f" category="cell">使用中のドライブモデルで最新バージョンが提供されています。</block>
-  <block id="024464eb7b3fd909a9746dff88c6b9c9" category="section-title">その他の要件</block>
-  <block id="61440af9eaf0ce02a7d08f34876b087d" category="paragraph">次の表に記載されている機器を検証に使用しましたが、必要に応じて適切な代替手段を使用できます。一般に、予期しない問題を回避するために、最新のソフトウェアバージョンを実行することを推奨します。</block>
-  <block id="81a57f3c03234ff1f2a69dde51a4eb30" category="cell">ソフトウェアをインストールした</block>
-  <block id="3ba6b98074aa537a4599a5717fc1667c" category="list-text">Mellanox M8M8700 200Gb InfiniBandスイッチ×2</block>
-  <block id="5506d82b19c7fb79ef3ae9c724240c8e" category="list-text">ファームウェア3.9.2110</block>
-  <block id="d80c6d0ee3d3645d6e79f023da5f811d" category="paragraph">* Ansibleコントロールノード（仮想化）×1：*</block>
-  <block id="b5d77813b4d6bf45ad5812887dddc3b6" category="list-text">プロセッサ：Intel（R）Xeon（R）Gold 6146 CPU @ 3.20 GHz</block>
-  <block id="ed7e62a0a7749f5ecdeacff73f47cd74" category="list-text">メモリ：8GB</block>
-  <block id="9b127271fc710f9ccddb6752d4706302" category="list-text">ローカルストレージ：24GB</block>
-  <block id="0da4148b13259a822cbef39b72084c99" category="list-text">CentOS Linux 8.4.2105</block>
-  <block id="4c082b998d02b58acba9fe2b7c4fa784" category="list-text">カーネル4.18.0.305.3.1.el8.x86_64</block>
-  <block id="e213de1dde80716b46e639e6e4211241" category="paragraph">インストールされているAnsibleとPythonのバージョンが上記の表のバージョンと同じです。</block>
-  <block id="bc5f18e7f65533d407f6b5c4ee36f1a8" category="paragraph">* 10x BeeGFSクライアント（CPUノード）：*</block>
-  <block id="ba4ebea566ef71314e819a2849f2df50" category="list-text">プロセッサ：3.0GHzでAMD EPYC 7302 16コアCPU x 1</block>
-  <block id="e21bd6758a43c483b7d0071867188cf3" category="list-text">メモリ：128GB</block>
-  <block id="6045a9bd677549ebf210bae5890c8473" category="list-text">ネットワーク：Mellanox MCX653106A-HDAT×2（アダプタごとに1ポート接続）</block>
-  <block id="73611f9a837b7a25dad3a9c5d1a98658" category="list-text">Ubuntu 20.04</block>
-  <block id="5c102f668db12e3182739e89576e526b" category="list-text">カーネル:5.4.0-100-汎用</block>
-  <block id="11c40f47f4b43c52533122c701bc0c0c" category="list-text">InfiniBandドライバ：Mellanox OFED 5.4-1.0.3.0</block>
-  <block id="03fa34a7812c6af1b694c2914333785b" category="paragraph">* BeeGFSクライアント（GPUノード）×1：*</block>
-  <block id="6299da9dcf5c047e5fda43f47d185352" category="list-text">プロセッサ：2.25 GHzのAMD EPYC 7742 64コアCPU×2</block>
-  <block id="9278571d707ba27f73c7811c10c50142" category="list-text">メモリ：1TB</block>
-  <block id="d4974e31435247f5311454d41461425a" category="paragraph">このシステムはNVDIAS HGX A100プラットフォームをベースにしており、4つのA100 GPUを搭載しています。</block>
   <block id="cef5ab698867f39ec4b495cba708da1a" category="summary">NetApp解決策 のBeeGFSは、BeeGFS並列ファイルシステムとNetApp EF600ストレージシステムを組み合わせることで、信頼性と拡張性に優れた対費用効果の高いインフラを実現し、要件の厳しいワークロードに対応します。</block>
   <block id="c0c4b60d27032c028c91440e9d3be949" category="doc">解決策の概要</block>
-  <block id="038a39033a8ecd147024e4510f646b8c" category="paragraph">この設計では、最新のエンタープライズサーバおよびストレージハードウェアとネットワーク速度によって実現されるパフォーマンス密度を活用します。 デュアルAMD EPYC 7003「Milan」プロセッサを搭載し、200Gb（HDR）InfiniBandを使用して直接接続されたPCIe 4.0をサポートするファイルノードを必要とし、NVMe/IBプロトコルを使用してエンドツーエンドのNVMeおよびNVMeOFを提供するブロックノードを必要とします。</block>
   <block id="c6ff1c8ffcd7024a30e7240129bf57a8" category="section-title">NVAプログラム</block>
   <block id="f109ec830b8ab112f8e89da398d4ca0f" category="paragraph">NetApp解決策 上のBeeGFSは、NetApp Verified Architecture（NVA）プログラムの一部であり、特定のワークロードとユースケースについて、参考構成とサイジングに関するガイダンスを提供します。NVAソリューションは、導入リスクを最小限に抑え、製品化サイクルを短縮するように徹底的にテストと設計されています。</block>
   <block id="2a3b399798aa16ecfbc1425cc560bfad" category="section-title">ユースケース</block>
@@ -172,25 +96,10 @@
   <block id="9ac96964e53d6a8061e16551c85e7b05" category="paragraph">BeeGFSは、並列ファイルシステムとして、複数のサーバノードを介してファイルをストライプ化することで、読み取り/書き込みのパフォーマンスと拡張性を最大化します。サーバノードは連携して動作するため、ほかのサーバノード（一般に_clients__）から同時にマウントしてアクセスすることができる単一のファイルシステムを提供します。これらのクライアントは、分散ファイルシステムをNTFS、XFS、ext4などのローカルファイルシステムと同様に認識して使用できます。</block>
   <block id="2cd4f3c05097f81722656ab8de9b6a25" category="paragraph">これら4つの主要サービスは、サポートされている幅広いLinuxディストリビューションで動作し、InfiniBand（IB）、Omni-Path（OPA）、RDMA over Converged Ethernet（RoCE）など、すべてのTCP/IPまたはRDMA対応ネットワークを介して通信します。BeeGFSサーバサービス（管理'ストレージ'メタデータ）はユーザ空間デーモンであり'クライアントはネイティブカーネルモジュール（パッチレス）ですすべてのコンポーネントは、リブートせずにインストールまたは更新でき、同じノード上で任意の組み合わせのサービスを実行できます。</block>
   <block id="006d93ef4f9eec646f24191298096ff5" category="section-title">ノードを確認しました</block>
-  <block id="c96c4db6ed51cc2193de3faf12adec4b" category="paragraph">NetApp解決策 上のBeeGFSには、NetApp EF600ストレージシステム（ブロックノード）とLenovo ThinkSystem SR665サーバ（ファイルノード）という検証済みノードが含まれています。</block>
-  <block id="27413f72a901dfdce9c9f5b55bb8de24" category="section-title">ブロックノード：EF600ストレージシステム</block>
-  <block id="c9423adc70506c44748bf2f624d7f901" category="paragraph">NetApp EF600オールフラッシュアレイは、あらゆる数のワークロードを同時にサポートしながら、データへの一貫したほぼリアルタイムアクセスを提供します。EF600ストレージシステムは、データをAIアプリケーションやHPCアプリケーションに高速かつ継続的にフィードできるように、キャッシュされた最大200万IOPS、100マイクロ秒未満の応答時間、42GBpsのシーケンシャル読み取り帯域幅を1つのエンクロージャ内に提供します。</block>
-  <block id="651e200415759284120b2ec1a66b1a96" category="section-title">ファイルノード：Lenovo ThinkSystem SR665 Server</block>
-  <block id="6b9e4d337aab66ffe52d7442d4de33cd" category="paragraph">SR665は、PCIe 4.0を搭載した2ソケット2Uサーバです。この解決策 の要件を満たすように構成すると、直接接続されたEシリーズノードが提供するスループットとIOPSの可用性とバランスの取れた構成でBeeGFSファイルサービスを実行するための十分なパフォーマンスが得られます。</block>
   <block id="18bc6212071e7cb1cca90788a40a9301" category="inline-link">LenovoのWebサイト</block>
-  <block id="81024062a06a8ee37394167df6e2e925" category="paragraph">Lenovo SR665の詳細については、を参照してください<block ref="2cce034b75e116efa73dc639a17202fa" category="inline-link-rx"></block>。</block>
   <block id="4b2aed7f56892904807d2a0dba262f91" category="section-title">ハードウェアの設計を確認した</block>
-  <block id="9e33e1f9796877cc85735e8b785ca26f" category="paragraph">このソリューションのビルディングブロック（次の図を参照）では、BeeGFSファイルレイヤに2台のデュアルソケットPCIe 4.0対応サーバを使用し、ブロックレイヤとして2台のEF600ストレージシステムを使用します。</block>
   <block id="9aff371c3d72ae246b764db116d45c50" category="paragraph"><block ref="9aff371c3d72ae246b764db116d45c50" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="5c48dcdddb94107a7a67762c9d1dbe6f" category="admonition">各ビルディングブロックには2つのBeeGFSファイルノードが含まれるため、フェイルオーバークラスタでクォーラムを確立するには少なくとも2つのビルディングブロックが必要です。2ノードクラスタを構成することもできますが、この構成にはフェイルオーバーの正常な実行を妨げる可能性がある制限があります。2ノードクラスタが必要な場合は、Tiebreakerとして第3のデバイスを組み込むことができます（ただし、この設計はこのサイトでは説明しません）。</block>
-  <block id="6a07b0ff8ee12bcea9aba90004bdf2e9" category="paragraph">各ビルディングブロックは、ファイルレイヤとブロックレイヤのフォールトドメインを分離する2層ハードウェア設計によって高可用性を実現します。各階層は個別にフェイルオーバーできるため、耐障害性が向上し、障害が連鎖的に発生するリスクを軽減できます。HDR InfiniBandとNVMeOFを併用することで、ファイルノードとブロックノードの間のスループットが向上し、レイテンシが最小限に抑えられます。また、完全な冗長性と十分なリンクのオーバーサブスクリプション機能を備えているため、システムが部分的に劣化している場合でも、分離型設計がボトルネックにならないよう</block>
-  <block id="3c08ab3aeeb113b43a410e04cd194da5" category="paragraph">NetApp解決策 のBeeGFSは、導入環境のすべてのビルディングブロックで実行されます。最初に導入したビルディングブロックでは、BeeGFS管理、メタデータ、ストレージの各サービス（基本ビルディングブロックと呼ばれます）を実行する必要があります。以降のすべてのビルディングブロックは、BeeGFSメタデータとストレージサービスを実行するソフトウェアまたはストレージサービスのみを使用して構成されます。ビルディングブロックごとに異なる構成プロファイルを使用できるため、基盤となる同じハードウェアプラットフォームとビルディングブロック設計を使用して、ファイルシステムのメタデータやストレージ容量、パフォーマンスを拡張できます。</block>
-  <block id="8c75634d2e6f2b333be16514a845f21a" category="paragraph">最大5つのビルディングブロックがスタンドアロンのLinux HAクラスタに統合され、クラスタリソースマネージャ（Pacemaker）ごとに適正な数のリソースを確保し、クラスタメンバーの同期を維持するために必要なメッセージングのオーバーヘッド（Corosync）を削減します。最低2つのビルディングブロックをクラスタごとに用意して、十分な数のメンバーがクォーラムを確立できるようにすることを推奨します。これらのスタンドアロンBeeGFS HAクラスタの1つ以上を組み合わせて、クライアントが単一のストレージネームスペースとしてアクセスできるBeeGFSファイルシステムを作成します（次の図を参照）。</block>
   <block id="68f8e190e5b0a73975772032f02e616d" category="paragraph"><block ref="68f8e190e5b0a73975772032f02e616d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="2656fcaf8e3676a2cbef703871ecdf24" category="paragraph">最終的にはラックあたりのビルディングブロック数は、特定のサイトの電力および冷却要件によって決まりますが、 解決策 は、1台の42Uラックに最大5個のビルディングブロックを導入できるように設計されていますが、ストレージ/データネットワークに使用する1U InfiniBandスイッチを2台収容するスペースがあります。各ビルディングブロックには8つのIBポート（冗長性のためにスイッチごとに4つ）が必要です。したがって、5つのビルディングブロックが40ポートHDR InfiniBandスイッチ（NVIDIA QM8700など）上の半分のポートを残して、脂肪ツリーまたは類似の非ブロッキングトポロジを実装できます。この構成により、ネットワークのボトルネックを発生させることなくストレージラックまたはコンピューティング/ GPUラックの数をスケールアップできます。オプションで、オーバーサブスクライブされたストレージファブリックをストレージファブリックベンダーの推奨事項で使用できます。</block>
-  <block id="70fe669a3a23094d7db9486a417dbef3" category="paragraph">次の図は、80ノードのファットツリートポロジを示しています。</block>
-  <block id="2fcf68f5d15d3841e3d288e4c8a6107c" category="paragraph"><block ref="2fcf68f5d15d3841e3d288e4c8a6107c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d6a8fb7565b3c37b0228984862a3977c" category="paragraph">Ansibleを導入エンジンとして使用してネットアップにBeeGFSを導入することで、管理者はコードの手法として最新のインフラを使用して環境全体を維持できます。これにより、複雑なシステムになる作業が大幅に簡易化されるため、管理者は設定をすべて一元的に定義して調整し、環境の規模に関係なく一貫して適用することができます。BeeGFSコレクションはから入手できます<block ref="6e6b4aec10f34b8873e2101fed073d9a" category="inline-link-rx"></block> および<block ref="6e9ef2e0fff4844f9560394ab05a51e9" category="inline-link-rx"></block>。</block>
   <block id="c8a0fcd1a15bb039926f56fd15ce82e9" category="summary">NetApp解決策 上のBeeGFSに適用される用語と概念</block>
   <block id="5d146c3fd3b69782d69f66b386b88a4c" category="doc">用語と概念</block>
   <block id="5710fc980ad3cc07a2d53a30f8e42802" category="paragraph">以下の用語と概念は、NetApp解決策 のBeeGFSに適用されます。</block>
@@ -232,7 +141,6 @@
   <block id="edcc56d654a1a9362699f309c738a185" category="list-text">共有ディスクの2層ハードウェア設計に基づくハイアベイラビリティ（HA）</block>
   <block id="189fdda096d5b994e140eac128f464e1" category="section-title">第2世代のデザイン</block>
   <block id="145c927b5996411105e8a05381bfab75" category="section-title">最初の世代のデザイン</block>
-  <block id="41ae1cb2edd9d144116e252e5f5c4e54" category="paragraph">ネットアップの第1世代のBeeGFSは、NetApp EF600 NVMeストレージシステム、BeeGFS並列ファイルシステム、NVIDIA DGX™A100システム、NVIDIA®Mellanox®Quantum™QM8700 200Gbps IBスイッチを使用して、機械学習（ML）と人工知能（AI）のワークロード向けに設計されました。この設計では、ストレージとコンピューティングクラスタのインターコネクトファブリックに100Gbps InfiniBand（IB）を搭載しており、ハイパフォーマンスワークロードに完全なIBベースのアーキテクチャを提供します。</block>
   <block id="8c2de6dc6972aa428c25b73867ee0c6c" category="inline-link-macro">NVIDIA DGX A100 システムと BeeGFS を搭載した NetApp EF シリーズ AI</block>
   <block id="cb0e1ee82028e21bcb25d1cedee42a90" category="paragraph">第1世代の詳細については、を参照してください <block ref="7c75f12548abfaad3f9a226ecdfc54d3" category="inline-link-macro-rx"></block>。</block>
   <block id="745f22cbd412f2eab6c6bf95417e8b09" category="doc">このサイトに含まれている情報</block>
@@ -242,7 +150,6 @@
   <block id="ef200d7e9d983785df6b4e01fa65bf59" category="section-title">Ansibleのコレクションとロール</block>
   <block id="31f2ceaa03965649e2e37df5634511e7" category="paragraph">アプリケーションの導入を自動化するために広く使用されているIT自動化エンジンであるAnsibleを使用して、NetApp解決策 にBeeGFSを導入します。Ansibleは、展開するBeeGFSファイルシステムをモデル化するインベントリとしてまとめて呼ばれる一連のファイルを使用します。</block>
   <block id="87d27d52f7fc81e8a134f2e3d2a57ecf" category="inline-link">NetApp EシリーズBeeGFSのコレクション</block>
-  <block id="f4bf5484498b52d77cb39955020e5321" category="paragraph">Ansibleを使用すると、ネットアップなどの企業は、Ansible Galaxyのコレクションを使用して組み込みの機能を拡張できます（を参照）<block ref="8dd9c2247c6151110981020f59a5fca3" category="inline-link-rx"></block>）。コレクションには、特定の機能やタスク（Eシリーズボリュームの作成など）を実行するモジュールや、複数のモジュールやその他の役割を呼び出すことができるロールが含まれます。この自動化されたアプローチにより、BeeGFSファイルシステムと基盤となるHAクラスタの導入に要する時間が短縮されます。さらに、ビルディングブロックの追加が簡単になり、既存のファイルシステムを拡張できます。</block>
   <block id="4aa1cf90ffa01d3b63825bad839d9e29" category="inline-link-macro">Ansibleのインベントリを確認できます</block>
   <block id="1325754275d5677e560f21035bc1ac47" category="paragraph">詳細については、を参照してください <block ref="dd39ef1fcc2e17fe1fe509b7ac2d5dea" category="inline-link-macro-rx"></block>。</block>
   <block id="5b3ae76175242b9c0c63ba5668657f49" category="admonition">NetApp解決策 へのBeeGFSの導入には多数の手順が含まれるため、解決策 の手動による導入はサポートされません。</block>
@@ -283,20 +190,16 @@
   <block id="02f510b4f0f01c83fb0898c7c21472f3" category="section-title">ファイルノードをセットアップします</block>
   <block id="58ee770c560ec650edbb0731c6882d53" category="list-text">各サーバのベースボード管理コントローラ（BMC）のネットワークを設定します。</block>
   <block id="75ae096871a25daf3dcd5da902c66ecf" category="inline-link">Lenovo ThinkSystemのドキュメント</block>
-  <block id="501998f9bebe4eeda8377a94578e9255" category="paragraph">検証済みLenovo SR665ファイルノードのネットワークを設定する方法については、を参照してください<block ref="3a3ba9924e08a04d2eb4947b4cdb2550" category="inline-link-rx"></block>。</block>
   <block id="0c112c89dd8c3ce2b92d5e4844ea4641" category="admonition">ベースボード管理コントローラ（BMC）は、サービスプロセッサとも呼ばれ、オペレーティングシステムがインストールされていない場合やアクセスできない場合でもリモートアクセスを提供できるさまざまなサーバプラットフォームに組み込まれているアウトオブバンド管理機能の一般的な名前です。ベンダーは通常、この機能を独自のブランドで販売しています。たとえば、Lenovo SR665では、BMCは_Lenovo XClarity Controller（XCC）_と呼ばれています。</block>
   <block id="290a84841d7341364c4abf862a74583f" category="list-text">最大のパフォーマンスを得るためにシステムを設定します。</block>
   <block id="04c7f6322804081c61ca0d88cef85904" category="paragraph">システム設定は、UEFIセットアップ（旧BIOS）を使用するか、多くのBMCが提供するRedfish APIを使用して設定します。システム設定は、ファイルノードとして使用するサーバモデルによって異なります。</block>
   <block id="354f37da23eacae1fc163775964a0a2e" category="paragraph">検証済みLenovo SR665ファイルノードのシステム設定を構成する方法については、を参照してください <block ref="dbe1843153b6696d3dd846d3a25ea7b2" category="inline-link-macro-rx"></block>。</block>
-  <block id="7e57b24d8418675e1eb9185b3a783ef7" category="list-text">Red Hat 8.4をインストールし、AnsibleコントロールノードからのSSH接続など、オペレーティングシステムの管理に使用するホスト名とネットワークポートを設定します。</block>
   <block id="63b34e32fcac1724c46edd575672332b" category="paragraph">この時点では、InfiniBandポートにIPを設定しないでください。</block>
   <block id="e9074e57167186919a163cd099187dd0" category="admonition">厳密には必須ではありませんが、以降のセクションでは、ホスト名には順番に番号が付けられ（h1-hNなど）、奇数ホストと偶数ホストで完了する必要のあるタスクを参照するようにしています。</block>
   <block id="0123fb5bcbcd68deb7c43ec913e70705" category="inline-link">RHELシステムを登録および登録する方法</block>
   <block id="29f7e22c9a0b8d15ea802eee7a5e07cf" category="inline-link">更新を制限する方法</block>
-  <block id="da5ddad82ac3e5b8ada040f6f5d0b4b1" category="list-text">Red Hatの公式リポジトリから必要なパッケージをインストールできるようにしたり、Red Hatのサポートされているバージョンに対する更新を制限するには、Red Hat Subscription Managerを使用してシステムを登録およびサブスクライブします。手順については、を参照してください<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> および <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
   <block id="577885e812bad7e4780317a271722339" category="list-text">ハイアベイラビリティに必要なパッケージを含むRed Hatリポジトリを有効にします。</block>
   <block id="3c438be737391744e2fed6f73c418638" category="inline-link-macro">テクノロジ要件</block>
-  <block id="f12bdbd9e0ff4f2d314f49b8ae9d6e79" category="list-text">すべてのConnectX-6 HCAファームウェアを、で推奨されているバージョンにアップデートします <block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
   <block id="de2787072a70ede6b3c4b90ff28fe789" category="inline-link">mlxup -アップデートとクエリユーティリティ</block>
   <block id="febfb51b621938c49980eee52ab6a373" category="section-title">ブロックノードをセットアップする</block>
   <block id="1dab115fdeed11b46ad9a32f690cfc8a" category="paragraph">各コントローラの管理ポートを設定してEF600ブロックノードをセットアップします。</block>
@@ -310,7 +213,6 @@
   <block id="91177a5a4b0c27f810e6deb9395eef4a" category="inline-link">NetApp EシリーズBeeGFS GitHub</block>
   <block id="489a8841f96385c3fca8ff239dc24250" category="paragraph">Ansibleインベントリは、ファイルノードとブロックノードの構成を定義し、導入するBeeGFSファイルシステムを表します。インベントリには、目的のBeeGFSファイルシステムを記述するホスト、グループ、および変数が含まれます。サンプルインベントリは、からダウンロードできます<block ref="5f5a4f2bb780d1d47d6a1c5865c757e8" category="inline-link-rx"></block>。</block>
   <block id="2b030b2e370bebb88648070cda0b66eb" category="section-title">Ansibleのモジュールとロール</block>
-  <block id="2c237568ac6f7bc2fd09645044287519" category="paragraph">Ansibleインベントリで説明されている構成を適用するには、NetApp EシリーズAnsibleコレクションに含まれるさまざまなAnsibleモジュールとロール、特にBeeGFS HA 7.2ロール（から入手可能）を使用します<block ref="aa2af16a93b1d617ca7c38eef1d0c556" category="inline-link-rx"></block>）を使用してエンドツーエンドの解決策 を導入します。</block>
   <block id="27633c2a48532dabf935531ba52193df" category="paragraph">NetApp EシリーズAnsibleコレクションの各ロールは、NetApp解決策 上のBeeGFSをエンドツーエンドで導入します。これらのロールでは、NetApp E-Series SANtricity 、Host、およびBeeGFSの各コレクションを使用して、HA（High Availability）を使用してBeeGFSファイルシステムを設定できます。その後、ストレージをプロビジョニングしてマッピングし、クラスタストレージを使用できる状態にします。</block>
   <block id="ca467fdffa66288bc6eeca1d49467e2e" category="paragraph">ロールには詳細なドキュメントが含まれていますが、導入手順では、第2世代のBeeGFSビルディングブロック設計を使用して、ロールを使用してNetApp Verified Architectureを導入する方法について説明します。</block>
   <block id="7c1be9d0f9dc743e2a1540004da3eb1d" category="admonition">導入手順でAnsibleの使用経験が十分に細かい情報を提供できるようにすることは前提条件ではありませんが、Ansibleと関連する用語についてある程度理解している必要があります。</block>
@@ -365,13 +267,11 @@
   <block id="f4bf34ee26e45437b7b34ee3858d3f39" category="list-text">必要に応じて、Ansibleコントロールノードから、BeeGFSクライアントとして設定する各ホストにパスワードなしのSSHを設定します。</block>
   <block id="c9793ac6c6a163b585094181979efe25" category="paragraph">「ssh-copy-id」&lt;user&gt;@&lt;hostname_or_ip&gt;`</block>
   <block id="05c8acf59a637c421ef21a4a37d674de" category="list-text">「host_vars/`」の下で、「&lt;hostname&gt;.yml」という名前のBeeGFSクライアントごとに、次の内容でファイルを作成し、環境に適した情報をプレースホルダテキストに入力します。</block>
-  <block id="eb92eeb67c4903777d624fd51e30acfa" category="admonition">現在、2つのストレージIPoIBサブネットごとに1つずつ、各クライアントに2つのInfiniBandインターフェイスを設定する必要があります。ここに記載されているBeeGFSサービスごとに、サンプルのサブネットと推奨範囲を使用する場合、クライアントには、「100.127.1」の範囲で設定されたインターフェイスが1つ必要です。0～100.127.99.255'およびその他の値は'100.128.1です0～100.128。99.255`.</block>
   <block id="ca6b4577e851d5587e19a3d017db68b1" category="list-text">新しいファイル'client_inventory.yml'を作成し'上部に次のパラメータを設定します</block>
   <block id="ec6e88f08b026e04d1ce5f5f31493b21" category="inline-link">Ansible Vaultを使用したコンテンツの暗号化</block>
   <block id="d424a4948912165baf5c9641ad4de044" category="admonition">パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（のAnsibleのドキュメントを参照してください）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>)または'プレイブックを実行するときに'--Ask -bece-pass`オプションを使用します</block>
   <block id="8f27eda73b5d4e7594b05bed1b90a053" category="list-text">「client_inventory.yml」ファイルで、「beegfs_clients」グループの下にBeeGFSクライアントとして設定する必要があるすべてのホストを一覧表示し、BeeGFSクライアントカーネルモジュールの構築に必要な追加の設定を指定します。</block>
   <block id="42d868a1eb5776ce2eb9b95938bcc056" category="inline-link">RDMAのサポート</block>
-  <block id="675bf44585d9e9ed71a38bde5f37fb5f" category="admonition">Mellanox OFEDドライバを使用する場合は'beegfs_client_OFED_include_pathが'使用しているLinuxインストールに適したヘッダーインクルード・パスを指していることを確認してください詳細については、のBeeGFSのマニュアルを参照してください<block ref="ad551773fffeead9219b565416da2397" category="inline-link-rx"></block>。</block>
   <block id="b9d3c4e1c18127cf36ad951b208d45bb" category="list-text">'client_inventory.yml'ファイルに'以前に定義したすべての変数の一番下にマウントするBeeGFSファイル・システムを一覧表示します</block>
   <block id="0ebb92016a1cd310802bb6e22bcd491c" category="admonition">「beegfs_client_config」は、テストされた設定を表します。すべてのオプションの包括的な概要については'netapp_eseries.beegfs`コレクションのbeegfs_client'ロールに付属のマニュアルを参照してくださいこれには、複数のBeeGFSファイルシステムのマウントまたは同じBeeGFSファイルシステムの複数回のマウントに関する詳細が含まれます。</block>
   <block id="853c95fff114a0396695a5a34c4f78f1" category="list-text">新しい'client_playbook.yml`ファイルを作成し'次のパラメータを設定します</block>
@@ -387,15 +287,9 @@
   <block id="527f436644c629cc1f2330d74c5c29b4" category="list-text">* BeeGFSサーバのマルチホーミング構成*解決策 の密度を高めるために'各ファイル・ノードには同じIPサブネットにIPが設定された複数のストレージ・インターフェイスがあります</block>
   <block id="5a19238d05fdcdb09e439e41a0a94349" category="paragraph">この設定がLinuxネットワークスタックで正常に機能するようにするには、追加の設定が必要です。これは、デフォルトでは、IPが同じサブネット内にある場合、1つのインターフェイスへの要求に別のインターフェイスで応答できるからです。他の欠点に加えて、このデフォルトの動作により、RDMA接続を適切に確立または維持することができなくなります。</block>
   <block id="e7a28f6c997a9c0eba41eb574b5f829c" category="paragraph">Ansibleベースの導入では、逆方向パス（RP）とアドレス解決プロトコル（ARP）の動作の締め付けに加え、フローティングIPの開始と停止のタイミングを保証します。対応するIPルートとルールが動的に作成され、マルチホームネットワークの設定が適切に機能できるようになります。</block>
-  <block id="99e50b7bb7e3ca73eb910eaf99c6f100" category="list-text">* BeeGFSクライアントのマルチレール構成*_Multi-rail_:複数の独立したネットワークレールを使用してパフォーマンスを向上させるアプリケーションの機能を指します</block>
-  <block id="24cb2caf398043c3ad552915f0ec2b22" category="paragraph">BeeGFSはRDMAを接続に使用できますが、BeeGFSはIPoIBを使用してRDMA接続の検出と確立を簡素化します。BeeGFSクライアントが複数のInfiniBandインターフェイスを使用できるようにするには、異なるサブネット内にあるIPアドレスを各クライアントに設定し、各サブネット内のBeeGFSサーバサービスの半分に優先インターフェイスを設定します。</block>
-  <block id="89b4732ecad8d523a7b684af09ad56ee" category="paragraph">次の図では、ライトグリーンで強調表示されているインターフェイスは1つのIPサブネット（たとえば、「100.127.0.0.0/16」）に配置され、ダークグリーンのインターフェイスは別のサブネット（たとえば「100.128.0.0/16」）に配置されています。</block>
   <block id="12ec3f7db1a39d49d76e159a6fc9be24" category="paragraph">次の図に、複数のBeeGFSクライアントインターフェイス間でのトラフィックの分散を示します。</block>
   <block id="8336bf936a644f2a0962fc710a65d3db" category="paragraph"><block ref="8336bf936a644f2a0962fc710a65d3db" category="inline-image-macro-rx" type="image"></block></block>
   <block id="02eef1a6d9aefa452755edb315057e27" category="paragraph">BeeGFSの各ファイルは通常、複数のストレージサービスにまたがってストライピングされるため、マルチレール構成では、単一のInfiniBandポートでは実現できないスループットよりも高いスループットをクライアントに提供できます。たとえば、次のコード例は、クライアントが両方のインターフェイス間でトラフィックを分散できるようにする、一般的なファイルストライピング設定を示しています。</block>
-  <block id="7a11ff2c7aa2ff0eccecba650f1db9f5" category="paragraph">2つのIPoIBサブネットを使用することは、論理的に区別されます。必要に応じて、単一の物理InfiniBandサブネット（ストレージネットワーク）を使用できます。</block>
-  <block id="315faf76d806cf96ff685ed2e65a9d16" category="inline-link">BeeGFS RDMAのサポート</block>
-  <block id="96002ab5a7c353b76ef0cc2e390f7131" category="admonition">BeeGFS 7.3.0では、1つのIPoIBサブネットで複数のIBインターフェイスを使用できるように、マルチレールサポートが追加されました。NetApp解決策 のBeeGFSの設計は、BeeGFS 7.3.0が一般的に使用可能になる前に開発されたものであるため、2つのIPサブネットを使用してBeeGFSクライアントの2つのIBインターフェイスを使用する方法を示しています。マルチIPサブネットアプローチの利点の1つは、BeeGFSクライアントノードでマルチホーミングを設定する必要がないことです（詳細については、を参照してください）<block ref="bb2f67f854c27129a1f13b908e56ca65" category="inline-link-rx"></block>）。</block>
   <block id="b28b500a27afaa858536ee53a4c02d91" category="section-title">EF600ブロックノード構成</block>
   <block id="6e88eb560b5c117f0226888b924af1c5" category="paragraph">ブロックノードは、同じドライブセットへの共有アクセスを持つ2つのアクティブ/アクティブRAIDコントローラで構成されます。通常、各コントローラにはシステムに設定されているボリュームの半分が所有されますが、必要に応じてもう一方のコントローラがテイクオーバーできます。</block>
   <block id="674757e2095af366602187ca856f8ec4" category="paragraph">ファイルノード上のマルチパスソフトウェアは、各ボリュームへのアクティブなパスと最適パスを決定し、ケーブル、アダプタ、またはコントローラに障害が発生した場合に自動的に代替パスに移動します。</block>
@@ -407,7 +301,6 @@
   <block id="f4fa0385d373373f4ab191231ead5909" category="section-title">BeeGFSファイルのノード設定</block>
   <block id="5e2d5eb9f991b81a298fb57212c715fe" category="paragraph">BeeGFSファイルノードは、複数のファイルノード間でBeeGFSサービスのフェイルオーバーを容易にするために、ハイアベイラビリティ（HA）クラスタに構成されます。</block>
   <block id="f409d0a0c329860646597bbcc45fcc4b" category="inline-link">高可用性アドオンに関するRed Hatトレーニング</block>
-  <block id="48a9bfc91c9cb5a8f6f7fc37080d3b95" category="paragraph">HAクラスタは、広く使用されている2つのLinux HAプロジェクトに基づいて設計されています。クラスタメンバーシップ用のCorosyncと、クラスタリソース管理用のPacemakerです。詳細については、を参照してください<block ref="a896e9cb42c24f9ab5c574f54ad83b08" category="inline-link-rx"></block>。</block>
   <block id="79b70ba13b6d273b53c66d816a15830d" category="paragraph">複数のオープンクラスタフレームワーク（OCF）リソースエージェントがネットアップにオーサリングされ、拡張されました。このエージェントを使用すると、クラスタでBeeGFSリソースのインテリジェントな起動と監視が可能になります。</block>
   <block id="ff07f4dbc22a6f0ecb4a11bfb6136d40" category="section-title">BeeGFS HA clusters（BeeGFS HAクラスタ</block>
   <block id="7a189557128751d94f2d8bca38ccf462" category="paragraph">通常、BeeGFSサービスを（HAの有無にかかわらず）開始するときは、次のようなリソースが必要になります。</block>
@@ -442,12 +335,10 @@
   <block id="92d102b77ed7526653d6ed77bc5f9297" category="list-text">NUMAノード0のポートは常に最初のブロックノードに接続します。</block>
   <block id="41d34f3f75f0a6f23825fec8c1f6b167" category="list-text">NUMAノード1のポートは、2番目のブロックノードに接続します。</block>
   <block id="058a7d9db61c859b343066aa0c6cd3c7" category="paragraph"><block ref="058a7d9db61c859b343066aa0c6cd3c7" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="109d8b81996cf829eba8acc62259eaee" category="admonition">冗長スイッチを使用するストレージネットワークでは、緑の薄いポートが1つのスイッチに接続され、緑のポートが別のスイッチに接続されます。</block>
   <block id="1109e0767ef0b323f02f85cdaa9a589d" category="paragraph">この図に示すケーブル構成では、BeeGFSサービスごとに次のことが可能です。</block>
   <block id="12e9ec8c0cb3aa87bfb400a73712d79b" category="list-text">BeeGFSサービスを実行しているファイルノードに関係なく、同じNUMAゾーンで実行します。</block>
   <block id="488f6220ee8bab2e1e3621f7f99b598c" category="list-text">障害が発生した場所に関係なく、フロントエンドストレージネットワークおよびバックエンドブロックノードへのセカンダリの最適パスを確保する。</block>
   <block id="e2ae85c4e917fafc3b545710dcc3fdf1" category="list-text">ブロックノード内のファイルノードまたはコントローラのメンテナンスが必要な場合は、パフォーマンスへの影響を最小限に抑えます。</block>
-  <block id="76af1dbb7a81b9258eeb702dd63164e2" category="paragraph">PCIeの完全な双方向帯域幅を利用するには、各InfiniBandアダプタの1つのポートをストレージファブリックに接続し、もう1つのポートをブロックノードに接続します。HDR InfiniBandポートの理論上の最大速度は25Gbpsです（シグナリングおよびその他のオーバーヘッドを考慮しない）。PCIe 4.0 x16スロットの最大シングル方向帯域幅は32Gbpsであり、理論的には50Gbpsの帯域幅を処理できるデュアルポートInfiniBandアダプタを搭載したファイルノードを実装する際にボトルネックとなる可能性があります。</block>
   <block id="33f3e0c9879fd051eb380c62267a24cf" category="paragraph">次の図に、PCIeの双方向帯域幅をフルに活用するためのケーブル配線の設計を示します。</block>
   <block id="5a81a38e29a457f16f6a1a9146cb73de" category="paragraph"><block ref="5a81a38e29a457f16f6a1a9146cb73de" category="inline-image-macro-rx" type="image"></block></block>
   <block id="1a72dacfce92d062255a929bbb18fc8d" category="paragraph">BeeGFSサービスごとに、同じアダプタを使用して、クライアントトラフィックに使用する優先ポートと、そのサービスボリュームのプライマリ所有者であるブロックノードコントローラへのパスを接続します。詳細については、を参照してください <block ref="1ce6299bc86692b3e97783bdba904848" category="inline-link-macro-rx"></block>。</block>
@@ -457,7 +348,6 @@
   <block id="ba33770125b7249843843e3524e48e5e" category="list-text">BeeGFSの管理、メタデータ、ストレージサービスなど、単一のベースとなるビルディングブロックです。</block>
   <block id="dc0ae690014a6e4ed1d17d728fce2e3a" category="list-text">BeeGFSメタデータとストレージビルディングブロック</block>
   <block id="f789cf74ad54c463cf1827c970b695c0" category="list-text">BeeGFSストレージ専用のビルディングブロック。</block>
-  <block id="c7dfb273d9605bd7640f597b869aef23" category="paragraph">このビルディングブロックは、2台のMellanox Quantum InfiniBand（M8700）スイッチに接続されました。また、10個のBeeGFSクライアントもInfiniBandスイッチに接続し、総合ベンチマークユーティリティの実行に使用しました。</block>
   <block id="f27d4d7620b1158ad830c498a6faf1c5" category="paragraph">次の図は、NetApp解決策 でBeeGFSを検証するために使用するBeeGFS設定を示しています。</block>
   <block id="c76715003b58d0566ea40579fbf2b849" category="paragraph"><block ref="c76715003b58d0566ea40579fbf2b849" category="inline-image-macro-rx" type="image"></block></block>
   <block id="dfa0c76fc554fa6837cfe216381eb3df" category="section-title">BeeGFSファイルのストライピング</block>
@@ -526,10 +416,8 @@
   <block id="38b622e4d5c9d918330c81663f61a4e3" category="doc">ベストプラクティスを確認</block>
   <block id="d780de93793370946b2449b88a29b5ea" category="section-title">標準規則</block>
   <block id="b4d19c971bd6ad93985147c0ce9477c8" category="list-text">ファイル・ノードのホスト名は'順番に番号が付けられ（H01-HN）'ラックの一番上に番号が小さい'下に数字が大きい</block>
-  <block id="0a4e8ee6eb2b3c9ae6b2864c18db1a80" category="paragraph">たとえば'[location][row][rack][hn']という命名規則は'ictad22h01'のようになります</block>
   <block id="7bf4bcec78c083e165c31432234ebef8" category="list-text">各ブロックノードは2台のストレージコントローラで構成され、コントローラごとに独自のホスト名が付けられます。</block>
   <block id="1d6d5c920cb7d130fd45d8ced35ebec2" category="paragraph">ストレージアレイ名は、Ansibleインベントリの一部としてブロックストレージシステム全体を参照するために使用されます。ストレージアレイ名は順番に（A01-AN）番号を付け、各コントローラのホスト名はこの命名規則に基づいて付けます。</block>
-  <block id="213b6742fe86c9b7a08c68d5206d723a" category="paragraph">たとえば、「ictad22a01」という名前のブロックノードでは、通常、「ictad22a01-a」や「ictad22a01-b」などの各コントローラにホスト名を設定できますが、Ansibleのインベントリでは「ictad22a01」と呼ばれます。</block>
   <block id="a902add826ee667d7f067acb8b49432f" category="list-text">同じビルディングブロック内のファイルノードとブロックノードは、同じ番号方式を共有し、ラック内で互いに隣接しています。一番上に両方のファイルノードがあり、その下に両方のブロックノードが直接配置されています。</block>
   <block id="2761f73c104511b8aaeef2eb6c84f3d3" category="paragraph">たとえば、最初のビルディングブロックでは、ファイルノードH01とH02がどちらもブロックノードA01とA02に直接接続されています。ホスト名は、H01、H02、A01、およびA02です。</block>
   <block id="33324ee77729f51ada2c5446c9c21488" category="list-text">ビルディングブロックは、ホスト名に基づいて順に配置されるため、番号の小さいホスト名はラックの上部に、番号の大きいホスト名は下部に配置されます。</block>
@@ -579,8 +467,6 @@
   <block id="5e0ca78bea1b6ed4af93b1b1c5d7c573" category="cell">192.168.8.10</block>
   <block id="3581177979a7b934a2accd3f5f999444" category="cell">192.168.8.100</block>
   <block id="49213c8f0e8758438d7a69e2789a8b7d" category="cell">192.168.8.101</block>
-  <block id="39927fda75baba1d602f4ac8906cb4ef" category="section-title">BeeGFSクライアント/サーバIPoIBアドレッシング方式（2つのサブネット）</block>
-  <block id="db65743173e4ff7d9ed62df6220dc4a4" category="paragraph">BeeGFSクライアントが2つのInfiniBandポートを使用できるようにするには、各サブネットで優先IPを設定したBeeGFSサーバサービスの半分に2つのIPoIBサブネットを設定して、クライアントが2つのInfiniBandポートを使用してファイルシステムの冗長性とスループットを最大化する必要があります。</block>
   <block id="5e98efce8292b94590f3ca502c1d8697" category="paragraph">各ファイルノードは、複数のBeeGFSサーバサービス（管理、メタデータ、またはストレージ）を実行します。各サービスを他のファイルノードに個別にフェイルオーバーできるようにするために、各サービスには両方のノード間で共有できる一意のIPアドレス（論理インターフェイスまたはLIFとも呼ばれます）が設定されます。</block>
   <block id="4db8c0036deb36a38e4df4660af9ed06" category="paragraph">必須ではありませんが、この配置では、次のIPoIBサブネット範囲がこれらの接続に使用されていることが前提となり、次の規則を適用する標準アドレッシング方式を定義します。</block>
   <block id="8d41eefa8441a4ca177fe0f2676a9512" category="list-text">2番目のオクテットは、ファイルノードのInfiniBandポートが奇数であるか偶数であるかに基づいて常に奇数になります。</block>
@@ -588,7 +474,6 @@
   <block id="3aed58e1cc4af0e5cda8b7e10e2fd863" category="admonition">インバンドOS管理に使用されるインターフェイスに加えて、Corosyncでクラスタのハートビートおよび同期に追加のインターフェイスを使用できます。これにより、1つのインターフェイスが停止してもクラスタ全体が停止することはありません。</block>
   <block id="d95a2f19c705379e32f8030de274d07e" category="list-text">BeeGFS管理サービスは'常に'xxx.yyy.101.0'または'xxx.yyy.102.0`になります</block>
   <block id="29cd1587ba2833db9af29eac16f0d72b" category="list-text">BeeGFSメタデータ・サービスは常に「xxx.yyy.101.zzz」または「xxx.yyy.102.zzz」です。</block>
-  <block id="60c1357dfcd221c354054e43ac815018" category="list-text">BeeGFSストレージ・サービスは'常にxxx.103.zzzまたは'xxx.yyy.103.zzz'です</block>
   <block id="be092b10130fe0c97dd9358f0c131935" category="list-text">アドレス範囲は'100.xxx.1.1'～'100.xxx.99.255'で'クライアント用に予約されています</block>
   <block id="3ac8c958d4c77187295fd53646229e9e" category="paragraph">次の表に、サブネットAの範囲を示します。100.127.0.0.0/16</block>
   <block id="261addf78c7b2c961032b3dd08ba0b1f" category="cell">目的</block>
@@ -635,13 +520,10 @@
   <block id="6721128d9ea380f9965cc220f28619e1" category="list-text">*必須構成パラメータのデフォルト設定。*必要な構成パラメータは、BeeGFSサービスの構成方法、およびペースメーカーによるEシリーズボリューム（ブロックデバイス）のフォーマットとマウント方法に影響します。これらの必須設定パラメータには、次のものがあります。</block>
   <block id="93de4dab2e303d649f94f0880095e6ef" category="list-text">BeeGFSサービスの設定パラメータ</block>
   <block id="c5b3473e89672cc155d0436c6e60bd52" category="inline-link">BeeGFSサービスの設定パラメータ</block>
-  <block id="bf8b3766586fac2207dd5c620d7b308d" category="paragraph">必要に応じて、設定パラメータのデフォルト設定を上書きできます。特定のワークロードやユースケースに合わせて調整できるパラメータについては、を参照してください<block ref="d22612d773394e50d7efa2e9719d459e" category="inline-link-rx"></block>。</block>
   <block id="334a50f926a902a241ecfae54f3cce32" category="list-text">ボリュームのフォーマットとマウントのパラメータは推奨されるデフォルトに設定されており、高度なユースケースでのみ調整する必要があります。デフォルト値では、次の処理が実行されます。</block>
   <block id="4b9b870ed7f3db8f28c2ddcf4d3bd986" category="list-text">ターゲットタイプ（管理、メタデータ、ストレージなど）、基盤となるボリュームのRAID構成とセグメントサイズに基づいて、ボリュームの初期フォーマットを最適化します。</block>
   <block id="9f641b3b08e18d35b2219dee293e2038" category="list-text">Pacemakerが各ボリュームをマウントする方法を調整し、変更がEシリーズのブロックノードにすぐにフラッシュされるようにします。これにより、アクティブな書き込みが進行中の状態でファイルノードに障害が発生してもデータが失われることはありませ</block>
   <block id="72247689b02927b1ceac4fb69e6c9954" category="inline-link">ボリュームのフォーマットと構成パラメータのマウント</block>
-  <block id="71ba07d5377dd195ceff5f6dbddc08dc" category="paragraph">特定のワークロードやユースケースに合わせて調整できるパラメータについては、を参照してください<block ref="2996b969524b278e7da0cf1bb77d8754" category="inline-link-rx"></block>。</block>
-  <block id="728ecec149994e53980e0103b04d3e1b" category="list-text">*ファイルノードにインストールされているLinux OSのシステム設定。*の手順4でAnsibleインベントリを作成すると、デフォルトのLinux OSシステム設定を上書きできます <block ref="ecd3f3fdba3715697adf284eecd1c932" category="inline-link-macro-rx"></block>。</block>
   <block id="c5d80eb8c0726de2a9804385295dc0e3" category="paragraph">デフォルトの設定を使用してNetApp解決策 のBeeGFSが検証されましたが、特定のワークロードやユースケースに合わせて調整するように変更することができます。変更可能なLinux OSのシステム設定には、次のようなものがあります。</block>
   <block id="b56281fe1e5f14da49b6d1d4c6ad0cd9" category="list-text">EシリーズのブロックデバイスのI/Oキュー。</block>
   <block id="43a8170c4aebbb467c4d4b59d77a7662" category="paragraph">BeeGFSターゲットとして使用されるEシリーズのブロックデバイスでは、次の目的でI/Oキューを設定できます。</block>
@@ -654,7 +536,6 @@
   <block id="aa8e8d4d1817c4e08c70cd3c1b4c89b9" category="list-text">CPU設定。</block>
   <block id="423dd652f980ba19cb7fb7f577576270" category="paragraph">CPU周波数ガバナおよびその他のCPU構成を調整して、パフォーマンスを最大限に高めることができます。</block>
   <block id="eb2cf8d186779ea110100038f3ec2e90" category="list-text">読み取り要求のサイズ</block>
-  <block id="17dd6d5b67055565e29c50f8150ce378" category="paragraph">Mellanox HCAの読み取り要求の最大サイズを増やすことができます。</block>
   <block id="ba4dcc8d5b46a4c30176506ef828aea4" category="section-title">ブロックノードのパフォーマンス調整</block>
   <block id="4f59030dbd3da04d4b74738f5149fffb" category="paragraph">特定のBeeGFSビルディングブロックに適用される構成プロファイルに基づいて、ブロックノードに設定されたボリュームグループが少し変化します。たとえば、24ドライブのEF600ブロックノードがある場合、次のようになります。</block>
   <block id="841fc343eee01328e222ebada200ca5d" category="list-text">BeeGFSの管理、メタデータ、ストレージサービスなど、単一のベースビルディングブロックの場合は次の手順を実行します。</block>
@@ -694,140 +575,94 @@
   <block id="cdd25d91a2d0aca59a80f91cfe9af9de" category="cell">所有コントローラ</block>
   <block id="f4d0c8022be4f31d06814c33705037ff" category="cell">meta_01.yml</block>
   <block id="1f7aa6705d5b742085538c627f6f9c2b" category="cell">8015</block>
-  <block id="01098d2436a5e4cf506036d6aca3c6b9" category="cell">i1b：100.127.101.1/16 i2b：100.128.102.1/16</block>
   <block id="cfcd208495d565ef66e7dff9f98764da" category="cell">0</block>
-  <block id="ca9fd584227ff345bca2ef90d5c56e63" category="cell">ictad22a01</block>
   <block id="7ef878b8d47cf2658a8b7e4c1b8f133d" category="cell">beegfs_m1_m2_m5_m6</block>
   <block id="7fc56270e7a70fa81a5935b72eacbe29" category="cell">A</block>
   <block id="60b1afbaab870bf5621ed87ae12559fe" category="cell">meta_02.yml</block>
   <block id="62d2b7ba91f34c0ac08aa11c359a8d2c" category="cell">8025</block>
-  <block id="e04871f7c2f611e8ad3e026ef33ce958" category="cell">i2b：100.128.102.2/16 i1b：100.127.101.2/16</block>
   <block id="9d5ed678fe57bcca610140957afab571" category="cell">B</block>
   <block id="3ce592406a461bfadfa5ab1f08c5c506" category="cell">meta_03.yml</block>
   <block id="a2b8a85a29b2d64ad6f47275bf1360c6" category="cell">8035</block>
-  <block id="e04d4c629001763b33c4ff8b9896d667" category="cell">i3b：100.127.101.3/16 i4b：100.128.102.3/16</block>
   <block id="c4ca4238a0b923820dcc509a6f75849b" category="cell">1.</block>
-  <block id="e2113f2adde9ccc87fb733b80de62a05" category="cell">ictad22a02</block>
   <block id="c229ea898f8c27aeb40c65332e30db3f" category="cell">beegfs_m3_m4_m7_M8</block>
   <block id="7f6482de225123824ca5b23c1cf79f05" category="cell">meta_04.yml</block>
   <block id="704cddc91e28d1a5517518b2f12bc321" category="cell">8045</block>
-  <block id="0d343c87415ff2c30cb55d5962ced8e2" category="cell">i4b：100.128.102.4/16 i3b：100.127.101.4/16</block>
   <block id="833a23c43dc9c206a593873d80d04903" category="cell">meta_05.yml</block>
   <block id="444b0d9a802792791bb9a2da568b463d" category="cell">8055</block>
-  <block id="685d00be66f443c6c339b81cc66fa4a3" category="cell">i1b：100.127.101.5/16 i2b：100.128.102.5/16</block>
   <block id="38774c8cd9de3fd76c7df6b0746f2f2b" category="cell">meta_06.yml</block>
   <block id="320e4df890a1a620573db8170f39a093" category="cell">8065</block>
-  <block id="f084a55203c0946ef5605449dede3354" category="cell">i2b：100.128.102.6/16 i1b：100.127.101.6/16</block>
   <block id="5a681b3e1f7ad2d965284e36f4f6b7d3" category="cell">meta_07.yml</block>
   <block id="ede529dfcbb2907e9760eea0875cdd12" category="cell">8075</block>
-  <block id="59a587289a0c0568b62bb3b0beb25710" category="cell">i3b：100.127.101.7 / 16 i4b：100.128.102.7 / 16</block>
   <block id="a9cc3f3ebc7a8daedf369af06faba518" category="cell">meta_08.yml</block>
   <block id="5011bf6d8a37692913fce3a15a51f070" category="cell">8085</block>
-  <block id="183b03ffff0f1c540c2bcc4fa7645e8f" category="cell">i4b：100.128.102.8/16 i3b：100.127.101.8/16</block>
   <block id="89f0938aa83de82ca99f8b06297ed69c" category="list-text">「group_vars/`」の下で、以下のテンプレートを使用して「stor_01」から「stor_08」のリソースグループ用のファイルを作成し、例を参照する各サービスのプレースホルダ値を入力します。</block>
   <block id="9b62ac6b206ab6cafe8dafa0990559c7" category="inline-link-macro">ストレージプールのオーバープロビジョニングの割合を推奨します</block>
   <block id="ab2ec57b0e9afdc73bcc69a962ee35c4" category="admonition">正しいサイズについては、を参照してください <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="b627976db3394ccf24342632cef6f4f1" category="cell">STOR_01.yml</block>
   <block id="40f4da34bbe180214c23b9e55da4f772" category="cell">8013</block>
-  <block id="2fcc40eb936b77784739bed3cda30225" category="cell">i1b：100.127.103.1/16 i2b：100.128.104.1/16</block>
   <block id="5ef33d06ff783e8453c10b95db8c1253" category="cell">beegfs_s1_s2</block>
   <block id="70963f6e36ca66556bef5f6ae74ad0ad" category="cell">STOR_02.yml</block>
   <block id="1ecdec353419f6d7e30857d00d0312d1" category="cell">8023</block>
-  <block id="bf4e53a6c43ad511c5f730de94f1c989" category="cell">i2b：100.128.104.2/16 i1b：100.127.103.2/16</block>
   <block id="a4253b13d64a7017467d335c0c147ed3" category="cell">STOR_03.yml</block>
   <block id="fc5b3186f1cf0daece964f78259b7ba0" category="cell">8033</block>
-  <block id="d2f781a145f7598ae80a6ed6a34a297d" category="cell">i3b：100.127.103.3／16 i4b：100.128.104.3／16</block>
   <block id="a3cc9ef3e643fd2d2e1b6c2672b1c361" category="cell">beegfs_s3_s4</block>
   <block id="d471f1c4be4f658b822b7cfcfc808efa" category="cell">STOR_04.yml</block>
   <block id="5bd529d5b07b647a8863cf71e98d651a" category="cell">8043</block>
-  <block id="87b35387416f5837e6e2523744e368f9" category="cell">i4b：100.128.104.4/16 i3b：100.127.103.4/16</block>
   <block id="6a0625f228a1c5802a3d0ca970c7ebac" category="cell">STOR_05.yml</block>
   <block id="dfccdb8b1cc7e4dab6d33db0fef12b88" category="cell">8053</block>
-  <block id="457859c18e2dfb216c95ea335da7fdc9" category="cell">i1b：100.127.103.5/16 i2b：100.128.104.5/16</block>
   <block id="2ac54a6d92aca96fef8d0eac5b813f34" category="cell">beegfs_s5_s6</block>
   <block id="09da1a861f10d113069c5e1da9d2decd" category="cell">STOR_06.yml</block>
   <block id="8d1f1aac0dd8a76b49e8bbdda0c7c98c" category="cell">8063</block>
-  <block id="1bd035750c97cc091a94b72035e34013" category="cell">i2b：100.128.104.6/16 i1b：100.127.103.6/16</block>
   <block id="cf124e58023b3726106af9c8718a48ed" category="cell">STOR_07.yml</block>
   <block id="ffa9b486ad206c638c657b7ed335635c" category="cell">8073</block>
-  <block id="d319c022fb006d05c63de544a768c7b5" category="cell">i3b：100.127.103.7/16 i4b：100.128.104.7/16</block>
   <block id="3e96e523215f928a3915e79e1451e2e7" category="cell">beegfs_s7_s8</block>
   <block id="0e4b036746af52a755e4b546698b2b61" category="cell">STOR_08.yml</block>
   <block id="20ef119e812e178ecb44efa448b57ebc" category="cell">8083</block>
-  <block id="abf8898bf8b809341f1a690241343288" category="cell">i4b：100.128.104.8/16 i3b：100.127.103.8/16</block>
   <block id="80e0c052ed9f2bde54c56adb04f880f1" category="section-title">手順3：メタデータとストレージのビルディングブロックのインベントリを設定する</block>
   <block id="9e701ac8f2dd669a0e51464b4d8e3331" category="paragraph">以下の手順では、BeeGFSメタデータとストレージビルディングブロックにAnsibleインベントリを設定する方法について説明します。</block>
   <block id="ff1cbf3210fb9b21912445c6ea8cb9f6" category="list-text">'inventory.yml'で'既存の構成の下に次のパラメータを入力します</block>
   <block id="628d1b90e1a21bbcec24af78377f8297" category="list-text">「group_vars/`」の下で、次のテンプレートを使用して「meta_09」から「meta_16」までのリソースグループのファイルを作成し、例を参照する各サービスのプレースホルダ値を入力します。</block>
   <block id="bc5e8003da73758b95c46194672943bb" category="admonition">正しいサイズについては、を参照してください <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="9c6de3c786b8c9c409de2fd8070e5072" category="cell">meta_09.yml</block>
-  <block id="4bcb81674e1186a66143fec42901c209" category="cell">i1b：100.127.101.9 / 16 i2b：100.128.102.9 / 16</block>
-  <block id="a54f967fcc27024d3780cfad23300dd8" category="cell">ictad22a03</block>
   <block id="2ea9f3181dbee99d651a0d6c53be4a36" category="cell">beegfs_m9_m10_m13_M14</block>
   <block id="f370a281056494e99bcade5ddef17b26" category="cell">meta_10.yml</block>
-  <block id="89d68a1b94d4d1c926944117a136dad1" category="cell">i2b：100.128.102.10/16 i1b：100.127.101.10/16</block>
   <block id="27f563eed2131061540c21a6239b43d8" category="cell">meta_11.yml</block>
-  <block id="6239aa390b35659bc861841760941247" category="cell">i3b：100.127.101.11/16 i4b：100.128.102.11/16</block>
-  <block id="af2f976032e920d54c9455a8e1fd675d" category="cell">ictad22a04</block>
   <block id="7c335ef1ce51db644c52518580d45d49" category="cell">BEegfs_M11_M12_M15_M16</block>
   <block id="a2a3007e91ab84d40e9453997468f1ad" category="cell">meta_12.yml</block>
-  <block id="a65f2e74154cdd3870324bbed77b4bd5" category="cell">i4b：100.128.102.0/16 i3b：100.127.101.2/16</block>
   <block id="14c79c2a227a377885225e0f4dcf53b0" category="cell">meta_13.yml</block>
-  <block id="b6b9f36adb7974a0f6d17412ec3fee68" category="cell">i1b：100.127.101.13 / 16 i2b：100.128.102.13 / 16</block>
   <block id="07e72a8a343c421129dc3a92902de565" category="cell">meta_14.yml</block>
-  <block id="c44a959db7ffec72c54df85a2b00175b" category="cell">i2b：100.128.102.14 / 16 i1b：100.127.101.14 / 16</block>
   <block id="d4d36ef3d915a0d2eaac8c62f1d8eff6" category="cell">meta_15.yml</block>
-  <block id="44b67b40baecc652e6f08e274b29865b" category="cell">i3b：100.127.101.15/16 i4b：100.128.102.15/16</block>
   <block id="b465a4b4c591a6f2e44fedac80e726d0" category="cell">meta_16.yml</block>
-  <block id="23344e5747f1b08172f5d05aa88919e5" category="cell">i4b：100.128.102.16/16 i3b：100.127.101.16/16</block>
   <block id="91e38d134a7ca4a23006b0cf023d9011" category="list-text">「group_vars/」の下で、「stor_09」から「stor_16」までのリソースグループ用のファイルを作成し、例を参照する各サービスのプレースホルダ値を入力します。</block>
   <block id="ca61951791cd6f4d50294a908b9eee76" category="admonition">正しいサイズについては、を参照してください <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="71c1385fcc844d118e8b2688b0cfd2d6" category="cell">STOR_09.yml</block>
-  <block id="b183ecb3a449e6250fd1771086e68253" category="cell">i1b：100.127.103.9/16 i2b：100.128.104.9/16</block>
   <block id="9282f3f43896f146dcbcc2d03d530b59" category="cell">beegfs_s9_s10</block>
   <block id="8f72ae1bf7ca7b8218a4bf9e719f5e7d" category="cell">STOR_10.yml</block>
-  <block id="b8569c1d93725d20f1a50fb74f3947df" category="cell">i2b：100.128.104.10 / 16 i1b：100.127.103.10 / 16</block>
   <block id="e5a3d4f42adb756f3b3c2e3ed045e4a8" category="cell">STOR_11.yml</block>
-  <block id="53b0db6fe7b8e62a2dcc9bf455bcf174" category="cell">i3b：100.127.103.11/16 i4b：100.128.104.11 /16</block>
   <block id="6e4cec4b32bddd9c9a3574aacee223b6" category="cell">beegfs_s11_s12を指定します</block>
   <block id="05fd4833433a12b38d11d8045aebddff" category="cell">STOR_12.yml</block>
-  <block id="9df04e8249070b73fc9be81b8f249664" category="cell">i4b：100.128.104.12/16 i3b：100.127.103.12/16</block>
   <block id="437037bccd34f3db0b238843b50fe65a" category="cell">STOR_13.yml</block>
-  <block id="527c5e3cde165799cdd8148db81d6473" category="cell">i1b：100.127.103.13 / 16 i2b：100.128.104.13 / 16</block>
   <block id="7db433542754f496e2d707f51bf00c05" category="cell">beegfs_S13_s14</block>
   <block id="b3c4ed6c5b5c833713923f9e9bdfb9b9" category="cell">STOR_14.yml</block>
-  <block id="80cd11504622edd89d4abbc32c1245aa" category="cell">i2b：100.128.104.14/16 i1b：100.127.103.14/16</block>
   <block id="4871ef58b7b91db78d33bb4d95e4bf27" category="cell">STOR_15.yml</block>
-  <block id="040551498fc870111512145ed93337fc" category="cell">i3b：100.127.103.15/16 i4b：100.128.104.15/16</block>
   <block id="b1a9c1cb2640dd5bc9fb4e80dda30200" category="cell">beegfs_s15_s16</block>
   <block id="b02a9cdb541eba39e680a1da9c6299c7" category="cell">STOR_16.yml</block>
-  <block id="4799f858e623362408f753fa051a2699" category="cell">i4b：100.128.104.16/16 i3b：100.127.103.16/16</block>
   <block id="dea1f079dcd8c8280e07dcd96ea8c075" category="section-title">手順4：ストレージ専用のビルディングブロックのインベントリを設定する</block>
   <block id="711be1acedea341e1f5455f007cdb22b" category="paragraph">以下の手順では、BeeGFSストレージ専用ビルディングブロックのAnsibleインベントリを設定する方法について説明します。メタデータとストレージのみのビルディング・ブロックの構成を設定する場合の主な違いは'すべてのメタデータ・リソース・グループを省略し'各ストレージ・プールの基準ドライブ数を10から12に変更することです</block>
   <block id="5b6fe069463b7f5581a1864de036e765" category="list-text">「group_vars/`」の下で、以下のテンプレートを使用して「stor_17`~`stor_24`のリソースグループのファイルを作成し、例を参照する各サービスのプレースホルダ値を入力します。</block>
   <block id="80f4c22d8a78e5d96cdf5bef28444426" category="admonition">正しいサイズについては、を参照してください <block ref="152d8bea233357f34ffa00ccf219bae3" category="inline-link-macro-rx"></block>。</block>
   <block id="f9838993bed3d0e550ae346ed2e4355e" category="cell">STOR_17.yml</block>
-  <block id="de15a372e63adf3e9d172fcfe67bffbc" category="cell">i1b：100.127.103.17/16 i2b：100.128.104.17/16</block>
-  <block id="5e71a5c8d7eefee3fe82fe28b69d3c1e" category="cell">ictad22a05</block>
   <block id="8cf4aacf94a115dfc0190ee6782190d3" category="cell">beegfs_s17_s18</block>
   <block id="7876b49b042d07da9a565db780a9b186" category="cell">STOR_18.yml</block>
-  <block id="e14872a3791e3d785c59a5fb1892c4cf" category="cell">i2b：100.128.104.18/16 i1b：100.127.103.18/16</block>
   <block id="291847ab33dfc1d81beed13f4d7a0519" category="cell">STOR_19.yml</block>
-  <block id="29d24f7d913acaf024704d56a3b47f4d" category="cell">i3b：100.127.103.19/16 i4b：100.128.104.19/16</block>
-  <block id="114a9ab19efb0876a3622e54afc5bdbb" category="cell">ictad22a06</block>
   <block id="6a972920f626e0b0b8d505315beaf38b" category="cell">beegfs_s19_s20</block>
   <block id="943a4f354a2af18dac1fe2a6e14fe880" category="cell">STOR_20.yml</block>
-  <block id="e441e411ebace2ff01e6e612efceb07a" category="cell">i4b：100.128.104.20/16 i3b：100.127.103.20/16</block>
   <block id="a5aadbbde2e0b66fc661a126f5a1ce1e" category="cell">STOR_21. yml</block>
-  <block id="4a7361f8632968e437b2bae55a7d6a5e" category="cell">i1b：100.127.103.21 / 16 i2b：100.128.104.21 / 16</block>
   <block id="9c82263beb960ece0e5b6ac0604bb4d9" category="cell">beegfs_S21_s22</block>
   <block id="4879e56fe4d161ba3e4df67f961c483a" category="cell">STOR_22.yml</block>
-  <block id="8768cf88da2b645b99d30056c6b1f6e7" category="cell">i2b：100.128.104.22 / 16 i1b：100.127.103.22 / 16</block>
   <block id="316b3c9a6656c51b87a725bf1f678a52" category="cell">STOR_23.yml</block>
-  <block id="5eda737d72e69dcbdd869d84cc7c0e48" category="cell">i3b：100.127.103.23/16 i4b：100.128.104.23/16</block>
   <block id="2404c81b13915ef9d59e0ac6328f4c10" category="cell">beegfs_S23_s24</block>
   <block id="47662afeeaa16771e7d516dd96ade0b7" category="cell">STOR_24.yml</block>
-  <block id="a9088dda4778ef90eb3b6f87b070cd25" category="cell">i4b：100.128.104.24/16 i3b：100.127.103.24/16</block>
   <block id="66136a118d01240429805a157ae4b538" category="summary">第2世代ビルディングブロックのストレージプール構成ごとに標準4つのボリュームを使用する場合は、上記の推奨割合を参照してください。</block>
   <block id="13d38edc52fe6e049aae05e6fce1573a" category="paragraph">第2世代のビルディングブロックでストレージプールあたりの標準の4ボリューム構成に従う場合は、次の表を参照してください。</block>
   <block id="2d115a94acc324947afb0abf7c47d665" category="paragraph">次の表に、BeeGFSメタデータまたはストレージ・ターゲットごとの'eseries_storage_pool_configuration'でボリューム・サイズとして使用する推奨パーセンテージを示します。</block>
@@ -857,30 +692,18 @@
   <block id="e5e4c2e4c004bc7dbd4a04d4b0971e53" category="paragraph">導入のサイズと、Ansible制御ノードとBeeGFSファイルおよびブロックノードの間のネットワークパフォーマンスによって、導入時間が異なる場合があります。</block>
   <block id="c38012b2187d10d4a33d168693918570" category="summary">各ビルディングブロックは、HDR（200GB）InfiniBandを使用して2つのネットアップブロックノードに直接接続された、検証済みの2つのx86ファイルノードで構成されます。</block>
   <block id="0893812920a9268362b89a618b2f05c4" category="paragraph">各ビルディングブロックは、HDR（200GB）InfiniBandケーブルを使用して2つのブロックノードに直接接続された、検証済みの2つのx86ファイルノードで構成されます。</block>
-  <block id="cf173c7219b93e53cad26c1f5975c527" category="admonition">各ビルディングブロックには2つのBeeGFSファイルノードが含まれるため、フェイルオーバークラスタでクォーラムを確立するには少なくとも2つのビルディングブロックが必要です。2ノードクラスタを構成することは可能ですが、この構成には制限があり、場合によってはフェイルオーバーを正常に実行できません。2ノードクラスタが必要な場合は、この導入手順 では説明していませんが、3つ目のデバイスをTiebreakerとして組み込むこともできます。</block>
-  <block id="0cc464de9a37ad072fa7529593389b2a" category="paragraph">特に明記しないかぎり、BeeGFSメタデータとストレージサービスまたはストレージサービスのみの実行に使用するかどうかにかかわらず、次の手順はクラスタ内の各ビルディングブロックで同じです。</block>
-  <block id="ee6202c3dca3dfe457b79b5ff39c7765" category="list-text">4つのPCIe 4.0 ConnectX-6デュアルポートホストチャネルアダプタ（HCA）を使用して各BeeGFSファイルノードをInfiniBandモードで設定し、PCIeスロット2、3、5、6に取り付けます。</block>
   <block id="9df6f3b087eea6552beb54d44653501a" category="list-text">デュアルポートの200GBホストインターフェイスカード（HIC）で各BeeGFSブロックノードを設定し、2台の各ストレージコントローラにHICを取り付けます。</block>
-  <block id="31562d2b8d25ec86381df6ff0157e4b7" category="paragraph">2つのBeeGFSファイルノードがBeeGFSブロックノードの上になるようにビルディングブロックをラックに配置します。次の図は、BeeGFSビルディングブロックの正しいハードウェア構成を示しています（背面図）。</block>
-  <block id="7a549152f69a4c5a4d90a9ad467016da" category="paragraph"><block ref="7a549152f69a4c5a4d90a9ad467016da" category="inline-image-macro-rx" type="image"></block></block>
   <block id="9e5081bbd0a64102ab8844f96776d6ea" category="admonition">一般に、本番環境では電源装置を冗長PSUにする必要があります。</block>
   <block id="cf31d049daa8cd238cb4238371f2e5d0" category="list-text">必要に応じて、BeeGFSブロックノードのそれぞれにドライブを取り付けます。</block>
   <block id="eb86aba8f900c8f076cdcddafcf7271f" category="list-text">ビルディングブロックを使用してBeeGFSメタデータとストレージサービスを実行し、さらに小さいドライブをメタデータボリュームに使用する場合は、次の図に示すように、最も外側のドライブスロットにそれらが搭載されていることを確認します。</block>
   <block id="c448ee45144a8930f2211d0a4edb7b91" category="list-text">すべてのビルディングブロック構成で、ドライブエンクロージャにフル装備されていない場合は、最適なパフォーマンスを得るために、同じ数のドライブがスロット0~11および12~23に装着されていることを確認してください。</block>
   <block id="4885044112b3b6c6858ae6802eb99831" category="paragraph"><block ref="4885044112b3b6c6858ae6802eb99831" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="472ae30ca7767b7347c25c071e0e4b13" category="list-text">ファイルノードとブロックノードをケーブル接続するには、次の図に示すトポロジと一致するように、1 m InfiniBand HDR 200GBの直接接続銅ケーブルを使用します。</block>
-  <block id="835b8f1e6b31f0d45576eed50cfe4027" category="paragraph"><block ref="835b8f1e6b31f0d45576eed50cfe4027" category="inline-image-macro-rx" type="image"></block></block>
   <block id="7fd5b7ef2a561c49e1b59a838397af45" category="admonition">複数のビルディングブロックを横断するノードが直接接続されることはありません。各ビルディングブロックはスタンドアロンユニットとして扱われ、ビルディングブロック間のすべての通信はネットワークスイッチを介して行われます。</block>
-  <block id="ca7450c6e9a714419bebd35c8d11414a" category="list-text">2m（または適切な長さ）InfiniBand HDR 200GB直接接続銅ケーブルを使用して、各ファイルノードの残りのInfiniBandポートをストレージネットワークに使用するInfiniBandスイッチにケーブル接続します。</block>
-  <block id="678e3f5ded0c872017877baf55a34219" category="paragraph">使用中の冗長InfiniBandスイッチがある場合は、次の図の薄い緑でハイライトされたポートを別々のスイッチにケーブル接続します。</block>
   <block id="7a8dd1c52597fd7244751f757c26132e" category="paragraph"><block ref="7a8dd1c52597fd7244751f757c26132e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="57f799feabdc3b75aa704ff51e74f4c1" category="list-text">必要に応じて、同じケーブル配線ガイドラインに従って追加のビルディングブロックをアセンブルします。</block>
   <block id="6a2ae129e5b77fd39f068e6cdee42d2a" category="admonition">1台のラックに導入できるビルディングブロックの総数は、各サイトで利用可能な電力と冷却量によって異なります。</block>
   <block id="b11764419626b2eff6352f3d8e6022e3" category="summary">Ansible制御ノードを設定するには、解決策 の設定に使用できるすべてのファイルノードとブロックノードの管理ポートへのネットワークアクセスがある仮想マシンまたは物理マシンを特定します。</block>
   <block id="bfcf60c321d0d2cb85402c7a22d208b9" category="paragraph">Ansible制御ノードをセットアップするには、解決策 の設定に使用できるすべてのファイルノードとブロックノードの管理ポートへのネットワークアクセスがある仮想マシンまたは物理マシンを特定する必要があります。</block>
-  <block id="c98e4789c5801c863a516b10b7663838" category="paragraph">次の手順は、CentOS 8.4でテストしました。使用するLinuxディストリビューションに固有の手順については、を参照してください<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>。</block>
-  <block id="9987c24bf4e936399e49e8ef8615083d" category="list-text">Python 3.9をインストールし、正しいバージョンの「pip」がインストールされていることを確認します。</block>
-  <block id="bc55433e1f3f1b08c02a0254a0f864c1" category="list-text">Python 3.9バイナリが'python3'または'python'が呼び出されるたびに使用されるように'シンボリック・リンクを作成します</block>
   <block id="e7a81038c18b15bf5d97b77fb110af03" category="list-text">NetApp BeeGFSコレクションに必要なPythonパッケージをインストールします。</block>
   <block id="7f883f5609524995f000fc99b8f5691a" category="admonition">サポートされているバージョンのAnsibleと必要なすべてのPythonパッケージをインストールするには、BeeGFSコレクションのReadmeファイルを参照してください。サポートされているバージョンについても、で説明します <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。</block>
   <block id="a36d9a848f44be3e2b8d092a5861995a" category="list-text">正しいバージョンのAnsibleとPythonがインストールされていることを確認します。</block>
@@ -896,8 +719,6 @@
   <block id="f710d81b04cfd57ef65bc4cca28bc3d4" category="section-title">手順1：すべてのビルディングブロックの構成を定義します</block>
   <block id="08ecdaa3e32e095bd8f7ecec87a6ffe1" category="paragraph">どの構成プロファイルを個別に適用できるかに関係なく、環境 のすべての構成ブロックを定義します。</block>
   <block id="135b308ed83c53f1516b7c754566d1c4" category="list-title">作業を開始する前に</block>
-  <block id="17de9612747c3e48aee3a32b1da30959" category="list-text">BitBucketやGitなどのソース管理システムを使用して、AnsibleのインベントリファイルとPlaybookファイルが格納されているディレクトリのコンテンツを保存します。</block>
-  <block id="fc62f55b3e3e861f3b20a7ae40279cab" category="list-text">Gitが無視するファイルを指定する「.gitignore」ファイルを作成します。これにより、Gitに大きなファイルを保存することを回避できます。</block>
   <block id="1633329793556e695f8ae53c7f3c8756" category="list-text">Ansibleの制御ノードで、Ansibleのインベントリファイルとプレイブックファイルの格納に使用するディレクトリを特定します。</block>
   <block id="2af34d0fd4b17ecc42b7fb40d3a2019d" category="paragraph">特に記載がないかぎり、この手順および以降の手順で作成するすべてのファイルとディレクトリは、このディレクトリを基準にして作成されます。</block>
   <block id="31f13138a9fb78368dd1c5b8b9cb522e" category="list-text">次のサブディレクトリを作成します。</block>
@@ -927,7 +748,6 @@
   <block id="ba4d50db9221cc812d5f7981d4600c2d" category="paragraph">「beegfs_alert_email_list」を使用して、クラスタ・イベントのアラートを受信する電子メールを1つ以上指定します。</block>
   <block id="e69d5d030b5267144694edd30e58fa4b" category="admonition">一見冗長に見えても'beegfs_ha_gmtd_floating_ip'は'1つのHAクラスタを超えてBeeGFSファイルシステムを拡張する場合に重要です以降のHAクラスタは、BeeGFS管理サービスを追加せずに導入され、最初のクラスタが提供する管理サービスをポイントします。</block>
   <block id="7509dcf152f48abcba19fa72adedb808" category="inline-link">Red Hatハイアベイラビリティクラスタでフェンシングを設定します</block>
-  <block id="da185ecc8c2bce6af5f506542a665aab" category="list-text">フェンシングエージェントを設定します。（詳細については、を参照してください<block ref="dc7760afd7fe301addd396cbb1b31319" category="inline-link-rx"></block>.） 次の出力は、一般的なフェンシングエージェントを設定する例を示しています。次のいずれかのオプションを選択します。</block>
   <block id="b2f365e9dc240069eb174f596f8086dd" category="paragraph">この手順では、次の点に注意してください。</block>
   <block id="83a5cc26327b36012de2442c022e0357" category="list-text">フェンシングはデフォルトで有効になっていますが、フェンシングエージェント_を設定する必要があります。</block>
   <block id="502142ce464e9e0c49b233594ce3af26" category="list-text">'pcmk_host_map'または'pcmk_host_listに指定されている`&lt;hostname&gt;は'Ansibleインベントリ内のホスト名に対応している必要があります</block>
@@ -938,9 +758,6 @@
   <block id="2e468d52e0778656623f6a98e831b3c0" category="paragraph">パフォーマンス・チューニングを有効にするには'次のように指定</block>
   <block id="5886796779dc029ac41ffca429f9f5d1" category="list-text">（オプション）Linux OSのパフォーマンス調整パラメータを必要に応じて調整できます。</block>
   <block id="fe7cbbcd6bbbe894cb7364e04d36c7ae" category="inline-link">EシリーズBeeGFS GitHubサイト</block>
-  <block id="a2a731b1d02a58e1e3cbcdae15a63023" category="paragraph">調整可能なチューニングパラメータの一覧については、のBeeGFS HAロールの「Performance Tuning Defaults」セクションを参照してください<block ref="32c82538a26b94ce448b7cce29eb6898" category="inline-link-rx"></block>。このファイル内のクラスタ内のすべてのノードまたは個々のノードの'host_vars'ファイルで'デフォルト値を上書きできます</block>
-  <block id="3abafbb6a7adaface99f5d9cd23b12d0" category="list-text">ブロックノードとファイルノードの間に200Gb / HDRを完全に接続できるようにするには、Mellanox Open Fabrics Enterprise Distribution（MLNx_OFED）のOpen Subnet Manager（OpenSM）パッケージを使用します。(受信箱openssl'パッケージは必要な仮想化機能をサポートしていません) Ansibleによる導入もサポートされていますが、最初に目的のパッケージをBeeGFSロールの実行に使用するAnsibleコントロールノードにダウンロードする必要があります。</block>
-  <block id="b98ee7eab01ffcc8be1325c0937f01e8" category="list-text">「curl」または希望のツールを使用して、MellanoxのWebサイトの技術要件セクションに記載されているOpenSMのバージョン用のパッケージを「packages/」ディレクトリにダウンロードします。例：</block>
   <block id="372ec1e9d1761b6aa16b9f0b54a4433b" category="list-text">'group_vars/ha_cluster.yml'の次のパラメータを入力します(必要に応じてパッケージを調整します)</block>
   <block id="382cd5df5d20e8ee60bea9f8be1884e3" category="list-text">論理InfiniBandポート識別子と基盤となるPCIeデバイスとのマッピングが一貫して行われるように'udev'ルールを設定します</block>
   <block id="acb63a2b1a344472ec1b72c168bf5a95" category="paragraph">udevルールは'BeeGFSファイル・ノードとして使用される各サーバ・プラットフォームのPCIeトポロジーに固有のものである必要があります</block>
@@ -955,7 +772,6 @@
   <block id="a18d6a60f542af2e3b0784928e17f417" category="list-text">最適なパフォーマンスを確保するには、に記載されているバージョンをブロックノードにインストールします <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。</block>
   <block id="8c41baf1ca98e1184f48c4721d44d431" category="inline-link">ネットアップサポートサイト</block>
   <block id="38119f4253b4080e689702afd647df1f" category="paragraph">対応するファイルをからダウンロードします<block ref="3f80e15ba326a9eb1fc39b6d8ba81472" category="inline-link-rx"></block>。これらを手動でアップグレードするか'Ansibleコントロール・ノードのパッケージ/ディレクトリに含めてから'eseries_storage_systemesyml'に以下のパラメータを入力して'Ansibleを使用してアップグレードできます</block>
-  <block id="a5a82f3b02ae57420ae1197446e1efc0" category="list-text">ブロックノードに取り付けられたドライブに対応する最新のドライブファームウェアをからダウンロードしてインストールします<block ref="7bf536b69fb1e52c85b84904e073cbdb" category="inline-link-rx"></block>。これらを手動でアップグレードするか'Ansibleコントロール・ノードのパッケージ/ディレクトリに含めてから'eseries_storage_systemesyml'に以下のパラメータを入力して'Ansibleを使用してアップグレードできます</block>
   <block id="72423a5fa99fafb4c2dc7b7e7f7d7962" category="admonition">eseries_drive_firmware_upgrade_drivesonlineを'false'に設定すると'アップグレードが高速化されますが'BeeGFSが導入されるまでは実行しないでくださいこれは、アプリケーションエラーを回避するために、アップグレード前にドライブへのすべてのI/Oを停止する必要があるためです。ボリュームを構成する前にオンライン・ドライブ・ファームウェア・アップグレードを実行しても問題が発生しないようにするには'この値を常にtrueに設定することを推奨します</block>
   <block id="2b0551e04ffc3a713c07e9a9611b9897" category="list-text">パフォーマンスを最適化するには、グローバル構成に対して次の変更を行います。</block>
   <block id="6b7cf272a4e3aeaf52c2d0ca991829e5" category="list-text">ボリュームのプロビジョニングと動作を最適化するには、次のパラメータを指定します。</block>
@@ -982,7 +798,6 @@
   <block id="bbb8600e28b07b4e7765ccb37c8ba72d" category="paragraph">SOCの状態</block>
   <block id="16a2e561c536a77cbfd10490ea398be6" category="paragraph">P0</block>
   <block id="f7d2d14860cfdee82e8cf9418c1ec624" category="paragraph">DF C -状態</block>
-  <block id="450e20de3fc0482fa7bdadc4622005ed" category="paragraph">P-State 1</block>
   <block id="9c1a39470ba5d6a8856c5e813e20ef6b" category="paragraph">Memory Power Down Enable (メモリの電源オフ有効</block>
   <block id="3011761cbf6a8eb38a41f6b38210c119" category="paragraph">ソケットごとのNUMAノード</block>
   <block id="4142a6b2c0ac3aaf643751457e9aad6a" category="paragraph">NPS1</block>
@@ -1017,7 +832,6 @@
   <block id="12623d7cc9dff74b7325aa809ffc84df" category="sidebar">ブログ- BeeGFSとEシリーズの詳細をご確認ください</block>
   <block id="0af9e7bf64a8e8c1b37ec554248f3d14" category="sidebar">ブログ- BeeGFS（初心者向け</block>
   <block id="6316c96cdd51a54d33d0011cf5f10c81" category="sidebar">ブログ- BeeGFSのHA</block>
-  <block id="d5bc9778dcd2b28ce384782d014e53fc" category="sidebar">ネットアップのBeeGFSでAIワークロードを高速化するビデオです</block>
   <block id="b89fcecfac1f6b8376165aabe5b6c5ee" category="sidebar">その他のドキュメント</block>
   <block id="bc4fe2352063642d68529f2aa0ca7ca3" category="sidebar">ネットアップの製品マニュアル</block>
   <block id="dbd68e15f4c30d2a47d780a9bf4f3da1" category="sidebar">BeeGFSのマニュアル</block>
@@ -1038,12 +852,8 @@
   <block id="e304a70d2f42f62cefb9b474f73a1e91" category="sidebar">推奨されるボリュームの割合</block>
   <block id="ba13e086fe19056a379b6240e05651a8" category="sidebar">TR-4915 - AI向けのEシリーズとBeeGFSを使用したデータ移動</block>
   <block id="bc893b2686532fc683cb056beffd08aa" category="cell">ドライブサイズ（10+2 RAID 6）のストレージボリュームグループ</block>
-  <block id="132789d9474eae064aef2cd5266138d8" category="section-title">NVIDIA DGX A100 SuperPODおよびBasePODの検証</block>
-  <block id="d88f3188efb434f39b922170592443b5" category="paragraph">ネットアップでは、3つのビルディングブロックにメタデータとストレージ構成プロファイルが適用されたBeeGFSファイルシステムを使用して、NVDIA DGX A100 SuperPOD向けのストレージ解決策 の検証を実施しました。認定には、このNVAで説明した解決策 を、さまざまなストレージ、機械学習、ディープラーニングのベンチマークを実行している20台のDGX A100 GPUサーバでテストすることが含まれます。NVIDIAのDGX A100 SuperPODの使用が認定されたストレージは、NVIDIA BasePODアーキテクチャでも自動的に認定されます。</block>
   <block id="64dc43320ec1a44c390fafb5e2408f4b" category="inline-link">NVIDIA DGX BasePOD</block>
   <block id="33d753992c8525a016e60650889ef7a9" category="paragraph">詳細については、を参照してください<block ref="917e0b817a1bc5579c3d00c8de7a0790" category="inline-link-rx"></block> および<block ref="d4d49ddfca3de3daecdc231399362db8" category="inline-link-rx"></block>。</block>
-  <block id="e79ef600cb60c3e821f1cef23dcb17c1" category="list-text">NVIDIAのDGX A100 SuperPODおよびNVIDIA BasePodアーキテクチャの外部認定</block>
-  <block id="1e5b7e91f7684d1e82eca499bd3e9f00" category="paragraph">ネットアップの第2世代BeeGFSは、ハイパフォーマンスコンピューティング（HPC）とHPCスタイルの機械学習（ML）、ディープラーニング（DL）、同様の人工知能（AI）手法など、要求の厳しいワークロードのパフォーマンス要件を満たすように最適化されています。共有ディスクのハイアベイラビリティ（HA）アーキテクチャを採用したBeeGFS on NetApp解決策 は、ワークロードやユースケースに合わせて拡張できるストレージを求めてダウンタイムやデータ損失を許容できない企業やその他の組織のデータ保持と可用性の要件にも対応します。この解決策 はネットアップによって検証されたばかりでなく、NVIDIA DGX SuperPODおよびDGX BasePODのストレージオプションとして外部認定にも合格しました。</block>
   <block id="53c31a8ba69af9d096629948d271d34d" category="paragraph-title">帯域幅を活用するためのケーブル接続</block>
   <block id="bbe48fb854ea022537208eeeff822f91" category="paragraph-title">このタスクについて</block>
   <block id="48c7c41b72e1d678923ce3571aa65b2d" category="paragraph-title">ステップ</block>
@@ -1159,12 +969,9 @@
   <block id="a65e0cef92147365de773d870438a30d" category="section-title">個 々 のBeeGFSサービスを代替ファイルノードに移動します</block>
   <block id="606a28acf3a90904d7e27f3497573da7" category="section-title">BeeGFSサービスを新しいファイルノードに永続的に移動します</block>
   <block id="8f56c19ef179745c1437a4f477337649" category="paragraph">個 々 のBeeGFSサービスの優先ファイルノードを永続的に変更するには、Ansibleのインベントリを調整して優先ノードがリストされるようにしてから、Ansibleプレイブックを再実行します。</block>
-  <block id="7f86f0b1f1f7dc413a7da5a9a5acb79a" category="paragraph">たとえば、次の例で使用します<block ref="d28e452e49fc926f32af1d87afcff3ce" prefix=" " category="inline-code"></block> File、ictad22h01は、BeeGFS管理サービスを実行するための優先ファイルノードです。</block>
-  <block id="b2d792db6eba9ea2a4bd7ebaf525e9a4" category="paragraph">この順序を逆にすると、ictad22h02で管理サービスが優先されます原因 。</block>
   <block id="346788f496d57b1e768d1dfaccdb3660" category="section-title">BeeGFSサービスを一時的に代替ファイルノードに移動します</block>
   <block id="bad9cbcf702b276e1564c24e67ad301c" category="paragraph">通常、ノードのメンテナンス中に[フェイルオーバーとフェイルバックの手順]（フェイルオーバーとフェイルバックの手順）を使用して、すべてのサービスをそのノードから移動します。</block>
   <block id="0a51cf78eac085426260a02c70378519" category="paragraph">何らかの理由で、個 々 のサービスを別のファイルノードに移動する必要がある場合は、次のコマンドを実行します。</block>
-  <block id="9adf512d668d8b56c695d172f4de3f90" category="admonition">個 々 のリソースまたはリソースグループを指定しないでください。再配置するBeeGFSサービスのモニタ名を必ず指定しますたとえば、BeeGFS管理サービスをictad22h02に移動するには、次のコマンドを実行します。<block ref="2349d8eb257904ae75bc6d292598087c" prefix=" " category="inline-code"></block>。このプロセスを繰り返して、1つ以上のサービスを優先ノードから移動できます。を使用して確認します<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 新しいノードでサービスが再配置されたか、開始されました。</block>
   <block id="15bda9336e0e061125e3b40fe7bfbb0f" category="paragraph">BeeGFSサービスを優先ノードに戻すには'最初に一時的なリソースの制約を解除します（複数のサービスの場合はこの手順を繰り返します）</block>
   <block id="d5c46792adbb43a012cbc1e858dc8bf4" category="paragraph">次に、サービスを実際に優先ノードに戻す準備ができたら、次のコマンドを実行します。</block>
   <block id="05ccfd1bb05ec0cb0ad0dbc5cfa2b32d" category="paragraph">このコマンドは、優先ノードに配置されていない一時的なリソース制約のないサービスを再配置します。</block>
@@ -1224,7 +1031,6 @@
   <block id="a6dea15cd908ef20a94b7b92df902f0b" category="section-title">調査/解決の手順</block>
   <block id="d418f50c5ddea28b4ca856017b36cb20" category="section-title">手順1：BeeGFSモニタで障害が検出されたかどうかを確認します。</block>
   <block id="a0d295ceecafcdade2e77c52fee836e0" category="paragraph">BeeGFSモニタによってフェイルオーバーがトリガーされた場合は、エラーが表示されます（次の手順に進みない場合）。</block>
-  <block id="1792a4cca8d37bb062059acbb40ebf88" category="paragraph">このインスタンスでは、何らかの理由でBeeGFSサービスMETA_08が停止しました。トラブルシューティングを続行するには、ictad22h02をブートし、サービスのログを確認する必要があります<block ref="45434eee994714888e9eafad4993b0d3" prefix=" " category="inline-code"></block>。たとえば、BeeGFSサービスで内部問題 やノードの問題が原因でアプリケーションエラーが発生した可能性があります。</block>
   <block id="ba35f78b5ee9757310a818131880e7ba" category="admonition">Pacemakerのログとは異なり、BeeGFSサービスのログはクラスタ内のすべてのノードに分散されるわけではありません。これらのタイプの障害を調査するには、障害が発生した元のノードのログが必要です。</block>
   <block id="e7ed0a662a65a2b9a77688262294bdeb" category="paragraph">モニタで報告される可能性がある問題は次のとおりです。</block>
   <block id="7cdeb72a25ab193e904385b516b1b346" category="list-text">ターゲットにアクセスできません。</block>
@@ -1381,7 +1187,6 @@
   <block id="91eaeb6e5e7e4e970687d3f792cb1fc2" category="inline-link-macro">カスタムアーキテクチャを使用する</block>
   <block id="1fd9deaaaf47488f551e416eed092dc4" category="paragraph">クラスタのAnsibleインベントリファイルに、必要な更新を追加します。を参照してください <block ref="45bb05730b6b8d8285ea6a3b0b08136e" category="inline-link-macro-rx"></block> アップグレード要件の詳細については、以下を参照してください。を参照してください <block ref="cd8d64b4736b3d402448d2252c8caef5" category="inline-link-macro-rx"></block> BeeGFS HAインベントリの設定に関する一般的な情報については、セクションを参照してください。</block>
   <block id="e9bec369ce9e01aa4b52853b96332456" category="section-title">手順3：Ansible Playbookを更新（メジャーバージョンやマイナーバージョンの更新時のみ）</block>
-  <block id="741fd5c03969a4e2dd468f897af24b03" category="paragraph">メジャーバージョンとマイナーバージョンの間を移動する場合は、を参照してください<block ref="2f78c4e27feaf25ffb33d97e8ff7e7a6" prefix=" " category="inline-code"></block> クラスタの導入と保守に使用するファイルで、の名前を更新します<block ref="66b5cc4f55c22b7b05dfd4be1be47aab" prefix=" " category="inline-code"></block> 目的のバージョンを反映したロール。たとえば、BeeGFS 7.3を導入する場合は、次のようになります<block ref="7bfdf60ffcc8e818739972660aeebf71" prefix=" " category="inline-code"></block>：</block>
   <block id="800371603b58ee549a4a9674cd231cfd" category="inline-link-macro">BeeGFS HAクラスタを導入します</block>
   <block id="8bb6abf93d767c3eea0b12c8c4b6bbb9" category="paragraph">このPlaybookファイルの内容の詳細については、を参照してください <block ref="fb53cae6b899ceb0b1bf986adcdc0e3a" category="inline-link-macro-rx"></block> セクション。</block>
   <block id="66422423510da7fd29c77f6559cd7ef6" category="section-title">手順4：BeeGFSアップグレードを実行します</block>
@@ -1434,7 +1239,6 @@
   <block id="44ebd117631269d8cc52eda82b890ecc" category="list-text">python（pip）パッケージ：ipaddrおよびnetaddr</block>
   <block id="8486bce50d4152772da3c4531a015ab8" category="paragraph">また、制御ノードからすべてのBeeGFSファイルノードとクライアントにパスワードなしのSSHを設定することを推奨します。</block>
   <block id="5bca534f5a45c18ffc0306e63b306c62" category="section-title">BeeGFSファイルノード</block>
-  <block id="db9f63f8d00e9b524f09cf9c3bdce9c6" category="paragraph">ファイルノードはRedHat 8.4を実行しており、必要なパッケージ（Pacemaker、corosync、fence-agents-all、resource-key）を含むHAリポジトリにアクセスできる必要があります。たとえば、次のコマンドを実行して、RedHat 8上の適切なリポジトリを有効にできます。</block>
   <block id="676b08aacbe937f16d558f23d90b29da" category="section-title">BeeGFSクライアントノード</block>
   <block id="dc203cff346fc33ab19584264833d533" category="paragraph">BeeGFSクライアントのAnsibleロールを使用して、BeeGFSクライアントパッケージをインストールし、BeeGFSマウントを管理できます。このロールは、RedHat 8.4およびUbuntu 22.04でテスト済みです。</block>
   <block id="2e0da5c1c3cbd1cda1312f57209c96e4" category="inline-link-macro">BeeGFSはLinuxディストリビューションとカーネルをサポートしています</block>
@@ -1444,7 +1248,6 @@
   <block id="882d9f125986842da2dd0a55dab49692" category="paragraph">このセクションでは、の入力手順について説明します<block ref="6ec1b7d2e07359817e585e3cab8e078f" prefix=" " category="inline-code"></block> クラスタ内の各ファイルノードのファイル。これらのファイルには、特定のファイルノードに固有の設定のみを含める必要があります。これには、次のような一般</block>
   <block id="3a67b6422642abadfa758fc6684f8438" category="list-text">AnsibleでIPまたはホスト名を定義して、ノードへの接続に使用する必要があります。</block>
   <block id="fc0fd95b8cee27585e1c24e4d4a97663" category="list-text">HAクラスタサービス（PacemakerとCorosync）で他のファイルノードとの通信に使用するインターフェイスおよびクラスタIPを追加で設定しています。デフォルトでは、これらのサービスは管理インターフェイスと同じネットワークを使用しますが、冗長性を確保するために追加のインターフェイスを使用できる必要があります。一般的には、ストレージネットワークに追加のIPを定義して、クラスタまたは管理ネットワークを追加する必要を回避します。</block>
-  <block id="d3bb2cb10c3de19eafb23408d3a400a6" category="list-text">クラスタ通信に使用されるネットワークのパフォーマンスは、ファイルシステムのパフォーマンスにとっては重要ではありません。デフォルトのクラスタ構成では、通常1Gbps以上のネットワークの場合、ノードの状態の同期やクラスタリソースの状態の変更の調整など、クラスタ処理のパフォーマンスが十分に確保されます。低速/ビジーなネットワークでは、原因 リソースの状態が通常よりも長くなる可能性があります。また、ノードが妥当な時間内にハートビートを送信できない場合、ノードがクラスタから削除されることがあります。</block>
   <block id="a557d06b3a2f8ed98f967366125754a4" category="list-text">目的のプロトコルを介したブロックノードへの接続に使用するインターフェイスの設定（iSCSI / iSER、NVMe/IB、NVMe/RoCE、FCPなど）</block>
   <block id="3990d1c8eb99844fa4339dea97a4f692" category="inline-link-macro">ファイルシステムを計画</block>
   <block id="346674dbd97098838f5327dc1e5c9c18" category="paragraph">で定義されているIPアドレッシング方式を参照する <block ref="9b15c2b73cdd7b8794597878cdbf2b1c" category="inline-link-macro-rx"></block> セクションでは、クラスタ内の各ファイルノードに対してファイルを作成します<block ref="29c5616b1b8c32726b3152860a451439" prefix=" " category="inline-code"></block> 次のように入力します。</block>
@@ -1476,8 +1279,6 @@
   <block id="6c92285fa6d3e827b198d120ea3ac674" category="inline-link-macro">こちらをご覧ください</block>
   <block id="02613a7c8b7a72805b5196cbf7ed0def" category="paragraph">をクリックします <block ref="6ff86e054594e10fe2118d48eb3fbd14" category="inline-link-macro-rx"></block> たとえば、単一のファイルノードを表す完全なインベントリファイルなどです。</block>
   <block id="310ccb00662c7e9dcc32789c0d9b1b7a" category="section-title">Advanced：イーサネットとInfiniBandモードの間でNVIDIA ConnectX VPIアダプタを切り替えます</block>
-  <block id="dcc92cf452bd744849cd00433f6a6065" category="inline-link-macro">Mellanox Firmare Tools（MFT）</block>
-  <block id="ed6cbc43ac185fea723a14d38091893c" category="paragraph">NVIDIA ConnectX-Virtual Protocol Interconnect &amp;reg;（VPI）アダプタは、InfiniBandとイーサネットの両方をトランスポートレイヤとしてサポートします。モード間の切り替えは自動的にはネゴシエートされないため、を使用して設定する必要があります<block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block> に含まれるツール<block ref="a55706c70f646ff289a7f6fb8ddc1353" prefix=" " category="inline-code"></block>は、の一部であるオープンソースパッケージです <block ref="c5b5fd4585af953450ea07aa852104bf" category="inline-link-macro-rx"></block>。アダプタのモードを変更する必要があるのは一度だけです。これは手動で行うことも、を使用して設定されたインターフェイスの一部としてAnsibleインベントリに含めることもできます<block ref="d6ca1855b29b160948694322764a86cb" prefix=" " category="inline-code"></block> インベントリのセクション。自動的にチェック/適用されます。</block>
   <block id="2b4c9bc157bda4a68fe7b673b411f9cd" category="paragraph">たとえば、InfiniBandモードのインターフェイスをイーサネットに変更して、RoCEに使用できるようにするには、次のコマンドを実行します。</block>
   <block id="f352db79870cb8a06a0551761aba6955" category="list-text">設定する各インターフェイスについて、を指定します<block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block> を指定するマッピング（またはディクショナリ）として指定します<block ref="ced82128b540acaf7a5a55ad007dc9fc" prefix=" " category="inline-code"></block> ここで、<block ref="ecb5fc74e9cd1f249d43a2bdbf2f239d" prefix=" " category="inline-code"></block> は、インターフェイスのHCAのポート番号で決まります。。<block ref="ecb5fc74e9cd1f249d43a2bdbf2f239d" prefix=" " category="inline-code"></block> の値はを実行して確認できます<block ref="2ea620f2a9b9bed90c46047fef7e151b" prefix=" " category="inline-code"></block> PCIスロット名の最後の数字に1を追加し、10進数に変換します。</block>
   <block id="070b28e93cab063481c989d1404f9835" category="list-text">たとえば、を指定します<block ref="92c00058a177a7a840386578304e1345" prefix=" " category="inline-code"></block> （2+1 -&gt; HCAポート3）-&gt;<block ref="f5e96e67a1ff914902859c7140e258c6" prefix=" " category="inline-code"></block>：</block>
@@ -1508,21 +1309,16 @@
   <block id="679f9b26ee84fb8a265eb6a80d1141b0" category="list-text">次の項目を指定して、フェンシングをグローバルに有効にします</block>
   <block id="2b86513417433b960c2a9628820cce70" category="inline-link-macro">クラスタ・プロパティ</block>
   <block id="a4a918a45181164207929d52aec36aec" category="inline-link-macro">デフォルト値です</block>
-  <block id="bcc67e5cda8ee1e21250342139467d00" category="list-text">サポートされていることを確認し <block ref="1f696c148c590f4530f1598592f9a4b4" category="inline-link-macro-rx"></block> 必要に応じてここで指定することもできます。BeeGFS HAロールには十分にテストされた数の情報が付属しているため、これらの値を調整する必要は通常ありません <block ref="d630d35a07d393b0d4bb83a7523d1703" category="inline-link-macro-rx"></block>。</block>
   <block id="8cb3e998c7b1e4cbe36289f2177363b5" category="list-text">次に、フェンシングエージェントを選択して構成します。</block>
   <block id="bc6b3ed04c45895c341d99b6765c1caa" category="list-text">オプション1：APC Power Distribution Unit（PDU;配電ユニット）を使用してフェンシングをイネーブルにするには、次の手順</block>
   <block id="94ebb967d1a890978b9758e3f2aac3bb" category="list-text">オプション2：Lenovo XCC（および他のBMC）が提供するRedfish APIを使用してフェンシングを有効にするには、次の手順を実行します。</block>
   <block id="7f2e85da597afbbb84c30c58c72fc4a2" category="inline-link-macro">RedHatのマニュアル</block>
-  <block id="18c5e5e72191184c4e18d312bc7fafef" category="list-text">他のフェンシングエージェントの設定の詳細については、を参照してください <block ref="611005f72b088bb8cef495741d6f0861" category="inline-link-macro-rx"></block>。</block>
-  <block id="3a6d72343adc910bbcf2be9191e40f88" category="list-text">BeeGFS HAロールでは、パフォーマンスをさらに最適化するために、さまざまなチューニングパラメータを適用できます。これには、カーネルメモリ使用率の最適化や、ブロックデバイスI/Oなどのパラメータが含まれます。ロールには、適切な権限セットが付属しています <block ref="d9492c5c01c77d55ea71bf758fca3c1e" category="inline-link-macro-rx"></block> NetApp Eシリーズのブロックノードでのテストに基づく値ですが、次のように指定しないかぎり、デフォルトでは適用されません。</block>
   <block id="1242eea64a7ebfd7464359e597a4ec62" category="inline-link-macro">パフォーマンス調整パラメータ</block>
-  <block id="dbfad90b96c293c6b7b2b93be168cfd5" category="list-text">必要に応じて、ここでデフォルトのパフォーマンス調整に変更を加えます。全体を参照してください <block ref="66aaf5e6618940d3ade7aede35016480" category="inline-link-macro-rx"></block> 詳細については、ドキュメントを参照してください。</block>
   <block id="e535abe8b416a666cd34177ff6bbe395" category="list-text">BeeGFSサービスに使用されるフローティングIPアドレス（論理インターフェイスとも呼ばれます）がファイルノード間でフェイルオーバーできるようにするには、すべてのネットワークインターフェイスに一貫した名前を付ける必要があります。デフォルトでは、ネットワークインターフェイス名はカーネルによって生成されます。これは、同じPCIeスロットにネットワークアダプタが搭載された同一のサーバモデルであっても、一貫した名前が生成される保証はありません。これは、装置が展開され、生成されたインターフェイス名が認識される前にインベントリを作成する場合にも役立ちます。サーバまたはのブロック図に基づいて、一貫したデバイス名を使用できるようにします<block ref="6efa276570b668a53eaf7bf29c69d544" prefix=" " category="inline-code"></block> 出力で、目的のPCIeアドレスと論理インターフェイスのマッピングを次のように指定します。</block>
   <block id="b577b9bc7da15f148c6521018b1c26f7" category="list-text">InfiniBand（IPoIB）ネットワークインターフェイスに対応しています。</block>
   <block id="10b951f140b750e6d3b9a61a2aa51fc1" category="list-text">イーサネットネットワークインターフェイスの場合：</block>
   <block id="e71729643558be7be36227d3edb537a5" category="admonition">インターフェイスの名前を変更したときの競合を回避するには（名前を変更できないようにするため）、eth0、ens9f0、ib0、ibs4f0などの潜在的なデフォルト名は使用しないでください。一般的な命名規則としては、イーサネットまたはInfiniBandには「e」または「i」を使用し、続いてPCIeスロット番号とポートを示す文字を使用します。たとえば、スロット3にInfiniBandアダプタの2番目のポートはi3bとなります。</block>
   <block id="62e75ccd7f725aa6905f33580950953f" category="admonition">検証済みファイルノードモデルを使用している場合は、をクリックします <block ref="3d76a23cff20eb55b7795ee99a64cc43" category="inline-link-macro-rx"></block> PCIeアドレスと論理ポートのマッピングの例</block>
-  <block id="49d63ad68018ca272cf3bfe9a0843371" category="list-text">必要に応じて、クラスタ内のすべてのBeeGFSサービスに適用する設定を指定します。デフォルトの設定値が見つかります <block ref="a57cc720fc0e96a52cf3201e2484ee55" category="inline-link-macro-rx"></block>、およびサービスごとの設定は、他の場所で指定します。</block>
   <block id="1644ff30bfdd323dac0e52e1620614b2" category="list-text">BeeGFS管理サービス：</block>
   <block id="c9c23b537bdcdcf7e82ad149d3e28ab1" category="list-text">BeeGFSメタデータサービス：</block>
   <block id="b292484ec320b2afcb3a63fdbff30bd3" category="list-text">BeeGFSストレージサービス：</block>
@@ -1531,7 +1327,6 @@
   <block id="2beb66fd9b0c065cfc742ee53ee1055d" category="list-text">デフォルトでは、展開によって自動的に接続認証が設定され、が生成されます<block ref="cd304377fdc20285a5aa94e55ae85aa7" prefix=" " category="inline-code"></block> これはすべてのファイルノードに配布され、BeeGFSサービスとともに使用されます。このファイルは、Ansibleの制御ノードにも配置/管理されます<block ref="eee2923df30539b680421ca53d7c066b" prefix=" " category="inline-code"></block> このファイルシステムにアクセスする必要のあるクライアントで再利用できるように、安全に保管する必要があります。</block>
   <block id="a6eacd255bbcfb7c0ed5589f3f4b3b80" category="list-text">新しいキーを生成するには、をクリックします<block ref="34efb4240137e7a93d7ad83bde309514" prefix=" " category="inline-code"></block> Ansibleプレイブックを実行している場合。注：これは、がの場合は無視されます<block ref="8b76cf2fb65e09dad03ca686be5cd464" prefix=" " category="inline-code"></block> が定義されている。</block>
   <block id="4d93b986f0992f2770f494a3ced4bd11" category="inline-link-macro">BeeGFS HAロール</block>
-  <block id="ce622ce5379468ed5a0a2f78bbabe2ab" category="list-text">詳細オプションについては、に付属のすべてのデフォルト設定を参照してください <block ref="ef9c73fbbdc1b0f81755fa896cdced03" category="inline-link-macro-rx"></block>。</block>
   <block id="ca03fa9d55c2bc9aa4bb21f10949f48a" category="list-text">カスタムシークレットを使用するには、で以下を定義します<block ref="3cd295e6aaa39e2510aff65b801cc5ab" prefix=" " category="inline-code"></block>：</block>
   <block id="00d80f50123e52756def9093de1ba2aa" category="list-text">接続認証は完全に無効にできます（非推奨）。</block>
   <block id="b8a5eb74062e4ce8ebe0914712be3ae2" category="paragraph">をクリックします <block ref="632283d8f4d8d92337070d81c0b8ed5f" category="inline-link-macro-rx"></block> 一般的なファイルノード設定を表す完全なインベントリファイルの例を次に示します。</block>
@@ -1539,9 +1334,7 @@
   <block id="9e152ebb462ebe95f96d2711a934ec01" category="paragraph">EF600でHDR（200GB）InfiniBandを使用するには、サブネットマネージャが仮想化をサポートしている必要があります。ファイルノードとブロックノードがスイッチを使用して接続されている場合は、ファブリック全体に対してサブネットマネージャで有効にする必要があります。</block>
   <block id="11f007a0a372dd0901653de91029d3d8" category="inline-link-macro">ファイルノードストレージインターフェイスを設定しています</block>
   <block id="7d8267855776cbf28fdb280b86e18730" category="paragraph">ブロックノードとファイルノードがInfiniBandで直接接続されている場合は、のインスタンスです<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> ブロックノードに直接接続された各インターフェイスについて、各ファイルノードに設定する必要があります。これを行うには、を指定します<block ref="a983fd54df8f83bdfdc5756fe288aa56" prefix=" " category="inline-code"></block> いつ <block ref="b7aaae639ec3dcbad23b6be7de000276" category="inline-link-macro-rx"></block>。</block>
-  <block id="458626752c0cbe26a6b491b0f013e5e6" category="paragraph">現在、の受信ボックスバージョンです<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> サポートされているLinuxディストリビューションには、仮想化はサポートされていません。代わりに、のバージョンをインストールして設定する必要があります<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> Mellanox OpenFabrics Enterprise Distribution（OFED）から入手できます。Ansibleによる導入もサポートされていますが、いくつかの追加手順が必要です。</block>
   <block id="b13b4c123d075f5df5e6f618489fde5f" category="inline-link-macro">テクノロジ要件</block>
-  <block id="42bc30626d8bda33040bd0a59cebee54" category="list-text">curlまたは目的のツールを使用して、に記載されているOpenSMのバージョンに対応するパッケージをダウンロードします <block ref="ae114c21b1e7dc7681f7c73b9450ef94" category="inline-link-macro-rx"></block> MellanoxのWebサイトからへのセクション<block ref="4d67f7bc650c0237a4f14903bb4e32de" prefix=" " category="inline-code"></block> ディレクトリ。例：</block>
   <block id="df1f716d0a26eb697eb7605722643850" category="list-text">の下<block ref="4003590e6e5408f8e5272e50f909dfac" prefix=" " category="inline-code"></block> 次の設定を定義します。</block>
   <block id="c25698c0b0a8b21ec89a22a39d05b4e4" category="summary">ホスト変数（host_vars）を使用して個 々 のブロックノードの設定を指定します。</block>
   <block id="007670379f88b0b437948cd7ffd18854" category="doc">個 々 のブロックノードを設定します</block>
@@ -1684,7 +1477,6 @@
   <block id="d5e81e99079cfbb27d893365b01c6733" category="paragraph">設置を計画する場合、各ビルディングブロック内のすべての機器が隣接するラックユニットにラックに設置されることが重要です。ベストプラクティスとして、各ビルディングブロック内のブロックノードのすぐ上にファイルノードがラックに設置されるようにすることを推奨します。ファイルとのモデルについては、のマニュアルを参照してください <block ref="3876eb55ee0ffaac1627ebbb7ea8fad8" category="inline-link-macro-rx"></block> ラックにレールとハードウェアを設置するときに使用するノード。</block>
   <block id="39979c4d8cb83fc0443baa4ff7f48f07" category="paragraph">単一のビルディングブロックの例：</block>
   <block id="53536705172b0f4e5a21ed9d9fc90a82" category="inline-image-macro">ビルディングブロックの例</block>
-  <block id="ca5a698e3f013f50588c49da25109e06" category="paragraph"><block ref="ca5a698e3f013f50588c49da25109e06" category="inline-image-macro-rx" type="image"></block></block>
   <block id="98ac29120ce31a8b9f17cc6bcad239b1" category="paragraph">大規模なBeeGFSインストールの例では、各HAクラスタに複数のビルディングブロックがあり、ファイルシステムに複数のHAクラスタがある場合を示します。</block>
   <block id="4ffad59982a5f378d3b3c700a5c67ab0" category="inline-image-macro">BeeGFSの導入例</block>
   <block id="10f70f19704206d8c2cee1fae42f7dea" category="paragraph"><block ref="10f70f19704206d8c2cee1fae42f7dea" category="inline-image-macro-rx" type="image"></block></block>
@@ -1741,7 +1533,6 @@
   <block id="825f3be2c17c36c0e4901143db982773" category="list-text">新しいファイルを作成します<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> さらに、Ansibleが各クライアントに接続するために使用するユーザを指定します。また、パスワードがAnsibleで権限の昇格（これにはが必要です<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> rootにするか、sudo権限を持っているか）：</block>
   <block id="c5a4ae1aa23001e8780b413f175b50b3" category="admonition">パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（を参照してください） <block ref="f2e33a881c3eb75b68333af99119c0b8" category="inline-link-macro-rx"></block> Ansible Vaultを使用してコンテンツを暗号化する場合）またはを使用します<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> プレイブックを実行する際のオプション。</block>
   <block id="848f64fc57104cb2b416f6102d34e699" category="list-text">を参照してください<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> ファイルに、の下でBeeGFSクライアントとして設定する必要があるすべてのホストをリストします<block ref="fc2e11772a55c48ed2b4ec7bc5d94664" prefix=" " category="inline-code"></block> グループ化し、インラインコメントを参照して、BeeGFSクライアントカーネルモジュールをシステムに構築するために必要な追加設定のコメントを外します。</block>
-  <block id="743c079a390bacd58f1ec66c241c688e" category="admonition">Mellanox OFEDドライバを使用する場合は、beegfs_client_OFED _include_pathが、使用しているLinux環境に適した「ヘッダーインクルードパス」を指定していることを確認してください。詳細については、のBeeGFSのマニュアルを参照してください <block ref="a36a0245ff208157cbdf93cd51fc1311" category="inline-link-macro-rx"></block>。</block>
   <block id="c378775497a55638adcb42719d8daddb" category="list-text">を参照してください<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> ファイルで、以前に定義した任意の下にマウントするBeeGFSファイルシステムを一覧表示します<block ref="b63119da730344b345cdc8f62a4711e9" prefix=" " category="inline-code"></block>：</block>
   <block id="508ccac845ca75d6cdda20dfa455a2bd" category="inline-link-macro">共通ファイルノード構成</block>
   <block id="eeaa045faacfe7ac3ff3c860c9ddb470" category="list-text">BeeGFS 7.2.7および7.3.1以降 <block ref="770c4b58b3b364c4ac52cf5cc555453f" category="inline-link-macro-rx"></block> 設定または明示的に無効にする必要があります。を指定するときに、接続ベースの認証をどのように設定するかによって異なります <block ref="24f8b4d23bbf0a3339e16ecc2414c31b" category="inline-link-macro-rx"></block>クライアント設定の調整が必要になる場合があります。</block>
@@ -1823,7 +1614,6 @@
   <block id="16a4e0aca277107b3401d2d33d4e5c00" category="inline-link-macro">BeeGFSクライアント</block>
   <block id="1c82d73e983ef595a7c60ff4647716a7" category="paragraph">ネットアップは、向けのAnsibleのロールも提供しています <block ref="b6cde77df9fbd5f549a35216e2ea351f" category="inline-link-macro-rx"></block>必要に応じて、BeeGFSのインストールとファイルシステムのマウントを行い、/GPU/ログインノードを計算します。</block>
   <block id="33abf34a1ac99d306f38ad532ed75170" category="inline-link-macro">ユーザーガイド</block>
-  <block id="15c6822a2ade4cd67d3e96c043806b65" category="paragraph">この更新を行うには'推奨ファームウェアをバンドルするmlxupツールのバージョンをダウンロードして実行しますこのツールはからダウンロードできます<block ref="d22fd7ba0031fc3b862dce4cf129cfa5" category="inline-link-rx"></block> （<block ref="841da9e9d7f929a00ebef7288ee21ef7" category="inline-link-macro-rx"></block>）。</block>
   <block id="55f7d3580cdac035324d4348b9dac05b" category="inline-link-macro">BeeGFSクラスタの管理</block>
   <block id="0d06184de569870cd5818ae2e6c4a6ac" category="admonition">を参照してください <block ref="0671020dd7d3d7a323a3eef6d8b61659" category="inline-link-macro-rx"></block> セクションでは、BeeGFS High Availability（HA）クラスタとのやり取りに固有の用語と概念について詳しく説明します。</block>
   <block id="3e3cee1fd1e1de5762df25400f62794a" category="paragraph">HPCクラスタ内のノードで、ファイルシステムを利用する必要のあるアプリケーションを実行しています。コンピューティングノードまたはGPUノードと呼ぶこともあります。</block>
@@ -1860,6 +1650,220 @@
   <block id="e8afe31a21b6aae9717484d865743dae" category="sidebar">BeeGFS on NetApp with Eシリーズストレージは、きわめて要件の厳しいワークロードにも対応できる、シンプルで信頼性、拡張性、コスト効率に優れたHPCインフラを備えた、実績ある統合解決策です。</block>
   <block id="3a9aabbbb8c331319a41788bf5d1786a" category="paragraph">Ansibleインベントリファイルを物理的に構築して作成する場合は、以下の標準的な規則に従ってください（詳細については、を参照してください） <block ref="dbbcb9482f49ee969cddb7f10864cbd0" category="inline-link-macro-rx"></block>）。</block>
   <block id="a743f5810f84b94eef8da441707ef9cb" category="paragraph">EF600でHDR（200GB）InfiniBandを使用するには、物理ポートごとに2つ目の「仮想」IPを設定する必要があります。以下は、デュアルポートInfiniBand HDR HICを搭載したEF600の正しい設定方法の例です。</block>
-  <block id="c0e444d9cf9d3a48a737c4df4fa52549" category="list-text">OSのRAID 1で構成された2台の1TB 7.2K SATAドライブ（または同等以上）。</block>
-  <block id="509d1f98aaad6eee1691109893d137fe" category="list-text">1GbE以上のポート（インバンドOS管理用）。</block>
+  <block id="ba83328d8d0f6845114641c46fd328ed" category="paragraph">このインスタンスでは、何らかの理由でBeeGFSサービスMETA_08が停止しました。トラブルシューティングを続行するには、beegfs_02を起動し、でサービスのログを確認する必要があります<block ref="45434eee994714888e9eafad4993b0d3" prefix=" " category="inline-code"></block>。たとえば、BeeGFSサービスで内部問題 やノードの問題が原因でアプリケーションエラーが発生した可能性があります。</block>
+  <block id="12edeb5890095749089987982a1404ce" category="cell">7.4.1</block>
+  <block id="edd2140e3bcb557a4bc234fc76e2dfb3" category="cell">beegfs collection v3.2.0を使用してアップグレードします</block>
+  <block id="fb6df547cfb7d95cb9b49b8301cad3ab" category="cell">7.4.2</block>
+  <block id="549cabdee707d530b4b718071c2b04e9" category="paragraph">メジャーバージョンとマイナーバージョンを切り替える場合は、クラスタの導入とメンテナンスに使用するファイルで、<block ref="2f78c4e27feaf25ffb33d97e8ff7e7a6" prefix=" " category="inline-code"></block> ロールの名前を目的のバージョンに合わせて更新し<block ref="66b5cc4f55c22b7b05dfd4be1be47aab" prefix=" " category="inline-code"></block> ます。たとえば、BeeGFS 7.4を導入する場合は、次のようになり<block ref="bf8d782a5f25b975eee48d224688885f" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="e8c7ab07a88c53743d909983583625f9" category="paragraph">たとえば、次のサンプルファイルでは<block ref="d28e452e49fc926f32af1d87afcff3ce" prefix=" " category="inline-code"></block> 、beegfs_01がBeeGFS管理サービスの実行に優先されるファイルノードです。</block>
+  <block id="cb7c9e260fba17d2ffcc93361a0eab2e" category="paragraph">この順序を逆にすると、beegfs_02で管理サービスが優先されます原因 。</block>
+  <block id="958b8a27f957bef8700299f8cafb9b9a" category="admonition">個 々 のリソースまたはリソースグループを指定しないでください。再配置するBeeGFSサービスのモニタ名を必ず指定しますたとえば、BeeGFS管理サービスをbeegfs_02に移動するには、次のコマンドを実行し<block ref="ad6bdcc4dd95b7dbe9e00b9894a08e42" prefix=" " category="inline-code"></block>ます。このプロセスを繰り返して、1つ以上のサービスを優先ノードから移動できます。サービスが新しいノードで再配置/開始されたことを確認します<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> 。</block>
+  <block id="de752721186f0ef334b71ac4b3fe9cb5" category="paragraph">ファイルノードはRedHat 9.3を実行しており、必要なパッケージ（Pacemaker、corosync、fence-agents-all、resource-key）を含むHAリポジトリにアクセスできる必要があります。たとえば、次のコマンドを実行して、RedHat 9上の適切なリポジトリを有効にできます。</block>
+  <block id="aaf17f2a8cba647c8702de94c1bef112" category="list-text">メモ必要に応じて、サポートされているものを <block ref="f4efc844d4401fa0cd59f82e6a720d5a" category="inline-link-macro-rx"></block> ここで指定することもできます。BeeGFS HAロールには十分にテストされた機能が多数付属しているため、これらの調整は通常は必要ありません <block ref="62cb44c0555eaba8953c22f475d751a4" category="inline-link-macro-rx"></block>。</block>
+  <block id="064f7cc76dc5afb2fb3aa165873ba871" category="list-text">他のフェンシングエージェントの設定の詳細については、を参照してください <block ref="1e76955e0560eaf6ce328d55fb062eeb" category="inline-link-macro-rx"></block>。</block>
+  <block id="b611c6838bc0b80a5b542ae4d720301f" category="list-text">BeeGFS HAロールでは、パフォーマンスをさらに最適化するために、さまざまなチューニングパラメータを適用できます。これには、カーネルメモリ使用率の最適化や、ブロックデバイスI/Oなどのパラメータが含まれます。このロールには、NetApp E-Seriesブロックノードを使用したテストに基づく合理的なセットが付属してい <block ref="e3e5af180e2cd561ad9b935d8101ce4e" category="inline-link-macro-rx"></block> ますが、デフォルトでは次を指定しない限り、これらは適用されません。</block>
+  <block id="7353e78ee2c3bb2136aa1b29915ccf4b" category="list-text">必要に応じて、ここでデフォルトのパフォーマンス調整に変更を加えます。詳細については、完全なドキュメントを参照して <block ref="df0e33f301a426939663a0f2db36079c" category="inline-link-macro-rx"></block> ください。</block>
+  <block id="37fa384fbce35691f87f5108b23924df" category="list-text">必要に応じて、クラスタ内のすべてのBeeGFSサービスに適用する設定を指定します。デフォルトの設定値が表示され <block ref="cb8aac20b4c821ca121d5c55cc4298ed" category="inline-link-macro-rx"></block>、サービス単位の設定は他の場所で指定されます。</block>
+  <block id="61eef27bde9b61db5c00501b13e855d5" category="list-text">詳細オプションについては、に付属のデフォルトの一覧を参照して <block ref="cf22ff8e76067e7f0eed610c434ec47d" category="inline-link-macro-rx"></block>ください。</block>
+  <block id="5452bc376e228dbfc0b465054f2483c7" category="paragraph">現在、サポートされているLinuxディストリビューションに同梱されているの受信トレイバージョンで<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> は、仮想化はサポートされていません。代わりに、NVIDIA OpenFabrics Enterprise Distribution（OFED）からのバージョンをインストールして設定する必要があります<block ref="d21519b2c7af8ce90e382199384a8c06" prefix=" " category="inline-code"></block> 。Ansibleによる導入もサポートされていますが、いくつかの追加手順が必要です。</block>
+  <block id="9c279dc4c0fdf62d589e1afa8c972930" category="list-text">curlまたは任意のツールを使用して、セクションに記載されているOpenSMのバージョンのパッケージをNVIDIAのWebサイトからディレクトリにダウンロードし <block ref="ae114c21b1e7dc7681f7c73b9450ef94" category="inline-link-macro-rx"></block><block ref="4d67f7bc650c0237a4f14903bb4e32de" prefix=" " category="inline-code"></block> ます。例：</block>
+  <block id="a7d969bead9b9df7cbb19855a88e29f0" category="list-text">クラスタ通信に使用されるネットワークのパフォーマンスは、ファイルシステムのパフォーマンスにとっては重要ではありません。デフォルトのクラスタ構成では、通常、少なくとも1Gb/秒ネットワークを使用すると、ノード状態の同期やクラスタリソース状態の変更の調整など、クラスタ処理に十分なパフォーマンスが提供されます。低速/ビジーなネットワークでは、原因 リソースの状態が通常よりも長くなる可能性があります。また、ノードが妥当な時間内にハートビートを送信できない場合、ノードがクラスタから削除されることがあります。</block>
+  <block id="b1c24e06350be92498850e67cc8d9f5b" category="inline-link-macro">NVIDIAファームウェアツール(MFT)</block>
+  <block id="042d56fca47b68c93d438d4b1275b212" category="paragraph">NVIDIA ConnectX-Virtual Protocol Interconnect &amp;reg;（VPI）アダプタは、InfiniBandとイーサネットの両方をトランスポートレイヤとしてサポートします。モード間の切り替えは自動的にはネゴシエートされないため、に含まれているオープンソースパッケージを使用して設定する必要があります<block ref="366fe119442ebda85ac564541700d0b5" prefix=" " category="inline-code"></block><block ref="a55706c70f646ff289a7f6fb8ddc1353" prefix=" " category="inline-code"></block> <block ref="feedb9cf3a554ef170c48364196566a1" category="inline-link-macro-rx"></block>。アダプタのモードを変更する必要があるのは一度だけです。これは手動で行うことも、インベントリのセクションを使用して設定されたインターフェイスの一部としてAnsibleインベントリに含めることもでき<block ref="d6ca1855b29b160948694322764a86cb" prefix=" " category="inline-code"></block> 、自動的にチェック/適用されます。</block>
+  <block id="815feebb5e4cc6a260b0689a8647ef51" category="admonition">NVIDIA OFEDドライバを使用する場合は、beegfs_client_ofed_include_pathが、使用しているLinuxのインストールに適した「ヘッダーインクルードパス」を指定していることを確認してください。詳細については、BeeGFSのドキュメントを参照してください <block ref="a36a0245ff208157cbdf93cd51fc1311" category="inline-link-macro-rx"></block>。</block>
+  <block id="988ac7262f270e296238adb630629da1" category="paragraph"><block ref="988ac7262f270e296238adb630629da1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fbe2ee36e5e515b0ea11d513d4edd60d" category="paragraph">BeeGFS on NetAppソリューションでは、以下のノードが検証されました。</block>
+  <block id="6c3a6944a808a7c0bbb6788dbec54a9f" category="cell">ノード</block>
+  <block id="3c02a379965ab0dfcd77b1c484450433" category="cell">ハードウェア</block>
+  <block id="e1e4c8c9ccd9fc39c391da4bcd093fb2" category="cell">ブロック</block>
+  <block id="11eae0b95e61cd22a675ac3a648e9f79" category="cell">NetApp EF600ストレージシステム</block>
+  <block id="318d8d02c042e4aa8cd7ae129f0a339b" category="cell">要件の厳しいワークロード向けに設計された、ハイパフォーマンスなオールNVMe 2Uストレージアレイです。</block>
+  <block id="0b27918290ff5323bea1e3b78a9cf04e" category="cell">ファイル</block>
+  <block id="8c9b1d5381233aa78ea770058e6742e6" category="cell">Lenovo ThinkSystem SR665 V3サーバ</block>
+  <block id="2a3586b2a3c3de10623ad3288a90f6dd" category="cell">PCIe 5.0デュアルAMD EPYC 9124プロセッサを搭載した2ソケット2Uサーバ。Lenovo SR665 V3の詳細については、を参照してください<block ref="7f25034611c942664d16f6d0ddb47fad" category="inline-link-rx"></block>。</block>
+  <block id="ae1c04d15a9494b2729aa9280c0120fa" category="cell">Lenovo ThinkSystem SR665サーバ</block>
+  <block id="d1c6fb9a2f602020b776764cc928e4c4" category="cell">PCIe 4.0、デュアルAMD EPYC 7003プロセッサを搭載した2ソケット2Uサーバ。Lenovo SR665の詳細については、を参照してください<block ref="65dfa08d35b276d60d397ded9080ccd5" category="inline-link-rx"></block>。</block>
+  <block id="62ecfeab471e0776b331e56e58d79d41" category="paragraph">このソリューションのビルディングブロック（次の図を参照）では、BeeGFSファイルレイヤ用に検証済みファイルノードサーバを使用し、2台のEF600ストレージシステムをブロックレイヤとして使用します。</block>
+  <block id="f220d8966f97bec043102cd415b93605" category="paragraph">NetApp解決策 のBeeGFSは、導入環境のすべてのビルディングブロックで実行されます。最初に導入するビルディングブロックでは、BeeGFSの管理、メタデータ、ストレージサービス（基本ビルディングブロック）を実行する必要があります。後続のすべてのビルディングブロックは、ソフトウェアを使用して構成し、メタデータサービスとストレージサービスを拡張したり、ストレージサービスのみを提供したりできます。このモジュラ型アプローチにより、同じ基盤ハードウェアプラットフォームとビルディングブロック設計を使用しながら、ワークロードのニーズに合わせてファイルシステムを拡張できます。</block>
+  <block id="2cad05d70c2bc093824c9105ad50dc45" category="paragraph">最大5つのビルディングブロックを導入して、スタンドアロンのLinux HAクラスタを形成できます。これにより、Pacemakerによるリソース管理が最適化され、Corosyncとの効率的な同期が維持されます。これらのスタンドアロンBeeGFS HAクラスタの1つ以上が組み合わされてBeeGFSファイルシステムが作成され、クライアントは単一のストレージネームスペースとしてアクセスできます。ハードウェア側では、42Uラック1台に最大5つのビルディングブロックを収容でき、ストレージ/データネットワーク用に1U InfiniBandスイッチを2台搭載できます。視覚的な表現については、下の図を参照してください。</block>
+  <block id="a4186acf84c4a49d9d83b2b83544a1c8" category="admonition">フェイルオーバークラスタでクォーラムを確立するには、少なくとも2つのビルディングブロックが必要です。2ノードクラスタには、フェイルオーバーの正常な実行を妨げる可能性がある制限があります。3つ目のデバイスをTiebreakerとして組み込むことで、2ノードクラスタを構成できますが、このドキュメントではその設計については説明していません。</block>
+  <block id="7531d1760bee1e64b20f1f8975ccfc87" category="paragraph">たとえば、命名規則は<block ref="6171c77957e7dd932771522d0f5313aa" prefix=" " category="inline-code"></block> 次のようになります。<block ref="201b23a54c1ff68053f15f81feb28cbb" prefix=" " category="inline-code"></block></block>
+  <block id="db94a118f0347e2dbe0ef8f3c0674d1f" category="paragraph">たとえば、という名前のブロックノードは<block ref="ca9fd584227ff345bca2ef90d5c56e63" prefix=" " category="inline-code"></block> 通常、コントローラごとにホスト名を設定できます（やなど）があります<block ref="86ee3de8557579a76634023aa5ccc100" prefix=" " category="inline-code"></block><block ref="32665fb108839c23a5db4a463e74176e" prefix=" " category="inline-code"></block>が、Ansibleインベントリではと呼ばれます。<block ref="3d1a3866e5aadfdac8b0e07e6740b0fe" prefix=" " category="inline-code"></block></block>
+  <block id="a0e2a91b693d9eb92fb3153f61dfe4fa" category="section-title">BeeGFSクライアント/サーバIPoIBアドレス方式</block>
+  <block id="7f5258ce731ddb14570317599b9962d9" category="list-text">BeeGFSストレージサービスは、常に<block ref="7bda92dd6fa15b04835e990fcef5c6f7" prefix=" " category="inline-code"></block> または<block ref="0dc2ee6e17afcd7bafe09a4e99667f35" prefix=" " category="inline-code"></block>です。</block>
+  <block id="888c436af0d0f519ac3018d0df7868cd" category="section-title">IPoIB単一サブネットアドレッシング方式</block>
+  <block id="c9923a234c7bd25e331582479a38a503" category="inline-link-macro">ソフトウェアアーキテクチャ</block>
+  <block id="9159781ab55be88f1f26fb2b8e4e7420" category="paragraph">この導入ガイドでは、に記載されている利点を考慮して、単一のサブネットスキーマを使用し <block ref="2504f4d58c8f68628557b72cf70af5b4" category="inline-link-macro-rx"></block>ます。</block>
+  <block id="8474461676c84fa210da74bbd55e916d" category="paragraph-title">サブネット：100.127.0.0/16</block>
+  <block id="e7e7c18d006d81c97d299954457c88f1" category="paragraph">次の表に、単一のサブネットの範囲（100.127.0.0/16）を示します。</block>
+  <block id="039d7982c08566a6ae03eaa24cb6c670" category="cell">i1bまたはi4b</block>
+  <block id="56fd2b46f686fb44565e25ca28a93fc0" category="cell">100.127.102.0</block>
+  <block id="437dac4e62a043183f68652e142fc4a3" category="cell">100.127.102.1～100.127.102.255</block>
+  <block id="031082c8b0090f55cf416fb5aa46e723" category="cell">100.127.104.1～100.127.104.255</block>
+  <block id="2cc4767a51c5d45fecfa3be2bb68037c" category="section-title">IPoIB 2サブネットアドレッシング方式</block>
+  <block id="e1c71427409ff54c1742cb28f621dcd5" category="paragraph">2つのサブネットアドレッシング方式は推奨されなくなりましたが、実装は可能です。推奨される2つのサブネット方式については、次の表を参照してください。</block>
+  <block id="29ebd98b5bc8daaac03bfdeefabf090e" category="admonition">2つのサブネットアドレス方式を導入している場合は、2つのストレージIPoIBサブネットそれぞれに1つずつ、各クライアントに2つのInfiniBandインターフェイスを設定する必要があります。ここに示す各BeeGFSサービスのサブネットの例と推奨範囲を使用する場合は、クライアントのインターフェイスの1つを~の範囲で設定し、もう1つを~の範囲で設定する必要があります<block ref="0c41ff65aa6ae425a8c58863fcb3cef5" prefix=" " category="inline-code"></block><block ref="b4e6b2ab9469bd0c90a8b83c8ebc175f" prefix=" " category="inline-code"></block><block ref="ee8ceb74abe0adf268a6f4a36c7735d9" prefix=" " category="inline-code"></block><block ref="4a52c6bf091e6a4cd2fd08fa070352e3" prefix=" " category="inline-code"></block>。</block>
+  <block id="6dc47c91cdf35bbb7cac1fd9e1ff29d7" category="admonition">NVIDIA OFEDドライバを使用する場合は、がLinuxのインストールに適した「ヘッダインクルードパス」を指していることを確認して<block ref="f24d21b8b47b3902162911c8595514e9" prefix=" " category="inline-code"></block> ください。詳細については、BeeGFSのドキュメントを参照してください<block ref="ad551773fffeead9219b565416da2397" category="inline-link-rx"></block>。</block>
+  <block id="ba9cd5a8827de277f30213c3a9f74d65" category="list-text">導入環境に適したサブネットアドレッシング方式を選択します。に記載されている利点のため、 <block ref="2504f4d58c8f68628557b72cf70af5b4" category="inline-link-macro-rx"></block>単一のサブネットアドレッシング方式を使用することを推奨します。</block>
+  <block id="c9e946c487cb8ab99c1f1b0c16839f91" category="list-text">フェンシングエージェントを設定します。（詳細については、を参照してください<block ref="36285c27b4e0cfacce4f264137f7dfc3" category="inline-link-rx"></block>）。次の出力は、一般的なフェンシングエージェントの設定例を示しています。次のいずれかのオプションを選択します。</block>
+  <block id="90fd7614ddbcf02d5873d67a7e08983a" category="paragraph">調整可能なチューニングパラメータの包括的なリストについては、のBeeGFS HAロールの「Performance Tuning Defaults」セクションを参照してください<block ref="88ca1124cd8a9bf4401c9daba82c5025" category="inline-link-rx"></block>。 デフォルト値は、このファイルのクラスタ内のすべてのノードまたは個 々 のノードのファイルで上書きできます<block ref="3342582e194d63e4c91b56623752c9c6" prefix=" " category="inline-code"></block> 。</block>
+  <block id="75d34bd8c0a1081d52b926e7b1b60689" category="inline-link-macro">ファイルノードの要件</block>
+  <block id="3762dd806b1df772618c9caeb19d9d43" category="list-text">ブロックノードとファイルノード間の200GB/HDR接続を完全に許可するには、NVIDIA Open Fabrics Enterprise Distribution（MLNX_OFED）のOpen Subnet Manager（OpenSM）パッケージを使用します。に記載されているMLNX_OFEDバージョンは <block ref="1dfb967627cb2f0e7f82d8713fd73b4c" category="inline-link-macro-rx"></block> 、推奨されるOpenSMパッケージにバンドルされています。Ansibleを使用した導入もサポートされていますが、最初にすべてのファイルノードにMLNX_OFEDドライバをインストールする必要があります。</block>
+  <block id="c113a52851d26cf252ec05ac9628162e" category="list-text">から、ブロックノードに取り付けられているドライブで使用可能な最新のドライブファームウェアをダウンロードしてインストールし<block ref="df4241174f74102a38fc34a378114b68" category="inline-link-rx"></block>ます。手動でアップグレードするか、Ansible制御ノードのディレクトリに追加してから、の次のパラメータを入力してAnsibleを使用してアップグレードできます<block ref="93501a11e921083efbd154e0cdff5f10" prefix=" " category="inline-code"></block><block ref="79d2514d0f856ef18e58ebf8b9716d05" prefix=" " category="inline-code"></block> 。</block>
+  <block id="a94e8f341d41dc36ead41bc0876ad6b6" category="cell">i1b：100.127.101.1/16 i2b：100.127.102.1 /16</block>
+  <block id="3d1a3866e5aadfdac8b0e07e6740b0fe" category="cell">netapp_01</block>
+  <block id="ceff1390fad555137a9e76549f5c5c35" category="cell">i2b：100.127.102.2/16 i1b：100.127.101.2 /16</block>
+  <block id="4261093cdb58c46bcef081c2a8d50a22" category="cell">i3b：100.127.101.3/16 i4b：100.127.102.3 /16</block>
+  <block id="ae9471dd5ddb2f7bbf73f8df6d11ea8d" category="cell">netapp_02</block>
+  <block id="6a4b726f26d557d3d41580df69e5f52c" category="cell">i4b：100.127.102.4/16 i3b：100.127.101.4 /16</block>
+  <block id="3468e3b520debc18497bb043da48a402" category="cell">i1b：100.127.101.5/16 i2b：100.127.102.5 /16</block>
+  <block id="661d119659a3196ad4ea3cd776db51f9" category="cell">i2b：100.127.102.6/16 i1b：100.127.101.6 /16</block>
+  <block id="5e4915a0b5172fe24086c6612e459a18" category="cell">i3b：100.127.101.7/16 i4b：100.127.102.7 /16</block>
+  <block id="d4255115c2508bc18adb598c6fb0b827" category="cell">i4b：100.127.102.8/16 i3b：100.127.101.8 /16</block>
+  <block id="8d05d453ff97ca9e3418e1655244d8d5" category="cell">i1b：100.127.103.1/16 i2b：100.127.104.1 /16</block>
+  <block id="f012b1a2bc162eecafcb880e45d300b3" category="cell">i2b：100.127.104.2/16 i1b：100.127.103.2 /16</block>
+  <block id="92947a5a536c1c49f8a56988362e49f9" category="cell">i3b：100.127.103.3/16 i4b：100.127.104.3 /16</block>
+  <block id="0b566e0d0703bad78bbac23313f53279" category="cell">i4b：100.127.104.4/16 i3b：100.127.103.4 /16</block>
+  <block id="d424257a0c5e62d3b63dc54431955dbb" category="cell">i1b：100.127.103.5/16 i2b：100.127.104.5 /16</block>
+  <block id="261805237e27c4db09ed2709c5b4ee1d" category="cell">i2b：100.127.104.6/16 i1b：100.127.103.6 /16</block>
+  <block id="85dab52b55c7182f1c63b93086d2f9ba" category="cell">i3b：100.127.103.7/16 i4b：100.127.104.7 /16</block>
+  <block id="4c348e39f74a16c489df29edbf00971e" category="cell">i4b：100.127.104.8/16 i3b：100.127.103.8 /16</block>
+  <block id="aaaaf06756bef5b0c236a0c7e8a41d11" category="cell">i1b：100.127.101.9/16 i2b：100.127.102.9 /16</block>
+  <block id="017d565d10fb6b2886e9ca05b035e9a9" category="cell">netapp_03</block>
+  <block id="39496d413f74d010a0d1b0c2e9ccce4e" category="cell">i2b：100.127.102.10/16 i1b：100.127.101.10 /16</block>
+  <block id="6a413ad3d1000df8b4efef19a8814dce" category="cell">i3b：100.127.101.11/16 i4b：100.127.102.11 /16</block>
+  <block id="c5c0f84cd4efb77f7e5e98b314d5b73f" category="cell">netapp_04</block>
+  <block id="e9be3165e6fc46ba149605e78b46fa81" category="cell">i4b：100.127.102.12/16 i3b：100.127.101.12 /16</block>
+  <block id="f3f421c2e886c62a1aec7be061c685b2" category="cell">i1b：100.127.101.13/16 i2b：100.127.102.13 /16</block>
+  <block id="ed8c3ab02a44fc84902022ddcb5fabe8" category="cell">i2b：100.127.102.14/16 i1b：100.127.101.14 /16</block>
+  <block id="1920edec824c590f137b449a0443311a" category="cell">i3b：100.127.101.15/16 i4b：100.127.102.15 /16</block>
+  <block id="73a812d8e4ab9aeff521f90df25f5e23" category="cell">i4b：100.127.102.16/16 i3b：100.127.101.16 /16</block>
+  <block id="d3ff883be9e23adf4e03697eb2b136f5" category="cell">i1b：100.127.103.9/16 i2b：100.127.104.9 /16</block>
+  <block id="6db8aa9802df58c38910ed6abe1ba11e" category="cell">i2b：100.127.104.10/16 i1b：100.127.103.10 /16</block>
+  <block id="0e507490f78723195265893fc3dd4a5b" category="cell">i3b：100.127.103.11/16 i4b：100.127.104.11 /16</block>
+  <block id="32ac4e07dd77b430c6297e3e8799efd2" category="cell">i4b：100.127.104.12/16 i3b：100.127.103.12 /16</block>
+  <block id="f82dba07589e57dfcaf71442a7d0cd71" category="cell">i1b：100.127.103.13/16 i2b：100.127.104.13 /16</block>
+  <block id="39c7f24708288668c898771cebf44864" category="cell">i2b：100.127.104.14/16 i1b：100.127.103.14 /16</block>
+  <block id="28800e3773b860f61c7a9b36b316ed98" category="cell">i3b：100.127.103.15/16 i4b：100.127.104.15 /16</block>
+  <block id="ce02872e166a5cf80f50cd4385d0d192" category="cell">i4b：100.127.104.16/16 i3b：100.127.103.16 /16</block>
+  <block id="e8ed9c2d9c49ed0524af7cf1d12ba639" category="cell">i1b：100.127.103.17/16 i2b：100.127.104.17 /16</block>
+  <block id="63e36b5f8b91c5859b9a169198da7feb" category="cell">netapp_05</block>
+  <block id="caf800dba53971258bebfcd9348ac486" category="cell">i2b：100.127.104.18/16 i1b：100.127.103.18 /16</block>
+  <block id="7b25c9239b1b161705c2cb1b81a33c4a" category="cell">i3b：100.127.103.19/16 i4b：100.127.104.19 /16</block>
+  <block id="b9fc71cc5ff86544747cf2b210fbab78" category="cell">netapp_06</block>
+  <block id="41510e449bb0d73d0aa0a826b53e7866" category="cell">i4b：100.127.104.20/16 i3b：100.127.103.20 /16</block>
+  <block id="0b2d0578110fe19b63e28d0502beb0c8" category="cell">i1b：100.127.103.21/16 i2b：100.127.104.21 /16</block>
+  <block id="30b35cb26fde8fb49ebb562dd442913e" category="cell">i2b：100.127.104.22/16 i1b：100.127.103.22 /16</block>
+  <block id="864d7d5e08731a767f391f837e7ef23e" category="cell">i3b：100.127.103.23/16 i4b：100.127.104.23 /16</block>
+  <block id="2c1d9121314a70e0d2a2ba89aec6fc0e" category="cell">i4b：100.127.104.24/16 i3b：100.127.103.24 /16</block>
+  <block id="254542384d1213a7d51adea301584149" category="paragraph">P状態</block>
+  <block id="50d1288a06e5d81d403b256e91757cd8" category="paragraph">次の手順は、特に記載がないかぎり、クラスタ内の各ビルディングブロックについて同じです。これは、このビルディングブロックを使用してBeeGFSメタデータサービスとストレージサービスの両方を実行するか、ストレージサービスだけを実行するかに関係ありません。</block>
+  <block id="2420c82686a86123afa7fb56270ebdba" category="list-text">で指定したモデルを使用して、4つのホストチャネルアダプタ（HCA）で各BeeGFSファイルノードをセットアップします。 <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>以下の仕様に従って、HCAをファイルノードのPCIeスロットに挿入します。</block>
+  <block id="655bb8c05d377bb94fdb062b9b431c69" category="list-text">* Lenovo ThinkSystem SR665 V3サーバー：PCIeスロット1、2、4、5を使用します。</block>
+  <block id="79d10643d6c05fba16a1207303e6a6c0" category="list-text">* Lenovo ThinkSystem SR665サーバー：PCIeスロット2、3、5、6を使用します。</block>
+  <block id="32bf9d61588971ac8df90b5b33ea1a67" category="paragraph">2つのBeeGFSファイルノードがBeeGFSブロックノードの上になるようにビルディングブロックをラックに配置します。次の図は、Lenovo ThinkSystem SR665 V3サーバをファイルノードとして使用するBeeGFSビルディングブロックの正しいハードウェア構成を示しています（背面図）。</block>
+  <block id="c8f2a4f5bff72a29f506dddd3d74951a" category="paragraph"><block ref="c8f2a4f5bff72a29f506dddd3d74951a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="43c3123c89f5e279387f5f5375ace233" category="inline-link-macro">1M InfiniBand HDR 200GB直接接続銅ケーブル</block>
+  <block id="3c75c93f121f7b2c649fd946b1a935cf" category="list-text">次の図に示すトポロジと一致するように、を使用してブロックノードとファイルノードを接続します <block ref="c748126fd5b6f4c3728762b1ce9f2698" category="inline-link-macro-rx"></block>。</block>
+  <block id="bf48f26aecb46f6218fe2a7e52fb9d5a" category="paragraph"><block ref="bf48f26aecb46f6218fe2a7e52fb9d5a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="be01bbade44d01019fcef77af9fc26e5" category="inline-link-macro">2M InfiniBandケーブル</block>
+  <block id="df8ecd3c13ed9e59d88fa90e10bcc47f" category="list-text">InfiniBandストレージスイッチに固有のを使用して、ファイルノードの残りのInfiniBandポートをストレージネットワークのInfiniBandスイッチに接続します <block ref="661a89e8980e34439324f4cc2c4b1743" category="inline-link-macro-rx"></block> 。</block>
+  <block id="8e4e4dc9d710c035afcec16817c6b5a3" category="paragraph">スプリッタケーブルを使用してストレージスイッチとファイルノードを接続する場合は、スイッチから1本のケーブルが分岐し、ライトグリーンで示されているポートに接続する必要があります。別のスプリッタケーブルがスイッチから分岐し、濃い緑色で示されているポートに接続する必要があります。</block>
+  <block id="5059e1c6d859e6d2e881b28d0a939639" category="paragraph">また、冗長スイッチを使用するストレージネットワークの場合、薄い緑色のポートは1つのスイッチに接続し、濃い緑色のポートは別のスイッチに接続します。</block>
+  <block id="2b2607ba10759a35b672629d844a4bfc" category="paragraph">Ansibleインベントリに記載されている構成を適用するには、NetApp E-Series Ansibleコレクションに含まれているさまざまなAnsibleモジュールとロールを使用します。特に、エンドツーエンドのソリューションを導入するBeeGFS HA 7.4ロール（から入手可能）を使用し<block ref="e65da35b507a01fbe5db4a35e8ffaf77" category="inline-link-rx"></block>ます。</block>
+  <block id="a3dbff02e88e9e804d80d00706cede6c" category="paragraph">Ansibleを使用すると、NetAppなどの企業は、Ansible Galaxyのコレクションを使用して組み込み機能を拡張できます（を参照<block ref="09c3689692686597c3ced866c6122b6c" category="inline-link-rx"></block>）。コレクションには、特定の機能やタスク（Eシリーズボリュームの作成など）を実行するモジュールや、複数のモジュールやその他の役割を呼び出すことができるロールが含まれます。この自動化されたアプローチにより、BeeGFSファイルシステムと基盤となるHAクラスタの導入に要する時間が短縮されます。さらに、ビルディングブロックの追加が簡単になり、既存のファイルシステムを拡張できます。</block>
+  <block id="8bf028bec7411a5f58e9f6c9cdcb868c" category="paragraph">次の手順はUbuntu 22.04でテストされました。使用しているLinuxディストリビューションに固有の手順については、を参照してください<block ref="34c856f227a1cab1577af9d235784d24" category="inline-link-rx"></block>。</block>
+  <block id="6beebf7e29f7e6b87bb0cfa8afb3d664" category="list-text">Python 3.10をインストールし、正しいバージョンのがインストールされていることを確認し<block ref="62ad1c2a46c5298f3e2c95d3babf8d0c" prefix=" " category="inline-code"></block> ます。</block>
+  <block id="e709eaee39c1c94ce2b784ef354857f3" category="list-text">シンボリックリンクを作成し、またはが呼び出されるたびにPython 3.10バイナリが使用されるようにし<block ref="6e8efbe3a442748b716644025479aab5" prefix=" " category="inline-code"></block><block ref="23eeeb4347bdd26bfc6b7ee9a3b755dd" prefix=" " category="inline-code"></block> ます。</block>
+  <block id="0f7c31137702c2d677a474d55058637d" category="paragraph">検証済みLenovo SR665 V3ファイルノードのネットワーク設定方法については、を参照してください<block ref="05277b4b7d004e546ac1f238e66dd4bf" category="inline-link-rx"></block>。</block>
+  <block id="b8d06d76e2eaa67bfafbce3081ab48f5" category="list-text">Red Hat 9.3をインストールし、AnsibleコントロールノードからのSSH接続など、オペレーティングシステムの管理に使用するホスト名とネットワークポートを設定します。</block>
+  <block id="7568449700f7c3e03b4500285c69b82f" category="list-text">Red Hat Subscription Managerを使用してシステムを登録およびサブスクライブし、Red Hatの公式リポジトリから必要なパッケージをインストールできるようにし、サポートされているバージョンのRed Hat:にアップデートを制限し<block ref="085c7e75df5d271759849f369fa065a7" prefix=" " category="inline-code"></block>ます。手順については、およびを参照してください<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
+  <block id="00d3e1c43b2f440233b2874bbe49a236" category="list-text">すべてのHCAファームウェアをで推奨されているバージョンに更新します <block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
+  <block id="313520f5b6c2887466092680afb5d057" category="paragraph">この更新を行うには'推奨ファームウェアをバンドルするmlxupツールのバージョンをダウンロードして実行しますこのツールは()からダウンロードできます<block ref="d22fd7ba0031fc3b862dce4cf129cfa5" category="inline-link-rx"></block><block ref="0efbaca172e58edf29b612ba47aac915" category="inline-link-macro-rx"></block>。</block>
+  <block id="b52d8b061d9ea3d197fbe8093a3eec3f" category="admonition">スプリッタケーブルを使用してストレージスイッチをファイルノードに接続する場合は、1本のケーブルが分岐して薄い緑色のポートに接続する必要があります。もう1本のケーブルが分岐し、濃い緑色で示されているポートに接続します。また、冗長スイッチを使用するストレージネットワークの場合、薄い緑色のポートは1つのスイッチに接続し、濃い緑色のポートは別のスイッチに接続します。</block>
+  <block id="dcc608d1c76fed74a96f75915bc6561f" category="paragraph">PCIeの完全な双方向帯域幅を利用するには、各InfiniBandアダプタの1つのポートをストレージファブリックに接続し、もう1つのポートをブロックノードに接続します。</block>
+  <block id="0a31efbdaa47f7da5564c0e43b03e7ea" category="paragraph">必要に応じて、設定パラメータのデフォルト設定を上書きできます。特定のワークロードやユースケースに合わせて調整できるパラメータについては、を参照して<block ref="986eca0f3f99dd3e8d8640fddbc137d2" category="inline-link-rx"></block>ください。</block>
+  <block id="11a09874ac1f09275ccc827cbc44353e" category="paragraph">特定のワークロードやユースケースに合わせて調整できるパラメータについては、を参照して<block ref="0ea07919cef6ebe8518c59fc238308fd" category="inline-link-rx"></block>ください。</block>
+  <block id="4d8ee2002969aa8084ace10838f40531" category="list-text">*ファイルノードにインストールされているLinux OSのシステム設定。*の手順4でAnsibleインベントリを作成するときに、Linux OSのデフォルトのシステム設定を上書きできます <block ref="dbbcb9482f49ee969cddb7f10864cbd0" category="inline-link-macro-rx"></block>。</block>
+  <block id="f9a2fc1e1676d37df014ebfbdfa9a90d" category="paragraph">NVIDIA HCAの最大読み取り要求サイズを増やすことができます。</block>
+  <block id="163d5c0f8034e540888104ef4ded6727" category="list-text">* BeeGFSクライアントのマルチレール構成*_Multi-rail_とは、アプリケーションが複数の独立したネットワーク接続（「レール」）を使用してパフォーマンスを向上させる機能を指します。</block>
+  <block id="8d2644ad58bcbab1442816a77a82fefb" category="paragraph">BeeGFSはマルチレールサポートを実装し、1つのIPoIBサブネットで複数のIBインターフェイスを使用できるようにします。この機能により、RDMA NIC間での動的なロードバランシングなどの機能が有効になり、ネットワークリソースの使用が最適化されます。また、NVIDIA GPUDirect Storage（GDS）とも統合されているため、システム帯域幅が増加し、クライアントのCPUのレイテンシと使用率が低下します。</block>
+  <block id="992c3cb2d0c5be332151afe6ab4d5005" category="paragraph">このマニュアルでは、単一のIPoIBサブネット設定の手順について説明します。デュアルIPoIBサブネット構成はサポートされていますが、シングルサブネット構成と同じ利点はありません。</block>
+  <block id="2d861baf986f6a35c479d15a72c8284c" category="paragraph">HAクラスタは、広く使用されている2つのLinux HAプロジェクトに基づいて設計されています。クラスタメンバーシップ用のCorosyncと、クラスタリソース管理用のPacemakerです。詳細については、を参照してください<block ref="0a03558b42ce04f55d37553193f6d76f" category="inline-link-rx"></block>。</block>
+  <block id="9d550842e04b4f253a1d3e7bb3297890" category="paragraph">ビルディングブロックは、2台のNVIDIA Quantum InfiniBand（MQM8700）スイッチに接続されています。また、10個のBeeGFSクライアントもInfiniBandスイッチに接続し、総合ベンチマークユーティリティの実行に使用しました。</block>
+  <block id="16e30c156c86a2bc6240a20ed7b6fdc4" category="section-title">NVIDIA DGX SuperPODとBasePODの検証</block>
+  <block id="40fa362dda8b4d271b61c38987bd5131" category="paragraph">ネットアップでは、3つのビルディングブロックにメタデータとストレージ構成プロファイルが適用されたBeeGFSファイルシステムを使用して、NVDIA DGX A100 SuperPOD向けのストレージ解決策 の検証を実施しました。認定には、このNVAで説明した解決策 を、さまざまなストレージ、機械学習、ディープラーニングのベンチマークを実行している20台のDGX A100 GPUサーバでテストすることが含まれます。NVIDIAのDGX A100 SuperPODで確立された検証に基づいて、BeeGFS on NetAppソリューションは、DGX SuperPOD H100、H200、B200システムでの使用が承認されました。この拡張は、NVIDIA DGX A100で検証された、以前に確立されたベンチマークとシステム要件を満たすことに基づいています。</block>
+  <block id="21b6d1b90774505daa15a9be831436a9" category="inline-link-macro">設計ガイド</block>
+  <block id="1cba1266f00c729aee1318803f870d22" category="list-text">NVIDIA DGX SuperPOD A100、H100、H200、およびB200システム向けに設計されたアーキテクチャ。以前はNVIDIAの専用受け入れクラスタで検証済みです。NVIDIA DGX SuperPOD with NetAppの詳細については、を参照してください <block ref="e98320202738eb339bebe66cbb05ad8f" category="inline-link-macro-rx"></block>。</block>
+  <block id="8c044876bfc8883462e221a47dd42483" category="paragraph">第2世代のBeeGFS on NetAppは、ハイパフォーマンスコンピューティング（HPC）、機械学習（ML）、ディープラーニング（DL）、その他の人工知能（AI）手法など、要件の厳しいワークロードのパフォーマンス要件を満たすように最適化されています。共有ディスクの高可用性（HA）アーキテクチャを組み込むことで、データの保持性と可用性が確保され、ダウンタイムやデータ損失を許容できない企業やその他の組織に最適です。第2世代の設計には、PCIe Gen5サーバーなどのコンポーネントと、NVIDIA®Quantum™QM9700 400Gb/s InfiniBandスイッチのサポートが含まれています。このソリューションは、NetAppによって検証されただけでなく、NVIDIA DGX™A100 SuperPODのストレージオプションとして外部からの認定にも合格しており、DGX SuperPOD H100、H200、B200システムの拡張認定も取得しています。</block>
+  <block id="10ca191b839b35e5100464ff59b95b97" category="paragraph">第1世代のBeeGFS on NetAppは、NetApp EF600 NVMeストレージシステム、BeeGFS並列ファイルシステム、NVIDIA DGX™A100システム、NVIDIA®Mellanox®Quantum™QM8700 200Gb/s IBスイッチを使用して、機械学習（ML）と人工知能（AI）のワークロード向けに設計されました。この設計は、ストレージとコンピューティングのクラスタインターコネクトファブリックに200Gb/秒InfiniBand（IB）も備えており、ハイパフォーマンスワークロードに完全にIBベースのアーキテクチャを提供します。</block>
+  <block id="aef5a6ba281c6919d0a3e3ff7d8feaf3" category="section-title">設計の概要</block>
+  <block id="a1d7af56cbcfca285cd257ae3430a2d3" category="inline-link-macro">アーキテクチャの概要</block>
+  <block id="61dd8d13bec6e1ac3455eb2e13d61261" category="paragraph">BeeGFS on NetAppソリューションは、拡張性に優れたビルディングブロックアーキテクチャとして設計されており、要件の厳しいさまざまなワークロード向けに構成可能です。多数の小さなファイルを扱う場合でも、大規模なファイル操作を管理する場合でも、ハイブリッドワークロードの場合でも、これらのニーズに合わせてファイルシステムをカスタマイズできます。設計には高可用性が組み込まれており、2層のハードウェア構造を使用しています。これにより、複数のハードウェアレイヤで独立したフェイルオーバーが可能になり、システムが部分的に低下しても一貫したパフォーマンスが保証されます。BeeGFSファイルシステムは、さまざまなLinuxディストリビューションにわたってハイパフォーマンスで拡張性に優れた環境を実現し、クライアントにアクセスしやすい単一のストレージネームスペースを提供します。詳細については、を <block ref="45037eea1e64b480408f051dfe424a3c" category="inline-link-macro-rx"></block>参照してください。</block>
+  <block id="ddf44cacce7787e9c71d290998a2d033" category="list-text">NVIDIA DGX SuperPODシステムには、A100、H100、H200、B200 GPU搭載のDGXが搭載されています。</block>
+  <block id="bcaa6be52b9fd12687892056d441d7e4" category="paragraph">BeeGFS on NetAppソリューションを実装するには、本ドキュメントに記載されているテクノロジ要件を環境が満たしていることを確認してください。</block>
+  <block id="7bf6b11b50ef88e180323b13813659d7" category="paragraph">作業を開始する前に、BeeGFS on NetAppソリューションの1つの第2世代ビルディングブロック設計について、ハードウェアが次の仕様を満たしていることを確認してください。特定の導入に適したコンポーネントは、お客様の要件に応じて異なる場合があります。</block>
+  <block id="694e8d1f2ee056f98ee488bdc4982d73" category="cell">数量</block>
+  <block id="678215bc9d3a2c222903818ef89e7a55" category="paragraph">[[beegfs-file-nodes]] BeeGFSファイルノード</block>
+  <block id="d065c203a4b9103e8896c456d35cceea" category="paragraph">期待されるパフォーマンスを実現するには、各ファイルノードが推奨されるファイルノードの仕様を満たしている必要があります。</block>
+  <block id="fbb1fad3a6f7d3538a8a1f8e9b6f1f08" category="paragraph">*推奨されるファイルノードオプション：*</block>
+  <block id="5be994ecb912a7fb7448cc05f90afcf7" category="list-text">* Lenovo ThinkSystem SR665 V3*</block>
+  <block id="c0c1df1f325217c6fa04ce4c03ba875a" category="list-text">*プロセッサー：* AMD EPYC 9124 16C 3.0 GHz×2（2つのNUMAゾーンとして構成）。</block>
+  <block id="e679361e60a219fe470d3ddb1f34a7d7" category="list-text">*メモリ:256 GB (16 x 16 GB TruDDR5 4800MHz RDIMM-A)</block>
+  <block id="9946d99f0bd7932556af9646233dd2e8" category="list-text">* PCIe拡張：* 4つのPCIe Gen5 x16スロット（NUMAゾーンごとに2つ）</block>
+  <block id="accd99f82c9ad3f026edd29ae4aaa9d8" category="list-text">OS用RAID 1にドライブ2台（1TB 7.2K SATA以上）</block>
+  <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">1GbEポート（インバンドOS管理用）</block>
+  <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">1GbE BMCとRedfish APIによるアウトオブバンドサーバ管理</block>
+  <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">デュアルホットスワップ電源装置とパフォーマンスファン</block>
+  <block id="1fb2f6fd0ecd0371486e7642b03c5dee" category="list-text">* Lenovo ThinkSystem SR665*</block>
+  <block id="78cbac434e403c43ef215a8541f8e62a" category="list-text">*プロセッサー：* AMD EPYC 7343 16C 3.2 GHz×2（2つのNUMAゾーンとして構成）。</block>
+  <block id="634d6174b88e5856171cb65f69c870d6" category="list-text">*メモリ:256 GB (16 x 16 GB TruDDR4 3200 MHz RDIMM-A)</block>
+  <block id="7d381836b9e0d0145f8901a9e826a329" category="list-text">* PCIe拡張：* 4つのPCIe Gen4 x16スロット（NUMAゾーンごとに2つ）</block>
+  <block id="d48fef98b199bc014ab3ec9e1726d82f" category="cell">[eseries-block-nodes]] Eシリーズブロックノード（EF600アレイ）</block>
+  <block id="5872124f70156463c9454d8aee246fb5" category="paragraph">*メモリ：* 256GB（コントローラあたり128GB）。*アダプタ：* 2ポート200GB/HDR（NVMe/IB）。*ドライブ：*必要な容量に一致するように設定されています。</block>
+  <block id="dd92cda6bcab8af774c512e385f3bbb2" category="cell">[[InfiniBand - adapters]] InfiniBandホストカードアダプタ（ファイルノード用）。</block>
+  <block id="1e36a3ec484f8d613eabadcfb7010a41" category="paragraph">ホストカードアダプタは、ファイルノードに使用されるサーバモデルによって異なります。検証済みファイルノードの推奨事項は次のとおりです。</block>
+  <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3サーバ：*</block>
+  <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS-HEAT ConnectX-7、NDR200、QSFP112、2ポート、PCIe Gen5 x16、</block>
+  <block id="2f02d951d56eb9f3451bbc826c3e8750" category="list-text">* Lenovo ThinkSystem SR665サーバ：*</block>
+  <block id="a6db2cf27367b5061d9dcb3d029e4836" category="list-text">MCX653106A-HDAT ConnectX-6、HDR、QSFP-56、2ポート、PCIe Gen4 x16、</block>
+  <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">ストレージネットワークスイッチ</block>
+  <block id="abf33d394022ed774955ca8b4e892340" category="paragraph">ストレージネットワークスイッチの速度は200Gb/秒InfiniBandに対応している必要があります。推奨されるスイッチモデルは次のとおりです。</block>
+  <block id="d7405c22a666ad0d0cb249c209ed8a2a" category="list-text">* NVIDIA QM9700 Quantum 2 NDR InfiniBandスイッチ*</block>
+  <block id="8371ac7bb43cddb78635bb02c4ecf477" category="list-text">* NVIDIA MQM8700 Quantum HDR InfiniBandスイッチ*</block>
+  <block id="118d935cca54466f59122caecfde09ad" category="section-title">ケーブル要件</block>
+  <block id="5206d6e34399595cf0319b48c8caef2b" category="paragraph">[block-file-cables]*ブロックノードからファイルノードへの直接接続。*</block>
+  <block id="1fe3c9d0657c143dd35fa09974da425b" category="cell">パーツ番号</block>
+  <block id="ba2a9c6c8c77e03f83ef8bf543612275" category="cell">長さ</block>
+  <block id="c3fc989bc0ee89bd4f833252b93ae9fc" category="cell">MCP1650-H001E30（NVIDIAパッシブ銅ケーブル、QSFP56、200Gb/秒）</block>
+  <block id="9859011cc78b3687689e719ce0d111a5" category="cell">100万</block>
+  <block id="c3667b017c25447e1a7b085049b10bd4" category="paragraph">[file-switch-cables]*ファイルノードからストレージネットワークスイッチへの接続。*InfiniBandストレージスイッチに応じて、次の表から適切なケーブルオプションを選択します。+推奨ケーブル長は2mですが、お客様の環境によって異なる場合があります。</block>
+  <block id="e71a6bc9da9d285c521501e596936972" category="cell">スイッチモデル</block>
+  <block id="6fd115591b61cfe21f37443a0afb71e0" category="cell">ケーブルタイプ</block>
+  <block id="0f0a45940e8946022b971d4ccdf6154e" category="cell">NVIDIA QM9700</block>
+  <block id="a87ff679a2f3e71d9181a67b7542122c" category="cell">4</block>
+  <block id="979ceabbdb73904b7beec8a0d58c32b8" category="cell">アクティブファイバ</block>
+  <block id="270f13016300dfe6e2fe7c681978bef9" category="cell">MFA7U10-H002（NVIDIAアクティブファイバケーブル、InfiniBand 400Gb/s～200Gb/s×2、OSFP～QSFP56×2）</block>
+  <block id="f629de18a131cfa25b9f36ef4690fc92" category="cell">パッシブカッパー</block>
+  <block id="bebb3995ccd5809442d1bb1bc0a25e3a" category="cell">MCP7Y60-H002（NVIDIAパッシブ銅ケーブル、InfiniBand 400Gb/s～200Gb/s×2、OSFP～QSFP56×2）</block>
+  <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700</block>
+  <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E（NVIDIAアクティブファイバケーブル、InfiniBand 200Gb/s、QSFP56）</block>
+  <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26（NVIDIAパッシブ銅ケーブル、InfiniBand 200Gb/s、QSFP56）</block>
+  <block id="0db451285b4ab90f8e6012dfd8f0d190" category="paragraph">Red Hat 9.3 Server Physical with High Availability（2ソケット）。</block>
+  <block id="099646c88bdb63cce0ec389f4c842fed" category="cell">5.14.0～362.24.1.el9_3.x86_64</block>
+  <block id="de4e152f23f311bbd0da3bd3cc07390d" category="cell">MLNX_OFED_Linux-23.10-3.2.2.0-LTS</block>
+  <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCAファームウェア</block>
+  <block id="cf135b5c065c2f500279337fc59c78ac" category="paragraph">* ConnectX-7 HCAファームウェア* FW：28.39.1002 + PXE：3.7.0201 + UEFI：14.32.0012</block>
+  <block id="932d22339e7f2f10a02d7bf453b85501" category="paragraph">* ConnectX-6 HCAファームウェア* FW：20.31.1014 + PXE：3.6.0403 + UEFI：14.24.0013</block>
+  <block id="41d49156a74390ee5d03e3516c1dca6b" category="cell">11.80.0</block>
+  <block id="36744b059ba2d833befd7109b0ba5167" category="cell">N6000-880834-D08.dlp</block>
+  <block id="141a8d7da406be785ba26084a46e1c00" category="cell">7.4.4</block>
+  <block id="92f9c52d96ebf7ac8dc2f41e6e11647a" category="cell">3.1.5-4</block>
+  <block id="c60a2cf4eb7f8efdd97013c9acb1f45b" category="cell">2.1.4-5</block>
+  <block id="a1a2ed259d1be22e6373097baea242eb" category="paragraph">opensm-5.17.2（MLNX_OFED_Linux-23.10-3.2.2.0-LTSから）</block>
+  <block id="5487c77147bdac492714cd2896a16557" category="cell">6.x（pipを使用してインストールされている場合）：Ansible-6.0.0およびAnsible-core &gt;= 2.13.0</block>
+  <block id="b1e65a5d34a577630a4fc7840358333f" category="cell">3.9（またはそれ以降）</block>
+  <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">暗号化- 43.0.0、netaddr-1.3.0、ipaddr-2.2.0</block>
+  <block id="7af6b9890b6c8ce699616c59f48b5248" category="cell">NetApp E-Series BeeGFS Ansibleコレクション</block>
+  <block id="070afde0274dc6039a8a8949d12a15cd" category="cell">3.2.0</block>
 </blocks>

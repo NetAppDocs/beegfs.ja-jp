@@ -131,7 +131,7 @@ beegfs_ha_cluster_crm_config_options:
   stonith-enabled: True
 ----
 +
-... サポートされていることを確認し link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["クラスタ・プロパティ"^] 必要に応じてここで指定することもできます。BeeGFS HAロールには十分にテストされた数の情報が付属しているため、これらの値を調整する必要は通常ありません link:https://github.com/netappeseries/beegfs/blob/ae038bb2f7617d18a36cc4df8ca9464bd5039b8b/roles/beegfs_ha_7_2/defaults/main.yml#L54["デフォルト値です"^]。
+... メモ必要に応じて、サポートされているものを link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_controlling-cluster-behavior-configuring-and-managing-high-availability-clusters["クラスタ・プロパティ"^] ここで指定することもできます。BeeGFS HAロールには十分にテストされた機能が多数付属しているため、これらの調整は通常は必要ありません link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L54["デフォルト値です"^]。
 
 
 .. 次に、フェンシングエージェントを選択して構成します。
@@ -165,19 +165,19 @@ beegfs_ha_fencing_agents:
       ip: <BMC_IP>
       <<: *redfish
 ----
-... 他のフェンシングエージェントの設定の詳細については、を参照してください link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHatのマニュアル"^]。
+... 他のフェンシングエージェントの設定の詳細については、を参照してください link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters["RedHatのマニュアル"^]。
 
 
 
 
-. BeeGFS HAロールでは、パフォーマンスをさらに最適化するために、さまざまなチューニングパラメータを適用できます。これには、カーネルメモリ使用率の最適化や、ブロックデバイスI/Oなどのパラメータが含まれます。ロールには、適切な権限セットが付属しています link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L106["デフォルト値です"^] NetApp Eシリーズのブロックノードでのテストに基づく値ですが、次のように指定しないかぎり、デフォルトでは適用されません。
+. BeeGFS HAロールでは、パフォーマンスをさらに最適化するために、さまざまなチューニングパラメータを適用できます。これには、カーネルメモリ使用率の最適化や、ブロックデバイスI/Oなどのパラメータが含まれます。このロールには、NetApp E-Seriesブロックノードを使用したテストに基づく合理的なセットが付属してい link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L180["デフォルト値です"^] ますが、デフォルトでは次を指定しない限り、これらは適用されません。
 +
 [source, yaml]
 ----
 beegfs_ha_enable_performance_tuning: True
 ----
 +
-.. 必要に応じて、ここでデフォルトのパフォーマンス調整に変更を加えます。全体を参照してください link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/docs/performance_tuning.md["パフォーマンス調整パラメータ"^] 詳細については、ドキュメントを参照してください。
+.. 必要に応じて、ここでデフォルトのパフォーマンス調整に変更を加えます。詳細については、完全なドキュメントを参照して link:https://github.com/NetApp/beegfs/blob/master/docs/beegfs_ha/performance_tuning.md["パフォーマンス調整パラメータ"^] ください。
 
 
 . BeeGFSサービスに使用されるフローティングIPアドレス（論理インターフェイスとも呼ばれます）がファイルノード間でフェイルオーバーできるようにするには、すべてのネットワークインターフェイスに一貫した名前を付ける必要があります。デフォルトでは、ネットワークインターフェイス名はカーネルによって生成されます。これは、同じPCIeスロットにネットワークアダプタが搭載された同一のサーバモデルであっても、一貫した名前が生成される保証はありません。これは、装置が展開され、生成されたインターフェイス名が認識される前にインベントリを作成する場合にも役立ちます。サーバまたはのブロック図に基づいて、一貫したデバイス名を使用できるようにします `lshw  -class network -businfo` 出力で、目的のPCIeアドレスと論理インターフェイスのマッピングを次のように指定します。
@@ -187,14 +187,14 @@ beegfs_ha_enable_performance_tuning: True
 [source, yaml]
 ----
 eseries_ipoib_udev_rules:
-  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: i1a
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:01:00.0: i1a
 ----
 .. イーサネットネットワークインターフェイスの場合：
 +
 [source, yaml]
 ----
 eseries_ip_udev_rules:
-  "<PCIe ADDRESS>": <NAME> # Ex: 0000:41:00.0: e1a
+  "<PCIe ADDRESS>": <NAME> # Ex: 0000:01:00.0: e1a
 ----
 +
 
@@ -206,7 +206,7 @@ NOTE: 検証済みファイルノードモデルを使用している場合は�
 
 
 
-. 必要に応じて、クラスタ内のすべてのBeeGFSサービスに適用する設定を指定します。デフォルトの設定値が見つかります link:https://github.com/netappeseries/beegfs/blob/release-3.0.1/roles/beegfs_ha_7_2/defaults/main.yml#L159["こちらをご覧ください"^]、およびサービスごとの設定は、他の場所で指定します。
+. 必要に応じて、クラスタ内のすべてのBeeGFSサービスに適用する設定を指定します。デフォルトの設定値が表示され link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L237["こちらをご覧ください"^]、サービス単位の設定は他の場所で指定されます。
 +
 .. BeeGFS管理サービス：
 +
@@ -236,7 +236,7 @@ beegfs_ha_beegfs_storage_conf_ha_group_options:
 .. デフォルトでは、展開によって自動的に接続認証が設定され、が生成されます `connauthfile` これはすべてのファイルノードに配布され、BeeGFSサービスとともに使用されます。このファイルは、Ansibleの制御ノードにも配置/管理されます `<INVENTORY>/files/beegfs/<sysMgmtdHost>_connAuthFile` このファイルシステムにアクセスする必要のあるクライアントで再利用できるように、安全に保管する必要があります。
 +
 ... 新しいキーを生成するには、をクリックします `-e "beegfs_ha_conn_auth_force_new=True` Ansibleプレイブックを実行している場合。注：これは、がの場合は無視されます `beegfs_ha_conn_auth_secret` が定義されている。
-... 詳細オプションについては、に付属のすべてのデフォルト設定を参照してください link:https://github.com/netappeseries/beegfs/blob/release-3.1.0/roles/beegfs_ha_7_3/defaults/main.yml#L32["BeeGFS HAロール"^]。
+... 詳細オプションについては、に付属のデフォルトの一覧を参照して link:https://github.com/NetApp/beegfs/blob/master/roles/beegfs_ha_7_4/defaults/main.yml#L21["BeeGFS HAロール"^]ください。
 
 
 .. カスタムシークレットを使用するには、で以下を定義します `ha_cluster.yml`：
@@ -265,15 +265,15 @@ EF600でHDR（200GB）InfiniBandを使用するには、サブネットマネー
 
 ブロックノードとファイルノードがInfiniBandで直接接続されている場合は、のインスタンスです `opensm` ブロックノードに直接接続された各インターフェイスについて、各ファイルノードに設定する必要があります。これを行うには、を指定します `configure: true` いつ link:custom-architectures-inventory-configure-file-nodes.html["ファイルノードストレージインターフェイスを設定しています"^]。
 
-現在、の受信ボックスバージョンです `opensm` サポートされているLinuxディストリビューションには、仮想化はサポートされていません。代わりに、のバージョンをインストールして設定する必要があります `opensm` Mellanox OpenFabrics Enterprise Distribution（OFED）から入手できます。Ansibleによる導入もサポートされていますが、いくつかの追加手順が必要です。
+現在、サポートされているLinuxディストリビューションに同梱されているの受信トレイバージョンで `opensm` は、仮想化はサポートされていません。代わりに、NVIDIA OpenFabrics Enterprise Distribution（OFED）からのバージョンをインストールして設定する必要があります `opensm` 。Ansibleによる導入もサポートされていますが、いくつかの追加手順が必要です。
 
-. curlまたは目的のツールを使用して、に記載されているOpenSMのバージョンに対応するパッケージをダウンロードします link:beegfs-technology-requirements.html["テクノロジ要件"^] MellanoxのWebサイトからへのセクション `<INVENTORY>/packages/` ディレクトリ。例：
+. curlまたは任意のツールを使用して、セクションに記載されているOpenSMのバージョンのパッケージをNVIDIAのWebサイトからディレクトリにダウンロードし link:beegfs-technology-requirements.html["テクノロジ要件"^] `<INVENTORY>/packages/` ます。例：
 +
 [source, bash]
 ----
-curl -o packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+curl -o packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 
-curl -o packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/5.4-1.0.3.0/rhel8.4/x86_64/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+curl -o packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm https://linux.mellanox.com/public/repo/mlnx_ofed/23.10-3.2.2.0/rhel9.3/x86_64/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 ----
 . の下 `group_vars/ha_cluster.yml` 次の設定を定義します。
 +
@@ -287,12 +287,12 @@ eseries_ib_opensm_custom_packages:
   install:
     - files:
         add:
-          "packages/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
-          "packages/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm": "/tmp/"
+          "packages/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
+          "packages/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm": "/tmp/"
     - packages:
         add:
-          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+          - /tmp/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
   uninstall:
     - packages:
         remove:
@@ -300,8 +300,8 @@ eseries_ib_opensm_custom_packages:
           - opensm-libs
       files:
         remove:
-          - /tmp/opensm-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
-          - /tmp/opensm-libs-5.9.0.MLNX20210617.c9f2ade-0.1.54103.x86_64.rpm
+          - /tmp/opensm-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
+          - /tmp/opensm-libs-5.17.2.MLNX20240610.dc7c2998-0.1.2310322.x86_64.rpm
 
 eseries_ib_opensm_options:
   virt_enabled: "2"

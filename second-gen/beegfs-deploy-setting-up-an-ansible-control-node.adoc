@@ -16,19 +16,19 @@ summary: Ansible制御ノードを設定するには、解決策 の設定に使
 [role="lead"]
 Ansible制御ノードをセットアップするには、解決策 の設定に使用できるすべてのファイルノードとブロックノードの管理ポートへのネットワークアクセスがある仮想マシンまたは物理マシンを特定する必要があります。
 
-次の手順は、CentOS 8.4でテストしました。使用するLinuxディストリビューションに固有の手順については、を参照してください https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansibleのドキュメント"^]。
+次の手順はUbuntu 22.04でテストされました。使用しているLinuxディストリビューションに固有の手順については、を参照してください https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansibleのドキュメント"^]。
 
-. Python 3.9をインストールし、正しいバージョンの「pip」がインストールされていることを確認します。
+. Python 3.10をインストールし、正しいバージョンのがインストールされていることを確認し `pip` ます。
 +
 ....
-sudo dnf install python3.9 -y
-sudo dnf install python39-pip
-sudo dnf install sshpass
+sudo apt install python3.10 -y
+sudo apt install python3-pip
+sudo apt install sshpass
 ....
-. Python 3.9バイナリが'python3'または'python'が呼び出されるたびに使用されるように'シンボリック・リンクを作成します
+. シンボリックリンクを作成し、またはが呼び出されるたびにPython 3.10バイナリが使用されるようにし `python3` `python` ます。
 +
 ....
-sudo ln -sf /usr/bin/python3.9 /usr/bin/python3
+sudo ln -sf /usr/bin/python3.10 /usr/bin/python3
 sudo ln -sf /usr/bin/python3 /usr/bin/python
 ....
 . NetApp BeeGFSコレクションに必要なPythonパッケージをインストールします。
@@ -44,20 +44,20 @@ NOTE: サポートされているバージョンのAnsibleと必要なすべて�
 +
 ....
 ansible --version
-ansible [core 2.11.6]
+ansible [core 2.17.2]
   config file = None
   configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/local/lib/python3.9/site-packages/ansible
+  ansible python module location = /usr/local/lib/python3.10/dist-packages/ansible
   ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
   executable location = /usr/local/bin/ansible
-  python version = 3.9.2 (default, Mar 10 2021, 17:29:56) [GCC 8.4.1 20200928 (Red Hat 8.4.1-1)]
-  jinja version = 3.0.2
+  python version = 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0] (/usr/bin/python3)
+  jinja version = 3.1.4
   libyaml = True
 ....
 . BeeGFSの導入を表すために使用するAnsibleインベントリをGitやBitBucketなどのソース管理システムに保存し、Gitをインストールしてこれらのシステムと対話します。
 +
 ....
-sudo dnf install git -y
+sudo apt install git -y
 ....
 . パスワードを使用しないSSHを設定します。これは、AnsibleがAnsibleの制御ノードからリモートのBeeGFSファイルノードにアクセスできるようにする最も簡単な方法です。
 +
@@ -74,6 +74,6 @@ sudo dnf install git -y
 
 +
 ....
-ansible-galaxy collection install netapp_eseries.beegfs:==3.0.1
+ansible-galaxy collection install netapp_eseries.beegfs:==3.2.0
 ....
 

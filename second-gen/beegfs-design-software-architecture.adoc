@@ -33,12 +33,12 @@ BeeGFSネットワーク設定は、次のコンポーネントで構成され�
 +
 Ansibleベースの導入では、逆方向パス（RP）とアドレス解決プロトコル（ARP）の動作の締め付けに加え、フローティングIPの開始と停止のタイミングを保証します。対応するIPルートとルールが動的に作成され、マルチホームネットワークの設定が適切に機能できるようになります。
 
-* * BeeGFSクライアントのマルチレール構成*_Multi-rail_:複数の独立したネットワークレールを使用してパフォーマンスを向上させるアプリケーションの機能を指します
+* * BeeGFSクライアントのマルチレール構成*_Multi-rail_とは、アプリケーションが複数の独立したネットワーク接続（「レール」）を使用してパフォーマンスを向上させる機能を指します。
 +
-BeeGFSはRDMAを接続に使用できますが、BeeGFSはIPoIBを使用してRDMA接続の検出と確立を簡素化します。BeeGFSクライアントが複数のInfiniBandインターフェイスを使用できるようにするには、異なるサブネット内にあるIPアドレスを各クライアントに設定し、各サブネット内のBeeGFSサーバサービスの半分に優先インターフェイスを設定します。
+BeeGFSはマルチレールサポートを実装し、1つのIPoIBサブネットで複数のIBインターフェイスを使用できるようにします。この機能により、RDMA NIC間での動的なロードバランシングなどの機能が有効になり、ネットワークリソースの使用が最適化されます。また、NVIDIA GPUDirect Storage（GDS）とも統合されているため、システム帯域幅が増加し、クライアントのCPUのレイテンシと使用率が低下します。
 
 +
-次の図では、ライトグリーンで強調表示されているインターフェイスは1つのIPサブネット（たとえば、「100.127.0.0.0/16」）に配置され、ダークグリーンのインターフェイスは別のサブネット（たとえば「100.128.0.0/16」）に配置されています。
+このマニュアルでは、単一のIPoIBサブネット設定の手順について説明します。デュアルIPoIBサブネット構成はサポートされていますが、シングルサブネット構成と同じ利点はありません。
 
 +
 次の図に、複数のBeeGFSクライアントインターフェイス間でのトラフィックの分散を示します。
@@ -51,7 +51,7 @@ BeeGFSの各ファイルは通常、複数のストレージサービスにま�
 
 +
 ....
-root@ictad21h01:/mnt/beegfs# beegfs-ctl --getentryinfo myfile
+root@beegfs01:/mnt/beegfs# beegfs-ctl --getentryinfo myfile
 Entry type: file
 EntryID: 11D-624759A9-65
 Metadata node: meta_01_tgt_0101 [ID: 101]
@@ -65,13 +65,6 @@ Stripe pattern details:
   + 201 @ stor_02_tgt_0201 [ID: 201]
   + 202 @ stor_02_tgt_0201 [ID: 201]
 ....
-+
-2つのIPoIBサブネットを使用することは、論理的に区別されます。必要に応じて、単一の物理InfiniBandサブネット（ストレージネットワーク）を使用できます。
-
-+
-
-NOTE: BeeGFS 7.3.0では、1つのIPoIBサブネットで複数のIBインターフェイスを使用できるように、マルチレールサポートが追加されました。NetApp解決策 のBeeGFSの設計は、BeeGFS 7.3.0が一般的に使用可能になる前に開発されたものであるため、2つのIPサブネットを使用してBeeGFSクライアントの2つのIBインターフェイスを使用する方法を示しています。マルチIPサブネットアプローチの利点の1つは、BeeGFSクライアントノードでマルチホーミングを設定する必要がないことです（詳細については、を参照してください） https://doc.beegfs.io/7.3.0/advanced_topics/rdma_support.html["BeeGFS RDMAのサポート"^]）。
-
 
 
 
@@ -98,7 +91,7 @@ image:../media/beegfs-design-image10.png[""]
 
 BeeGFSファイルノードは、複数のファイルノード間でBeeGFSサービスのフェイルオーバーを容易にするために、ハイアベイラビリティ（HA）クラスタに構成されます。
 
-HAクラスタは、広く使用されている2つのLinux HAプロジェクトに基づいて設計されています。クラスタメンバーシップ用のCorosyncと、クラスタリソース管理用のPacemakerです。詳細については、を参照してください https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_overview-of-high-availability-configuring-and-managing-high-availability-clusters["高可用性アドオンに関するRed Hatトレーニング"^]。
+HAクラスタは、広く使用されている2つのLinux HAプロジェクトに基づいて設計されています。クラスタメンバーシップ用のCorosyncと、クラスタリソース管理用のPacemakerです。詳細については、を参照してください https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_overview-of-high-availability-configuring-and-managing-high-availability-clusters["高可用性アドオンに関するRed Hatトレーニング"^]。
 
 複数のオープンクラスタフレームワーク（OCF）リソースエージェントがネットアップにオーサリングされ、拡張されました。このエージェントを使用すると、クラスタでBeeGFSリソースのインテリジェントな起動と監視が可能になります。
 

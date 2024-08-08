@@ -23,7 +23,7 @@ NetApp解決策 のBeeGFSの第2世代設計は、3つのビルディングブ�
 * BeeGFSストレージ専用のビルディングブロック。
 
 
-このビルディングブロックは、2台のMellanox Quantum InfiniBand（M8700）スイッチに接続されました。また、10個のBeeGFSクライアントもInfiniBandスイッチに接続し、総合ベンチマークユーティリティの実行に使用しました。
+ビルディングブロックは、2台のNVIDIA Quantum InfiniBand（MQM8700）スイッチに接続されています。また、10個のBeeGFSクライアントもInfiniBandスイッチに接続し、総合ベンチマークユーティリティの実行に使用しました。
 
 次の図は、NetApp解決策 でBeeGFSを検証するために使用するBeeGFS設定を示しています。
 
@@ -137,8 +137,8 @@ NOTE: 既知の問題 がある（を参照） https://github.com/netappeseries/
 
 
 
-== NVIDIA DGX A100 SuperPODおよびBasePODの検証
+== NVIDIA DGX SuperPODとBasePODの検証
 
-ネットアップでは、3つのビルディングブロックにメタデータとストレージ構成プロファイルが適用されたBeeGFSファイルシステムを使用して、NVDIA DGX A100 SuperPOD向けのストレージ解決策 の検証を実施しました。認定には、このNVAで説明した解決策 を、さまざまなストレージ、機械学習、ディープラーニングのベンチマークを実行している20台のDGX A100 GPUサーバでテストすることが含まれます。NVIDIAのDGX A100 SuperPODの使用が認定されたストレージは、NVIDIA BasePODアーキテクチャでも自動的に認定されます。
+ネットアップでは、3つのビルディングブロックにメタデータとストレージ構成プロファイルが適用されたBeeGFSファイルシステムを使用して、NVDIA DGX A100 SuperPOD向けのストレージ解決策 の検証を実施しました。認定には、このNVAで説明した解決策 を、さまざまなストレージ、機械学習、ディープラーニングのベンチマークを実行している20台のDGX A100 GPUサーバでテストすることが含まれます。NVIDIAのDGX A100 SuperPODで確立された検証に基づいて、BeeGFS on NetAppソリューションは、DGX SuperPOD H100、H200、B200システムでの使用が承認されました。この拡張は、NVIDIA DGX A100で検証された、以前に確立されたベンチマークとシステム要件を満たすことに基づいています。
 
 詳細については、を参照してください https://www.netapp.com/pdf.html?item=/media/72718-nva-1167-DESIGN.pdf["NVIDIA DGX SuperPODとネットアップ"^] および https://www.nvidia.com/en-us/data-center/dgx-basepod/["NVIDIA DGX BasePOD"^]。

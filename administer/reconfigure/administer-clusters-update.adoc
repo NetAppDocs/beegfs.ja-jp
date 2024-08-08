@@ -48,6 +48,12 @@ NOTE: BeeGFSのバージョンの詳細については、を参照してくだ�
 
 
 | 7.3.1 | 7.3.2の場合 | はい。 | beegfs collection v3.1.0を使用してアップグレードします 
+
+
+| 7.3.2の場合 | 7.4.1 | はい。 | beegfs collection v3.2.0を使用してアップグレードします 
+
+
+| 7.4.1 | 7.4.2 | はい。 | beegfs collection v3.2.0を使用してアップグレードします 
 |===
 
 
@@ -83,7 +89,7 @@ ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgra
 
 === 手順3：Ansible Playbookを更新（メジャーバージョンやマイナーバージョンの更新時のみ）
 
-メジャーバージョンとマイナーバージョンの間を移動する場合は、を参照してください `playbook.yml` クラスタの導入と保守に使用するファイルで、の名前を更新します `beegfs_ha_<VERSION>` 目的のバージョンを反映したロール。たとえば、BeeGFS 7.3を導入する場合は、次のようになります `beegfs_ha_7_3`：
+メジャーバージョンとマイナーバージョンを切り替える場合は、クラスタの導入とメンテナンスに使用するファイルで、 `playbook.yml` ロールの名前を目的のバージョンに合わせて更新し `beegfs_ha_<VERSION>` ます。たとえば、BeeGFS 7.4を導入する場合は、次のようになり `beegfs_ha_7_4`ます。
 
 [source, yaml]
 ----
@@ -95,7 +101,7 @@ ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgra
   tasks:
     - name: Ensure BeeGFS HA cluster is setup.
       ansible.builtin.import_role:  # import_role is required for tag availability.
-        name: beegfs_ha_7_3
+        name: beegfs_ha_7_4
 ----
 このPlaybookファイルの内容の詳細については、を参照してください link:custom-architectures-deploy-ha-cluster.html["BeeGFS HAクラスタを導入します"^] セクション。
 
