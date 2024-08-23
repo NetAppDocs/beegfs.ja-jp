@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-recommended-volume-percentages.html 
+permalink: second-gen/beegfs-deploy-recommended-volume-percentages.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 第2世代ビルディングブロックのストレージプール構成ごとに標準4つのボリュームを使用する場合は、上記の推奨割合を参照してください。 
 ---
@@ -10,7 +10,7 @@ summary: 第2世代ビルディングブロックのストレージプール構�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

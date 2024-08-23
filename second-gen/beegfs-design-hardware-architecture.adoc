@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-hardware-architecture.html 
+permalink: second-gen/beegfs-design-hardware-architecture.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: ネットアップのBeeGFSのハードウェア構成には、ファイルノードとネットワークのケーブル配線が含まれます。 
 ---
@@ -10,7 +10,7 @@ summary: ネットアップのBeeGFSのハードウェア構成には、ファ�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -26,7 +26,7 @@ InfiniBandアダプタは、適切なPCIライザーまたはスロットに装�
 
 次の図は、ファイルノードのNUMA構成を示しています。
 
-image:../media/beegfs-design-image5-small.png[""]
+image:beegfs-design-image5-small.png["NUMA構成"]
 
 BeeGFSプロセスは、使用するインターフェイスが同じゾーン内にあることを確認するために、特定のNUMAゾーンに固定されます。この構成により、ソケット間接続を介したリモートアクセスが不要になります。ソケット間接続はQPIまたはGMI2リンクと呼ばれることもあります。最新のプロセッサアーキテクチャであっても、HDR InfiniBandなどの高速ネットワークを使用する場合はボトルネックになる可能性があります。
 
@@ -44,7 +44,7 @@ BeeGFSプロセスは、使用するインターフェイスが同じゾーン�
 * NUMAノード1のポートは、2番目のブロックノードに接続します。
 
 
-image:../media/beegfs-design-image6.png[""]
+image:beegfs-design-image6.png["ネットワークのケーブル配線"]
 
 
 NOTE: スプリッタケーブルを使用してストレージスイッチをファイルノードに接続する場合は、1本のケーブルが分岐して薄い緑色のポートに接続する必要があります。もう1本のケーブルが分岐し、濃い緑色で示されているポートに接続します。また、冗長スイッチを使用するストレージネットワークの場合、薄い緑色のポートは1つのスイッチに接続し、濃い緑色のポートは別のスイッチに接続します。
@@ -61,6 +61,6 @@ PCIeの完全な双方向帯域幅を利用するには、各InfiniBandアダプ
 
 次の図に、PCIeの双方向帯域幅をフルに活用するためのケーブル配線の設計を示します。
 
-image:../media/beegfs-design-image7.png[""]
+image:beegfs-design-image7.png["HCA双方向帯域幅"]
 
 BeeGFSサービスごとに、同じアダプタを使用して、クライアントトラフィックに使用する優先ポートと、そのサービスボリュームのプライマリ所有者であるブロックノードコントローラへのパスを接続します。詳細については、を参照してください link:beegfs-design-software-architecture.html["ソフトウェア構成"]。

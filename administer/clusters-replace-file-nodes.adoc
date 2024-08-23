@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-replace-file-nodes.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, replace 
+summary: 元のサーバに障害がある場合のファイルノードの交換 
+---
+= ファイルノードを交換します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+元のサーバに障害がある場合のファイルノードの交換
+
+
+
+== 概要
+
+クラスタ内のファイルノードを交換するために必要な手順の概要を以下に示します。これらの手順は、ハードウェア問題 が原因でファイルノードに障害が発生し、新しい同一のファイルノードに置き換えられたことを前提としています。
+
+
+
+== 手順
+
+. ファイルノードを物理的に交換し、すべてのケーブルをブロックノードおよびストレージネットワークに接続します。
+. Red Hatサブスクリプションの追加を含め、ファイルノードにオペレーティングシステムを再インストールします。
+. ファイルノードで管理ネットワークとBMCネットワークを設定します。
+. ホスト名、IP、PCIeと論理インターフェイスのマッピング、または新しいファイルノードに関する変更があれば、Ansibleインベントリを更新します。通常この作業は、ノードを同じサーバハードウェアに交換し、元のネットワーク構成を使用している場合は必要ありません。
++
+.. たとえば、ホスト名が変更された場合は、ノードのインベントリファイルを作成（または名前を変更）します (`host_vars/<NEW_NODE>.yml``）をクリックしてから、Ansibleインベントリファイルを使用してください (`inventory.yml`）で、古いノードの名前を新しいノード名に置き換えます。
++
+[source, console]
+----
+all:
+    ...
+    children:
+    ha_cluster:
+        children:
+        mgmt:
+            hosts:
+            node_h1_new:   # Replaced "node_h1" with "node_h1_new"
+            node_h2:
+----
+
+
+. クラスタ内の他のいずれかのノードから古いノードを削除します。 `pcs cluster node remove <HOSTNAME>`。
++
+
+IMPORTANT: この手順を実行する前に、次に進まないでください。
+
+. Ansibleコントロールノードで：
++
+.. 次のコマンドを使用して古いSSHキーを削除します。
++
+[source, console]
+----
+`ssh-keygen -R <HOSTNAME_OR_IP>`
+----
+.. 交換用ノードにパスワードなしのSSHを設定します。
++
+[source, console]
+----
+ssh-copy-id <USER>@<HOSTNAME_OR_IP>
+----
+
+
+. Ansibleプレイブックを再実行してノードを設定し、クラスタに追加します。
++
+[source, console]
+----
+ansible-playbook -i <inventory>.yml <playbook>.yml
+----
+. この時点で、を実行します `pcs status` 交換したノードが表示され、サービスが実行されていることを確認します。
+

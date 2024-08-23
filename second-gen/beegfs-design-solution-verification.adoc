@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-solution-verification.html 
+permalink: second-gen/beegfs-design-solution-verification.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetApp解決策 のBeeGFSの第2世代設計は、3つのビルディングブロック構成プロファイルを使用して検証されました。 
 ---
@@ -10,7 +10,7 @@ summary: NetApp解決策 のBeeGFSの第2世代設計は、3つのビルディ�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -27,7 +27,7 @@ NetApp解決策 のBeeGFSの第2世代設計は、3つのビルディングブ�
 
 次の図は、NetApp解決策 でBeeGFSを検証するために使用するBeeGFS設定を示しています。
 
-image:beegfs-design-image12.png[""]
+image:beegfs-design-image12.png["BeeGFS検証設定"]
 
 
 
@@ -57,22 +57,22 @@ mpirun --allow-run-as-root --mca btl tcp -np 48 -map-by node -hostfile 10xnodes 
 .BeeGFSベース（管理、メタデータ、ストレージ）ビルディングブロック×1
 次の図に、1つのBeeGFSベース（管理、メタデータ、ストレージ）ビルディングブロックを使用したIORテスト結果を示します。
 
-image:beegfs-design-image13.png[""]
+image:beegfs-design-image13.png["1つのBeeGFSベースビルディングブロックのIOR結果"]
 
 .BeeGFSメタデータとストレージビルディングブロック
 次の図は、1つのBeeGFSメタデータとストレージビルディングブロックを使用したIORテスト結果を示しています。
 
-image:beegfs-design-image14.png[""]
+image:beegfs-design-image14.png["単一のBeeGFSメタデータとストレージビルディングブロックのIOR結果"]
 
 .BeeGFSストレージ専用のビルディングブロック
 次の図に、1つのBeeGFSストレージ専用ビルディングブロックを使用したIORテスト結果を示します。
 
-image:beegfs-design-image15.png[""]
+image:beegfs-design-image15.png["単一のBeeGFSストレージIORの結果"]
 
 .3つのBeeGFSビルディングブロック
 次の図に、3つのBeeGFSビルディングブロックを使用したIORテスト結果を示します。
 
-image:beegfs-design-image16.png[""]
+image:beegfs-design-image16.png["BeeGFSビルディングブロックの3つのIOR結果"]
 
 基本となるビルディングブロックと後続のメタデータとストレージビルディングブロックのパフォーマンスの違いは、想定どおりごくわずかです。メタデータとストレージのビルディングブロックおよびストレージ専用のビルディングブロックを比較した場合、ストレージターゲットとして使用される追加のドライブが原因で読み取りパフォーマンスがわずかに向上します。ただし、書き込みパフォーマンスに大きな違いはありません。パフォーマンスを向上させるには、複数のビルディングブロックを1つに追加して、パフォーマンスを直線的に拡張します。
 
@@ -88,7 +88,7 @@ IOR帯域幅テストでは、OpenMPIを使用して、1台の高性能GPUサー
 
 次の図は、3つのBeeGFSビルディングブロックと1つのクライアントを使用したIORテスト結果を示しています。
 
-image:beegfs-design-image17.png[""]
+image:beegfs-design-image17.png["3つのBeeGFSビルディングブロックと1つのクライアントIOR結果"]
 
 
 NOTE: これらのテストのBeeGFSストライピングは'ファイルあたり8つのターゲットを持つ1MBのチャンクサイズに設定されました
@@ -111,12 +111,12 @@ mpirun -h 10xnodes –map-by node np $processes mdtest -e 4k -w 4k -i 3 -I 16 -z
 .BeeGFSメタデータとストレージビルディングブロック×1
 次の図は、BeeGFSメタデータとストレージビルディングブロックを1つずつ使用したMDTestの結果を示しています。
 
-image:beegfs-design-image18.png[""]
+image:beegfs-design-image18.png["単一のBeeGFSメタデータとストレージビルディングブロックMDTestの結果"]
 
 .BeeGFSメタデータとストレージビルディングブロックが2つずつ搭載されています
 次の図は、2つのBeeGFSメタデータとストレージビルディングブロックを使用したMDTestの結果を示しています。
 
-image:beegfs-design-image19.png[""]
+image:beegfs-design-image19.png["2つのBeeGFSメタデータとストレージビルディングブロックMDTestの結果"]
 
 
 

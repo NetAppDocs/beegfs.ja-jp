@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-gens.html 
+permalink: second-gen/beegfs-gens.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetApp解決策 のBeeGFSは、現在第2世代の設計です。 
 ---
@@ -10,7 +10,7 @@ summary: NetApp解決策 のBeeGFSは、現在第2世代の設計です。
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

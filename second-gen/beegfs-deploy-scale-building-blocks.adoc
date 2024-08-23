@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-scale-building-blocks.html 
+permalink: second-gen/beegfs-deploy-scale-building-blocks.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: ペースメーカーとCorosyncを5つ以上のビルディングブロックで拡張できるように設定します。 
 ---
@@ -10,7 +10,7 @@ summary: ペースメーカーとCorosyncを5つ以上のビルディングブ�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

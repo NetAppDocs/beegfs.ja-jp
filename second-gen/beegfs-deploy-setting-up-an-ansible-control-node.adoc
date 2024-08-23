@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-setting-up-an-ansible-control-node.html 
+permalink: second-gen/beegfs-deploy-setting-up-an-ansible-control-node.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: Ansible制御ノードを設定するには、解決策 の設定に使用できるすべてのファイルノードとブロックノードの管理ポートへのネットワークアクセスがある仮想マシンまたは物理マシンを特定します。 
 ---
@@ -10,7 +10,7 @@ summary: Ansible制御ノードを設定するには、解決策 の設定に使
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

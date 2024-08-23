@@ -9,9 +9,9 @@ indexpage:
   - title: はじめに
     links:
     - title: 解決策の概要
-      url: "/beegfs-solution-overview.html"
+      url: "/second-gen/beegfs-solution-overview.html"
     - title: アーキテクチャの概要
-      url: "/beegfs-architecture-overview.html"
+      url: "/second-gen/beegfs-architecture-overview.html"
     - title: ブログ- BeeGFSとEシリーズの詳細をご確認ください
       url: https://www.netapp.com/blog/solution-support-for-beegfs-and-e-series/
     - title: ブログ- BeeGFS（初心者向け

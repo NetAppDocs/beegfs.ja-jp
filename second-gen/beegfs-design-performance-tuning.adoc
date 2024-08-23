@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-performance-tuning.html 
+permalink: second-gen/beegfs-design-performance-tuning.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: BeeGFS解決策 には、検証テストに基づいたパフォーマンス調整の推奨事項が含まれます。 
 ---
@@ -10,7 +10,7 @@ summary: BeeGFS解決策 には、検証テストに基づいたパフォーマ�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

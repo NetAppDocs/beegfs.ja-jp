@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: whats-included.html 
+permalink: get-started/whats-included.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: このサイトには、ネットアップでBeeGFSを導入して管理する方法が記載されています。 
 ---
@@ -10,7 +10,7 @@ summary: このサイトには、ネットアップでBeeGFSを導入して管�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

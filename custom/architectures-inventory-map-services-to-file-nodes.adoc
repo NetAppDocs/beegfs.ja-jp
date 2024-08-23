@@ -1,0 +1,70 @@
+---
+sidebar: sidebar 
+permalink: custom/architectures-inventory-map-services-to-file-nodes.html 
+keywords: BeeGFS on NetApp, NetApp Custom Architectures, EF600 
+summary: inventory.ymlファイルを使用して、各BeeGFSサービスを実行できるファイルノードを指定します。 
+---
+= BeeGFSサービスをファイルノードにマッピングします
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+を使用して、各BeeGFSサービスを実行できるファイルノードを指定します `inventory.yml` ファイル。
+
+
+
+== 概要
+
+このセクションでは、を作成する方法について説明します `inventory.yml` ファイル。これには、すべてのブロックノードのリストを表示し、各BeeGFSサービスを実行できるファイルノードを指定することも含まれます。
+
+
+
+== 手順
+
+ファイルを作成します `inventory.yml` 次のように入力します。
+
+. ファイルの上部から、標準のAnsibleインベントリ構造を作成します。
++
+[source, yaml]
+----
+# BeeGFS HA (High_Availability) cluster inventory.
+all:
+  children:
+----
+. このHAクラスタに含まれるすべてのブロックノードを含むグループを作成します。
++
+[source, yaml]
+----
+    # Ansible group representing all block nodes:
+    eseries_storage_systems:
+      hosts:
+        <BLOCK NODE HOSTNAME>:
+        <BLOCK NODE HOSTNAME>:
+        # Additional block nodes as needed.
+----
+. クラスタ内のすべてのBeeGFSサービスとそれらを実行するファイルノードを含むグループを作成します。
++
+[source, yaml]
+----
+    # Ansible group representing all file nodes:
+    ha_cluster:
+      children:
+----
+. クラスタ内のBeeGFSサービスごとに、そのサービスを実行する優先ファイルノードとセカンダリファイルノードを定義します。
++
+[source, yaml]
+----
+        <SERVICE>: # Ex. "mgmt", "meta_01", or "stor_01".
+          hosts:
+            <FILE NODE HOSTNAME>:
+            <FILE NODE HOSTNAME>:
+            # Additional file nodes as needed.
+----
+
+
+をクリックします link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/inventory.yml["こちらをご覧ください"^] 完全なインベントリファイルの例を示します。

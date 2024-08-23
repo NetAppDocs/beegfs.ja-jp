@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-overview.html 
+permalink: second-gen/beegfs-design-overview.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: BeeGFS並列ファイルシステムとNetApp EF600ストレージシステムを組み合わせたNetApp解決策 上でBeeGFSをサポートするには、特定の機器、ケーブル配線、構成が必要です。 
 ---
@@ -10,7 +10,7 @@ summary: BeeGFS並列ファイルシステムとNetApp EF600ストレージシ�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

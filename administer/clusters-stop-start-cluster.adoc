@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-stop-start-cluster.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, stop, start 
+summary: HAクラスタを正常に停止および起動します。 
+---
+= クラスタを停止して起動します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+HAクラスタを正常に停止および起動します。
+
+
+
+== 概要
+
+ここでは、BeeGFSクラスタを正常にシャットダウンして再起動する方法について説明します。これが必要なシナリオの例としては、電気的なメンテナンスやデータセンター間またはラック間の移行などが挙げられます。
+
+
+
+== 手順
+
+何らかの理由でBeeGFSクラスタ全体を停止し、すべてのサービスをシャットダウンする必要がある場合は、次の手順を実行します。
+
+[source, console]
+----
+pcs cluster stop --all
+----
+個 々 のノードでクラスタを停止することもできます（これにより、サービスが別のノードに自動的にフェイルオーバーされます）link:clusters-failover-failback.html["フェイルオーバー"^]。ただし、最初にノードをスタンバイ状態にすることを推奨します（を参照）。
+
+[source, console]
+----
+pcs cluster stop <HOSTNAME>
+----
+すべてのノードでクラスタサービスとリソースを開始するには、次のコマンドを実行します。
+
+[source, console]
+----
+pcs cluster start --all
+----
+または、次のコマンドを使用して特定のノードでサービスを開始します。
+
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+この時点でを実行します `pcs status` すべてのノードでクラスタサービスとBeeGFSサービスが開始され、必要なノードでサービスが実行されていることを確認します。
+
+
+TIP: クラスタのサイズによっては、クラスタ全体が停止するか、に表示されるまでに数秒から数分かかることがあります `pcs status`。状況 `pcs cluster <COMMAND>` 「Ctrl+C」を実行してコマンドをキャンセルする前に5分以上ハングし、クラスタの各ノードにログインして使用します `pcs status` そのノードでクラスタサービス（Corosync / Pacemaker）がまだ実行されているかどうかを確認します。クラスタがまだアクティブになっているノードから、クラスタをブロックしているリソースを確認できます。問題 に手動で対処する必要があります。コマンドを完了するか、再実行して残りのサービスを停止できます。

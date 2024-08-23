@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-technology-requirements.html 
+permalink: second-gen/beegfs-technology-requirements.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetApp解決策 にBeeGFSを実装するには、使用する環境がテクノロジの要件を満たしていることを確認します。 
 ---
@@ -10,7 +10,7 @@ summary: NetApp解決策 にBeeGFSを実装するには、使用する環境が�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -30,7 +30,7 @@ BeeGFS on NetAppソリューションを実装するには、本ドキュメン�
  a| 
 2.
  a| 
-[[beegfs-file-nodes]] BeeGFSファイルノード
+BeeGFSファイルノード
  a| 
 期待されるパフォーマンスを実現するには、各ファイルノードが推奨されるファイルノードの仕様を満たしている必要があります。
 
@@ -70,12 +70,12 @@ BeeGFS on NetAppソリューションを実装するには、本ドキュメン�
 
 
 
-| 2. | [eseries-block-nodes]] Eシリーズブロックノード（EF600アレイ）  a| 
-*メモリ：* 256GB（コントローラあたり128GB）。*アダプタ：* 2ポート200GB/HDR（NVMe/IB）。*ドライブ：*必要な容量に一致するように設定されています。
+| 2. | E-Seriesブロックノード（EF600アレイ）  a| 
+*メモリ：* 256GB（コントローラあたり128GB）。*アダプタ：* 2ポート200GB/HDR（NVMe/IB）。*ドライブ：*必要なメタデータとストレージ容量に一致するように設定されています。
 
 
 
-| 8. | [[InfiniBand - adapters]] InfiniBandホストカードアダプタ（ファイルノード用）。  a| 
+| 8. | InfiniBandホストカードアダプタ（ファイルノード用）。  a| 
 ホストカードアダプタは、ファイルノードに使用されるサーバモデルによって異なります。検証済みファイルノードの推奨事項は次のとおりです。
 
 * * Lenovo ThinkSystem SR665 V3サーバ：*
@@ -104,7 +104,7 @@ BeeGFS on NetAppソリューションを実装するには、本ドキュメン�
 
 === ケーブル要件
 
-[block-file-cables]*ブロックノードからファイルノードへの直接接続。*
+*ブロックノードからファイルノードへの直接接続。*
 
 [cols="10%,70%,20%"]
 |===
@@ -113,7 +113,7 @@ BeeGFS on NetAppソリューションを実装するには、本ドキュメン�
 
 | 8. | MCP1650-H001E30（NVIDIAパッシブ銅ケーブル、QSFP56、200Gb/秒） | 100万 
 |===
-[file-switch-cables]*ファイルノードからストレージネットワークスイッチへの接続。*InfiniBandストレージスイッチに応じて、次の表から適切なケーブルオプションを選択します。+推奨ケーブル長は2mですが、お客様の環境によって異なる場合があります。
+*ファイルノードからストレージネットワークスイッチへの接続。*InfiniBandストレージスイッチに応じて、次の表から適切なケーブルオプションを選択します。+推奨ケーブル長は2mですが、お客様の環境によって異なる場合があります。
 
 [cols="20%,10%,15%,55%"]
 |===

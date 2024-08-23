@@ -14,145 +14,147 @@ sidebar:
   - title: はじめに
     entries:
     - title: このサイトに含まれている情報
-      url: "/whats-included.html"
+      url: "/get-started/whats-included.html"
     - title: 用語と概念
-      url: "/beegfs-terms.html"
+      url: "/get-started/beegfs-terms.html"
   - title: 検証済みアーキテクチャを使用
     entries:
     - title: 概要と要件
       entries:
       - title: 解決策の概要
-        url: "/beegfs-solution-overview.html"
+        url: "/second-gen/beegfs-solution-overview.html"
       - title: 設計世代
-        url: "/beegfs-gens.html"
+        url: "/second-gen/beegfs-gens.html"
       - title: アーキテクチャの概要
-        url: "/beegfs-architecture-overview.html"
+        url: "/second-gen/beegfs-architecture-overview.html"
       - title: 技術要件
-        url: "/beegfs-technology-requirements.html"
+        url: "/second-gen/beegfs-technology-requirements.html"
     - title: 解決策 の設計を確認します
       entries:
       - title: 設計の概要
-        url: "/beegfs-design-overview.html"
+        url: "/second-gen/beegfs-design-overview.html"
       - title: ハードウェア構成
-        url: "/beegfs-design-hardware-architecture.html"
+        url: "/second-gen/beegfs-design-hardware-architecture.html"
       - title: ソフトウェア構成
-        url: "/beegfs-design-software-architecture.html"
+        url: "/second-gen/beegfs-design-software-architecture.html"
       - title: 設計の検証
-        url: "/beegfs-design-solution-verification.html"
+        url: "/second-gen/beegfs-design-solution-verification.html"
       - title: サイジングガイドライン
-        url: "/beegfs-design-solution-sizing-guidelines.html"
+        url: "/second-gen/beegfs-design-solution-sizing-guidelines.html"
       - title: パフォーマンスの調整
-        url: "/beegfs-design-performance-tuning.html"
+        url: "/second-gen/beegfs-design-performance-tuning.html"
       - title: 大容量オプション
-        url: "/beegfs-design-high-capacity-building-block.html"
+        url: "/second-gen/beegfs-design-high-capacity-building-block.html"
     - title: 解決策 を導入します
       entries:
       - title: 導入の概要
-        url: "/beegfs-deploy-overview.html"
+        url: "/second-gen/beegfs-deploy-overview.html"
       - title: Ansibleのインベントリを確認できます
-        url: "/beegfs-deploy-learn-ansible.html"
+        url: "/second-gen/beegfs-deploy-learn-ansible.html"
       - title: ベストプラクティスを確認
-        url: "/beegfs-deploy-bestpractice.html"
+        url: "/second-gen/beegfs-deploy-bestpractice.html"
       - title: ハードウェアを導入
-        url: "/beegfs-deploy-hardware.html"
+        url: "/second-gen/beegfs-deploy-hardware.html"
       - title: ソフトウェアを導入
         entries:
         - title: ファイルノードとブロックノードをセットアップ
-          url: "/beegfs-deploy-setup-nodes.html"
+          url: "/second-gen/beegfs-deploy-setup-nodes.html"
         - title: パフォーマンスのシステム設定を調整します
-          url: beegfs-deploy-file-node-tuning.html
+          url: "/second-gen/beegfs-deploy-file-node-tuning.html"
         - title: Ansibleコントロールノードをセットアップします
-          url: "/beegfs-deploy-setting-up-an-ansible-control-node.html"
+          url: "/second-gen/beegfs-deploy-setting-up-an-ansible-control-node.html"
         - title: Ansibleインベントリを作成する
-          url: "/beegfs-deploy-create-inventory.html"
+          url: "/second-gen/beegfs-deploy-create-inventory.html"
         - title: BeeGFSビルディングブロックを定義します
-          url: "/beegfs-deploy-define-inventory.html"
+          url: "/second-gen/beegfs-deploy-define-inventory.html"
         - title: BeeGFSを導入します
-          url: "/beegfs-deploy-playbook.html"
+          url: "/second-gen/beegfs-deploy-playbook.html"
         - title: BeeGFSクライアントを設定します
-          url: "/beegfs-deploy-configure-clients.html"
+          url: "/second-gen/beegfs-deploy-configure-clients.html"
       - title: BeeGFSクラスタの拡張
-        url: "/beegfs-deploy-scale-building-blocks.html"
+        url: "/second-gen/beegfs-deploy-scale-building-blocks.html"
       - title: 推奨されるボリュームの割合
-        url: "/beegfs-deploy-recommended-volume-percentages.html"
+        url: "/second-gen/beegfs-deploy-recommended-volume-percentages.html"
       - title: 大容量オプション
-        url: "/beegfs-deploy-high-capacity-building-block.html"
+        url: "/second-gen/beegfs-deploy-high-capacity-building-block.html"
   - title: カスタムアーキテクチャを使用
     entries:
     - title: 概要と要件
-      url: "/custom-architectures-overview.html"
+      url: "/custom/architectures-overview.html"
     - title: 初期セットアップ
       entries:
       - title: ハードウェアを設置してケーブルを配線します
-        url: "/custom-architectures-setup-cable-hw.html"
+        url: "/custom/architectures-setup-cable-hw.html"
       - title: ファイルノードとブロックノードをセットアップ
-        url: "/custom-architectures-setup-nodes.html"
+        url: "/custom/architectures-setup-nodes.html"
       - title: Ansibleコントロールノードをセットアップします
-        url: "/custom-architectures-setup-ansible-control-node.html"
+        url: "/custom/architectures-setup-ansible-control-node.html"
     - title: BeeGFSファイルシステムを定義します
       entries:
       - title: Ansibleのインベントリの概要
-        url: "/custom-architectures-inventory-overview.html"
+        url: "/custom/architectures-inventory-overview.html"
       - title: ファイルシステムを計画
-        url: "/custom-architectures-plan-file-system.html"
+        url: "/custom/architectures-plan-file-system.html"
       - title: ファイルノードとブロックノードを定義します
         entries:
         - title: 個 々 のファイルノードを設定します
-          url: "/custom-architectures-inventory-configure-file-nodes.html"
+          url: "/custom/architectures-inventory-configure-file-nodes.html"
         - title: 個 々 のブロックノードを設定する
-          url: "/custom-architectures-inventory-configure-block-nodes.html"
+          url: "/custom/architectures-inventory-configure-block-nodes.html"
         - title: 共通ファイルノード構成を指定します
-          url: "/custom-architectures-inventory-common-file-node-configuration.html"
+          url: "/custom/architectures-inventory-common-file-node-configuration.html"
         - title: 共通ブロックノード構成を指定します
-          url: "/custom-architectures-inventory-common-block-node-configuration.html"
+          url: "/custom/architectures-inventory-common-block-node-configuration.html"
       - title: BeeGFSサービスを定義します
         entries:
         - title: BeeGFS管理サービス
-          url: "/custom-architectures-inventory-beegfs-management.html"
+          url: "/custom/architectures-inventory-beegfs-management.html"
         - title: BeeGFSメタデータサービス
-          url: "/custom-architectures-inventory-beegfs-metadata.html"
+          url: "/custom/architectures-inventory-beegfs-metadata.html"
         - title: BeeGFSストレージサービス
-          url: "/custom-architectures-inventory-beegfs-storage.html"
+          url: "/custom/architectures-inventory-beegfs-storage.html"
       - title: BeeGFSサービスをファイルノードにマッピングします
-        url: "/custom-architectures-inventory-map-services-to-file-nodes.html"
+        url: "/custom/architectures-inventory-map-services-to-file-nodes.html"
     - title: BeeGFSファイルシステムを導入します
       entries:
       - title: Ansible Playbookの概要
-        url: "/custom-architectures-deploy-playbook-overview.html"
+        url: "/custom/architectures-deploy-playbook-overview.html"
       - title: BeeGFS HAクラスタを導入します
-        url: "/custom-architectures-deploy-ha-cluster.html"
+        url: "/custom/architectures-deploy-ha-cluster.html"
       - title: BeeGFSクライアントを導入します
-        url: "/custom-architectures-deploy-beegfs-clients.html"
+        url: "/custom/architectures-deploy-beegfs-clients.html"
       - title: BeeGFSの導入を確認します
-        url: "/custom-architectures-deploy-verify.html"
+        url: "/custom/architectures-deploy-verify.html"
   - title: BeeGFSクラスタの管理
     entries:
     - title: 概要、主要な概念、用語
-      url: "/administer-clusters-overview.html"
+      url: "/administer/clusters-overview.html"
     - title: AnsibleとPCを使用するタイミング
-      url: "/administer-clusters-ansible-pcs.html"
+      url: "/administer/clusters-ansible-pcs.html"
     - title: クラスタの状態を確認します
-      url: "/administer-clusters-examine-state.html"
-    - title: 再設定と更新
+      url: "/administer/clusters-examine-state.html"
+    - title: HAクラスタとBeeGFSを再設定します
+      url: "/administer/clusters-reconfigure.html"
+    - title: HAクラスタコンポーネントの更新
       entries:
-      - title: HAクラスタとBeeGFSを再設定します
-        url: "/administer-clusters-reconfigure.html"
-      - title: HAクラスタとBeeGFSを更新します
-        url: "/administer-clusters-update.html"
+      - title: BeeGFSバージョンの更新
+        url: "/administer/clusters-update-beegfs.html"
+      - title: E-Seriesストレージアレイのアップグレード
+        url: "/administer/clusters-update-storage-array.html"
     - title: サービスとメンテナンス
       entries:
       - title: フェイルオーバーサービスとフェイルバックサービス
-        url: "/administer-clusters-failover-failback.html"
+        url: "/administer/clusters-failover-failback.html"
       - title: クラスタをメンテナンスモードにします
-        url: "/administer-clusters-maintenance-mode.html"
+        url: "/administer/clusters-maintenance-mode.html"
       - title: クラスタを停止して起動します
-        url: "/administer-clusters-stop-start-cluster.html"
+        url: "/administer/clusters-stop-start-cluster.html"
       - title: ファイルノードを交換します
-        url: "/administer-clusters-replace-file-nodes.html"
+        url: "/administer/clusters-replace-file-nodes.html"
       - title: クラスタを拡張または縮小します
-        url: "/administer-clusters-expand-shrink-cluster.html"
+        url: "/administer/clusters-expand-shrink-cluster.html"
     - title: トラブルシューティングを行う
-      url: "/administer-clusters-troubleshoot.html"
+      url: "/administer/clusters-troubleshoot.html"
   - title: 法的通知
     url: "/legal-notices.html"
 product-family:

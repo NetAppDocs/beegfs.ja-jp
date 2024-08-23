@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-design-software-architecture.html 
+permalink: second-gen/beegfs-design-software-architecture.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: ネットアップのBeeGFSのソフトウェア設定には、BeeGFSネットワークコンポーネント、EF600ブロックノード、BeeGFSファイルノード、リソースグループ、BeeGFSサービスが含まれます。 
 ---
@@ -10,7 +10,7 @@ summary: ネットアップのBeeGFSのソフトウェア設定には、BeeGFS�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -43,13 +43,14 @@ BeeGFSはマルチレールサポートを実装し、1つのIPoIBサブネッ�
 +
 次の図に、複数のBeeGFSクライアントインターフェイス間でのトラフィックの分散を示します。
 
-+
-image:../media/beegfs-design-image8.png[""]
 
-+
+
+image:beegfs-design-image8.png["インターフェイストラフィックの分散"]
+
 BeeGFSの各ファイルは通常、複数のストレージサービスにまたがってストライピングされるため、マルチレール構成では、単一のInfiniBandポートでは実現できないスループットよりも高いスループットをクライアントに提供できます。たとえば、次のコード例は、クライアントが両方のインターフェイス間でトラフィックを分散できるようにする、一般的なファイルストライピング設定を示しています。
 
 +
+
 ....
 root@beegfs01:/mnt/beegfs# beegfs-ctl --getentryinfo myfile
 Entry type: file
@@ -67,8 +68,6 @@ Stripe pattern details:
 ....
 
 
-
-
 == EF600ブロックノード構成
 
 ブロックノードは、同じドライブセットへの共有アクセスを持つ2つのアクティブ/アクティブRAIDコントローラで構成されます。通常、各コントローラにはシステムに設定されているボリュームの半分が所有されますが、必要に応じてもう一方のコントローラがテイクオーバーできます。
@@ -77,11 +76,11 @@ Stripe pattern details:
 
 次の図は、EF600ブロックノードのコントローラのレイアウトを示しています。
 
-image:../media/beegfs-design-image9.png[""]
+image:beegfs-design-image9.png["EF600アレイ"]
 
 共有ディスクのHA解決策 を使用する場合、ボリュームが両方のファイルノードにマッピングされ、必要に応じて相互にテイクオーバーできるようになります。次の図は、パフォーマンスを最大化するためにBeeGFSサービスと優先ボリューム所有権を設定する例を示しています。各BeeGFSサービスの左側にあるインターフェイスは、クライアントとその他のサービスが接続に使用する優先インターフェイスを示します。
 
-image:../media/beegfs-design-image10.png[""]
+image:beegfs-design-image10.png["BeeGFSサービスのボリューム所有権"]
 
 前の例では、クライアントとサーバサービスは、インターフェイスi1bを使用してストレージサービス1と通信することを好みます。ストレージサービス1は、最初のブロックノードのコントローラA上のボリューム（storage_tgt_101、102）と通信するための優先パスとしてインターフェイスi1aを使用します。この構成では、InfiniBandアダプタで使用できる完全な双方向PCIe帯域幅を使用し、PCIe 4.0では実現できないデュアルポートHDR InfiniBandアダプタよりも優れたパフォーマンスを実現します。
 
@@ -124,7 +123,7 @@ BeeGFSリソースグループごとに、PacemakerはカスタムのBeeGFSモ�
 
 次の図に、Pacemaker制御のBeeGFSサービスと依存関係を示します。
 
-image:../media/beegfs-design-image11.png[""]
+image:beegfs-design-image11.png["Pacemakerコントローラサービス"]
 
 
 NOTE: 同じタイプの複数のBeeGFSサービスが同じノードで起動するように、Pacemakerはマルチモード設定方式を使用してBeeGFSサービスを開始するように設定されます。詳細については、を参照してください https://doc.beegfs.io/latest/advanced_topics/multimode.html["マルチモードでのBeeGFSのマニュアル"^]。

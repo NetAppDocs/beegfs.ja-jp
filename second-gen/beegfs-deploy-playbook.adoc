@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-playbook.html 
+permalink: second-gen/beegfs-deploy-playbook.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 構成の導入と管理には、Ansibleで実行するタスクが含まれた1つ以上のプレイブックを実行し、システム全体を目的の状態にする必要があります。 
 ---
@@ -10,7 +10,7 @@ summary: 構成の導入と管理には、Ansibleで実行するタスクが含�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
@@ -103,7 +103,7 @@ ansible-playbook -i inventory.yml playbook.yml --forks 20
 ....
 +
 
-NOTE: 特に大規模な展開では、forkパラメータを使用してデフォルトのfork（5）をオーバーライドし、Ansibleがパラレルに構成するホストの数を増やすことをお勧めします。（詳細については、を参照してください  https://www.ansible.com/blog/ansible-performance-tuning["Ansibleのパフォーマンス調整"^] および https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["プレイブックの実行を制御する"^].） 最大値の設定は、Ansibleの制御ノードで使用可能な処理能力によって異なります。上記の例では、CPUを4つ搭載した仮想Ansibleコントロールノード（インテル（R）Xeon（R）Gold 6146 CPU @ 3.20GHz）上で20を実行しています。
+NOTE: 特に大規模な環境では、 `forks`Ansibleが並行して構成するホストの数を増やすために、パラメータを使用してデフォルトのフォーク数（5）を上書きすることを推奨します。（詳細については、を参照して https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["プレイブックの実行を制御する"^]ください）。最大値の設定は、Ansibleコントロールノードで使用可能な処理能力によって異なります。上記の例では、CPUを4つ搭載した仮想Ansibleコントロールノード（インテル（R）Xeon（R）Gold 6146 CPU @ 3.20GHz）上で20を実行しています。
 
 +
 導入のサイズと、Ansible制御ノードとBeeGFSファイルおよびブロックノードの間のネットワークパフォーマンスによって、導入時間が異なる場合があります。

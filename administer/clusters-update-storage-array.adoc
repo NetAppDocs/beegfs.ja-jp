@@ -1,0 +1,98 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-update-storage-array.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, update, upgrade, SANtricityOS, firmware, drive 
+summary: HAクラスタのE-Seriesストレージアレイをアップグレードする手順 
+---
+= E-Seriesストレージアレイのアップグレード
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+HAクラスタのE-Seriesストレージアレイ（ブロックノード）をアップグレードする手順は、次のとおりです。
+
+
+
+== 概要
+
+HAクラスタのNetApp E-Seriesストレージアレイを最新のファームウェアで最新の状態に保つことで、最適なパフォーマンスとセキュリティが確保されます。ストレージアレイのファームウェア更新は、SANtricity OS、NVSRAM、およびドライブファームウェアファイルを使用して適用されます。
+
+
+IMPORTANT: ストレージアレイはHAクラスタをオンラインにしたままアップグレードできますが、すべてのアップグレードでクラスタをメンテナンスモードにすることを推奨します。
+
+
+
+== ブロックノードのアップグレード手順
+
+次の手順は `Netapp_Eseries.Santricity`、Ansibleコレクションを使用してストレージアレイのファームウェアを更新する方法の概要です。次の手順に進む前に、を参照してlink:https://docs.netapp.com/us-en/e-series/upgrade-santricity/overview-upgrade-consider-task.html["アップグレード時の考慮事項"^]E-Seriesシステムを更新してください。
+
+
+NOTE: SANtricity OS 11.80以降のリリースへのアップグレードは、11.70.5P1以降でのみ可能です。以降のアップグレードを適用する前に、ストレージアレイを11.70.5P1にアップグレードしておく必要があります。
+
+. Ansibleコントロールノードが最新のSANtricity Ansibleコレクションを使用していることを確認します。
++
+** へのアクセスによる収集のアップグレード link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^]を使用して、次のコマンドを実行します。
++
+[source, console]
+----
+ansible-galaxy collection install netapp_eseries.santricity --upgrade
+----
+** オフラインアップグレードの場合は、からcollection tarballをダウンロードしlink:https://galaxy.ansible.com/ui/repo/published/netapp_eseries/santricity/["Ansible Galaxy"^]、制御ノードに転送して、次のコマンドを実行します。
++
+[source, console]
+----
+ansible-galaxy collection install netapp_eseries-santricity-<VERSION>.tar.gz --upgrade
+----
++
+を参照してください link:https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html["コレクションのインストール"^] を参照してください。
+
+
+
+. ストレージアレイとドライブの最新のファームウェアを入手します。
++
+.. ファームウェアファイルをダウンロードします。
++
+*** * SANtricity OSとNVSRAM：*に移動し、link:https://mysupport.netapp.com/site/products/all/details/eseries-santricityos/downloads-tab["NetApp Support Site"^]お使いのストレージアレイモデルに対応した最新リリースのSANtricity OSとNVSRAMをダウンロードします。
+*** *ドライブファームウェア：*に移動しlink:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["E-Seriesディスクファームウェアサイト"^]、ストレージアレイの各ドライブモデルに対応する最新のファームウェアをダウンロードします。
+
+
+.. SANtricity OS、NVSRAM、およびドライブファームウェアのファイルをAnsibleの制御ノードの `<inventory_directory>/packages`ディレクトリに格納します。
+
+
+. 必要に応じて、クラスタのAnsibleインベントリファイルを更新して、更新が必要なすべてのストレージアレイ（ブロックノード）を含めます。手順については、を参照してくださいlink:../custom/architectures-inventory-overview.html["Ansibleのインベントリの概要"^]。
+. 各BeeGFSサービスが優先ノードに配置され、クラスタが最適な状態であることを確認します。詳細については、を参照してください link:clusters-examine-state.html["クラスタの状態を確認します"^] 。
+. の手順に従って、クラスタをメンテナンスモードにしlink:clusters-maintenance-mode.html["クラスタをメンテナンスモードにします"^]ます。
+. という名前の新しいAnsibleプレイブックを作成し `update_block_node_playbook.yml`ます。Playbookに次の情報を入力し、SANtricity OS、NVSRAM、およびドライブファームウェアのバージョンを目的のアップグレードパスに置き換えます。
++
+....
+- hosts: eseries_storage_systems
+  gather_facts: false
+  any_errors_fatal: true
+  collections:
+    - netapp_eseries.santricity
+  vars:
+    eseries_firmware_firmware: "packages/<SantricityOS>.dlp"
+    eseries_firmware_nvsram: "packages/<NVSRAM>.dlp"
+    eseries_drive_firmware_firmware_list:
+      - "packages/<drive_firmware>.dlp"
+    eseries_drive_firmware_upgrade_drives_online: true
+
+  tasks:
+    - name: Configure NetApp E-Series block nodes.
+      import_role:
+        name: nar_santricity_management
+....
+. 更新を開始するには、Ansibleコントロールノードから次のコマンドを実行します。
++
+[listing]
+----
+ansible-playbook -i inventory.yml update_block_node_playbook.yml
+----
+. プレイブックが完了したら、各ストレージアレイが最適な状態になっていることを確認します。
+. クラスタをメンテナンスモードから切り替え、各BeeGFSサービスが優先ノードに配置され、クラスタが最適な状態であることを確認します。
+

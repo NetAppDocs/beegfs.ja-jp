@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-overview.html 
+permalink: second-gen/beegfs-deploy-overview.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: NetAppのBeeGFSビルディング・ブロック設計の第2世代を使用して、NetAppにBeeGFSを導入し、検証済みのファイル・ノードとブロック・ノードを導入できます。 
 ---
@@ -10,7 +10,7 @@ summary: NetAppのBeeGFSビルディング・ブロック設計の第2世代を�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-high-capacity-building-block.html 
+permalink: second-gen/beegfs-deploy-high-capacity-building-block.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600, EF300, HDD, Expansion 
 summary: 大容量のビルディングブロックの導入方法の違い。 
 ---
@@ -10,13 +10,13 @@ summary: 大容量のビルディングブロックの導入方法の違い。
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
 標準のBeeGFS解決策 導入ガイドには、ハイパフォーマンスなワークロードの要件に関する手順と推奨事項が記載されています。大容量の要件を満たすことを検討しているお客様は、ここで紹介する導入方法や推奨事項の違いを確認する必要があります。
 
-image:high-capacity-rack-diagram.png[""]
+image:high-capacity-rack-diagram.png["大容量ラックの図"]
 
 
 
@@ -32,7 +32,7 @@ image:high-capacity-rack-diagram.png[""]
 
 BeeGFSメタデータストレージの各ブロックノードには、少なくとも4本のNVMe SSDが必要です。これらのドライブは、エンクロージャの一番外側のスロットに取り付ける必要があります。
 
-image:high-capacity-drive-slots-diagram.png[""]
+image:high-capacity-drive-slots-diagram.png["大容量ドライブスロットの図"]
 
 
 

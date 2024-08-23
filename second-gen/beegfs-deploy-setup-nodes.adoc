@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: beegfs-deploy-setup-nodes.html 
+permalink: second-gen/beegfs-deploy-setup-nodes.html 
 keywords: BeeGFS on NetApp, NetApp Verified Architecture, EF600 
 summary: 各サーバのBaseboard Management Controller（BMC；ベースボード管理コントローラ）のネットワークを設定し、各コントローラの管理ポートを設定します。 
 ---
@@ -10,7 +10,7 @@ summary: 各サーバのBaseboard Management Controller（BMC；ベースボー�
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]
