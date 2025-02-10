@@ -54,7 +54,7 @@ pcs cluster start <HOSTNAME>
 
 [source, console]
 ----
-pcs cluster node unstandby <HOSTNAME>
+pcs node unstandby <HOSTNAME>
 ----
 最後に、次のコマンドを使用してすべてのBeeGFSサービスを優先ノードに再配置します。
 

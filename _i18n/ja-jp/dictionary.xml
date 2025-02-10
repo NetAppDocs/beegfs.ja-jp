@@ -719,7 +719,6 @@
   <block id="970c2de774d4cba551050f0b96346cc6" category="section-title">手順4：すべてのファイルノードに適用する設定を定義する</block>
   <block id="68decee7f537598fe42c449c7effd748" category="paragraph">ファイル・ノードの共有構成は'ha_cluster'というグループで定義されますこのセクションの手順では'group_vars/ha_cluster.yml`ファイルに含める必要がある構成を構築します</block>
   <block id="01eabbaba4e3200ffffeaf687ced4089" category="list-text">ファイルの最上部で'ファイルノードのsudoユーザーとして使用するパスワードを含むデフォルトを定義します</block>
-  <block id="c61c5c1226a5daff294e618d1b90ec26" category="admonition">特に本番環境では、パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（を参照）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>)または'--Ask -bece-pass`オプションを使用してプレイブックを作成します「Ansible」ssh_userがすでに「root」である場合は、オプションで「Ansibleの_ bece_password」を省略できます。</block>
   <block id="3eeae040dcd4e8e08ba89cd729351414" category="list-text">必要に応じて、ハイアベイラビリティ（HA）クラスタの名前を設定し、クラスタ内通信用のユーザを指定します。</block>
   <block id="22bf408c8339ca14dab3745bbe56780d" category="paragraph">プライベートIPアドレッシング方式を変更する場合は、デフォルトの「beegfs_ha_mgmtd_floating_ip」も更新する必要があります。これは、後でBeeGFS Managementリソースグループに設定する内容と一致している必要があります。</block>
   <block id="ba4d50db9221cc812d5f7981d4600c2d" category="paragraph">「beegfs_alert_email_list」を使用して、クラスタ・イベントのアラートを受信する電子メールを1つ以上指定します。</block>
@@ -745,7 +744,6 @@
   <block id="aad0b8e6a3552eebcdcf125f218d1954" category="section-title">手順5：共通ブロックノードの設定を定義する</block>
   <block id="f9ed56c11a1443e285b3d786249fe6aa" category="paragraph">ブロック・ノードの共有構成は'eseries_storage_systems'というグループで定義されますこのセクションの手順では'group_vars/eseries_storage_systems.yml`ファイルに含める必要がある構成を構築します</block>
   <block id="7d304d17d15c3332b9d8584fa30f070b" category="list-text">Ansible接続をローカルに設定し、システムパスワードを指定して、SSL証明書を検証するかどうかを指定します。（通常、AnsibleはSSHを使用して管理対象ホストに接続しますが、NetApp Eシリーズストレージシステムがブロックノードとして使用されている場合、モジュールはREST APIを使用して通信します）。 ファイルの上部に、次の情報を追加します。</block>
-  <block id="41c70fb9d233363d68fe27194430adc1" category="admonition">プレーンテキストでパスワードを一覧表示することは推奨されません。--extra-bvarsを使用してAnsibleを実行するときに'Ansibleボールトを使用するか'eseries_system_password'を提供します</block>
   <block id="a18d6a60f542af2e3b0784928e17f417" category="list-text">最適なパフォーマンスを確保するには、に記載されているバージョンをブロックノードにインストールします <block ref="786d34f336ab7f462feb4fe8776c8670" category="inline-link-macro-rx"></block>。</block>
   <block id="8c41baf1ca98e1184f48c4721d44d431" category="inline-link">ネットアップサポートサイト</block>
   <block id="38119f4253b4080e689702afd647df1f" category="paragraph">対応するファイルをからダウンロードします<block ref="3f80e15ba326a9eb1fc39b6d8ba81472" category="inline-link-rx"></block>。これらを手動でアップグレードするか'Ansibleコントロール・ノードのパッケージ/ディレクトリに含めてから'eseries_storage_systemesyml'に以下のパラメータを入力して'Ansibleを使用してアップグレードできます</block>
@@ -1713,12 +1711,10 @@
   <block id="40fa362dda8b4d271b61c38987bd5131" category="paragraph">ネットアップでは、3つのビルディングブロックにメタデータとストレージ構成プロファイルが適用されたBeeGFSファイルシステムを使用して、NVDIA DGX A100 SuperPOD向けのストレージ解決策 の検証を実施しました。認定には、このNVAで説明した解決策 を、さまざまなストレージ、機械学習、ディープラーニングのベンチマークを実行している20台のDGX A100 GPUサーバでテストすることが含まれます。NVIDIAのDGX A100 SuperPODで確立された検証に基づいて、BeeGFS on NetAppソリューションは、DGX SuperPOD H100、H200、B200システムでの使用が承認されました。この拡張は、NVIDIA DGX A100で検証された、以前に確立されたベンチマークとシステム要件を満たすことに基づいています。</block>
   <block id="21b6d1b90774505daa15a9be831436a9" category="inline-link-macro">設計ガイド</block>
   <block id="1cba1266f00c729aee1318803f870d22" category="list-text">NVIDIA DGX SuperPOD A100、H100、H200、およびB200システム向けに設計されたアーキテクチャ。以前はNVIDIAの専用受け入れクラスタで検証済みです。NVIDIA DGX SuperPOD with NetAppの詳細については、を参照してください <block ref="e98320202738eb339bebe66cbb05ad8f" category="inline-link-macro-rx"></block>。</block>
-  <block id="8c044876bfc8883462e221a47dd42483" category="paragraph">第2世代のBeeGFS on NetAppは、ハイパフォーマンスコンピューティング（HPC）、機械学習（ML）、ディープラーニング（DL）、その他の人工知能（AI）手法など、要件の厳しいワークロードのパフォーマンス要件を満たすように最適化されています。共有ディスクの高可用性（HA）アーキテクチャを組み込むことで、データの保持性と可用性が確保され、ダウンタイムやデータ損失を許容できない企業やその他の組織に最適です。第2世代の設計には、PCIe Gen5サーバーなどのコンポーネントと、NVIDIA®Quantum™QM9700 400Gb/s InfiniBandスイッチのサポートが含まれています。このソリューションは、NetAppによって検証されただけでなく、NVIDIA DGX™A100 SuperPODのストレージオプションとして外部からの認定にも合格しており、DGX SuperPOD H100、H200、B200システムの拡張認定も取得しています。</block>
   <block id="10ca191b839b35e5100464ff59b95b97" category="paragraph">第1世代のBeeGFS on NetAppは、NetApp EF600 NVMeストレージシステム、BeeGFS並列ファイルシステム、NVIDIA DGX™A100システム、NVIDIA®Mellanox®Quantum™QM8700 200Gb/s IBスイッチを使用して、機械学習（ML）と人工知能（AI）のワークロード向けに設計されました。この設計は、ストレージとコンピューティングのクラスタインターコネクトファブリックに200Gb/秒InfiniBand（IB）も備えており、ハイパフォーマンスワークロードに完全にIBベースのアーキテクチャを提供します。</block>
   <block id="aef5a6ba281c6919d0a3e3ff7d8feaf3" category="section-title">設計の概要</block>
   <block id="a1d7af56cbcfca285cd257ae3430a2d3" category="inline-link-macro">アーキテクチャの概要</block>
   <block id="61dd8d13bec6e1ac3455eb2e13d61261" category="paragraph">BeeGFS on NetAppソリューションは、拡張性に優れたビルディングブロックアーキテクチャとして設計されており、要件の厳しいさまざまなワークロード向けに構成可能です。多数の小さなファイルを扱う場合でも、大規模なファイル操作を管理する場合でも、ハイブリッドワークロードの場合でも、これらのニーズに合わせてファイルシステムをカスタマイズできます。設計には高可用性が組み込まれており、2層のハードウェア構造を使用しています。これにより、複数のハードウェアレイヤで独立したフェイルオーバーが可能になり、システムが部分的に低下しても一貫したパフォーマンスが保証されます。BeeGFSファイルシステムは、さまざまなLinuxディストリビューションにわたってハイパフォーマンスで拡張性に優れた環境を実現し、クライアントにアクセスしやすい単一のストレージネームスペースを提供します。詳細については、を <block ref="45037eea1e64b480408f051dfe424a3c" category="inline-link-macro-rx"></block>参照してください。</block>
-  <block id="ddf44cacce7787e9c71d290998a2d033" category="list-text">NVIDIA DGX SuperPODシステムには、A100、H100、H200、B200 GPU搭載のDGXが搭載されています。</block>
   <block id="bcaa6be52b9fd12687892056d441d7e4" category="paragraph">BeeGFS on NetAppソリューションを実装するには、本ドキュメントに記載されているテクノロジ要件を環境が満たしていることを確認してください。</block>
   <block id="7bf6b11b50ef88e180323b13813659d7" category="paragraph">作業を開始する前に、BeeGFS on NetAppソリューションの1つの第2世代ビルディングブロック設計について、ハードウェアが次の仕様を満たしていることを確認してください。特定の導入に適したコンポーネントは、お客様の要件に応じて異なる場合があります。</block>
   <block id="694e8d1f2ee056f98ee488bdc4982d73" category="cell">数量</block>
@@ -1918,4 +1914,13 @@
   <block id="0594ef398f6882c7d1d98994e3906850" category="paragraph">*ブロックノードからファイルノードへの直接接続。*</block>
   <block id="b38917fef1efbb1471841f7a026c98c3" category="paragraph">*ファイルノードからストレージネットワークスイッチへの接続。*InfiniBandストレージスイッチに応じて、次の表から適切なケーブルオプションを選択します。+推奨ケーブル長は2mですが、お客様の環境によって異なる場合があります。</block>
   <block id="a00d274d551f6b74718d44ea2bb6e6c3" category="sidebar">HAクラスタコンポーネントの更新</block>
+  <block id="67f62a9c37bde591abc850b5a2b22b02" category="list-text">クラスタパスワード用のサブディレクトリを作成し、Ansible Vaultでファイルを暗号化して保護します（を参照）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>。</block>
+  <block id="8e7f7bdc10cb596910cce6b79c2e2ed6" category="list-text">サブディレクトリを作成し<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="166355001b2692bdc29d698719b5f702" category="list-text"><block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>ディレクトリに、という名前のパスワードファイルを作成し<block ref="97a67fc90fe6d13cef22fa951de48f8d" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="da8d8318ceb4254068ec25272c92bc85" category="list-text">設定に応じて、すべてのユーザ名およびパスワードパラメータを置き換えて、に次の情報を入力<block ref="b8d32e4c2d78b6e404b69e5c1fbf3118" prefix=" " category="inline-code"></block>します。</block>
+  <block id="7e60d329db54d74d692f53620b366281" category="list-text">プロンプトが表示されたら、を実行して<block ref="150063209c60b18e2173569bd82ec639" prefix=" " category="inline-code"></block>ボルトパスワードを設定します。</block>
+  <block id="1d2459ca9cef1e38badde9d192eff628" category="admonition">がすでに存在する<block ref="63a9f0ea7bb98050796b649e85481845" prefix=" " category="inline-code"></block>場合は<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block>、必要に応じてを省略し、Playbookの実行時にオプションを指定<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block>できます<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>。</block>
+  <block id="49e794dd3d68025fd6943b67048e4f27" category="paragraph">第2世代のBeeGFS on NetAppは、ハイパフォーマンスコンピューティング（HPC）、機械学習（ML）、ディープラーニング（DL）、その他の人工知能（AI）手法など、要件の厳しいワークロードのパフォーマンス要件を満たすように最適化されています。共有ディスクの高可用性（HA）アーキテクチャを組み込むことで、データの保持性と可用性が確保され、ダウンタイムやデータ損失を許容できない企業やその他の組織に最適です。第2世代の設計には、PCIe Gen5サーバーなどのコンポーネントと、NVIDIA®Quantum™QM9700 400Gb/s InfiniBandスイッチのサポートが含まれています。このソリューションは、NetAppによって検証されただけでなく、NVIDIA DGX™A100 SuperPODのストレージオプションとして外部からの認定にも合格しており、DGX SuperPOD H100、H200、B200システムの拡張認定も取得しています。</block>
+  <block id="7da4cabbb2f4c4e53ccb9660355b7dd1" category="list-text">NVIDIA DGX SuperPODシステムには、A100、H100、H200、B200 GPU搭載のDGXが搭載されています。</block>
+  <block id="e02a1b9bf28135b2931b63ac814ff7ac" category="sidebar">NVA-1174-BeeGFS on NetApp EFシリーズとNVIDIA DGX SuperPODシステム</block>
 </blocks>
