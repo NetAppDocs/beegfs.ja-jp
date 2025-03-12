@@ -51,21 +51,6 @@ BeeGFSファイルノード
 
 
 
-* * Lenovo ThinkSystem SR665*
-+
-** *プロセッサー：* AMD EPYC 7343 16C 3.2 GHz×2（2つのNUMAゾーンとして構成）。
-** *メモリ:256 GB (16 x 16 GB TruDDR4 3200 MHz RDIMM-A)
-** * PCIe拡張：* 4つのPCIe Gen4 x16スロット（NUMAゾーンごとに2つ）
-** *その他:*
-+
-*** OS用RAID 1にドライブ2台（1TB 7.2K SATA以上）
-*** 1GbEポート（インバンドOS管理用）
-*** 1GbE BMCとRedfish APIによるアウトオブバンドサーバ管理
-*** デュアルホットスワップ電源装置とパフォーマンスファン
-
-
-
-
 
 
 
@@ -81,11 +66,6 @@ BeeGFSファイルノード
 * * Lenovo ThinkSystem SR665 V3サーバ：*
 +
 ** MCX755106AS-HEAT ConnectX-7、NDR200、QSFP112、2ポート、PCIe Gen5 x16、
-
-
-* * Lenovo ThinkSystem SR665サーバ：*
-+
-** MCX653106A-HDAT ConnectX-6、HDR、QSFP-56、2ポート、PCIe Gen4 x16、
 
 
 
@@ -115,21 +95,27 @@ BeeGFSファイルノード
 |===
 *ファイルノードからストレージネットワークスイッチへの接続。*InfiniBandストレージスイッチに応じて、次の表から適切なケーブルオプションを選択します。+推奨ケーブル長は2mですが、お客様の環境によって異なる場合があります。
 
-[cols="20%,10%,15%,55%"]
+[cols="20%,15%,10%,55%"]
 |===
-| スイッチモデル | 数量 | ケーブルタイプ | パーツ番号 
+| スイッチモデル | ケーブルタイプ | 数量 | パーツ番号 
 
 
-| NVIDIA QM9700 | 4 | アクティブファイバ | MFA7U10-H002（NVIDIAアクティブファイバケーブル、InfiniBand 400Gb/s～200Gb/s×2、OSFP～QSFP56×2） 
+.4+| NVIDIA QM9700 .3+| アクティブファイバ（トランシーバを含む） | 2. | MMA4Z00-NS（マルチモード、IB/ETH、800GB/s 2×400Gb/sツインポートOSFP） 
 
 
-| NVIDIA QM9700 | 4 | パッシブカッパー | MCP7Y60-H002（NVIDIAパッシブ銅ケーブル、InfiniBand 400Gb/s～200Gb/s×2、OSFP～QSFP56×2） 
+| 4 | MFP7E20-Nxxx（マルチモード、4チャネル対2 2チャネルスプリッタファイバケーブル） 
 
 
-| NVIDIA MQM8700 | 8. | アクティブファイバ | MFS1S00-H003E（NVIDIAアクティブファイバケーブル、InfiniBand 200Gb/s、QSFP56） 
+| 8. | MMA1Z00-NS400（マルチモード、IB/ETH、400Gb/秒、シングルポートQSFP-112） 
 
 
-| NVIDIA MQM8700 | 8. | パッシブカッパー | MCP1650-H002E26（NVIDIAパッシブ銅ケーブル、InfiniBand 200Gb/s、QSFP56） 
+| パッシブカッパー | 2. | MCP7Y40-N002（NVIDIAパッシブ銅線スプリッタケーブル、InfiniBand 800Gb/s～4x200Gb/s、OSFP～4xQSFP112） 
+
+
+.2+| NVIDIA MQM8700 | アクティブファイバ | 8. | MFS1S00-H003E（NVIDIAアクティブファイバケーブル、InfiniBand 200Gb/s、QSFP56） 
+
+
+| パッシブカッパー | 8. | MCP1650-H002E26（NVIDIAパッシブ銅ケーブル、InfiniBand 200Gb/s、QSFP56） 
 |===
 
 
@@ -159,15 +145,12 @@ IMPORTANT: ファイルノードには、有効なRed Hat Enterprise Linux Serve
 | Linuxカーネル | 5.14.0～362.24.1.el9_3.x86_64 
 
 
-| InfiniBand / RDMAドライバ | MLNX_OFED_Linux-23.10-3.2.2.0-LTS 
-
-
  a| 
 HCAファームウェア
  a| 
-* ConnectX-7 HCAファームウェア* FW：28.39.1002 + PXE：3.7.0201 + UEFI：14.32.0012
+* ConnectX-7 HCAファームウェア* FW：28.42.1000 + PXE：3.7.0500 + UEFI：14.35.0015
 
-* ConnectX-6 HCAファームウェア* FW：20.31.1014 + PXE：3.6.0403 + UEFI：14.24.0013
+* ConnectX-6 HCAファームウェア* FW：20.43.1014 + PXE：3.7.0500 + UEFI：14.36.0016
 
 |===
 
@@ -179,10 +162,10 @@ HCAファームウェア
 | ソフトウェア | バージョン 
 
 
-| SANtricity OS の略 | 11.80.0 
+| SANtricity OS の略 | 11.90R1 
 
 
-| NVSRAM | N6000-880834-D08.dlp 
+| NVSRAM | N6000-890834-D02.dlp 
 
 
 | ドライブファームウェア | 使用中のドライブモデルで最新バージョンが提供されています。 
@@ -201,15 +184,16 @@ HCAファームウェア
 | BeeGFSの場合 | 7.4.4 
 
 
-| Corosync | 3.1.5-4 
+| Corosync | 3.1.7-1 
 
 
-| ペースメーカー | 2.1.4-5 
+| ペースメーカー | 2.1.6-10 
 
 
-| OpenSMを使用します  a| 
-opensm-5.17.2（MLNX_OFED_Linux-23.10-3.2.2.0-LTSから）
+| フェンスエージェント（redfish/APC） | 4.10.0-55 
 
+
+| InfiniBand / RDMAドライバ | MLNX_OFED_Linux-23.10-3.2.2.0-LTS 
 |===
 
 

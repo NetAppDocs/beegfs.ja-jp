@@ -21,7 +21,6 @@
   <block id="9197ec103d780b6779cb78eec6afce31" category="cell">7.2.6.</block>
   <block id="51cf7c858a71d06ee12a42cfbff97da7" category="cell">Corosync</block>
   <block id="d95adee972ae170512bd3bdbce557054" category="cell">ペースメーカー</block>
-  <block id="0a0d34e3921098e12d40efeb9e5b64ff" category="cell">OpenSMを使用します</block>
   <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansibleの制御ノード要件</block>
   <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansibleのドキュメント</block>
   <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp解決策 のBeeGFSは、Ansible制御ノードから導入して管理します。詳細については、を参照してください<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>。</block>
@@ -920,7 +919,6 @@
   <block id="9e94ba8f70ed52b0ae6c2a8725f97a9f" category="paragraph">すべてのノードでクラスタサービスとリソースを開始するには、次のコマンドを実行します。</block>
   <block id="80bd5673b361d19dc46e6b882f98b061" category="paragraph">または、次のコマンドを使用して特定のノードでサービスを開始します。</block>
   <block id="56ad9ec5396c5f035697d1e62c4b0926" category="paragraph">この時点でを実行します<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> すべてのノードでクラスタサービスとBeeGFSサービスが開始され、必要なノードでサービスが実行されていることを確認します。</block>
-  <block id="f2cc0b0e79d5eccda5009e593729ce23" category="admonition">クラスタのサイズによっては、クラスタ全体が停止するか、に表示されるまでに数秒から数分かかることがあります<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>。状況<block ref="88f9ea6da6d01a3e529f8aa41e0e4643" prefix=" " category="inline-code"></block> 「Ctrl+C」を実行してコマンドをキャンセルする前に5分以上ハングし、クラスタの各ノードにログインして使用します<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block> そのノードでクラスタサービス（Corosync / Pacemaker）がまだ実行されているかどうかを確認します。クラスタがまだアクティブになっているノードから、クラスタをブロックしているリソースを確認できます。問題 に手動で対処する必要があります。コマンドを完了するか、再実行して残りのサービスを停止できます。</block>
   <block id="9cdd9805effd30bec624c806fd980309" category="summary">クラスタノード間でBeeGFSサービスを移動します。</block>
   <block id="f6054493b235622c6d85c56597db1eb1" category="doc">フェイルオーバーサービスとフェイルバックサービス</block>
   <block id="2c053c4f4aa73d509803b712a335712b" category="paragraph">BeeGFSサービスは、ノード間でフェイルオーバーして、ノードに障害が発生した場合でもクライアントが引き続きファイルシステムにアクセスできるようにすることも、計画的なメンテナンスを実行することもできます。このセクションでは、障害からのリカバリ後、またはノード間でサービスを手動で移動したあとに、クラスタを修復するさまざまな方法について説明します。</block>
@@ -971,7 +969,6 @@
   <block id="92a6e3227dfe7be15777e64043fb613f" category="list-text">ファイルノードのオペレーティングシステム、カーネル、またはその他のパッケージの更新。</block>
   <block id="6c1cf36b91fdf2375e857652291bab2e" category="paragraph">通常、クラスタを手動で保守モードにする唯一の理由は、環境内の外部の変更にクラスタが対応できないようにするためです。クラスタ内の個 々 のノードで物理的な修復が必要な場合は、保守モードを使用せずに、そのノードを上記の手順 に従ってスタンバイにします。Ansibleを再実行するとクラスタが自動的に保守モードになり、アップグレードや設定の変更など、ほとんどのソフトウェアメンテナンスが容易になります。</block>
   <block id="bbf6745fae83e12806200feeb795f0ef" category="paragraph">クラスタがメンテナンスモードかどうかを確認するには、次のコマンドを実行します。</block>
-  <block id="4a6b1ae7d59c5bf02b1b5759e9f9b8e7" category="paragraph">クラスタが正常に動作している場合はfalseが返されます。メンテナンスモードの実行を有効にするには、次の</block>
   <block id="4ecbc8384cde54344112e6ab08db42be" category="paragraph">PCステータスを実行し、すべてのリソースに「（管理対象外）」と表示されていることを確認することで確認できます。クラスタの保守モードを解除するには、次のコマンドを実行します。</block>
   <block id="9afe1c93907babebeb4d7a466e216a3e" category="summary">クラスタのビルディングブロックを追加または削除します。</block>
   <block id="da82c1c93eafcb34930ae3da89361e1e" category="doc">クラスタを拡張または縮小します</block>
@@ -1728,15 +1725,9 @@
   <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">1GbEポート（インバンドOS管理用）</block>
   <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">1GbE BMCとRedfish APIによるアウトオブバンドサーバ管理</block>
   <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">デュアルホットスワップ電源装置とパフォーマンスファン</block>
-  <block id="1fb2f6fd0ecd0371486e7642b03c5dee" category="list-text">* Lenovo ThinkSystem SR665*</block>
-  <block id="78cbac434e403c43ef215a8541f8e62a" category="list-text">*プロセッサー：* AMD EPYC 7343 16C 3.2 GHz×2（2つのNUMAゾーンとして構成）。</block>
-  <block id="634d6174b88e5856171cb65f69c870d6" category="list-text">*メモリ:256 GB (16 x 16 GB TruDDR4 3200 MHz RDIMM-A)</block>
-  <block id="7d381836b9e0d0145f8901a9e826a329" category="list-text">* PCIe拡張：* 4つのPCIe Gen4 x16スロット（NUMAゾーンごとに2つ）</block>
   <block id="1e36a3ec484f8d613eabadcfb7010a41" category="paragraph">ホストカードアダプタは、ファイルノードに使用されるサーバモデルによって異なります。検証済みファイルノードの推奨事項は次のとおりです。</block>
   <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3サーバ：*</block>
   <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS-HEAT ConnectX-7、NDR200、QSFP112、2ポート、PCIe Gen5 x16、</block>
-  <block id="2f02d951d56eb9f3451bbc826c3e8750" category="list-text">* Lenovo ThinkSystem SR665サーバ：*</block>
-  <block id="a6db2cf27367b5061d9dcb3d029e4836" category="list-text">MCX653106A-HDAT ConnectX-6、HDR、QSFP-56、2ポート、PCIe Gen4 x16、</block>
   <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">ストレージネットワークスイッチ</block>
   <block id="abf33d394022ed774955ca8b4e892340" category="paragraph">ストレージネットワークスイッチの速度は200Gb/秒InfiniBandに対応している必要があります。推奨されるスイッチモデルは次のとおりです。</block>
   <block id="d7405c22a666ad0d0cb249c209ed8a2a" category="list-text">* NVIDIA QM9700 Quantum 2 NDR InfiniBandスイッチ*</block>
@@ -1751,9 +1742,7 @@
   <block id="0f0a45940e8946022b971d4ccdf6154e" category="cell">NVIDIA QM9700</block>
   <block id="a87ff679a2f3e71d9181a67b7542122c" category="cell">4</block>
   <block id="979ceabbdb73904b7beec8a0d58c32b8" category="cell">アクティブファイバ</block>
-  <block id="270f13016300dfe6e2fe7c681978bef9" category="cell">MFA7U10-H002（NVIDIAアクティブファイバケーブル、InfiniBand 400Gb/s～200Gb/s×2、OSFP～QSFP56×2）</block>
   <block id="f629de18a131cfa25b9f36ef4690fc92" category="cell">パッシブカッパー</block>
-  <block id="bebb3995ccd5809442d1bb1bc0a25e3a" category="cell">MCP7Y60-H002（NVIDIAパッシブ銅ケーブル、InfiniBand 400Gb/s～200Gb/s×2、OSFP～QSFP56×2）</block>
   <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700</block>
   <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E（NVIDIAアクティブファイバケーブル、InfiniBand 200Gb/s、QSFP56）</block>
   <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26（NVIDIAパッシブ銅ケーブル、InfiniBand 200Gb/s、QSFP56）</block>
@@ -1761,14 +1750,7 @@
   <block id="099646c88bdb63cce0ec389f4c842fed" category="cell">5.14.0～362.24.1.el9_3.x86_64</block>
   <block id="de4e152f23f311bbd0da3bd3cc07390d" category="cell">MLNX_OFED_Linux-23.10-3.2.2.0-LTS</block>
   <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCAファームウェア</block>
-  <block id="cf135b5c065c2f500279337fc59c78ac" category="paragraph">* ConnectX-7 HCAファームウェア* FW：28.39.1002 + PXE：3.7.0201 + UEFI：14.32.0012</block>
-  <block id="932d22339e7f2f10a02d7bf453b85501" category="paragraph">* ConnectX-6 HCAファームウェア* FW：20.31.1014 + PXE：3.6.0403 + UEFI：14.24.0013</block>
-  <block id="41d49156a74390ee5d03e3516c1dca6b" category="cell">11.80.0</block>
-  <block id="36744b059ba2d833befd7109b0ba5167" category="cell">N6000-880834-D08.dlp</block>
   <block id="141a8d7da406be785ba26084a46e1c00" category="cell">7.4.4</block>
-  <block id="92f9c52d96ebf7ac8dc2f41e6e11647a" category="cell">3.1.5-4</block>
-  <block id="c60a2cf4eb7f8efdd97013c9acb1f45b" category="cell">2.1.4-5</block>
-  <block id="a1a2ed259d1be22e6373097baea242eb" category="paragraph">opensm-5.17.2（MLNX_OFED_Linux-23.10-3.2.2.0-LTSから）</block>
   <block id="5487c77147bdac492714cd2896a16557" category="cell">6.x（pipを使用してインストールされている場合）：Ansible-6.0.0およびAnsible-core &gt;= 2.13.0</block>
   <block id="b1e65a5d34a577630a4fc7840358333f" category="cell">3.9（またはそれ以降）</block>
   <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">暗号化- 43.0.0、netaddr-1.3.0、ipaddr-2.2.0</block>
@@ -1799,8 +1781,6 @@
   <block id="cd35a558180e5a60f1da5ebd80b06ed2" category="paragraph">詳細およびその他の設定オプションについては、の接続認証を設定する手順を参照してください<block ref="dc7fd2b3ea1b2b4a060b953a1b281371" category="inline-link-macro-rx"></block>。</block>
   <block id="8d4ce44e7e1f685f22f0480066f6dadc" category="summary">HAクラスタのE-Seriesストレージアレイをアップグレードする手順</block>
   <block id="fecb4be6b37a9fda6b207eaf97363fed" category="doc">E-Seriesストレージアレイのアップグレード</block>
-  <block id="26f796a7ab5fa8e4b49e64f8f8bf2a80" category="paragraph">HAクラスタのE-Seriesストレージアレイ（ブロックノード）をアップグレードする手順は、次のとおりです。</block>
-  <block id="e134ac69d8641d9208d2cf890fad5275" category="paragraph">HAクラスタのNetApp E-Seriesストレージアレイを最新のファームウェアで最新の状態に保つことで、最適なパフォーマンスとセキュリティが確保されます。ストレージアレイのファームウェア更新は、SANtricity OS、NVSRAM、およびドライブファームウェアファイルを使用して適用されます。</block>
   <block id="40039e282631364c07ceaedf99c2cf6c" category="admonition">ストレージアレイはHAクラスタをオンラインにしたままアップグレードできますが、すべてのアップグレードでクラスタをメンテナンスモードにすることを推奨します。</block>
   <block id="e23311179b5a9fe1039e35e28290b482" category="section-title">ブロックノードのアップグレード手順</block>
   <block id="4a77379e9fcc01e35b7933a91b02a2bb" category="inline-link-macro">アップグレード時の考慮事項</block>
@@ -1816,7 +1796,6 @@
   <block id="bad7f30f1449c1f5ab5e97ce89aee762" category="list-text">*ドライブファームウェア：*に移動し<block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>、ストレージアレイの各ドライブモデルに対応する最新のファームウェアをダウンロードします。</block>
   <block id="c26b41b932786e55f3bf481a6938083e" category="list-text">SANtricity OS、NVSRAM、およびドライブファームウェアのファイルをAnsibleの制御ノードの<block ref="971398284b1e828e40efc6b6630f0369" prefix=" " category="inline-code"></block>ディレクトリに格納します。</block>
   <block id="09a777fce4515aa1a8dcd86346441924" category="list-text">必要に応じて、クラスタのAnsibleインベントリファイルを更新して、更新が必要なすべてのストレージアレイ（ブロックノード）を含めます。手順については、を参照してください<block ref="f7bda10e421919e9d8ced89dacaba34f" category="inline-link-macro-rx"></block>。</block>
-  <block id="44ab0407eb93bf62fd987a8132e5a912" category="list-text">各BeeGFSサービスが優先ノードに配置され、クラスタが最適な状態であることを確認します。詳細については、を参照してください <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 。</block>
   <block id="f525483091b48c05e08ecf537a6c9e5a" category="list-text">の手順に従って、クラスタをメンテナンスモードにし<block ref="4b8504199df3a0ade85c92603634e18f" category="inline-link-macro-rx"></block>ます。</block>
   <block id="390c5fa21f5dea398732a7b3b4024304" category="list-text">という名前の新しいAnsibleプレイブックを作成し<block ref="bdc450c9ffd9674cb7c88bcb24bfedb8" prefix=" " category="inline-code"></block>ます。Playbookに次の情報を入力し、SANtricity OS、NVSRAM、およびドライブファームウェアのバージョンを目的のアップグレードパスに置き換えます。</block>
   <block id="13ec6a1291f9e3d303bbc7f6bece60a3" category="list-text">更新を開始するには、Ansibleコントロールノードから次のコマンドを実行します。</block>
@@ -1923,4 +1902,95 @@
   <block id="49e794dd3d68025fd6943b67048e4f27" category="paragraph">第2世代のBeeGFS on NetAppは、ハイパフォーマンスコンピューティング（HPC）、機械学習（ML）、ディープラーニング（DL）、その他の人工知能（AI）手法など、要件の厳しいワークロードのパフォーマンス要件を満たすように最適化されています。共有ディスクの高可用性（HA）アーキテクチャを組み込むことで、データの保持性と可用性が確保され、ダウンタイムやデータ損失を許容できない企業やその他の組織に最適です。第2世代の設計には、PCIe Gen5サーバーなどのコンポーネントと、NVIDIA®Quantum™QM9700 400Gb/s InfiniBandスイッチのサポートが含まれています。このソリューションは、NetAppによって検証されただけでなく、NVIDIA DGX™A100 SuperPODのストレージオプションとして外部からの認定にも合格しており、DGX SuperPOD H100、H200、B200システムの拡張認定も取得しています。</block>
   <block id="7da4cabbb2f4c4e53ccb9660355b7dd1" category="list-text">NVIDIA DGX SuperPODシステムには、A100、H100、H200、B200 GPU搭載のDGXが搭載されています。</block>
   <block id="e02a1b9bf28135b2931b63ac814ff7ac" category="sidebar">NVA-1174-BeeGFS on NetApp EFシリーズとNVIDIA DGX SuperPODシステム</block>
+  <block id="049125cf8ec62098912c4f2c8db9f61b" category="paragraph"><block ref="e6211db0073064ade016ad4558767968" prefix=" " category="inline-code"></block>クラスタが正常に動作している場合、プロパティは表示されません。クラスタが現在メンテナンスモードの場合、プロパティはとして報告されます<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>。メンテナンスモードの実行を有効にするには、次の</block>
+  <block id="ae7cd547e02c1f67adce822f49e1815f" category="admonition">クラスタのサイズによっては、クラスタ全体が停止するまでに数秒から数分かかる場合やで開始されたと表示される場合があり<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>ます。が5分以上ハングする場合<block ref="88f9ea6da6d01a3e529f8aa41e0e4643" prefix=" " category="inline-code"></block>は、「Ctrl+C」を実行してコマンドをキャンセルする前に、クラスタの各ノードにログインし、を使用して<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>そのノードでクラスタサービス（Corosync / Pacemaker）が実行されているかどうかを確認します。クラスタがまだアクティブになっているノードから、クラスタをブロックしているリソースを確認できます。問題 に手動で対処する必要があります。コマンドを完了するか、再実行して残りのサービスを停止できます。</block>
+  <block id="5dfbb07786784ecd0c0829f3624766bf" category="summary">HAクラスタでPacemakerパッケージとCorosyncパッケージをアップグレードする手順</block>
+  <block id="256ad8b6e95e34f8784f6b80bcf07e62" category="doc">HAクラスタでのPacemakerおよびCorosyncパッケージのアップグレード</block>
+  <block id="f9b43d72a27351762f4809a45ab3809e" category="paragraph">HAクラスタ内のPacemakerおよびCorosyncパッケージをアップグレードする手順は、次のとおりです。</block>
+  <block id="93bcc5a6e49472d3ee328b74217072a4" category="paragraph">PacemakerとCorosyncをアップグレードすることで、クラスタは新機能、セキュリティパッチ、およびパフォーマンスの向上の恩恵を受けることができます。</block>
+  <block id="d5870f2e8bb30d5fd8dba0f3bcba2ff2" category="section-title">アップグレードアプローチ</block>
+  <block id="3910bde80db45114f03b57a1cea719d7" category="inline-link-macro">Pacemakerクラスタのアップグレード</block>
+  <block id="fbe527032decd848e5233378716880ef" category="paragraph">クラスタのアップグレードには、ローリングアップグレードとクラスタの完全なシャットダウンの2つの方法が推奨されます。各アプローチには独自の利点と欠点があります。アップグレード手順は、Pacemakerのリリースバージョンによって異なる場合があります。使用するアプローチを決定するには、ClusterLabsのドキュメントを参照して<block ref="f46eb388ba6d1748ea24c2340bf59c47" category="inline-link-macro-rx"></block>ください。アップグレードアプローチに従う前に、次のことを確認してください。</block>
+  <block id="3875a0129b5e7200d99ab95798b4ca49" category="list-text">新しいPacemakerおよびCorosyncパッケージは、NetApp BeeGFSソリューション内でサポートされています。</block>
+  <block id="14bc480662de00a882a587d6c753c533" category="list-text">BeeGFSファイルシステムおよびPacemakerクラスタ構成に対して有効なバックアップが存在します。</block>
+  <block id="efd7093d185f1f3506d2f99fa2406088" category="list-text">クラスタは正常な状態です。</block>
+  <block id="22e44c8383bdd51e7823eed40de12db4" category="section-title">ローリングアップグレード</block>
+  <block id="49939651104a8f4bf473311d280796b9" category="paragraph">この方法では、各ノードをクラスタから削除してアップグレードし、すべてのノードで新しいバージョンが実行されるまでクラスタに再導入します。この方法ではクラスタの運用を維持できるため、大規模なHAクラスタには最適ですが、処理中にバージョンが混在するリスクがあります。この方法は2ノードクラスタでは使用しないでください。</block>
+  <block id="4fe0553e4bb27a05a3680575a66540a7" category="list-text">各BeeGFSサービスが優先ノードで実行され、クラスタが最適な状態であることを確認します。詳細については、を参照してください <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 。</block>
+  <block id="afcf7685b4b8a18d898e6c84f2b84166" category="list-text">ノードをアップグレードするには、ノードをスタンバイモードにして、すべてのBeeGFSサービスを停止（または移動）します。</block>
+  <block id="36b48c4e047e7d7107eaa995708914b1" category="list-text">次のコマンドを実行して、ノードのサービスが削除されたことを確認します。</block>
+  <block id="9c1adfab509ac587de61a03c43cda767" category="paragraph">スタンバイのノードでサービスがとして報告されていないことを確認します<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block>。</block>
+  <block id="2b26b4d53851d442c712564adfb4b445" category="admonition">クラスタのサイズによっては、サービスが姉妹ノードに移動するまでに数秒から数分かかることがあります。姉妹ノードでBeeGFSサービスが開始されない場合は、を参照してください<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>。</block>
+  <block id="e2939fee46b1883f2b4fb3fec03f83fb" category="list-text">ノードのクラスタをシャットダウンします。</block>
+  <block id="7a3db5a8197b212244d160de60f682da" category="list-text">ノードのPacemaker、Corosync、およびPCsパッケージをアップグレードします。</block>
+  <block id="054ce71db50c3d6b29d6ddfda5264cc9" category="admonition">パッケージマネージャのコマンドは、オペレーティングシステムによって異なります。次のコマンドは、RHEL 8以降を実行するシステム用です。</block>
+  <block id="0a761ff507fc5bb4859d6d425b2b120a" category="list-text">ノードでPacemakerクラスタサービスを開始します。</block>
+  <block id="7a98d33ee2035dc15b33a6ccaea4753b" category="list-text">パッケージが更新された場合は<block ref="3ecf2642759a04bd3616642bd56bed59" prefix=" " category="inline-code"></block>、クラスタでノードを再認証します。</block>
+  <block id="039f324455c000e0dad7b93f641cd7bf" category="list-text">ツールを使用して、ペースメーカーの設定がまだ有効であることを確認します<block ref="419527551374e0fe5024d6bb1f3f2814" prefix=" " category="inline-code"></block>。</block>
+  <block id="51c1fa488cc911104720c97dad8ec5eb" category="admonition">この検証は、クラスタのアップグレード時に1回だけ実行します。</block>
+  <block id="265a35348bf91dcba3e55e3454e3c155" category="list-text">ノードのスタンバイを解除します。</block>
+  <block id="ea285586c4e419f14cfb8b432dd0d4b6" category="list-text">すべてのBeeGFSサービスを優先ノードに再配置します。</block>
+  <block id="1fa806fcbe49745af0c2b70e8779b73d" category="list-text">クラスタ内の各ノードで上記の手順を繰り返して、すべてのノードで目的のバージョンのペースメーカー、Corosync、およびPCが実行されるようにします。</block>
+  <block id="d90c1dfacfcfe6034c62dbbf554aa336" category="list-text">最後に、を実行し<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>てクラスタが正常であることを確認し、で<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>目的のPacemakerバージョンが報告されます。</block>
+  <block id="894166f580af39476db30ddf0b39e93c" category="admonition">「mixed-version」と表示される場合<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>は、クラスタ内のノードが以前のバージョンのPacemakerで実行されているため、アップグレードが必要です。アップグレードしたノードがクラスタに再参加できない場合、またはリソースが起動しない場合は、クラスタログを確認し、アップグレードの既知の問題についてPacemakerのリリースノートまたはユーザガイドを参照してください。</block>
+  <block id="2360c7132bb0f703a6af1f784e30721f" category="section-title">クラスタのシャットダウン後の処理</block>
+  <block id="c56b96ad19ba7ad1a0a28a5dd92fccd7" category="paragraph">この方法では、すべてのクラスタノードとリソースをシャットダウンし、ノードをアップグレードしてから、クラスタを再起動します。この方法は、PacemakerバージョンとCorosyncバージョンが混在した構成をサポートしていない場合に必要です。</block>
+  <block id="ada4df9ccfff1547c1f09456386caf07" category="list-text">すべてのノードでクラスタソフトウェア（PacemakerおよびCorosync）をシャットダウンします。</block>
+  <block id="ec37f5378eeba13984a263685014a655" category="admonition">クラスタのサイズによっては、クラスタ全体が停止するまでに数秒から数分かかることがあります。</block>
+  <block id="26dce8ee8153faa4816d7468ec720330" category="list-text">すべてのノードでクラスタサービスがシャットダウンしたら、要件に応じて各ノードのPacemaker、Corosync、およびPCsパッケージをアップグレードします。</block>
+  <block id="142f756ea3d035f02b974a98db74916c" category="list-text">すべてのノードをアップグレードしたら、すべてのノードでクラスタソフトウェアを起動します。</block>
+  <block id="492e09d8d491f90ea20fad54f615816a" category="list-text"><block ref="3ecf2642759a04bd3616642bd56bed59" prefix=" " category="inline-code"></block>パッケージが更新された場合は、クラスタ内の各ノードを再認証します。</block>
+  <block id="fe0b373cea492c0574adf218141f90b9" category="list-text">最後に、を実行し<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>てクラスタが正常であることを確認し、で<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>正しいPacemakerバージョンが報告されます。</block>
+  <block id="c07d2f5207c17b96abd3e5c6aa314715" category="admonition">「mixed-version」と表示される場合<block ref="60c21e5e7bb2f6f1f478a497d52448f3" prefix=" " category="inline-code"></block>は、クラスタ内のノードが以前のバージョンのPacemakerで実行されているため、アップグレードが必要です。</block>
+  <block id="6b923a0944f4926d7adb6a03c07c9a69" category="summary">ファイルノードのConnectX-7アダプタファームウェアを更新する手順</block>
+  <block id="8fce27499bf82a3c6907d5382138d466" category="doc">ファイルノードアダプタファームウェアの更新</block>
+  <block id="c344aab4fba3911c1af618a881763c15" category="paragraph">次の手順に従って、ファイルノードのConnectX-7アダプタを最新のファームウェアに更新します。</block>
+  <block id="89cdf8293572c88c65745474062df951" category="paragraph">新しいMLNX_OFEDドライバのサポート、新機能の有効化、バグの修正には、ConnectX-7アダプタファームウェアの更新が必要になる場合があります。このガイドでは、使いやすさと効率性を考慮して、アダプタのアップデートにNVIDIAのユーティリティを使用し<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="d41774d5dcaa69f5393d8da7101754ec" category="paragraph">このガイドでは、ConnectX-7アダプタのファームウェアを更新する2つの方法（ローリング更新と2ノードクラスタ更新）について説明します。クラスタのサイズに応じて、適切な更新方法を選択します。ファームウェアの更新を実行する前に、次のことを確認します。</block>
+  <block id="1d79fc0255b694c56bd5dea749c741cd" category="list-text">サポートされているMLNX_OFEDドライバがインストールされている場合は、を参照してください。<block ref="178d97073525b373723b8dda031e8548" category="inline-link-macro-rx"></block></block>
+  <block id="e9b1ac80ddb831f90b95b913fae55a9f" category="section-title">ファームウェアアップデートの準備</block>
+  <block id="6b9b7c71638c919ff18548623403c799" category="inline-link-macro">NVIDIAのサポートサイト</block>
+  <block id="28adaa75c816b77283bde4522b8cc249" category="paragraph">NVIDIAのユーティリティを使用して、NVIDIAのMLNX_OFEDドライバにバンドルされているノードのアダプタファームウェアを更新することを推奨し<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block>ます。アップデートを開始する前に、アダプタのファームウェアイメージをからダウンロードし<block ref="1a2b49373c8b50530166a64f6ed91a90" category="inline-link-macro-rx"></block>、各ファイルノードに保存します。</block>
+  <block id="415a4f653138a852500ffee84bf5c1b4" category="inline-link-macro">OEM ファームウェア</block>
+  <block id="4f4c0bb368cf9ad01cdc3ff868ebf17c" category="admonition">Lenovo ConnectX-7アダプタの場合は、NVIDIAのページにあるツールを<block ref="01d7d47a93ae1e4d58f3e91b6cd1d0c0" category="inline-link-macro-rx"></block>使用します<block ref="afeb1af9ee3dad5422ab912ec5ed916d" prefix=" " category="inline-code"></block>。</block>
+  <block id="da3485dbd4b4e5883fb3b1f4e9556949" category="section-title">ローリング更新アプローチ</block>
+  <block id="1f97f3d9707d91def548aa8a2e62b91d" category="paragraph">ノードが3つ以上のHAクラスタでは、この方法が推奨されます。このアプローチでは、一度に1つのファイルノードのアダプタファームウェアを更新して、HAクラスタが要求の処理を継続できるようにしますが、この間はI/Oの処理を行わないことを推奨します。</block>
+  <block id="a6e5bc149cec5a68a62c041d3c6a0b33" category="list-text">更新するファイルノードを選択し、スタンバイモードにします。スタンバイモードでは、そのノードからすべてのBeeGFSサービスが削除（または移動）されます。</block>
+  <block id="a6f5d5c821201989f4f5f4b1434bbab2" category="list-text">次のコマンドを実行して、ノードのサービスが削除されたことを確認します。</block>
+  <block id="879176c1b609d9d4155509330b98a7dc" category="paragraph">スタンバイ状態のノードでサービスがとして報告されていないことを確認します<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block>。</block>
+  <block id="9d2557a9c1e296e086e87e0ea139e32b" category="admonition">クラスタのサイズによっては、BeeGFSサービスが姉妹ノードに移動するまでに数秒から数分かかることがあります。姉妹ノードでBeeGFSサービスが開始されない場合は、を参照してください<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>。</block>
+  <block id="d15de38a9cc8343b26b76e04866effdf" category="list-text">を使用してアダプタファームウェアを更新し<block ref="073f22c545d6312ca19220ec3d6d9547" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="4d87c4ea16f4cf2adbeefb288c4840e6" category="paragraph">ファームウェアのアップデートを受信している各アダプタのをメモします<block ref="0e4a508dbc00c0684c2ed58952be4420" prefix=" " category="inline-code"></block>。</block>
+  <block id="69b31d926cd00aa9de80cf7b14eab218" category="list-text">ユーティリティを使用して各アダプタをリセットし、<block ref="45e6a20266bfc1fa2c25471ddf52308b" prefix=" " category="inline-code"></block>新しいファームウェアを適用します。</block>
+  <block id="25eb42c85a64acec04cf19a3ad2b7395" category="inline-link-macro">NVIDIAのmlxfwresetの制限事項</block>
+  <block id="435a7ccec9f9ff6251954e95de4d0077" category="admonition">一部のファームウェアアップデートでは、アップデートを適用するために再起動が必要になる場合があります。詳細については、を参照してください<block ref="ebfc57e157ebe1ff1768e220a8dc329c" category="inline-link-macro-rx"></block>。リブートが必要な場合は、アダプタをリセットする代わりにリブートを実行します。</block>
+  <block id="d974fd8f7ae3828a4b95f6e90d4c579a" category="list-text">opensmサービスを停止します。</block>
+  <block id="6a878a1cd043169c82c66374f6fec2a5" category="list-text">前述の各コマンドについて、次のコマンドを実行し<block ref="0e4a508dbc00c0684c2ed58952be4420" prefix=" " category="inline-code"></block>ます。</block>
+  <block id="bd1516e27db5d9760920cc6ac65637f7" category="list-text">opensmサービスを開始します。</block>
+  <block id="e8dd47a8d6e5d7d4ce23864009576781" category="list-text">を実行し<block ref="64284c8d228536994c2b22912d2dfd88" prefix=" " category="inline-code"></block>、すべてのアダプタが目的のファームウェアバージョンで実行されていることを確認します。</block>
+  <block id="afdebfdd553f315294b6e2613a68bac2" category="paragraph">すべてのアダプタが更新されるまで、クラスタ内のファイルノードごとに上記の手順を繰り返します。</block>
+  <block id="2e24e5f97c6ecd461030eb1eb884379b" category="section-title">2ノードクラスタ更新アプローチ</block>
+  <block id="305a0f364da0ff85c6c92c4680866c24" category="paragraph">この方法は、ノードが2つだけのHAクラスタの場合に推奨されます。このアプローチはローリング更新に似ていますが、1つのノードのクラスタサービスが停止しているときにサービスのダウンタイムを回避するための手順が追加されています。</block>
+  <block id="8daaa6355694edbaba2cb5a9b13ce781" category="list-text">更新するファイルノードを選択し、ノードをスタンバイモードにします。スタンバイモードでは、そのノードからすべてのBeeGFSサービスが削除（または移動）されます。</block>
+  <block id="370d6736b9730ee3ed471c975dca3040" category="list-text">次のコマンドを実行して、ノードのリソースが枯渇したことを確認します。</block>
+  <block id="04adfc113361937ceba2fcd8d61b3c92" category="admonition">クラスタのサイズによっては、BeeGFSサービスが姉妹ノードとして報告されるまでに数秒から数分かかることがあります<block ref="8428552d86c0d262a542a528af490afa" prefix=" " category="inline-code"></block>。BeeGFSサービスが起動しない場合は、を参照してください<block ref="c31c76dcbaad8e2836998d58888cb639" category="inline-link-macro-rx"></block>。</block>
+  <block id="322895ffeb919484b312ccccded9b8ac" category="list-text">クラスタをメンテナンスモードにします。</block>
+  <block id="936f1016c7b40dcadce05d9585e03c4c" category="list-text">クラスタのメンテナンスモードを終了します。</block>
+  <block id="7190ac3ac7ea745d4c9a31ade586f240" category="paragraph">HAクラスタのEシリーズストレージアレイのコンポーネントをアップグレードする手順は、次のとおりです。</block>
+  <block id="91ba484bdb8dfae4fcf9b5f1cb4c9407" category="paragraph">HAクラスタのNetApp Eシリーズストレージアレイを最新のファームウェアで最新の状態に保つことで、最適なパフォーマンスとセキュリティが確保されます。ストレージアレイのファームウェア更新は、SANtricity OS、NVSRAM、およびドライブファームウェアファイルを使用して適用されます。</block>
+  <block id="f04c5fdc9e10396af2f82ce9565f65a5" category="list-text">各BeeGFSサービスが優先ノードに配置され、クラスタが最適な状態であることを確認します。詳細については、を参照してください <block ref="1d1f85855f64d7b14ac7c0ae29a52511" category="inline-link-macro-rx"></block> 。</block>
+  <block id="d5c73bafdf627c28554a39d3e655f1bf" category="cell">アクティブファイバ（トランシーバを含む）</block>
+  <block id="c44b2ed9fc36044ebe1e8b9057c4a281" category="cell">MMA4Z00-NS（マルチモード、IB/ETH、800GB/s 2×400Gb/sツインポートOSFP）</block>
+  <block id="53fff94cbca4161cd31d168451033f2e" category="cell">MFP7E20-Nxxx（マルチモード、4チャネル対2 2チャネルスプリッタファイバケーブル）</block>
+  <block id="804e83e6974e7f6076f940326b985a83" category="cell">MMA1Z00-NS400（マルチモード、IB/ETH、400Gb/秒、シングルポートQSFP-112）</block>
+  <block id="b2f1f9abf8117b3cde0475d1adf7a64f" category="cell">MCP7Y40-N002（NVIDIAパッシブ銅線スプリッタケーブル、InfiniBand 800Gb/s～4x200Gb/s、OSFP～4xQSFP112）</block>
+  <block id="fbe7b2959f641c0a45951417fc744ba8" category="paragraph">* ConnectX-7 HCAファームウェア* FW：28.42.1000 + PXE：3.7.0500 + UEFI：14.35.0015</block>
+  <block id="63c2d436fc11f0bcdd598c38560aca3f" category="paragraph">* ConnectX-6 HCAファームウェア* FW：20.43.1014 + PXE：3.7.0500 + UEFI：14.36.0016</block>
+  <block id="0d665a6c7072af8fddd1f64d9c741762" category="cell">11.90R1</block>
+  <block id="6c3a5f2fbe0e1eb20af96ccd813c89b0" category="cell">N6000-890834-D02.dlp</block>
+  <block id="2c31ce9dbdba754d30ac4980d7d504df" category="cell">3.1.7-1</block>
+  <block id="fec83cb9bb84cd6342be622a93d94a1b" category="cell">2.1.6-10</block>
+  <block id="088914339db9effda3ac57ec2e9439b6" category="cell">フェンスエージェント（redfish/APC）</block>
+  <block id="f726fcf5784fc25f630a32e650f8b5a0" category="cell">4.10.0-55</block>
+  <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">PacemakerおよびCorosyncパッケージのアップグレード</block>
 </blocks>

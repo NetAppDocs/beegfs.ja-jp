@@ -1,0 +1,233 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-update-hca-firmware.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, Update, Upgrade, HCA, ConnectX, Firmware, Card, Adapter 
+summary: ファイルノードのConnectX-7アダプタファームウェアを更新する手順 
+---
+= ファイルノードアダプタファームウェアの更新
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+次の手順に従って、ファイルノードのConnectX-7アダプタを最新のファームウェアに更新します。
+
+
+
+== 概要
+
+新しいMLNX_OFEDドライバのサポート、新機能の有効化、バグの修正には、ConnectX-7アダプタファームウェアの更新が必要になる場合があります。このガイドでは、使いやすさと効率性を考慮して、アダプタのアップデートにNVIDIAのユーティリティを使用し `mlxfwmanager`ます。
+
+
+
+== アップグレード時の考慮事項
+
+このガイドでは、ConnectX-7アダプタのファームウェアを更新する2つの方法（ローリング更新と2ノードクラスタ更新）について説明します。クラスタのサイズに応じて、適切な更新方法を選択します。ファームウェアの更新を実行する前に、次のことを確認します。
+
+* サポートされているMLNX_OFEDドライバがインストールされている場合は、を参照してください。link:../second-gen/beegfs-technology-requirements.html["テクノロジ要件"^]
+* BeeGFSファイルシステムおよびPacemakerクラスタ構成に対して有効なバックアップが存在します。
+* クラスタは正常な状態です。
+
+
+
+
+== ファームウェアアップデートの準備
+
+NVIDIAのユーティリティを使用して、NVIDIAのMLNX_OFEDドライバにバンドルされているノードのアダプタファームウェアを更新することを推奨し `mlxfwmanager`ます。アップデートを開始する前に、アダプタのファームウェアイメージをからダウンロードしlink:https://network.nvidia.com/support/firmware/firmware-downloads/["NVIDIAのサポートサイト"^]、各ファイルノードに保存します。
+
+
+NOTE: Lenovo ConnectX-7アダプタの場合は、NVIDIAのページにあるツールをlink:https://network.nvidia.com/support/firmware/lenovo-intelligent-cluster/["OEM ファームウェア"^]使用します `mlxfwmanager_LES`。
+
+
+
+== ローリング更新アプローチ
+
+ノードが3つ以上のHAクラスタでは、この方法が推奨されます。このアプローチでは、一度に1つのファイルノードのアダプタファームウェアを更新して、HAクラスタが要求の処理を継続できるようにしますが、この間はI/Oの処理を行わないことを推奨します。
+
+. 各BeeGFSサービスが優先ノードで実行され、クラスタが最適な状態であることを確認します。詳細については、を参照してください link:clusters-examine-state.html["クラスタの状態を確認します"^] 。
+. 更新するファイルノードを選択し、スタンバイモードにします。スタンバイモードでは、そのノードからすべてのBeeGFSサービスが削除（または移動）されます。
++
+[source, console]
+----
+pcs node standby <HOSTNAME>
+----
+. 次のコマンドを実行して、ノードのサービスが削除されたことを確認します。
++
+[source, console]
+----
+pcs status
+----
++
+スタンバイ状態のノードでサービスがとして報告されていないことを確認します `Started`。
+
++
+
+NOTE: クラスタのサイズによっては、BeeGFSサービスが姉妹ノードに移動するまでに数秒から数分かかることがあります。姉妹ノードでBeeGFSサービスが開始されない場合は、を参照してくださいlink:clusters-troubleshoot.html["トラブルシューティングガイド"^]。
+
+. を使用してアダプタファームウェアを更新し `mlxfwmanager`ます。
++
+[source, console]
+----
+ mlxfwmanager -i <path/to/firmware.bin> -u
+----
++
+ファームウェアのアップデートを受信している各アダプタのをメモします `PCI Device Name`。
+
+. ユーティリティを使用して各アダプタをリセットし、 `mlxfwreset`新しいファームウェアを適用します。
++
+
+NOTE: 一部のファームウェアアップデートでは、アップデートを適用するために再起動が必要になる場合があります。詳細については、を参照してくださいlink:https://docs.nvidia.com/networking/display/mftv4310/mlxfwreset+%E2%80%93+loading+firmware+on+5th+generation+devices+tool#src-3566627427_safe-id-bWx4ZndyZXNldOKAk0xvYWRpbmdGaXJtd2FyZW9uNXRoR2VuZXJhdGlvbkRldmljZXNUb29sLW1seGZ3cmVzZXRMaW1pdGF0aW9ucw["NVIDIAのmlxfwresetの制限事項"^]。リブートが必要な場合は、アダプタをリセットする代わりにリブートを実行します。
+
++
+.. opensmサービスを停止します。
++
+[source, console]
+----
+systemctl stop opensm
+----
+.. 前述の各コマンドについて、次のコマンドを実行し `PCI Device Name`ます。
++
+[source, console]
+----
+mlxfwreset -d <pci_device_name> reset -y
+----
+.. opensmサービスを開始します。
++
+[source, console]
+----
+systemctl start opensm
+----
+
+
+. を実行し `ibstat`、すべてのアダプタが目的のファームウェアバージョンで実行されていることを確認します。
++
+[source, console]
+----
+ibstat
+----
+. ノードでPacemakerクラスタサービスを開始します。
++
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+. ノードのスタンバイを解除します。
++
+[source, console]
+----
+pcs node unstandby <HOSTNAME>
+----
+. すべてのBeeGFSサービスを優先ノードに再配置します。
++
+[source, console]
+----
+pcs resource relocate run
+----
+
+
+すべてのアダプタが更新されるまで、クラスタ内のファイルノードごとに上記の手順を繰り返します。
+
+
+
+== 2ノードクラスタ更新アプローチ
+
+この方法は、ノードが2つだけのHAクラスタの場合に推奨されます。このアプローチはローリング更新に似ていますが、1つのノードのクラスタサービスが停止しているときにサービスのダウンタイムを回避するための手順が追加されています。
+
+. 各BeeGFSサービスが優先ノードで実行され、クラスタが最適な状態であることを確認します。詳細については、を参照してください link:clusters-examine-state.html["クラスタの状態を確認します"^] 。
+. 更新するファイルノードを選択し、ノードをスタンバイモードにします。スタンバイモードでは、そのノードからすべてのBeeGFSサービスが削除（または移動）されます。
++
+[source, console]
+----
+pcs node standby <HOSTNAME>
+----
+. 次のコマンドを実行して、ノードのリソースが枯渇したことを確認します。
++
+[source, console]
+----
+pcs status
+----
++
+スタンバイ状態のノードでサービスがとして報告されていないことを確認します `Started`。
+
++
+
+TIP: クラスタのサイズによっては、BeeGFSサービスが姉妹ノードとして報告されるまでに数秒から数分かかることがあります `Started`。BeeGFSサービスが起動しない場合は、を参照してくださいlink:clusters-troubleshoot.html["トラブルシューティングガイド"^]。
+
+. クラスタをメンテナンスモードにします。
++
+[source, console]
+----
+pcs property set maintenance-mode=true
+----
+. を使用してアダプタファームウェアを更新し `mlxfwmanager`ます。
++
+[source, console]
+----
+ mlxfwmanager -i <path/to/firmware.bin> -u
+----
++
+ファームウェアのアップデートを受信している各アダプタのをメモします `PCI Device Name`。
+
+. ユーティリティを使用して各アダプタをリセットし、 `mlxfwreset`新しいファームウェアを適用します。
++
+
+NOTE: 一部のファームウェアアップデートでは、アップデートを適用するために再起動が必要になる場合があります。詳細については、を参照してくださいlink:https://docs.nvidia.com/networking/display/mftv4310/mlxfwreset+%E2%80%93+loading+firmware+on+5th+generation+devices+tool#src-3566627427_safe-id-bWx4ZndyZXNldOKAk0xvYWRpbmdGaXJtd2FyZW9uNXRoR2VuZXJhdGlvbkRldmljZXNUb29sLW1seGZ3cmVzZXRMaW1pdGF0aW9ucw["NVIDIAのmlxfwresetの制限事項"^]。リブートが必要な場合は、アダプタをリセットする代わりにリブートを実行します。
+
++
+.. opensmサービスを停止します。
++
+[source, console]
+----
+systemctl stop opensm
+----
+.. 前述の各コマンドについて、次のコマンドを実行し `PCI Device Name`ます。
++
+[source, console]
+----
+mlxfwreset -d <pci_device_name> reset -y
+----
+.. opensmサービスを開始します。
++
+[source, console]
+----
+systemctl start opensm
+----
+
+
+. を実行し `ibstat`、すべてのアダプタが目的のファームウェアバージョンで実行されていることを確認します。
++
+[source, console]
+----
+ibstat
+----
+. ノードでPacemakerクラスタサービスを開始します。
++
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+. ノードのスタンバイを解除します。
++
+[source, console]
+----
+pcs node unstandby <HOSTNAME>
+----
+. クラスタのメンテナンスモードを終了します。
++
+[source, console]
+----
+pcs property set maintenance-mode=false
+----
+. すべてのBeeGFSサービスを優先ノードに再配置します。
++
+[source, console]
+----
+pcs resource relocate run
+----
+
+
+すべてのアダプタが更新されるまで、クラスタ内のファイルノードごとに上記の手順を繰り返します。

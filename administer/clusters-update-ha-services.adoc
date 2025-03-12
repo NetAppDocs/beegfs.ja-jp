@@ -1,0 +1,184 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-update-ha-services.html 
+keywords: Cluster, Administration, Update, Upgrade, Pacemaker, Corosync 
+summary: HAクラスタでPacemakerパッケージとCorosyncパッケージをアップグレードする手順 
+---
+= HAクラスタでのPacemakerおよびCorosyncパッケージのアップグレード
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+HAクラスタ内のPacemakerおよびCorosyncパッケージをアップグレードする手順は、次のとおりです。
+
+
+
+== 概要
+
+PacemakerとCorosyncをアップグレードすることで、クラスタは新機能、セキュリティパッチ、およびパフォーマンスの向上の恩恵を受けることができます。
+
+
+
+== アップグレードアプローチ
+
+クラスタのアップグレードには、ローリングアップグレードとクラスタの完全なシャットダウンの2つの方法が推奨されます。各アプローチには独自の利点と欠点があります。アップグレード手順は、Pacemakerのリリースバージョンによって異なる場合があります。使用するアプローチを決定するには、ClusterLabsのドキュメントを参照してlink:https://clusterlabs.org/projects/pacemaker/doc/3.0/Pacemaker_Administration/html/upgrading.html["Pacemakerクラスタのアップグレード"^]ください。アップグレードアプローチに従う前に、次のことを確認してください。
+
+* 新しいPacemakerおよびCorosyncパッケージは、NetApp BeeGFSソリューション内でサポートされています。
+* BeeGFSファイルシステムおよびPacemakerクラスタ構成に対して有効なバックアップが存在します。
+* クラスタは正常な状態です。
+
+
+
+
+=== ローリングアップグレード
+
+この方法では、各ノードをクラスタから削除してアップグレードし、すべてのノードで新しいバージョンが実行されるまでクラスタに再導入します。この方法ではクラスタの運用を維持できるため、大規模なHAクラスタには最適ですが、処理中にバージョンが混在するリスクがあります。この方法は2ノードクラスタでは使用しないでください。
+
+. 各BeeGFSサービスが優先ノードで実行され、クラスタが最適な状態であることを確認します。詳細については、を参照してください link:clusters-examine-state.html["クラスタの状態を確認します"^] 。
+. ノードをアップグレードするには、ノードをスタンバイモードにして、すべてのBeeGFSサービスを停止（または移動）します。
++
+[source, console]
+----
+pcs node standby <HOSTNAME>
+----
+. 次のコマンドを実行して、ノードのサービスが削除されたことを確認します。
++
+[source, console]
+----
+pcs status
+----
++
+スタンバイのノードでサービスがとして報告されていないことを確認します `Started`。
+
++
+
+NOTE: クラスタのサイズによっては、サービスが姉妹ノードに移動するまでに数秒から数分かかることがあります。姉妹ノードでBeeGFSサービスが開始されない場合は、を参照してくださいlink:clusters-troubleshoot.html["トラブルシューティングガイド"^]。
+
+. ノードのクラスタをシャットダウンします。
++
+[source, console]
+----
+pcs cluster stop <HOSTNAME>
+----
+. ノードのPacemaker、Corosync、およびPCsパッケージをアップグレードします。
++
+
+NOTE: パッケージマネージャのコマンドは、オペレーティングシステムによって異なります。次のコマンドは、RHEL 8以降を実行するシステム用です。
+
++
+[source, console]
+----
+dnf update pacemaker-<version>
+----
++
+[source, console]
+----
+dnf update corosync-<version>
+----
++
+[source, console]
+----
+dnf update pcs-<version>
+----
+. ノードでPacemakerクラスタサービスを開始します。
++
+[source, console]
+----
+pcs cluster start <HOSTNAME>
+----
+. パッケージが更新された場合は `pcs`、クラスタでノードを再認証します。
++
+[source, console]
+----
+pcs host auth <HOSTNAME>
+----
+. ツールを使用して、ペースメーカーの設定がまだ有効であることを確認します `crm_verify`。
++
+
+NOTE: この検証は、クラスタのアップグレード時に1回だけ実行します。
+
++
+[source, console]
+----
+crm_verify -L -V
+----
+. ノードのスタンバイを解除します。
++
+[source, console]
+----
+pcs node unstandby <HOSTNAME>
+----
+. すべてのBeeGFSサービスを優先ノードに再配置します。
++
+[source, console]
+----
+pcs resource relocate run
+----
+. クラスタ内の各ノードで上記の手順を繰り返して、すべてのノードで目的のバージョンのペースメーカー、Corosync、およびPCが実行されるようにします。
+. 最後に、を実行し `pcs status`てクラスタが正常であることを確認し、で `Current DC`目的のPacemakerバージョンが報告されます。
++
+
+NOTE: 「mixed-version」と表示される場合 `Current DC`は、クラスタ内のノードが以前のバージョンのPacemakerで実行されているため、アップグレードが必要です。アップグレードしたノードがクラスタに再参加できない場合、またはリソースが起動しない場合は、クラスタログを確認し、アップグレードの既知の問題についてPacemakerのリリースノートまたはユーザガイドを参照してください。
+
+
+
+
+
+=== クラスタのシャットダウン後の処理
+
+この方法では、すべてのクラスタノードとリソースをシャットダウンし、ノードをアップグレードしてから、クラスタを再起動します。この方法は、PacemakerバージョンとCorosyncバージョンが混在した構成をサポートしていない場合に必要です。
+
+. 各BeeGFSサービスが優先ノードで実行され、クラスタが最適な状態であることを確認します。詳細については、を参照してください link:clusters-examine-state.html["クラスタの状態を確認します"^] 。
+. すべてのノードでクラスタソフトウェア（PacemakerおよびCorosync）をシャットダウンします。
++
+
+NOTE: クラスタのサイズによっては、クラスタ全体が停止するまでに数秒から数分かかることがあります。
+
++
+[source, console]
+----
+pcs cluster stop --all
+----
+. すべてのノードでクラスタサービスがシャットダウンしたら、要件に応じて各ノードのPacemaker、Corosync、およびPCsパッケージをアップグレードします。
++
+
+NOTE: パッケージマネージャのコマンドは、オペレーティングシステムによって異なります。次のコマンドは、RHEL 8以降を実行するシステム用です。
+
++
+[source, console]
+----
+dnf update pacemaker-<version>
+----
++
+[source, console]
+----
+dnf update corosync-<version>
+----
++
+[source, console]
+----
+dnf update pcs-<version>
+----
+. すべてのノードをアップグレードしたら、すべてのノードでクラスタソフトウェアを起動します。
++
+[source, console]
+----
+pcs cluster start --all
+----
+.  `pcs`パッケージが更新された場合は、クラスタ内の各ノードを再認証します。
++
+[source, console]
+----
+pcs host auth <HOSTNAME>
+----
+. 最後に、を実行し `pcs status`てクラスタが正常であることを確認し、で `Current DC`正しいPacemakerバージョンが報告されます。
++
+
+NOTE: 「mixed-version」と表示される場合 `Current DC`は、クラスタ内のノードが以前のバージョンのPacemakerで実行されているため、アップグレードが必要です。
+
+

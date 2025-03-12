@@ -37,9 +37,9 @@ summary: 環境内の意図した変更にHAクラスタが誤って対応しな
 
 [source, console]
 ----
-pcs property show maintenance-mode
+pcs property config
 ----
-クラスタが正常に動作している場合はfalseが返されます。メンテナンスモードの実行を有効にするには、次の
+ `maintenance-mode`クラスタが正常に動作している場合、プロパティは表示されません。クラスタが現在メンテナンスモードの場合、プロパティはとして報告されます `true`。メンテナンスモードの実行を有効にするには、次の
 
 [source, console]
 ----
