@@ -119,9 +119,9 @@ BeeGFSファイルノード
 |===
 
 
-== ソフトウェア要件
+== ソフトウェアとファームウェアの要件
 
-パフォーマンスと信頼性を予測するために、NetApp解決策 上のBeeGFSのリリースについて、解決策 の実装に必要な特定のバージョンのソフトウェアコンポーネントを使用してテストします。
+予測可能なパフォーマンスと信頼性を確保するために、BeeGFS on NetAppソリューションのリリースでは、特定のバージョンのソフトウェアコンポーネントとファームウェアコンポーネントを使用してテストを実施しています。これらのバージョンは、ソリューションの実装に必要です。
 
 
 
@@ -132,14 +132,7 @@ BeeGFSファイルノード
 | ソフトウェア | バージョン 
 
 
- a| 
-Red Hat Enterprise Linuxの場合
- a| 
-Red Hat 9.3 Server Physical with High Availability（2ソケット）。
-
-
-IMPORTANT: ファイルノードには、有効なRed Hat Enterprise Linux ServerサブスクリプションとRed Hat Enterprise Linux High Availabilityアドオンが必要です。
-
+| Red Hat Enterprise Linuxの場合 | Red Hat 9.3 Server Physical with High Availability（2ソケット）。重要：ファイルノードには、有効なRedHat Enterprise Linux ServerサブスクリプションとRed Hat Enterprise Linux High Availabilityアドオンが必要です。 
 
 
 | Linuxカーネル | 5.14.0～362.24.1.el9_3.x86_64 
@@ -208,10 +201,13 @@ NetApp解決策 のBeeGFSは、Ansible制御ノードから導入して管理し
 | ソフトウェア | バージョン 
 
 
-| Ansible | 6.x（pipを使用してインストールされている場合）：Ansible-6.0.0およびAnsible-core >= 2.13.0 
+| Ansible | 10.x 
 
 
-| Python | 3.9（またはそれ以降） 
+| Ansibleコア | 2.13.0以上 
+
+
+| Python | 3.10 
 
 
 | その他のPythonパッケージ | 暗号化- 43.0.0、netaddr-1.3.0、ipaddr-2.2.0 

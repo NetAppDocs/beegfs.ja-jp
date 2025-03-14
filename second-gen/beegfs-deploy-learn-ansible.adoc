@@ -14,15 +14,15 @@ summary: 導入を開始する前に、Ansibleを使用して、第2世代のBee
 
 
 [role="lead"]
-導入を開始する前に、Ansibleを使用して、第2世代のBeeGFSビルディングブロック設計を使用してNetApp解決策 にBeeGFSを設定して導入する方法を確認してください。
+導入を開始する前に、Ansibleがどのように設定され、BeeGFS on NetAppソリューションの導入に使用されるかについて理解しておいてください。
 
-Ansibleインベントリは、ファイルノードとブロックノードの構成を定義し、導入するBeeGFSファイルシステムを表します。インベントリには、目的のBeeGFSファイルシステムを記述するホスト、グループ、および変数が含まれます。サンプルインベントリは、からダウンロードできます https://github.com/netappeseries/beegfs/tree/master/getting_started/["NetApp EシリーズBeeGFS GitHub"^]。
+Ansibleインベントリは、導入するBeeGFSファイルシステムのファイルノードとブロックノードをリストしたディレクトリ構造です。これには、目的のBeeGFSファイルシステムを記述するホスト、グループ、および変数が含まれます。Ansibleインベントリは、Ansibleコントロールノードに格納する必要があります。コントロールノードとは、Ansibleプレイブックの実行に使用されるファイルノードとブロックノードにアクセスできる任意のマシンです。サンプルインベントリはからダウンロードできます https://github.com/netappeseries/beegfs/tree/master/getting_started/["NetApp EシリーズBeeGFS GitHub"^]。
 
 
 
 == Ansibleのモジュールとロール
 
-Ansibleインベントリに記載されている構成を適用するには、NetApp E-Series Ansibleコレクションに含まれているさまざまなAnsibleモジュールとロールを使用します。特に、エンドツーエンドのソリューションを導入するBeeGFS HA 7.4ロール（から入手可能）を使用し https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4["NetApp EシリーズBeeGFS GitHub"^]ます。
+Ansibleインベントリに記載されている構成を適用するには、エンドツーエンドのソリューションを導入するNetApp EシリーズAnsibleコレクション（から入手可能）に含まれているさまざまなAnsibleモジュールとロールを使用し https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4["NetApp EシリーズBeeGFS GitHub"^]ます。
 
 NetApp EシリーズAnsibleコレクションの各ロールは、NetApp解決策 上のBeeGFSをエンドツーエンドで導入します。これらのロールでは、NetApp E-Series SANtricity 、Host、およびBeeGFSの各コレクションを使用して、HA（High Availability）を使用してBeeGFSファイルシステムを設定できます。その後、ストレージをプロビジョニングしてマッピングし、クラスタストレージを使用できる状態にします。
 
@@ -35,11 +35,11 @@ NOTE: 導入手順でAnsibleの使用経験が十分に細かい情報を提供�
 
 == BeeGFS HAクラスタのインベントリレイアウト
 
-Ansibleのインベントリ構造を使用して、BeeGFS HAクラスタを定義します。
+Ansibleのインベントリ構造を使用してBeeGFS HAクラスタを定義します。
 
-以前のAnsibleの経験がある方は、BeeGFS HAロールでは、各ホストに適用される変数（ファクト）を検出するカスタムメソッドが実装されることに注意してください。これは、複数のサーバで実行可能なリソースを記述したAnsibleインベントリの構築を簡易化するために必要です。
+Ansibleの使用経験がある方は、BeeGFS HAロールには、各ホストに適用される変数（ファクト）を検出するためのカスタムメソッドが実装されていることに注意してください。この設計により、Ansibleインベントリの構造化が簡素化され、複数のサーバで実行できるリソースが記述されます。
 
-Ansibleのインベントリは通常'host_vars'および'group_vars'のファイルと'特定のグループ（および他のグループに潜在的にグループ）にホストを割り当てる'inventory.yml'ファイルで構成されます
+Ansibleインベントリは通常、およびのファイルと `inventory.yml`、 `group_vars`ホストを特定のグループ（場合によっては他のグループ）に割り当てるファイルで構成され `host_vars`ます。
 
 
 NOTE: このサブセクションの内容を含むファイルは、例としてのみ作成しないでください。
@@ -93,7 +93,7 @@ beegfs_targets:
           - size: 21.25
             owning_controller: A
 ....
-このレイアウトでは、各リソースのBeeGFSサービス、ネットワーク、ストレージの構成を1か所で定義できます。バックグラウンドでは、BeeGFSロールは、このインベントリ構造に基づいて各ファイルおよびブロックノードに必要な設定を集約します。詳細については、次のブログ記事を参照してください。 https://www.netapp.com/blog/accelerate-deployment-of-ha-for-beegfs-with-ansible/["ネットアップがAnsibleでBeeGFSのHA構成の導入を高速化"^]。
+このレイアウトでは、各リソースのBeeGFSサービス、ネットワーク、ストレージの構成を1か所で定義できます。バックグラウンドでは、BeeGFSロールは、このインベントリ構造に基づいて各ファイルおよびブロックノードに必要な設定を集約します。
 
 
 NOTE: 各サービスのBeeGFS数値と文字列ノードIDは、グループ名に基づいて自動的に設定されます。したがって、グループ名を一意にするための一般的なAnsibleの要件に加えて、BeeGFSサービスを表すグループは、グループが表すBeeGFSサービスのタイプに一意の番号で終わる必要があります。たとえば、meta_01とstor_01は許可されますが、meta_01とmeta_01は許可されません。

@@ -49,10 +49,7 @@ NOTE: 厳密には必須ではありませんが、以降のセクションで�
 ....
 subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. すべてのHCAファームウェアをで推奨されているバージョンに更新します link:beegfs-technology-requirements.html["テクノロジ要件"]。
-+
-この更新を行うには'推奨ファームウェアをバンドルするmlxupツールのバージョンをダウンロードして実行しますこのツールは()からダウンロードできます https://network.nvidia.com/support/firmware/mlxup-mft/["mlxup -アップデートとクエリユーティリティ"^]link:https://docs.nvidia.com/networking/display/mlxupfwutility["ユーザーガイド"^]。
-
+. ガイドの使用link:..administer/clusters-update-hca-firmware.html["ファイルノードアダプタファームウェアの更新"^]で推奨されているバージョンにすべてのHCAファームウェアを更新しますlink:beegfs-technology-requirements.html["テクノロジ要件"]。
 
 
 
@@ -63,11 +60,11 @@ subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpm
 
 . 各EF600コントローラに管理ポートを設定します。
 +
-ポートの設定手順については、を参照してください https://docs.netapp.com/us-en/e-series/maintenance-ef600/hpp-overview-supertask-concept.html["Eシリーズドキュメントセンター"^]。
+ポートの設定手順については、を参照して https://docs.netapp.com/us-en/e-series/install-hw-ef600/complete-setup-task.html#step-2-connect-and-configure-the-management-connection["Eシリーズドキュメントセンター"^]ください。
 
 . 必要に応じて、各システムのストレージアレイ名を設定します。
 +
-名前を設定すると、以降のセクションで各システムを簡単に参照できるようになります。アレイ名の設定手順については、を参照してください https://docs.netapp.com/us-en/e-series/maintenance-ef600/hpp-overview-supertask-concept.html["Eシリーズドキュメントセンター"^]。
+名前を設定すると、以降のセクションで各システムを簡単に参照できるようになります。アレイ名の設定手順については、を参照して https://docs.netapp.com/us-en/e-series-santricity/sm-interface/setup-wizard-overview.html#first-time-setup["Eシリーズドキュメントセンター"^]ください。
 
 
 

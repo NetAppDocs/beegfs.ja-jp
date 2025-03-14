@@ -14,66 +14,64 @@ summary: Ansible制御ノードを設定するには、解決策 の設定に使
 
 
 [role="lead"]
-Ansible制御ノードをセットアップするには、解決策 の設定に使用できるすべてのファイルノードとブロックノードの管理ポートへのネットワークアクセスがある仮想マシンまたは物理マシンを特定する必要があります。
+Ansible制御ノードをセットアップするには、BeeGFS on NetAppソリューション用に導入されたすべてのファイルノードとブロックノードにネットワークアクセスできる仮想マシンまたは物理マシンを指定する必要があります。
 
-次の手順はUbuntu 22.04でテストされました。使用しているLinuxディストリビューションに固有の手順については、を参照してください https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansibleのドキュメント"^]。
+推奨されるパッケージバージョンのリストについては、を参照してlink:beegfs-technology-requirements.html#ansible-control-node-requirements["技術要件"]ください。次の手順はUbuntu 22.04でテストされました。使用しているLinuxディストリビューションに固有の手順については、を参照してください https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansibleのドキュメント"^]。
 
-. Python 3.10をインストールし、正しいバージョンのがインストールされていることを確認し `pip` ます。
+. Ansibleコントロールノードから、次のPythonおよびPython仮想環境パッケージをインストールします。
 +
-....
-sudo apt install python3.10 -y
-sudo apt install python3-pip
-sudo apt install sshpass
-....
-. シンボリックリンクを作成し、またはが呼び出されるたびにPython 3.10バイナリが使用されるようにし `python3` `python` ます。
+[source, console]
+----
+sudo apt-get install python3 python3-pip python3-setuptools python3.10-venv
+----
+. Python仮想環境の作成
 +
-....
-sudo ln -sf /usr/bin/python3.10 /usr/bin/python3
-sudo ln -sf /usr/bin/python3 /usr/bin/python
-....
-. NetApp BeeGFSコレクションに必要なPythonパッケージをインストールします。
+[source, console]
+----
+python3 -m venv ~/pyenv
+----
+. 仮想環境をアクティブ化します。
 +
-....
-python3 -m pip install ansible cryptography netaddr
-....
+[source, console]
+----
+source ~/pyenv/bin/activate
+----
+. アクティブ化された仮想環境内に必要なPythonパッケージをインストールします。
 +
-
-NOTE: サポートされているバージョンのAnsibleと必要なすべてのPythonパッケージをインストールするには、BeeGFSコレクションのReadmeファイルを参照してください。サポートされているバージョンについても、で説明します link:beegfs-technology-requirements.html["技術要件"]。
-
-. 正しいバージョンのAnsibleとPythonがインストールされていることを確認します。
+[source, console]
+----
+pip install ansible netaddr cryptography passlib
+----
+. Ansible Galaxyを使用してBeeGFSコレクションをインストールします。
 +
-....
+[source, console]
+----
+ansible-galaxy collection install netapp_eseries.beegfs
+----
+. インストールされているAnsible、Python、BeeGFSコレクションのバージョンがに一致することを確認しますlink:beegfs-technology-requirements.html#ansible-control-node-requirements["技術要件"]。
++
+[source, console]
+----
 ansible --version
-ansible [core 2.17.2]
-  config file = None
-  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/local/lib/python3.10/dist-packages/ansible
-  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
-  executable location = /usr/local/bin/ansible
-  python version = 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0] (/usr/bin/python3)
-  jinja version = 3.1.4
-  libyaml = True
-....
-. BeeGFSの導入を表すために使用するAnsibleインベントリをGitやBitBucketなどのソース管理システムに保存し、Gitをインストールしてこれらのシステムと対話します。
+ansible-galaxy collection list netapp_eseries.beegfs
+----
+. パスワードレスSSHを設定して、AnsibleがAnsibleコントロールノードからリモートBeeGFSファイルノードにアクセスできるようにします。
 +
-....
-sudo apt install git -y
-....
-. パスワードを使用しないSSHを設定します。これは、AnsibleがAnsibleの制御ノードからリモートのBeeGFSファイルノードにアクセスできるようにする最も簡単な方法です。
+.. Ansibleコントロールノードで、必要に応じて公開鍵のペアを生成します。
 +
-.. 必要に応じて、Ansibleのコントロールノードで、「ssh-keygen」を使用して公開鍵のペアを生成します
-.. 「ssh-copy-id <IP_or_hostname>」を使用して、各ファイルノードにパスワードなしSSHを設定します
+[source, console]
+----
+ssh-keygen
+----
+.. 各ファイルノードへのパスワードレスSSHを設定します。
 +
-ブロックノードにパスワードなしのSSHを設定しないでください。サポートされていません。
+[source, console]
+----
+ssh-copy-id <ip_or_hostname>
+----
 
 
 
-. に示すBeeGFSコレクションのバージョンをインストールするには、Ansible Galaxyを使用します link:beegfs-technology-requirements.html["技術要件"]。
-+
-このインストールには、NetApp SANtricity ソフトウェアやホストコレクションなどのAnsibleの依存関係も含まれます。
 
-+
-....
-ansible-galaxy collection install netapp_eseries.beegfs:==3.2.0
-....
 
+IMPORTANT: ブロックノードにパスワードなしのSSHを設定しないでください。サポートされていません。
