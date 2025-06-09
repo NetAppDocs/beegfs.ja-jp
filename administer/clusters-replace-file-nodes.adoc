@@ -50,7 +50,7 @@ all:
 . クラスタ内の他のいずれかのノードから古いノードを削除します。 `pcs cluster node remove <HOSTNAME>`。
 +
 
-IMPORTANT: この手順を実行する前に、次に進まないでください。
+CAUTION: この手順を実行する前に、次に進まないでください。
 
 . Ansibleコントロールノードで：
 +

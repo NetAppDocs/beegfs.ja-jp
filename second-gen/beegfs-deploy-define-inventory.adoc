@@ -424,7 +424,7 @@ beegfs_targets:
 ....
 +
 
-NOTE: 正しいサイズについては、を参照してください link:beegfs-deploy-recommended-volume-percentages.html["ストレージプールのオーバープロビジョニングの割合を推奨します"]。
+NOTE: 適切なサイズについては、 link:beegfs-deploy-recommended-volume-percentages.html["ストレージプールのオーバープロビジョニングの割合を推奨します"] ..
 
 +
 |===
@@ -528,7 +528,7 @@ beegfs_targets:
 ....
 +
 
-NOTE: 正しいサイズについては、を参照してください link:beegfs-deploy-recommended-volume-percentages.html["ストレージプールのオーバープロビジョニングの割合を推奨します"]。
+NOTE: 適切なサイズについては、 link:beegfs-deploy-recommended-volume-percentages.html["ストレージプールのオーバープロビジョニングの割合を推奨します"] 。
 
 +
 |===

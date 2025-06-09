@@ -61,7 +61,7 @@ BeeGFSファイルノード
 
 
 | 8. | InfiniBandホストカードアダプタ（ファイルノード用）。  a| 
-ホストカードアダプタは、ファイルノードに使用されるサーバモデルによって異なります。検証済みファイルノードの推奨事項は次のとおりです。
+ホスト カード アダプターは、ファイル ノードのサーバー モデルによって異なる場合があります。検証済みファイルノードの推奨事項は次のとおりです。
 
 * * Lenovo ThinkSystem SR665 V3サーバ：*
 +
@@ -132,18 +132,18 @@ BeeGFSファイルノード
 | ソフトウェア | バージョン 
 
 
-| Red Hat Enterprise Linuxの場合 | Red Hat 9.3 Server Physical with High Availability（2ソケット）。重要：ファイルノードには、有効なRedHat Enterprise Linux ServerサブスクリプションとRed Hat Enterprise Linux High Availabilityアドオンが必要です。 
+| Red Hat Enterprise Linux（RHEL） | 高可用性を備えた RHEL 9.4 物理サーバー (2 ソケット)。*注:* ファイル ノードには、有効な Red Hat Enterprise Linux Server サブスクリプションと Red Hat Enterprise Linux High Availability アドオンが必要です。 
 
 
-| Linuxカーネル | 5.14.0～362.24.1.el9_3.x86_64 
+| Linuxカーネル | 5.14.0～427.42.1.el9_4.x86_64 
 
 
  a| 
 HCAファームウェア
  a| 
-* ConnectX-7 HCAファームウェア* FW：28.42.1000 + PXE：3.7.0500 + UEFI：14.35.0015
+* ConnectX-7 HCAファームウェア* FW：28.43.1014 + PXE：3.7.0500 + UEFI：14.36.0016
 
-* ConnectX-6 HCAファームウェア* FW：20.43.1014 + PXE：3.7.0500 + UEFI：14.36.0016
+* ConnectX-6 HCAファームウェア* FW：20.43.2566 + PXE：3.7.0500 + UEFI：14.37.0013
 
 |===
 
@@ -161,7 +161,7 @@ HCAファームウェア
 | NVSRAM | N6000-890834-D02.dlp 
 
 
-| ドライブファームウェア | 使用中のドライブモデルで最新バージョンが提供されています。 
+| ドライブファームウェア | 使用中のドライブモデルで最新バージョンが提供されています。を参照してくださいlink:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["E-Seriesディスクファームウェアサイト"^]。 
 |===
 
 
@@ -174,19 +174,22 @@ HCAファームウェア
 | ソフトウェア | バージョン 
 
 
-| BeeGFSの場合 | 7.4.4 
+| BeeGFSの場合 | 7.4.6 
 
 
-| Corosync | 3.1.7-1 
+| Corosync | 3.1.8-1 
 
 
-| ペースメーカー | 2.1.6-10 
+| ペースメーカー | 2.1.7-5.2 
 
 
-| フェンスエージェント（redfish/APC） | 4.10.0-55 
+| PCS | 0.11.7-2 
 
 
-| InfiniBand / RDMAドライバ | MLNX_OFED_Linux-23.10-3.2.2.0-LTS 
+| フェンスエージェント（redfish/APC） | 4.10.0-62 
+
+
+| InfiniBand / RDMAドライバ | MLNX_OFED_Linux-23.10-3.2.2.1-LTS 
 |===
 
 

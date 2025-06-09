@@ -89,7 +89,7 @@ all:
 ----
 +
 
-IMPORTANT: パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（を参照してください） link:https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansibleのドキュメント"^] Ansible Vaultを使用してコンテンツを暗号化する場合）またはを使用します `--ask-become-pass` プレイブックを実行する際のオプション。
+NOTE: パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（を参照してください） link:https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansibleのドキュメント"^] Ansible Vaultを使用してコンテンツを暗号化する場合）またはを使用します `--ask-become-pass` プレイブックを実行する際のオプション。
 
 . を参照してください `client_inventory.yml` ファイルに、の下でBeeGFSクライアントとして設定する必要があるすべてのホストをリストします `beegfs_clients` グループ化し、インラインコメントを参照して、BeeGFSクライアントカーネルモジュールをシステムに構築するために必要な追加設定のコメントを外します。
 +

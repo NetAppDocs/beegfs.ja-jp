@@ -25,7 +25,7 @@ BeeGFSには `major.minor.patch`バージョン管理方式が採用されてい
 BeeGFSのメジャーバージョン、マイナーバージョン、パッチバージョン間の移行を含め、すべてのBeeGFSアップグレードにAnsibleを使用する必要があります。BeeGFSを更新するには、まずBeeGFS Ansibleコレクションを更新する必要があります。このコレクションには、導入と管理の自動化と基盤となるHAクラスタに関する最新の修正と機能拡張も含まれています。コレクションの最新バージョンにアップデートした後でも、BeeGFSはそれまでアップグレードされません `ansible-playbook` はと一緒に実行されます `-e "beegfs_ha_force_upgrade=true"` 設定：
 
 
-NOTE: BeeGFSのバージョンの詳細については、を参照してください link:https://doc.beegfs.io/latest/advanced_topics/upgrade.html["BeeGFSアップグレードのドキュメント"^]。
+TIP: BeeGFSのバージョンの詳細については、を参照してください link:https://doc.beegfs.io/latest/advanced_topics/upgrade.html["BeeGFSアップグレードのドキュメント"^]。
 
 
 

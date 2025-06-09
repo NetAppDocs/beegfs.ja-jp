@@ -24,7 +24,7 @@ Ansible制御ノードをセットアップするには、BeeGFS on NetAppソリ
 ----
 sudo apt-get install python3 python3-pip python3-setuptools python3.10-venv
 ----
-. Python仮想環境の作成
+. Python 仮想環境を作成します。
 +
 [source, console]
 ----
@@ -74,4 +74,4 @@ ssh-copy-id <ip_or_hostname>
 
 
 
-IMPORTANT: ブロックノードにパスワードなしのSSHを設定しないでください。サポートされていません。
+CAUTION: ブロックノードにパスワードなしのSSHを設定しないでください。サポートされていません。
