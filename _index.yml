@@ -12,12 +12,6 @@ indexpage:
       url: "/second-gen/beegfs-solution-overview.html"
     - title: アーキテクチャの概要
       url: "/second-gen/beegfs-architecture-overview.html"
-    - title: ブログ- BeeGFSとEシリーズの詳細をご確認ください
-      url: https://www.netapp.com/blog/solution-support-for-beegfs-and-e-series/
-    - title: ブログ- BeeGFS（初心者向け
-      url: https://www.netapp.com/blog/beegfs-for-beginners/
-    - title: ブログ- BeeGFSのHA
-      url: https://www.netapp.com/blog/high-availability-beegfs/
   - title: その他のドキュメント
     links:
     - title: ネットアップの製品マニュアル
@@ -36,5 +30,3 @@ indexpage:
       url: http://mysupport.netapp.com/matrix/
     - title: ネットアップナレッジベース
       url: https://kb.netapp.com/
-    - title: Active IQ （ログインが必要）
-      url: https://activeiq.netapp.com/?source=aiqnsspage
