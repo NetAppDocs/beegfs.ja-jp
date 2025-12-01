@@ -123,6 +123,20 @@ sidebar:
         url: "/custom/architectures-deploy-beegfs-clients.html"
       - title: BeeGFSの導入を確認します
         url: "/custom/architectures-deploy-verify.html"
+  - title: 機能と統合を展開する
+    entries:
+    - title: BeeGFS CSI ドライバー
+      entries:
+      - title: 概要
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-overview.html"
+      - title: 前提条件
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-prereqs.html"
+      - title: 導入
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-deploy.html"
+      - title: 検証
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html"
+      - title: トラブルシューティング
+        url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html"
   - title: BeeGFSクラスタの管理
     entries:
     - title: 概要、主要な概念、用語

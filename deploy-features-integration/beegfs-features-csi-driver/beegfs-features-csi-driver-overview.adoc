@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-overview.html 
+keywords: BeeGFS Features, CSI, Driver 
+summary: BeeGFS CSI ドライバーの概要と構成。 
+---
+= BeeGFS CSI ドライバーの設定
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+BeeGFS CSI ドライバーを使用すると、Kubernetes クラスターは BeeGFS ボリュームを動的にプロビジョニングおよび管理し、高性能な BeeGFS ストレージをコンテナー化されたワークロードと統合できるようになります。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1"] すべての前提条件が満たされていることを確認する
+[role="quick-margin-para"]
+前提条件を確認して、Kubernetes クラスターが実行中であること、BeeGFS クラスターに接続できること、クラスター全体のリソースをインストールするために必要な権限があることを確認します。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["2"] BeeGFS CSIドライバーを展開する
+[role="quick-margin-para"]
+BeeGFS CSI ドライバー リポジトリを複製し、提供されている Kubernetes マニフェストまたはオーバーレイを使用してドライバーをデプロイします。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["三つ"] 展開を確認する
+[role="quick-margin-para"]
+関連する Kubernetes ポッドを検査して、すべての BeeGFS CSI ドライバー コンポーネントがインストールされ、動作していることを確認します。ノードのスケジュールの競合やノード上でのスワップの有効化などの問題をトラブルシューティングします。
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["4"] サンプルアプリケーションのデプロイと検証
+[role="quick-margin-para"]
+サンプルの Kubernetes マニフェストを適用し、ワークロードが期待どおりに BeeGFS ベースのストレージにアクセスできることを確認します。

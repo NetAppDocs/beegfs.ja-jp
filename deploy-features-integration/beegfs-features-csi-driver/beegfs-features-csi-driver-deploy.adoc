@@ -1,0 +1,386 @@
+---
+sidebar: sidebar 
+permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-deploy.html 
+keywords: BeeGFS Features, CSI, Driver 
+summary: BeeGFS CSI ドライバーの展開手順。 
+---
+= BeeGFS CSI ドライバーの展開
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+BeeGFS CSI ドライバーを Kubernetes 環境にデプロイする手順。
+
+
+
+== エアギャップ展開
+
+エアギャップ (オフライン) デプロイメントを実行するには、Kubernetes YAML 構成ファイルと必要なコンテナ イメージの両方を、インターネットにアクセスできるシステムに事前にダウンロードしておく必要があります。これらのファイルは、CSI ドライバーがインストールされるターゲット ノードに転送する必要があります。
+
+
+
+=== ドライバーとイメージを取得する
+
+BeeGFS CSI ドライバーをエアギャップ環境に展開するには、次の手順を実行します。
+
+. BeeGFS CSI ドライバー GitHub リポジトリをインターネットにアクセスできるシステムにクローンします。
++
+[source, console]
+----
+git clone https://github.com/ThinkParQ/beegfs-csi-driver.git
+----
+. 以下にリストされているイメージから最新のイメージ バージョン タグを取得して記録します。最新バージョンのタグを確認するには、各イメージの公式レジストリまたは GitHub リリースにアクセスしてください。
++
+[cols="20%,80%"]
+|===
+| イメージ名 | レジストリ URL/参照 
+
+
+| beegfs-csi-ドライバー | https://github.com/ThinkParQ/beegfs-csi-driver/pkgs/container/beegfs-csi-driver[] 
+
+
+| CSIプロビジョナー | https://github.com/kubernetes-csi/external-provisioner/releases[] 
+
+
+| CSIリサイザー | https://github.com/kubernetes-csi/external-resizer/releases[] 
+
+
+| ライブネスプローブ | https://github.com/kubernetes-csi/livenessprobe/releases[] 
+
+
+| csi-node-driver-registrar | https://github.com/kubernetes-csi/node-driver-registrar/releases[] 
+|===
+. containerdを使用して各イメージをシステムにプルし、必ず置き換えてください。 `<latest-tag>` 各画像の実際の最新タグ:
++
+[source, console]
+----
+ctr -n k8s.io images pull ghcr.io/thinkparq/beegfs-csi-driver:<latest-tag>
+ctr -n k8s.io images pull registry.k8s.io/sig-storage/csi-provisioner:<latest-tag>
+ctr -n k8s.io images pull registry.k8s.io/sig-storage/csi-resizer:<latest-tag>
+ctr -n k8s.io images pull registry.k8s.io/sig-storage/livenessprobe:<latest-tag>
+ctr -n k8s.io images pull registry.k8s.io/sig-storage/csi-node-driver-registrar:<latest-tag>
+----
+. 取得した各画像は別々にエクスポートする必要があります `.tar` ファイル。これは、イメージをエアギャップ環境に転送し、ターゲット システムの containerd にインポートするために必要です。例えば：
++
+[source, console]
+----
+ctr -n k8s.io images export beegfs-csi-driver_<latest-tag>.tar ghcr.io/thinkparq/beegfs-csi-driver:<latest-tag>
+ctr -n k8s.io images export csi-provisioner_<latest-tag>.tar registry.k8s.io/sig-storage/csi-provisioner:<latest-tag>
+ctr -n k8s.io images export csi-resizer_<latest-tag>.tar registry.k8s.io/sig-storage/csi-resizer:<latest-tag>
+ctr -n k8s.io images export livenessprobe_<latest-tag>.tar registry.k8s.io/sig-storage/livenessprobe:<latest-tag>
+ctr -n k8s.io images export csi-node-driver-registrar_<latest-tag>.tar registry.k8s.io/sig-storage/csi-node-driver-registrar:<latest-tag>
+----
++
+必要なイメージごとにこのエクスポート コマンドを繰り返し、イメージ名とタグを必要に応じて置き換えます。
+
+. BeeGFS CSIドライバーリポジトリとエクスポートされたすべてのものをコピーします `.tar` 好みの方法で、ファイルを Air-Gapped 環境にアップロードします。この設定では、 `beegfs-csi-driver` ファイルを `/home/<User>/beegfs-csi-driver` そして画像は `/home/<User>/beegfs-csi-images`。
+
+
+
+
+=== 必要な画像をインポートする
+
+. に移動 `/home/<User>/beegfs-csi-images` 画像が保存されているディレクトリに移動し、containerd を使用して各画像をインポートします。例えば：
++
+[source, console]
+----
+ctr -n k8s.io images import beegfs-csi-driver_<latest-tag>.tar
+ctr -n k8s.io images import csi-provisioner_<latest-tag>.tar
+ctr -n k8s.io images import csi-resizer_<latest-tag>.tar
+ctr -n k8s.io images import livenessprobe_<latest-tag>.tar
+ctr -n k8s.io images import csi-node-driver-registrar_<latest-tag>.tar
+----
+. 次のコマンドを実行して、イメージが containerd にロードされたことを確認します。
++
+[source, console]
+----
+crictl images
+----
+
+
+
+
+=== CSI ドライバー オーバーレイの構成と展開
+
+. に移動 `/home/<User>/beegfs-csi-driver` ディレクトリ。
+. デフォルトでは、オーバーレイ構成はオンライン展開を対象としています。エアギャップ展開を実行するには、オーバーレイ構成を変更する必要があります。「default」オーバーレイフォルダを新しいオーバーレイにコピーします。 `beegfs-overlay`:
++
+[source, console]
+----
+cp -r deploy/k8s/overlays/default deploy/k8s/overlays/beegfs-overlay
+----
+. 編集する `deploy/k8s/overlays/beegfs-overlay/kustomization.yaml` ファイル。コメントを解除して更新する `images` ダウンロードしたタグのセクション:
++
+[source, yaml]
+----
+  - name: ghcr.io/thinkparq/beegfs-csi-driver
+    newTag: <latest-tag>
+    # digest: sha256:eb7ff01259e6770d0103f219e11b7ff334c9d9102a29ea0af95a3c0d7aec1ae3
+  - name: k8s.gcr.io/sig-storage/csi-provisioner
+    newName: registry.k8s.io/sig-storage/csi-provisioner
+    newTag: <latest-tag>
+  - name: k8s.gcr.io/sig-storage/csi-resizer
+    newName: registry.k8s.io/sig-storage/csi-resizer
+    newTag: <latest-tag>
+  - name: k8s.gcr.io/sig-storage/livenessprobe
+    newName: registry.k8s.io/sig-storage/livenessprobe
+    newTag: <latest-tag>
+  - name: k8s.gcr.io/sig-storage/csi-node-driver-registrar
+    newName: registry.k8s.io/sig-storage/csi-node-driver-registrar
+    newTag: <latest-tag>
+----
+. Kubernetes でコンテナ内のローカルにロードされたイメージを使用するように設定するには、イメージのプルポリシーを次のように変更します。 `Always` に `Never`。という名前のファイルを作成します `image-pull-policy.yaml` あなたの `deploy/k8s/overlays/beegfs-overlay/` 次の内容を含むディレクトリ:
++
+[source, yaml]
+----
+# Patch for controller
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-beegfs-controller
+spec:
+  template:
+    spec:
+      containers:
+        - name: beegfs
+          imagePullPolicy: Never
+        - name: csi-provisioner
+          imagePullPolicy: Never
+        - name: csi-resizer
+          imagePullPolicy: Never
+
+# Patch for node
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: csi-beegfs-node
+spec:
+  template:
+    spec:
+      containers:
+        - name: beegfs
+          imagePullPolicy: Never
+        - name: node-driver-registrar
+          imagePullPolicy: Never
+        - name: liveness-probe
+          imagePullPolicy: Never
+----
++
+
+NOTE: 設定 `imagePullPolicy: Never` Kubernetes が containerd にロードされたイメージを使用し、外部レジストリからのプルを試行しないようにします。
+
+. 開ける `deploy/k8s/overlays/beegfs-overlay/kustomization.yaml` 次のセクションを追加します。
++
+[source, yaml]
+----
+patchesStrategicMerge:
+  - image-pull-policy.yaml
+----
++
+
+NOTE: その `patchesStrategicMerge` セクションでは、カスタムパッチを適用できます。 `imagePullPolicy` 基本 Kubernetes マニフェストの上に構築します。パスを確認する `image-pull-policy.yaml` あなたの `kustomization.yaml` ファイル。
+
+
+
+
+
+=== BeeGFS CSIドライバーをインストールする
+
+. カスタマイズしたオーバーレイを使用して BeeGFS CSI ドライバーをインストールします。この手順では、ローカルにインポートされたイメージの使用や更新されたイメージ プル ポリシーなど、すべての構成の変更が適用されます。
++
+クローンした BeeGFS CSI ドライバー リポジトリのルートから、次のコマンドを実行します。
+
++
+[source, console]
+----
+kubectl apply -k deploy/k8s/overlays/beegfs-overlay
+----
+. 進む <<サンプルアプリケーションのデプロイ>> BeeGFS CSI ドライバーのセットアップを展開および検証するためのセクション。
+
+
+
+
+== オンライン展開
+
+Kubernetes ノードがインターネットにアクセスできる場合は、コンテナ イメージを手動でダウンロードまたは転送する必要なく、BeeGFS CSI ドライバーを直接デプロイできます。ポッドがデプロイされると、イメージハブからイメージが自動的にダウンロードされ、必要なサービスが起動されます。
+
+
+
+=== ドライバーリポジトリを取得する
+
+. BeeGFS CSI ドライバー GitHub リポジトリをローカル システムにクローンします。
++
+[source, console]
+----
+git clone https://github.com/ThinkParQ/beegfs-csi-driver.git
+----
+
+
+
+
+=== ドライバーを構成する
+
+. クローンされたリポジトリ ディレクトリに移動し、必要に応じて、デフォルトのオーバーレイ ディレクトリ内の構成ファイルを更新します。
++
+[source, console]
+----
+ls deploy/k8s/overlays/default/
+----
++
+次のようなファイルが表示されます。
+
++
+[listing]
+----
+csi-beegfs-config.yaml
+csi-beegfs-connauth.yaml
+kustomization.yaml
+namespace.yaml
+patches/
+----
+. BeeGFSクライアント設定ファイルに名前がない場合 `/etc/beegfs/beegfs-client.conf`、設定ファイルを指すこの正確な名前のシンボリック リンクを作成します。
++
+[source, console]
+----
+ln -s /path/to/your/beegfs-client.conf /etc/beegfs/beegfs-client.conf
+----
++
+
+NOTE: CSIドライバでは、設定ファイルが次の場所にある必要があります。 `/etc/beegfs/beegfs-client.conf` そしてその正確な名前を持つこと。
+
+. ストレージクラス、シークレット、接続認証などの設定をカスタマイズする必要がある場合は、関連するファイルを編集します。 `deploy/k8s/overlays/default/` 展開前に。
+
+
+
+
+=== BeeGFS CSIドライバーをインストールする
+
+. デフォルトのオーバーレイをインストールするには `kubectl`。これにより、それぞれのレジストリから必要なイメージが自動的にプルされ、必要なすべての Kubernetes リソースが作成されます。
++
+[source, console]
+----
+kubectl apply -k deploy/k8s/overlays/default
+----
+. リソースが作成され、ポッドが実行されていることを確認します。
++
+[source, console]
+----
+kubectl get pods -n beegfs-csi
+----
+. 出力例：
++
+[listing]
+----
+namespace/beegfs-csi created
+serviceaccount/csi-beegfs-controller-sa created
+serviceaccount/csi-beegfs-node-sa created
+role.rbac.authorization.k8s.io/csi-beegfs-privileged-scc-role created
+clusterrole.rbac.authorization.k8s.io/csi-beegfs-provisioner-role created
+rolebinding.rbac.authorization.k8s.io/csi-beegfs-privileged-scc-binding created
+clusterrolebinding.rbac.authorization.k8s.io/csi-beegfs-provisioner-binding created
+configmap/csi-beegfs-config-kkc8fg68fh created
+secret/csi-beegfs-connauth-b8kbm2mmm2 created
+statefulset.apps/csi-beegfs-controller created
+daemonset.apps/csi-beegfs-node created
+csidriver.storage.k8s.io/beegfs.csi.netapp.com created
+----
++
+
+NOTE: 使用 `kubectl apply -k` オーバーレイ用（ `kustomization.yaml` ファイル）。使用 `kubectl apply -f` プレーン YAML マニフェストまたはマニフェストのディレクトリ用。
+
+. 進む <<サンプルアプリケーションのデプロイ>> BeeGFS CSI ドライバーの設定を検証するためのセクション。
+
+
+
+
+== サンプルアプリケーションのデプロイ
+
+BeeGFS CSI ドライバー (エアギャップまたはオンライン) をインストールした後、サンプル アプリケーションをデプロイしてセットアップを検証できます。この例には、StorageClass、PersistentVolumeClaim (PVC)、および BeeGFS CSI ドライバーを使用するポッドが含まれています。
+
+
+
+=== 展開する前に:
+
+. BeeGFS 管理ノードの IP アドレスを取得します。
++
+**BeeGFS 7.4**
+
++
+[source, console]
+----
+beegfs-check-servers
+----
++
+**ビーGFS 8**
+
++
+[source, console]
+----
+beegfs health network
+----
++
+**予想される出力:**
+
++
+[listing]
+----
+Management
+==========
+mgmt [ID: 1]: reachable at 192.1.18.1:8008 (protocol: TCP)
+----
+. 管理ノードのIPを更新する `examples/k8s/dyn/dyn-sc.yaml`。
+. 値を更新 `volDirBasePath`。複数のクラスターが同じ BeeGFS パスでボリュームを動的にプロビジョニングするのを防ぐには、これを一意の値 (k8s クラスター名など) に設定します。
++
+.StorageClass スニペットの例:
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-beegfs-dyn-sc
+provisioner: beegfs.csi.netapp.com
+parameters:
+  sysMgmtdHost: 192.1.18.1
+  volDirBasePath: user_id_k8s
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+----
+
+
+
+
+=== 導入
+
+. サンプルアプリケーション ファイルをデプロイします。
++
+[source, console]
+----
+kubectl apply -f examples/k8s/dyn
+----
++
+**予想される出力:**
+
++
+[listing]
+----
+pod/csi-beegfs-dyn-app created
+persistentvolumeclaim/csi-beegfs-dyn-pvc created
+storageclass.storage.k8s.io/csi-beegfs-dyn-sc created
+----
+. サンプル ポッドと PVC が実行中であり、バインドされていることを確認します。
++
+[source, console]
+----
+kubectl get pod csi-beegfs-dyn-app
+kubectl get pvc csi-beegfs-dyn-pvc
+----
+
+
+
+NOTE: サンプルアプリケーションのデプロイメント手順は、エアギャップデプロイメントとオンラインデプロイメントの両方で同一です。管理ノードのIPアドレスが更新されていることを確認し、 `volDirBasePath` デプロイする前に StorageClass マニフェストに追加します。
