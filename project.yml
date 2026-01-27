@@ -137,6 +137,8 @@ sidebar:
         url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-verify.html"
       - title: トラブルシューティング
         url: "/deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html"
+    - title: BeeGFS 8 の TLS 暗号化を設定する
+      url: "/deploy-features-integration/beegfs-tls/beegfs-tls-deploy.html"
   - title: BeeGFSクラスタの管理
     entries:
     - title: 概要、主要な概念、用語
@@ -149,8 +151,10 @@ sidebar:
       url: "/administer/clusters-reconfigure.html"
     - title: HAクラスタコンポーネントの更新
       entries:
-      - title: BeeGFSバージョンの更新
-        url: "/administer/clusters-update-beegfs.html"
+      - title: BeeGFS サービスのアップグレード
+        url: "/administer/clusters-upgrade-beegfs.html"
+      - title: BeeGFS v8にアップグレード
+        url: "/administer/clusters-upgrade-beegfs-v8.html"
       - title: PacemakerおよびCorosyncパッケージのアップグレード
         url: "/administer/clusters-update-ha-services.html"
       - title: ファイルノードアダプタファームウェアの更新

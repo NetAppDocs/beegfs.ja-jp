@@ -1,0 +1,525 @@
+---
+sidebar: sidebar 
+permalink: administer/clusters-upgrade-beegfs-v8.html 
+keywords: BeeGFS on NetApp, HA, Cluster, Administration, update, upgrade, BeeGFS 8, BeeGFS v8 
+summary: BeeGFS v7.4.6 から BeeGFS v8 にアップデートします。 
+---
+= BeeGFS v8にアップグレード
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+BeeGFS HA クラスターをバージョン 7.4.6 から BeeGFS v8 にアップグレードするには、次の手順に従います。
+
+
+
+== 概要
+
+BeeGFS v8では、BeeGFS v7からアップグレードする前に追加の設定が必要となる重要な変更がいくつか導入されています。このドキュメントでは、BeeGFS v8の新しい要件に合わせてクラスターを準備し、BeeGFS v8にアップグレードする方法について説明します。
+
+
+IMPORTANT: BeeGFS v8にアップグレードする前に、システムが少なくともBeeGFS 7.4.6を実行していることを確認してください。BeeGFS 7.4.6より前のリリースを実行しているクラスターは、このBeeGFS v8アップグレード手順を進める前に、まずlink:clusters-upgrade-beegfs.html["バージョン7.4.6にアップグレード"]を行う必要があります。
+
+
+
+== BeeGFS v8の主な変更点
+
+BeeGFS v8 では、次の主要な変更が導入されています：
+
+* **ライセンスの適用：** BeeGFS v8では、ストレージプール、リモートストレージターゲット、BeeONDなどのプレミアム機能を使用するにはライセンスが必要です。アップグレード前に、BeeGFSクラスターの有効なライセンスを取得してください。必要に応じて、一時的なBeeGFS v8評価ライセンスをlink:https://beegfs.io/license/["BeeGFSライセンスポータル"^]から取得できます。
+* **管理サービス データベースの移行：** BeeGFS v8 の新しい TOML ベース形式による構成を有効にするには、BeeGFS v7 管理サービス データベースを更新された BeeGFS v8 形式に手動で移行する必要があります。
+* **TLS暗号化：** BeeGFS v8では、サービス間の安全な通信のためにTLSが導入されています。アップグレードの一環として、BeeGFS管理サービスと `beegfs`コマンドラインユーティリティ用のTLS証明書を生成して配布する必要があります。
+
+
+BeeGFS 8 の詳細と追加の変更については、link:https://doc.beegfs.io/8.0/advanced_topics/upgrade.html["BeeGFS v8.0.0 アップグレードガイド"^]を参照してください。
+
+[IMPORTANT]
+====
+BeeGFS v8へのアップグレードには、クラスタのダウンタイムが必要です。また、BeeGFS v7クライアントはBeeGFS v8クラスタに接続できません。運用への影響を最小限に抑えるため、クラスタとクライアント間のアップグレードタイミングを慎重に調整してください。
+
+====
+
+
+== BeeGFS クラスターをアップグレード用に準備する
+
+アップグレードを開始する前に、スムーズな移行を実現し、ダウンタイムを最小限に抑えるために環境を慎重に準備してください。
+
+. クラスターが正常な状態であり、すべてのBeeGFSサービスがそれぞれの優先ノードで実行されていることを確認してください。BeeGFSサービスを実行しているファイルノードから、すべてのPacemakerリソースがそれぞれの優先ノードで実行されていることを確認します：
++
+[source, console]
+----
+pcs status
+----
+. クラスター構成を記録してバックアップします。
++
+.. クラスタ構成のバックアップ手順については、link:https://doc.beegfs.io/7.4.6/advanced_topics/backup.html["BeeGFS Backupのドキュメント"^]を参照してください。
+.. 既存の管理データ ディレクトリをバックアップします：
++
+[source, console]
+----
+cp -r /mnt/mgmt_tgt_mgmt01/data /mnt/mgmt_tgt_mgmt01/data_beegfs_v7_backup_$(date +%Y%m%d)
+----
+.. beegfs クライアントから次のコマンドを実行し、出力を参照用に保存します：
++
+[source, console]
+----
+beegfs-ctl --getentryinfo --verbose /path/to/beegfs/mountpoint
+----
+.. ミラーリングを使用する場合は、詳細な状態情報を収集します：
++
+[source, console]
+----
+beegfs-ctl --listtargets --longnodes --state --spaceinfo --mirrorgroups --nodetype=meta
+beegfs-ctl --listtargets --longnodes --state --spaceinfo --mirrorgroups --nodetype=storage
+----
+
+
+. クライアントのダウンタイムに備えて `beegfs-client`サービスを停止します。各クライアントで以下を実行します：
++
+[source, console]
+----
+systemctl stop beegfs-client
+----
+. 各Pacemakerクラスタで、STONITHを無効にします。これにより、不要なノードの再起動をトリガーすることなく、アップグレード後にクラスタの整合性を検証できます。
++
+[source, console]
+----
+pcs property set stonith-enabled=false
+----
+. BeeGFS 名前空間内のすべての Pacemaker クラスターでは、PCS を使用してクラスターを停止します：
++
+[source, console]
+----
+pcs cluster stop --all
+----
+
+
+
+
+== BeeGFSパッケージをアップグレードする
+
+クラスター内のすべてのファイルノードに、Linuxディストリビューション用のBeeGFS v8パッケージリポジトリを追加してください。公式BeeGFSリポジトリの使用方法については、link:https://www.beegfs.io/c/download/["BeeGFSダウンロードページ"^]をご覧ください。それ以外の場合は、ローカルのbeegfsミラーリポジトリを適切に設定してください。
+
+以下の手順は、RHEL 9 ファイルノード上の公式 BeeGFS 8.2 リポジトリを使用した手順です。クラスター内のすべてのファイルノードで以下の手順を実行してください：
+
+. BeeGFS GPG キーをインポートします：
++
+[source, console]
+----
+rpm --import https://www.beegfs.io/release/beegfs_8.2/gpg/GPG-KEY-beegfs
+----
+. BeeGFS リポジトリをインポートします：
++
+[source, console]
+----
+curl -L -o /etc/yum.repos.d/beegfs-rhel9.repo https://www.beegfs.io/release/beegfs_8.2/dists/beegfs-rhel9.repo
+----
++
+[NOTE]
+====
+新しい BeeGFS v8 リポジトリとの競合を避けるため、以前に設定された BeeGFS リポジトリを削除します。
+
+====
+. パッケージ マネージャーのキャッシュを消去します：
++
+[source, console]
+----
+dnf clean all
+----
+. すべてのファイル ノードで、BeeGFS パッケージを BeeGFS 8.2 に更新します。
++
+[source, console]
+----
+dnf update beegfs-mgmtd beegfs-storage beegfs-meta libbeegfs-ib
+----
+
+
+[NOTE]
+====
+標準クラスターでは、 `beegfs-mgmtd`パッケージは最初の2つのファイル ノードでのみ更新されます。
+
+====
+
+
+== 管理データベースをアップグレードする
+
+BeeGFS 管理サービスを実行しているファイルノードの 1 つで、次の手順を実行して、管理データベースを BeeGFS v7 から v8 に移行します。
+
+. すべての NVMe デバイスを一覧表示し、管理対象をフィルタリングします：
++
+[source, console]
+----
+nvme netapp smdevices | grep mgmt_tgt
+----
++
+.. 出力からデバイスパスをメモします。
+.. 管理対象デバイスを既存の管理対象マウント ポイントにマウントします（ `/dev/nvmeXnY`をデバイス パスに置き換えます）：
++
+[source, console]
+----
+mount /dev/nvmeXnY /mnt/mgmt_tgt_mgmt01/
+----
+
+
+. 次のコマンドを実行して、BeeGFS 7 管理データを新しいデータベース形式にインポートします：
++
+[source, console]
+----
+/opt/beegfs/sbin/beegfs-mgmtd --import-from-v7=/mnt/mgmt_tgt_mgmt01/data/
+----
++
+期待される出力：
+
++
+[listing]
+----
+Created new database version 3 at "/var/lib/beegfs/mgmtd.sqlite". Successfully imported v7 management data from "/mnt/mgmt_tgt_mgmt01/data/".
+----
++
+[IMPORTANT]
+====
+BeeGFS v8では検証要件が厳格化されているため、自動インポートが必ずしも成功するとは限りません。例えば、ターゲットが存在しないストレージプールに割り当てられている場合、インポートは失敗します。移行に失敗した場合は、アップグレードを続行しないでください。データベース移行問題の解決については、NetAppサポートにお問い合わせください。当面の解決策として、BeeGFS v8パッケージをダウングレードし、問題が解決するまでBeeGFS v7を引き続き実行することができます。
+
+====
+. 生成された SQLite ファイルを管理サービス マウントに移動します：
++
+[source, console]
+----
+mv /var/lib/beegfs/mgmtd.sqlite /mnt/mgmt_tgt_mgmt01/data/
+----
+. 生成された `beegfs-mgmtd.toml`を管理サービスマウントに移動します：
++
+[source, console]
+----
+mv /etc/beegfs/beegfs-mgmtd.toml /mnt/mgmt_tgt_mgmt01/mgmt_config/
+----
++
+ `beegfs-mgmtd.toml`構成ファイルの準備は、次のセクションのライセンスおよび TLS 構成手順を完了した後に行われます。
+
+
+
+
+
+== ライセンスを構成する
+
+. beegfs管理サービスを実行するすべてのノードにbeegfsライセンスパッケージをインストールします。通常はクラスタの最初の2つのノードです：
++
+[source, console]
+----
+dnf install libbeegfs-license
+----
+. BeeGFS v8 ライセンス ファイルを管理ノードにダウンロードし、次の場所に配置します：
++
+[listing]
+----
+/etc/beegfs/license.pem
+----
+
+
+
+
+== TLS暗号化を構成する
+
+BeeGFS v8では、管理サービスとクライアント間の安全な通信のためにTLS暗号化が必要です。管理サービスとクライアントサービス間のネットワーク通信でTLS暗号化を設定するには、3つのオプションがあります。推奨される最も安全な方法は、信頼できる証明機関によって署名された証明書を使用することです。あるいは、独自のローカルCAを作成して、BeeGFSクラスターの証明書に署名することもできます。暗号化が不要な環境やトラブルシューティングの場合は、TLSを完全に無効にすることもできますが、機密情報がネットワークに公開されるため、これは推奨されません。
+
+続行する前に、link:../deploy-features-integration/beegfs-tls/beegfs-tls-deploy.html["BeeGFS 8 の TLS 暗号化を設定する"]ガイドの指示に従って、環境のTLS暗号化を設定してください。
+
+
+
+== 更新管理サービスの構成
+
+BeeGFS v7 構成ファイルから設定を手動で `/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml`ファイルに転送して、BeeGFS v8 管理サービス構成ファイルを準備します。
+
+. 管理ターゲットがマウントされている管理ノードで、 `/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.conf`BeeGFS 7の管理サービスファイルを参照し、すべての設定を `/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml`ファイルに転送します。基本的な設定では、 `beegfs-mgmtd.toml`は以下のようになります：
++
+[source, toml]
+----
+beemsg-port = 8008
+grpc-port = 8010
+log-level = "info"
+node-offline-timeout = "900s"
+quota-enable = false
+auth-disable = false
+auth-file = "/etc/beegfs/<mgmt_service_ip>_connAuthFile"
+db-file = "/mnt/mgmt_tgt_mgmt01/data/mgmtd.sqlite"
+license-disable = false
+license-cert-file = "/etc/beegfs/license.pem"
+tls-disable = false
+tls-cert-file = "/etc/beegfs/mgmtd_tls_cert.pem"
+tls-key-file = "/etc/beegfs/mgmtd_tls_key.pem"
+interfaces = ['i1b:mgmt_1', 'i2b:mgmt_2']
+----
++
+必要に応じて、環境と TLS 構成に合わせてすべてのパスを調整します。
+
+. 管理サービスを実行している各ファイル ノードで、新しい構成ファイルの場所を指すように systemd サービス ファイルを変更します。
++
+[source, console]
+----
+sudo sed -i 's|ExecStart=.*|ExecStart=nice -n -3 /opt/beegfs/sbin/beegfs-mgmtd --config-file /mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml|' /etc/systemd/system/beegfs-mgmtd.service
+----
++
+.. systemdをリロードします：
++
+[source, console]
+----
+systemctl daemon-reload
+----
+
+
+. 管理サービスを実行している各ファイル ノードに対して、管理サービスの gRPC 通信用にポート 8010 を開きます。
++
+.. ポート 8010/tcp を beegfs ゾーンに追加します：
++
+[source, console]
+----
+sudo firewall-cmd --zone=beegfs --permanent --add-port=8010/tcp
+----
+.. 変更を適用するには、ファイアウォールをリロードします：
++
+[source, console]
+----
+sudo firewall-cmd --reload
+----
+
+
+
+
+
+
+== BeeGFSモニタースクリプトを更新する
+
+Pacemaker `beegfs-monitor` OCFスクリプトは、新しいTOML構成形式とsystemdサービス管理をサポートするために更新が必要です。クラスター内の1つのノードでスクリプトを更新し、更新したスクリプトを他のすべてのノードにコピーしてください。
+
+. 現在のスクリプトのバックアップを作成します：
++
+[source, console]
+----
+cp /usr/lib/ocf/resource.d/eseries/beegfs-monitor /usr/lib/ocf/resource.d/eseries/beegfs-monitor.bak.$(date +%F)
+----
+. 管理構成ファイルのパスを `.conf`から `.toml`に更新します：
++
+[source, console]
+----
+sed -i 's|mgmt_config/beegfs-mgmtd\.conf|mgmt_config/beegfs-mgmtd.toml|' /usr/lib/ocf/resource.d/eseries/beegfs-monitor
+----
++
+または、スクリプト内で次のブロックを手動で見つけます：
+
++
+[source, console]
+----
+case $type in
+  management)
+    conf_path="${configuration_mount}/mgmt_config/beegfs-mgmtd.conf"
+    ;;
+----
++
+これを次のように置き換えます：
+
++
+[source, bash]
+----
+case $type in
+  management)
+    conf_path="${configuration_mount}/mgmt_config/beegfs-mgmtd.toml"
+    ;;
+----
+.  `get_interfaces()`および `get_subnet_ips()`関数を更新して、TOML構成をサポートします：
++
+.. テキスト エディターでスクリプトを開きます：
++
+[source, console]
+----
+vi /usr/lib/ocf/resource.d/eseries/beegfs-monitor
+----
+.. 2 つの関数 `get_interfaces()`と `get_subnet_ips()`を見つけます。
+..  `get_interfaces()`から `get_subnet_ips()`の終わりまで、両方の関数全体を削除します。
+.. 次の更新された関数をコピーして、その場所に貼り付けます：
++
+[source, bash]
+----
+# Return network communication interface name(s) from the BeeGFS resource's connInterfaceFile
+get_interfaces() {
+  # Determine BeeGFS service network IP interfaces.
+  if [ "$type" = "management" ]; then
+    interfaces_line=$(grep "^interfaces =" "$conf_path")
+    interfaces_list=$(echo "$interfaces_line" | sed "s/.*= \[\(.*\)\]/\1/")
+    interfaces=$(echo "$interfaces_list" | tr -d "'" | tr -d " " | tr ',' '\n')
+
+    for entry in $interfaces; do
+      echo "$entry" | cut -d ':' -f 1
+    done
+  else
+    connInterfacesFile_path=$(grep "^connInterfacesFile" "$conf_path" | tr -d "[:space:]" | cut -f 2 -d "=")
+
+    if [ -f "$connInterfacesFile_path" ]; then
+      while read -r entry; do
+        echo "$entry" | cut -f 1 -d ':'
+      done < "$connInterfacesFile_path"
+    fi
+  fi
+}
+
+# Return list containing all the BeeGFS resource's usable IP addresses. *Note that these are filtered by the connNetFilterFile entries.
+get_subnet_ips() {
+  # Determine all possible BeeGFS service network IP addresses.
+  if [ "$type" != "management" ]; then
+    connNetFilterFile_path=$(grep "^connNetFilterFile" "$conf_path" | tr -d "[:space:]" | cut -f 2 -d "=")
+
+    filter_ips=""
+    if [ -n "$connNetFilterFile_path" ] && [ -e $connNetFilterFile_path ]; then
+      while read -r filter; do
+        filter_ips="$filter_ips $(get_ipv4_subnet_addresses $filter)"
+      done < $connNetFilterFile_path
+    fi
+
+    echo "$filter_ips"
+  fi
+}
+----
+.. テキストエディターを保存して終了します。
+.. 続行する前に、次のコマンドを実行してスクリプトの構文エラーを確認してください。出力がない場合は、スクリプトの構文が正しいことを示します。
++
+[source, bash]
+----
+bash -n /usr/lib/ocf/resource.d/eseries/beegfs-monitor
+----
+
+
+. 更新された `beegfs-monitor` OCF スクリプトをクラスター内の他のすべてのノードにコピーして一貫性を確保します：
++
+[source, bash]
+----
+scp /usr/lib/ocf/resource.d/eseries/beegfs-monitor user@node:/usr/lib/ocf/resource.d/eseries/beegfs-monitor
+----
+
+
+
+
+== クラスタをオンラインに戻す
+
+. これまでのアップグレード手順がすべて完了したら、すべてのノードで BeeGFS サービスを開始して、クラスターをオンラインに戻します。
++
+[source, bash]
+----
+pcs cluster start --all
+----
+.  `beegfs-mgmtd`サービスが正常に開始されたことを確認します：
++
+[source, console]
+----
+journalctl -xeu beegfs-mgmtd
+----
++
+予想される出力には次のような行が含まれます：
+
++
+[listing]
+----
+Started Cluster Controlled beegfs-mgmtd.
+Loaded config file from "/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml"
+Successfully initialized certificate verification library.
+Successfully loaded license certificate: TMP-113489268
+Opened database at "/mnt/mgmt_tgt_mgmt01/data/mgmtd.sqlite"
+Listening for BeeGFS connections on [::]:8008
+Serving gRPC requests on [::]:8010
+----
++
+[NOTE]
+====
+ジャーナル ログにエラーが表示される場合は、管理構成ファイルのパスを確認し、すべての値が BeeGFS 7 構成ファイルから正しく転送されていることを確認します。
+
+====
+. 実行 `pcs status`して、クラスターが正常であり、優先ノードでサービスが開始されていることを確認します。
+. クラスターが正常であることが確認されたら、STONITH を再度有効にします：
++
+[source, console]
+----
+pcs property set stonith-enabled=true
+----
+. 次のセクションに進み、クラスター内の BeeGFS クライアントをアップグレードし、BeeGFS クラスターの健全性を確認します。
+
+
+
+
+== BeeGFSクライアントのアップグレード
+
+クラスターを BeeGFS v8 に正常にアップグレードした後、すべての BeeGFS クライアントもアップグレードする必要があります。
+
+次の手順では、Ubuntu ベースのシステムで BeeGFS クライアントをアップグレードするプロセスの概要を説明します。
+
+. まだ行っていない場合は、BeeGFS クライアント サービスを停止します：
++
+[source, console]
+----
+systemctl stop beegfs-client
+----
+. お使いのLinuxディストリビューションにBeeGFS v8パッケージリポジトリを追加してください。公式BeeGFSリポジトリの使い方については、link:https://www.beegfs.io/c/download/["^BeeGFSダウンロードページ"^]をご覧ください。それ以外の場合は、ローカルのBeeGFSミラーリポジトリを適切に設定してください。
++
+次の手順では、Ubuntu ベースのシステム上の公式 BeeGFS 8.2 リポジトリを使用します：
+
+. BeeGFS GPG キーをインポートします：
++
+[source, console]
+----
+wget https://www.beegfs.io/release/beegfs_8.2/gpg/GPG-KEY-beegfs -O /etc/apt/trusted.gpg.d/beegfs.asc
+----
+. リポジトリ ファイルをダウンロードします：
++
+[source, console]
+----
+wget https://www.beegfs.io/release/beegfs_8.2/dists/beegfs-noble.list -O /etc/apt/sources.list.d/beegfs.list
+----
++
+[NOTE]
+====
+新しい BeeGFS v8 リポジトリとの競合を避けるため、以前に設定された BeeGFS リポジトリを削除します。
+
+====
+. BeeGFS クライアント パッケージをアップグレードします：
++
+[source, console]
+----
+apt-get update
+apt-get install --only-upgrade beegfs-client
+----
+. クライアントのTLSを設定します。BeeGFS CLIを使用するにはTLSが必要です。link:../deploy-features-integration/beegfs-tls/beegfs-tls-deploy.html["BeeGFS 8 の TLS 暗号化を設定する"^]の手順を参照して、クライアントでTLSを設定してください。
+. BeeGFS クライアント サービスを開始します：
++
+[source, console]
+----
+systemctl start beegfs-client
+----
+
+
+
+
+== アップグレードを確認する
+
+BeeGFS v8 へのアップグレードが完了したら、次のコマンドを実行して、アップグレードが成功したことを確認します。
+
+. ルートinodeが以前と同じメタデータノードによって所有されていることを確認します。管理サービスで `import-from-v7`機能を使用した場合、これは自動的に行われるはずです：
++
+[source, console]
+----
+beegfs entry info /mnt/beegfs
+----
+. すべてのノードとターゲットがオンラインで、良好な状態であることを確認します：
++
+[source, console]
+----
+beegfs health check
+----
++
+[NOTE]
+====
+「使用可能な容量」チェックでターゲットの空き容量が少ないという警告が表示された場合は、 `beegfs-mgmtd.toml`ファイルに定義されている「容量プール」しきい値を調整して、環境に適したものにすることができます。
+
+====
+
