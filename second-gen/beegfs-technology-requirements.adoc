@@ -79,23 +79,6 @@ IMPORTANT: ファイル ノードには、有効な Red Hat Enterprise Linux Ser
 | 数量 | モデル | 仕様 
 
 
-| 2. | EF80  a| 
-*ハードウェア：*
-
-* *メモリ：* 128GB（コントローラあたり64GB）
-* *アダプター：* 2x 2ポート200Gb/NDR（NVMe/IB）
-* *ドライブ：* 希望するメタデータとストレージ容量に合わせて構成されています
-
-
-*ファームウェア：*
-
-* *SANtricity OS：* 12.00
-* *NVSRAM：* NEF80-200834-D00
-* *ドライブファームウェア：*お使いのドライブモデルで利用可能な最新版（link:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["E-Seriesディスクファームウェアサイト"^]参照）
-
-
-
-
 | 2. | EF600  a| 
 *ハードウェア：*
 
@@ -107,7 +90,7 @@ IMPORTANT: ファイル ノードには、有効な Red Hat Enterprise Linux Ser
 *ファームウェア：*
 
 * *SANtricity OS：* 11.90R5
-* *NVSRAM：* N6000-890834-D02
+* *NVSRAM：* N6000-890834-D03
 * *ドライブファームウェア：*お使いのドライブモデルで利用可能な最新版（link:https://mysupport.netapp.com/site/downloads/firmware/e-series-disk-firmware["E-Seriesディスクファームウェアサイト"^]参照）
 
 
