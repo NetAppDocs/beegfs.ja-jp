@@ -25,7 +25,7 @@ BeeGFSには `major.minor.patch`バージョン管理方式が採用されてい
 BeeGFSのすべてのアップグレードにはAnsibleを使用する必要があります。これには、BeeGFSのメジャーバージョン、マイナーバージョン、パッチバージョン間の移行も含まれます。BeeGFSをアップデートするには、まずBeeGFS Ansibleコレクションをアップデートする必要があります。これにより、デプロイメント/管理自動化と基盤となるHAクラスタの最新の修正と機能強化も取得されます。コレクションを最新バージョンにアップデートした後でも、 `-e "beegfs_ha_force_upgrade=true"`を設定して `ansible-playbook`を実行するまでBeeGFSはアップグレードされません。各アップグレードの詳細については、現在のバージョンのlink:https://doc.beegfs.io/latest/advanced_topics/upgrade.html["BeeGFSアップグレードのドキュメント"^]を参照してください。
 
 
-NOTE: BeeGFS v8 にアップグレードする場合は、代わりにlink:clusters-upgrade-beegfs-v8.html["BeeGFS v8にアップグレード"]手順を参照してください。
+NOTE: BeeGFS 8にアップグレードする場合は、link:clusters-upgrade-beegfs-v8.html["BeeGFS 8にアップグレード"]の手順を参照してください。
 
 
 
@@ -59,13 +59,13 @@ NOTE: BeeGFS v8 にアップグレードする場合は、代わりにlink:clust
 | 7.4.2 | 7.4.6 | はい。 | beegfs collection v3.2.0を使用してアップグレードします 
 
 
-| 7.4.6 | 8.0 | はい。 | link:clusters-upgrade-beegfs-v8.html["BeeGFS v8にアップグレード"]手順の指示に従ってアップグレードします。 
+| 7.4.6 | 8.0 | はい。 | link:clusters-upgrade-beegfs-v8.html["BeeGFS 8にアップグレード"]手順の指示に従ってアップグレードします。 
 
 
-| 7.4.6 | 8.1 | はい。 | link:clusters-upgrade-beegfs-v8.html["BeeGFS v8にアップグレード"]手順の指示に従ってアップグレードします。 
+| 7.4.6 | 8.1 | はい。 | link:clusters-upgrade-beegfs-v8.html["BeeGFS 8にアップグレード"]手順の指示に従ってアップグレードします。 
 
 
-| 7.4.6 | 8.2 | はい。 | link:clusters-upgrade-beegfs-v8.html["BeeGFS v8にアップグレード"]手順の指示に従ってアップグレードします。 
+| 7.4.6 | 8.2 | はい。 | link:clusters-upgrade-beegfs-v8.html["BeeGFS 8にアップグレード"]手順の指示に従ってアップグレードします。 
 |===
 
 

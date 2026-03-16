@@ -153,7 +153,7 @@ sidebar:
       entries:
       - title: BeeGFS サービスのアップグレード
         url: "/administer/clusters-upgrade-beegfs.html"
-      - title: BeeGFS v8にアップグレード
+      - title: BeeGFS 8にアップグレード
         url: "/administer/clusters-upgrade-beegfs-v8.html"
       - title: PacemakerおよびCorosyncパッケージのアップグレード
         url: "/administer/clusters-update-ha-services.html"

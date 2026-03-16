@@ -5,11 +5,9 @@
   <block id="e95081b0e85f690a9bdcb41ea940c186" category="summary">NetApp解決策 にBeeGFSを実装するには、使用する環境がテクノロジの要件を満たしていることを確認します。</block>
   <block id="de65efa2c0698ededf4229cafcca2d08" category="doc">技術要件</block>
   <block id="47dee50ad0138b8f5ca70e40e86e6c04" category="section-title">ハードウェア要件</block>
-  <block id="16cc6ce48a597aebb8ab5132cb3523dc" category="cell">ハードウェアコンポーネント</block>
   <block id="5a2ebfb8baa378cfcfcba58bbb1380c2" category="cell">要件</block>
   <block id="d41d8cd98f00b204e9800998ecf8427e" category="doc"></block>
   <block id="c81e728d9d4c2f636f067f89cc14862c" category="paragraph">2.</block>
-  <block id="a631c0a4a9b408ccc2559c2a3323af51" category="paragraph">*その他:*</block>
   <block id="c9f0f895fb98ab9159f51fd0297e236d" category="cell">8.</block>
   <block id="5fea6233624bde259c99b82e6d7de3c6" category="section-title">ソフトウェア導入の要件</block>
   <block id="699b33acca98ab1d3eb0d684f59f1c98" category="paragraph">次の表に、AnsibleベースのBeeGFS導入の一環として自動的に導入されるソフトウェア要件を示します。</block>
@@ -27,12 +25,7 @@
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">Python</block>
   <block id="d35d779fe31977939a0a72c5c962d2af" category="cell">その他のPythonパッケージ</block>
   <block id="5510cedb08df4208db0688e41cea716f" category="section-title">ファイルのノード要件</block>
-  <block id="2488fead2064d4aeb886afc1a0010ee7" category="cell">Linuxカーネル</block>
   <block id="f6883581bd882ffdf705127738982586" category="cell">InfiniBand / RDMAドライバ</block>
-  <block id="fbc534ed33feffdfe8fc56e7cde13e6e" category="section-title">EF600ブロックノードの要件</block>
-  <block id="e791d47d690cbc6aa7c7f9434ebd2fa1" category="cell">SANtricity OS の略</block>
-  <block id="b384b3cf4ffa3a81a88e8687dd6ca028" category="cell">NVSRAM</block>
-  <block id="b89cb5f38b54c6181858af1281dcaeef" category="cell">ドライブファームウェア</block>
   <block id="cef5ab698867f39ec4b495cba708da1a" category="summary">NetApp解決策 のBeeGFSは、BeeGFS並列ファイルシステムとNetApp EF600ストレージシステムを組み合わせることで、信頼性と拡張性に優れた対費用効果の高いインフラを実現し、要件の厳しいワークロードに対応します。</block>
   <block id="c0c4b60d27032c028c91440e9d3be949" category="doc">解決策の概要</block>
   <block id="c6ff1c8ffcd7024a30e7240129bf57a8" category="section-title">NVAプログラム</block>
@@ -1635,42 +1628,20 @@
   <block id="a1d7af56cbcfca285cd257ae3430a2d3" category="inline-link-macro">アーキテクチャの概要</block>
   <block id="61dd8d13bec6e1ac3455eb2e13d61261" category="paragraph">BeeGFS on NetAppソリューションは、拡張性に優れたビルディングブロックアーキテクチャとして設計されており、要件の厳しいさまざまなワークロード向けに構成可能です。多数の小さなファイルを扱う場合でも、大規模なファイル操作を管理する場合でも、ハイブリッドワークロードの場合でも、これらのニーズに合わせてファイルシステムをカスタマイズできます。設計には高可用性が組み込まれており、2層のハードウェア構造を使用しています。これにより、複数のハードウェアレイヤで独立したフェイルオーバーが可能になり、システムが部分的に低下しても一貫したパフォーマンスが保証されます。BeeGFSファイルシステムは、さまざまなLinuxディストリビューションにわたってハイパフォーマンスで拡張性に優れた環境を実現し、クライアントにアクセスしやすい単一のストレージネームスペースを提供します。詳細については、を <block ref="45037eea1e64b480408f051dfe424a3c" category="inline-link-macro-rx"></block>参照してください。</block>
   <block id="bcaa6be52b9fd12687892056d441d7e4" category="paragraph">BeeGFS on NetAppソリューションを実装するには、本ドキュメントに記載されているテクノロジ要件を環境が満たしていることを確認してください。</block>
-  <block id="7bf6b11b50ef88e180323b13813659d7" category="paragraph">作業を開始する前に、BeeGFS on NetAppソリューションの1つの第2世代ビルディングブロック設計について、ハードウェアが次の仕様を満たしていることを確認してください。特定の導入に適したコンポーネントは、お客様の要件に応じて異なる場合があります。</block>
   <block id="694e8d1f2ee056f98ee488bdc4982d73" category="cell">数量</block>
-  <block id="d065c203a4b9103e8896c456d35cceea" category="paragraph">期待されるパフォーマンスを実現するには、各ファイルノードが推奨されるファイルノードの仕様を満たしている必要があります。</block>
-  <block id="fbb1fad3a6f7d3538a8a1f8e9b6f1f08" category="paragraph">*推奨されるファイルノードオプション：*</block>
   <block id="5be994ecb912a7fb7448cc05f90afcf7" category="list-text">* Lenovo ThinkSystem SR665 V3*</block>
-  <block id="c0c1df1f325217c6fa04ce4c03ba875a" category="list-text">*プロセッサー：* AMD EPYC 9124 16C 3.0 GHz×2（2つのNUMAゾーンとして構成）。</block>
   <block id="e679361e60a219fe470d3ddb1f34a7d7" category="list-text">*メモリ:256 GB (16 x 16 GB TruDDR5 4800MHz RDIMM-A)</block>
   <block id="9946d99f0bd7932556af9646233dd2e8" category="list-text">* PCIe拡張：* 4つのPCIe Gen5 x16スロット（NUMAゾーンごとに2つ）</block>
-  <block id="accd99f82c9ad3f026edd29ae4aaa9d8" category="list-text">OS用RAID 1にドライブ2台（1TB 7.2K SATA以上）</block>
-  <block id="c618fd1e9213f6ba6e4961e3d1165110" category="list-text">1GbEポート（インバンドOS管理用）</block>
-  <block id="db812d54d604d8c71ffd5e4be563e3e5" category="list-text">1GbE BMCとRedfish APIによるアウトオブバンドサーバ管理</block>
-  <block id="15cf8b6d2674b1d9c9b0383ecfee8929" category="list-text">デュアルホットスワップ電源装置とパフォーマンスファン</block>
-  <block id="22d9c94f9f4ead6ee028aeb105c59845" category="list-text">* Lenovo ThinkSystem SR665 V3サーバ：*</block>
-  <block id="6ea32d47808c9a0a8b4ad8ce7c3d46a8" category="list-text">MCX755106AS-HEAT ConnectX-7、NDR200、QSFP112、2ポート、PCIe Gen5 x16、</block>
-  <block id="b74051cf2ad1a189f8a05453712ca47a" category="cell">ストレージネットワークスイッチ</block>
-  <block id="abf33d394022ed774955ca8b4e892340" category="paragraph">ストレージネットワークスイッチの速度は200Gb/秒InfiniBandに対応している必要があります。推奨されるスイッチモデルは次のとおりです。</block>
-  <block id="d7405c22a666ad0d0cb249c209ed8a2a" category="list-text">* NVIDIA QM9700 Quantum 2 NDR InfiniBandスイッチ*</block>
-  <block id="8371ac7bb43cddb78635bb02c4ecf477" category="list-text">* NVIDIA MQM8700 Quantum HDR InfiniBandスイッチ*</block>
   <block id="118d935cca54466f59122caecfde09ad" category="section-title">ケーブル要件</block>
   <block id="1fe3c9d0657c143dd35fa09974da425b" category="cell">パーツ番号</block>
   <block id="ba2a9c6c8c77e03f83ef8bf543612275" category="cell">長さ</block>
-  <block id="c3fc989bc0ee89bd4f833252b93ae9fc" category="cell">MCP1650-H001E30（NVIDIAパッシブ銅ケーブル、QSFP56、200Gb/秒）</block>
   <block id="9859011cc78b3687689e719ce0d111a5" category="cell">100万</block>
   <block id="e71a6bc9da9d285c521501e596936972" category="cell">スイッチモデル</block>
   <block id="6fd115591b61cfe21f37443a0afb71e0" category="cell">ケーブルタイプ</block>
   <block id="0f0a45940e8946022b971d4ccdf6154e" category="cell">NVIDIA QM9700</block>
   <block id="a87ff679a2f3e71d9181a67b7542122c" category="cell">4</block>
-  <block id="979ceabbdb73904b7beec8a0d58c32b8" category="cell">アクティブファイバ</block>
   <block id="f629de18a131cfa25b9f36ef4690fc92" category="cell">パッシブカッパー</block>
-  <block id="f3b15dfb9c8e8d6298034f5cc32a59cd" category="cell">NVIDIA MQM8700</block>
-  <block id="30657be0f3a2fdc8c171bce10af72efc" category="cell">MFS1S00-H003E（NVIDIAアクティブファイバケーブル、InfiniBand 200Gb/s、QSFP56）</block>
-  <block id="c1850fdcdcbbaf2fb48f3055382d5a41" category="cell">MCP1650-H002E26（NVIDIAパッシブ銅ケーブル、InfiniBand 200Gb/s、QSFP56）</block>
-  <block id="8c21a74db8c25bd18866fe78a889642f" category="paragraph">HCAファームウェア</block>
-  <block id="1f6e93b1ea11aa12e871822a2cabfc76" category="cell">暗号化- 43.0.0、netaddr-1.3.0、ipaddr-2.2.0</block>
   <block id="7af6b9890b6c8ce699616c59f48b5248" category="cell">NetApp E-Series BeeGFS Ansibleコレクション</block>
-  <block id="070afde0274dc6039a8a8949d12a15cd" category="cell">3.2.0</block>
   <block id="ddc7c5e85c28111eae39eef12269daf4" category="inline-link-macro">カスタムアーキテクチャの使用</block>
   <block id="a33f0af0b0b4566b693084a9b90c220b" category="paragraph">クラスタにビルディングブロックを追加する場合は<block ref="3342582e194d63e4c91b56623752c9c6" prefix=" " category="inline-code"></block>、新しいファイルノードおよびブロックノード（E-Seriesアレイ）ごとにファイルを作成する必要があります。これらのホストの名前は、作成する新しいリソースとともにインベントリに追加する必要があります。<block ref="96fa973cda8809ad84f646e3d8fbbc1c" prefix=" " category="inline-code"></block>新しいリソースごとに対応するファイルを作成する必要があります。<block ref="46924488f50abe82484adb9bfcdcde3b" category="inline-link-macro-rx"></block>詳細については、を参照してください。</block>
   <block id="a9e2fb24cfaef729e583ffb43f910760" category="paragraph">ノードでハードウェアやその他の障害が発生した場合、HAクラスタが正常なノードに自動的に対応してサービスを移動し、管理者が適切に対処できるようにする必要があります。作業を進める前に、<block ref="9f376b3ee66d4a4a484e850809b96601" category="inline-link-macro-rx"></block>セクションを参照してフェイルオーバーの原因を特定し、未解決の問題を解決してください。ノードの電源がオンになり正常に戻ったら、フェイルバックを続行できます。</block>
@@ -1797,12 +1768,6 @@
   <block id="9a0ca14324a0c9493b33cc5efdcf3460" category="paragraph"><block ref="9a0ca14324a0c9493b33cc5efdcf3460" category="inline-image-macro-rx" type="image"></block></block>
   <block id="362973e7a4fa534a7db69e8dfa0877a8" category="inline-image-macro">2つのBeeGFSメタデータとストレージビルディングブロックMDTestの結果</block>
   <block id="070cfbe37786e49518755132f73ded2c" category="paragraph"><block ref="070cfbe37786e49518755132f73ded2c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="e40e4e443af5090e1039aebba0a6cd24" category="paragraph">BeeGFSファイルノード</block>
-  <block id="05323ece1df24d4488db57fd326597c0" category="cell">E-Seriesブロックノード（EF600アレイ）</block>
-  <block id="06fc3bd2748fbbf8f16ce893ede22214" category="paragraph">*メモリ：* 256GB（コントローラあたり128GB）。*アダプタ：* 2ポート200GB/HDR（NVMe/IB）。*ドライブ：*必要なメタデータとストレージ容量に一致するように設定されています。</block>
-  <block id="1e3cea12222d4b63badbe998ef00b55d" category="cell">InfiniBandホストカードアダプタ（ファイルノード用）。</block>
-  <block id="0594ef398f6882c7d1d98994e3906850" category="paragraph">*ブロックノードからファイルノードへの直接接続。*</block>
-  <block id="b38917fef1efbb1471841f7a026c98c3" category="paragraph">*ファイルノードからストレージネットワークスイッチへの接続。*InfiniBandストレージスイッチに応じて、次の表から適切なケーブルオプションを選択します。+推奨ケーブル長は2mですが、お客様の環境によって異なる場合があります。</block>
   <block id="a00d274d551f6b74718d44ea2bb6e6c3" category="sidebar">HAクラスタコンポーネントの更新</block>
   <block id="67f62a9c37bde591abc850b5a2b22b02" category="list-text">クラスタパスワード用のサブディレクトリを作成し、Ansible Vaultでファイルを暗号化して保護します（を参照）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>。</block>
   <block id="8e7f7bdc10cb596910cce6b79c2e2ed6" category="list-text">サブディレクトリを作成し<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>ます。</block>
@@ -1894,7 +1859,6 @@
   <block id="53fff94cbca4161cd31d168451033f2e" category="cell">MFP7E20-Nxxx（マルチモード、4チャネル対2 2チャネルスプリッタファイバケーブル）</block>
   <block id="804e83e6974e7f6076f940326b985a83" category="cell">MMA1Z00-NS400（マルチモード、IB/ETH、400Gb/秒、シングルポートQSFP-112）</block>
   <block id="b2f1f9abf8117b3cde0475d1adf7a64f" category="cell">MCP7Y40-N002（NVIDIAパッシブ銅線スプリッタケーブル、InfiniBand 800Gb/s～4x200Gb/s、OSFP～4xQSFP112）</block>
-  <block id="6c3a5f2fbe0e1eb20af96ccd813c89b0" category="cell">N6000-890834-D02.dlp</block>
   <block id="088914339db9effda3ac57ec2e9439b6" category="cell">フェンスエージェント（redfish/APC）</block>
   <block id="f8b6aa2ae96c25a05a0cc6e26a9236d7" category="sidebar">PacemakerおよびCorosyncパッケージのアップグレード</block>
   <block id="5a2c09ccb6952069726dcfb2e92a5573" category="paragraph">Ansible CLIの実行に使用する物理マシンまたは仮想マシン。</block>
@@ -1925,12 +1889,7 @@
   <block id="e1024b07dc0ac4ec1b8c15255d2b7975" category="list-text">ガイドの使用<block ref="d69ec72bf0ba3250c61993db3810f97e" category="inline-link-macro-rx"></block>で推奨されているバージョンにすべてのHCAファームウェアを更新します<block ref="27ecbcefd12957257b84a6d4c5608591" category="inline-link-macro-rx"></block>。</block>
   <block id="848b1c364446f81000a150ab3996f166" category="paragraph">ポートの設定手順については、を参照して<block ref="98ec84f5a45223dfc7ed1f4ec5ef436f" category="inline-link-rx"></block>ください。</block>
   <block id="4e667bcd22eef3e9620c534781a563ea" category="paragraph">名前を設定すると、以降のセクションで各システムを簡単に参照できるようになります。アレイ名の設定手順については、を参照して<block ref="2617f8aa7c55cffc3912e0de8d2af7d2" category="inline-link-rx"></block>ください。</block>
-  <block id="3c5c0f41bab0c547cd353ca56b505d33" category="section-title">ソフトウェアとファームウェアの要件</block>
-  <block id="d72c6977d4f8f0d9276e0483c1e643ab" category="paragraph">予測可能なパフォーマンスと信頼性を確保するために、BeeGFS on NetAppソリューションのリリースでは、特定のバージョンのソフトウェアコンポーネントとファームウェアコンポーネントを使用してテストを実施しています。これらのバージョンは、ソリューションの実装に必要です。</block>
-  <block id="6b5b0d6dfb6af2b4c98938bb01cbeea1" category="cell">10.x</block>
   <block id="f82f58377452476d1d96442db364a64d" category="cell">Ansibleコア</block>
-  <block id="f850f5faa66f6a7ca2ac7f33f7eba944" category="cell">2.13.0以上</block>
-  <block id="bd03200a597eed96961a6907dc36cfbd" category="cell">3.10</block>
   <block id="48858ce4570016a1f8e1d1a8b871d328" category="admonition">この設定は、次回 Ansible プレイブックを実行するときに上書きされます。</block>
   <block id="49b54ab3b1445f79ca94c7085cad41ef" category="list-text">再起動する<block ref="00e28a828e75d362a33f4cdabec833b1" prefix=" " category="inline-code"></block> 。</block>
   <block id="08386a651a8ef93e4bc0df7cf35d9b70" category="list-text">E シリーズ ストレージ アレイのボリュームが存在することを確認します。</block>
@@ -1951,21 +1910,10 @@
   <block id="fc891ddcf642031b14500d5761030e91" category="list-text">Red Hat Enterprise Linux (RHEL) 9.4 をインストールし、Ansible コントロール ノードからの SSH 接続を含むオペレーティング システムの管理に使用するホスト名とネットワーク ポートを構成します。</block>
   <block id="a0db142b527f78501de6b4acdba9d576" category="list-text">Red Hat Subscription Manager を使用してシステムを登録およびサブスクライブし、公式 Red Hat リポジトリからの必要なパッケージのインストールを許可し、サポートされているバージョンの Red Hat への更新を制限します。 <block ref="cb1f5d026a59f18bc71d16899248bf06" prefix=" " category="inline-code"></block> 。手順については、およびを参照してください<block ref="2e2e1be81972e19947d90393d5319b6e" category="inline-link-rx"></block> <block ref="bbd834e2960f33a50fb102fd4d31a6d9" category="inline-link-rx"></block>。</block>
   <block id="7efcb442cda3c6a9d2e39278301df6f2" category="paragraph">システム設定は、ファイルノードとして使用するサーバーモデルによって異なります。使用中のサーバモデルに基づいて、設定を手動で行う必要があります。検証済みのLenovo SR665 V3ファイルノードのシステム設定を構成する方法については、以下を参照してください。 <block ref="891cfd1f8dbb99c09432be0144a5be81" category="inline-link-macro-rx"></block> 。</block>
-  <block id="8e22d5f83cc5d97bd5e5cfcebeca5f15" category="paragraph">ホスト カード アダプターは、ファイル ノードのサーバー モデルによって異なる場合があります。検証済みファイルノードの推奨事項は次のとおりです。</block>
-  <block id="eb13ea1edb52f2f7cdf4b15544892c06" category="cell">Red Hat Enterprise Linux（RHEL）</block>
-  <block id="33b7125f0da71f5f4c0d1adb2490c32d" category="cell">高可用性を備えた RHEL 9.4 物理サーバー (2 ソケット)。*注:* ファイル ノードには、有効な Red Hat Enterprise Linux Server サブスクリプションと Red Hat Enterprise Linux High Availability アドオンが必要です。</block>
-  <block id="6e2ccf2574232a4db553354b8bf2b912" category="cell">5.14.0～427.42.1.el9_4.x86_64</block>
-  <block id="564eb0bfa4895a5fed3372708aea6e59" category="paragraph">* ConnectX-6 HCAファームウェア* FW：20.43.2566 + PXE：3.7.0500 + UEFI：14.37.0013</block>
-  <block id="7670b29ec4dc7aed23b236d72df9dc4e" category="cell">使用中のドライブモデルで最新バージョンが提供されています。を参照してください<block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>。</block>
   <block id="90a84b80b2ae4bb2a14bb18a1c790012" category="cell">7.4.6</block>
   <block id="06ee37e4e06f2a68feca0b0922e9af9e" category="cell">3.1.8-1</block>
   <block id="3bbfa6ddcf5f2fb724a35ef7dc4b370a" category="cell">2.1.7-5.2</block>
-  <block id="ffa9c6553bd093c43628899a2b5008b0" category="cell">PCS</block>
-  <block id="23df4986c6f31aaed7db4752a96b620b" category="cell">0.11.7-2</block>
   <block id="ddf60efdd8bc8468bc0a5502f1b51c47" category="cell">4.10.0-62</block>
-  <block id="c83be155e8adea701991eeba59a9d048" category="cell">MLNX_OFED_Linux-23.10-3.2.2.1-LTS</block>
-  <block id="7cd5ec19f90bf866b287afecf9a8cce0" category="paragraph">*ConnectX-7 HCAファームウェア* FW: 28.45.1200 + PXE: 3.7.0500 + UEFI: 14.38.0016</block>
-  <block id="f86fe0da10c1b039adc0c656c6fe10a1" category="cell">11.90R3</block>
   <block id="62c1c24659da4c1307a1aec4e9fa9dd7" category="summary">BeeGFS CSI ドライバーの展開手順。</block>
   <block id="affb21f82a5248780841be74507689d4" category="doc">BeeGFS CSI ドライバーの展開</block>
   <block id="bd415b54a1a35e3fb2eec195775a2f4f" category="paragraph">BeeGFS CSI ドライバーを Kubernetes 環境にデプロイする手順。</block>
@@ -2121,72 +2069,27 @@
   <block id="ea355214fd4bc7c57f471bd92918879b" category="sidebar">導入</block>
   <block id="52b8ffce119fe77b28034f2fdd35eb5f" category="sidebar">検証</block>
   <block id="231cf4c70d866b616c21baddaeed0696" category="sidebar">トラブルシューティング</block>
-  <block id="720bac136ee5fe87e8258350874bf889" category="summary">BeeGFS v7.4.6 から BeeGFS v8 にアップデートします。</block>
-  <block id="255484f83e6b352461aab996293af037" category="doc">BeeGFS v8にアップグレード</block>
-  <block id="e9d543718892f9e943f9b0ec1e0b26dd" category="paragraph">BeeGFS HA クラスターをバージョン 7.4.6 から BeeGFS v8 にアップグレードするには、次の手順に従います。</block>
-  <block id="56eaaf7e94c66b6b87b9a706020a46fc" category="paragraph">BeeGFS v8では、BeeGFS v7からアップグレードする前に追加の設定が必要となる重要な変更がいくつか導入されています。このドキュメントでは、BeeGFS v8の新しい要件に合わせてクラスターを準備し、BeeGFS v8にアップグレードする方法について説明します。</block>
-  <block id="a356d762be0fd360b305904483df7926" category="inline-link-macro">バージョン7.4.6にアップグレード</block>
-  <block id="0060d53c43069b79f60e877c28653e93" category="admonition">BeeGFS v8にアップグレードする前に、システムが少なくともBeeGFS 7.4.6を実行していることを確認してください。BeeGFS 7.4.6より前のリリースを実行しているクラスターは、このBeeGFS v8アップグレード手順を進める前に、まず<block ref="b76ae852ce0983e72cb97bd11b461ddd" category="inline-link-macro-rx"></block>を行う必要があります。</block>
-  <block id="2fb9aed2a7234a39d149a09c6958b5b2" category="section-title">BeeGFS v8の主な変更点</block>
-  <block id="76854d554aa050f31068bc61d41a84a8" category="paragraph">BeeGFS v8 では、次の主要な変更が導入されています：</block>
   <block id="7aa24acc38e7f72925e21c2a645ddcc2" category="inline-link-macro">BeeGFSライセンスポータル</block>
-  <block id="0fb13041d480c6bcf0851c0147562634" category="list-text">**ライセンスの適用：** BeeGFS v8では、ストレージプール、リモートストレージターゲット、BeeONDなどのプレミアム機能を使用するにはライセンスが必要です。アップグレード前に、BeeGFSクラスターの有効なライセンスを取得してください。必要に応じて、一時的なBeeGFS v8評価ライセンスを<block ref="45463b3c38760d5d45ce59919bf1b841" category="inline-link-macro-rx"></block>から取得できます。</block>
-  <block id="61f3294d545224292f24d20e5784b1b8" category="list-text">**管理サービス データベースの移行：** BeeGFS v8 の新しい TOML ベース形式による構成を有効にするには、BeeGFS v7 管理サービス データベースを更新された BeeGFS v8 形式に手動で移行する必要があります。</block>
-  <block id="ae3515b57277c8fe0f00cea1adda0d4d" category="list-text">**TLS暗号化：** BeeGFS v8では、サービス間の安全な通信のためにTLSが導入されています。アップグレードの一環として、BeeGFS管理サービスと<block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block>コマンドラインユーティリティ用のTLS証明書を生成して配布する必要があります。</block>
-  <block id="0c9877c90f0d9079a4d989e2e4566397" category="inline-link-macro">BeeGFS v8.0.0 アップグレードガイド</block>
-  <block id="0344b455523b3a852f61e590039ac8f4" category="paragraph">BeeGFS 8 の詳細と追加の変更については、<block ref="12fcc9d746625edc76d466d9accca102" category="inline-link-macro-rx"></block>を参照してください。</block>
-  <block id="193037230a4888af56b46ce1e6f2c26a" category="paragraph">BeeGFS v8へのアップグレードには、クラスタのダウンタイムが必要です。また、BeeGFS v7クライアントはBeeGFS v8クラスタに接続できません。運用への影響を最小限に抑えるため、クラスタとクライアント間のアップグレードタイミングを慎重に調整してください。</block>
   <block id="123c241e1aed4b253defe16fb1bc8d13" category="section-title">BeeGFS クラスターをアップグレード用に準備する</block>
   <block id="b24218c9c302301fecde7134486fbc07" category="paragraph">アップグレードを開始する前に、スムーズな移行を実現し、ダウンタイムを最小限に抑えるために環境を慎重に準備してください。</block>
   <block id="9fd91481b38272f5b26649ad0cf8a76b" category="list-text">クラスターが正常な状態であり、すべてのBeeGFSサービスがそれぞれの優先ノードで実行されていることを確認してください。BeeGFSサービスを実行しているファイルノードから、すべてのPacemakerリソースがそれぞれの優先ノードで実行されていることを確認します：</block>
-  <block id="c4f85ea7f20d79515f9ac7f21bf86dae" category="list-text">クラスター構成を記録してバックアップします。</block>
-  <block id="04b2ead37075b79030dc1155347d4308" category="inline-link-macro">BeeGFS Backupのドキュメント</block>
-  <block id="c20c9d8c0ab82be10b7d6e1990c6b250" category="list-text">クラスタ構成のバックアップ手順については、<block ref="40fce5bd2b72a748d9d52a6e6616bc38" category="inline-link-macro-rx"></block>を参照してください。</block>
-  <block id="6308b60ed0c6b505ccdfdbb7163957ab" category="list-text">既存の管理データ ディレクトリをバックアップします：</block>
-  <block id="fc4859fea776a05e57ac1eb61fdf28fc" category="list-text">beegfs クライアントから次のコマンドを実行し、出力を参照用に保存します：</block>
-  <block id="0ad9f882415b7d38e0f0e8b48b7c3f3f" category="list-text">ミラーリングを使用する場合は、詳細な状態情報を収集します：</block>
-  <block id="d43c35dc5b6adda146324cc71f0c9db3" category="list-text">クライアントのダウンタイムに備えて<block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>サービスを停止します。各クライアントで以下を実行します：</block>
-  <block id="eccb96f67f72fcd43d30cdce198bd874" category="list-text">各Pacemakerクラスタで、STONITHを無効にします。これにより、不要なノードの再起動をトリガーすることなく、アップグレード後にクラスタの整合性を検証できます。</block>
-  <block id="f66bef6d792fa5f9b2aee434ba3064d2" category="list-text">BeeGFS 名前空間内のすべての Pacemaker クラスターでは、PCS を使用してクラスターを停止します：</block>
-  <block id="e3c30ceb207010fe07a97763b954522a" category="section-title">BeeGFSパッケージをアップグレードする</block>
   <block id="f25f967cb4e420dcfa1a8c13c8c44083" category="inline-link-macro">BeeGFSダウンロードページ</block>
-  <block id="21a87c1ae9c445f37c63ae4efbcf34cd" category="paragraph">クラスター内のすべてのファイルノードに、Linuxディストリビューション用のBeeGFS v8パッケージリポジトリを追加してください。公式BeeGFSリポジトリの使用方法については、<block ref="8e84e2db8ba21bb6829cde407c9405a0" category="inline-link-macro-rx"></block>をご覧ください。それ以外の場合は、ローカルのbeegfsミラーリポジトリを適切に設定してください。</block>
-  <block id="1bf865e6e0e73c3367cf143dcd9302cb" category="paragraph">以下の手順は、RHEL 9 ファイルノード上の公式 BeeGFS 8.2 リポジトリを使用した手順です。クラスター内のすべてのファイルノードで以下の手順を実行してください：</block>
-  <block id="cf403b9b34d74b4641e47669b5f5d1c4" category="list-text">BeeGFS GPG キーをインポートします：</block>
-  <block id="8316925af8bab1614333a81520c1dd23" category="list-text">BeeGFS リポジトリをインポートします：</block>
-  <block id="c4bb0b2009d20e23efdcc9e5a4ad8646" category="paragraph">新しい BeeGFS v8 リポジトリとの競合を避けるため、以前に設定された BeeGFS リポジトリを削除します。</block>
-  <block id="bc87d0eec71d40385410e9ab1190255d" category="list-text">パッケージ マネージャーのキャッシュを消去します：</block>
-  <block id="489af5ddd3507c44ba6eafcec2580475" category="list-text">すべてのファイル ノードで、BeeGFS パッケージを BeeGFS 8.2 に更新します。</block>
-  <block id="f61d3e6e81cf34ad788fa14a2e7193da" category="paragraph">標準クラスターでは、<block ref="973c8e6117483c73f2930aa71593d20e" prefix=" " category="inline-code"></block>パッケージは最初の2つのファイル ノードでのみ更新されます。</block>
   <block id="f43cac02da4e3b2af3270e6d8ccfaeec" category="section-title">管理データベースをアップグレードする</block>
-  <block id="3d91e54c4f115edfb28c67283863962b" category="paragraph">BeeGFS 管理サービスを実行しているファイルノードの 1 つで、次の手順を実行して、管理データベースを BeeGFS v7 から v8 に移行します。</block>
-  <block id="596b726e82df1bc90236c98468274cf5" category="list-text">すべての NVMe デバイスを一覧表示し、管理対象をフィルタリングします：</block>
-  <block id="29cd4568a3c842134f8c9de90c8ae282" category="list-text">出力からデバイスパスをメモします。</block>
   <block id="b7f4c9a8e0f59df867027f931cb8a370" category="list-text">管理対象デバイスを既存の管理対象マウント ポイントにマウントします（<block ref="bfa5022fa2a135155356c86af66dcec1" prefix=" " category="inline-code"></block>をデバイス パスに置き換えます）：</block>
   <block id="4dd4665d38ff7543df522205725e8092" category="list-text">次のコマンドを実行して、BeeGFS 7 管理データを新しいデータベース形式にインポートします：</block>
   <block id="d15e02bf0c54e008af2e8212aa7c7d4f" category="paragraph">期待される出力：</block>
-  <block id="2786413795c911d46dba56f322a5e6ce" category="paragraph">BeeGFS v8では検証要件が厳格化されているため、自動インポートが必ずしも成功するとは限りません。例えば、ターゲットが存在しないストレージプールに割り当てられている場合、インポートは失敗します。移行に失敗した場合は、アップグレードを続行しないでください。データベース移行問題の解決については、NetAppサポートにお問い合わせください。当面の解決策として、BeeGFS v8パッケージをダウングレードし、問題が解決するまでBeeGFS v7を引き続き実行することができます。</block>
   <block id="5ac1acae53013849794bb1c2ea31d0df" category="list-text">生成された SQLite ファイルを管理サービス マウントに移動します：</block>
   <block id="674d3e01b788f36f1bbd61782d03f44f" category="list-text">生成された<block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>を管理サービスマウントに移動します：</block>
-  <block id="127878bd1bf3c9908d96669e49751f73" category="paragraph"><block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>構成ファイルの準備は、次のセクションのライセンスおよび TLS 構成手順を完了した後に行われます。</block>
   <block id="accb4b9a5edced3379ca15730edf8658" category="section-title">ライセンスを構成する</block>
-  <block id="673dca42c0c1e8d361f54553accc026b" category="list-text">beegfs管理サービスを実行するすべてのノードにbeegfsライセンスパッケージをインストールします。通常はクラスタの最初の2つのノードです：</block>
-  <block id="50a2a878befa19d7880da026b6926523" category="list-text">BeeGFS v8 ライセンス ファイルを管理ノードにダウンロードし、次の場所に配置します：</block>
   <block id="cc274b40044167bc2c2fb90468ab9a1c" category="section-title">TLS暗号化を構成する</block>
-  <block id="131e7dfcb171b5922ee5475e43a765f5" category="paragraph">BeeGFS v8では、管理サービスとクライアント間の安全な通信のためにTLS暗号化が必要です。管理サービスとクライアントサービス間のネットワーク通信でTLS暗号化を設定するには、3つのオプションがあります。推奨される最も安全な方法は、信頼できる証明機関によって署名された証明書を使用することです。あるいは、独自のローカルCAを作成して、BeeGFSクラスターの証明書に署名することもできます。暗号化が不要な環境やトラブルシューティングの場合は、TLSを完全に無効にすることもできますが、機密情報がネットワークに公開されるため、これは推奨されません。</block>
   <block id="c2f552ec417373dd1a03d2614f6d8b1f" category="inline-link-macro">BeeGFS 8 の TLS 暗号化を設定する</block>
-  <block id="feff32ab4e011bc4f21c8c85082a986a" category="paragraph">続行する前に、<block ref="e3c7ea953a175f52b03d1d2c1e8cb9ae" category="inline-link-macro-rx"></block>ガイドの指示に従って、環境のTLS暗号化を設定してください。</block>
   <block id="31495a019abcd4b64758fd124e775743" category="section-title">更新管理サービスの構成</block>
-  <block id="a91413ba5a90016a17313e720ff2d787" category="paragraph">BeeGFS v7 構成ファイルから設定を手動で<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>ファイルに転送して、BeeGFS v8 管理サービス構成ファイルを準備します。</block>
-  <block id="81285c64189efa321022b98f01702e3b" category="list-text">管理ターゲットがマウントされている管理ノードで、<block ref="eaa3ac0f6fad8fb99f543716d1ae91f4" prefix=" " category="inline-code"></block>BeeGFS 7の管理サービスファイルを参照し、すべての設定を<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>ファイルに転送します。基本的な設定では、<block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>は以下のようになります：</block>
   <block id="d64fe64bd4c112966dc3694117efadd9" category="paragraph">必要に応じて、環境と TLS 構成に合わせてすべてのパスを調整します。</block>
   <block id="287433f8c4fab6dd5bc60fad2f460a15" category="list-text">管理サービスを実行している各ファイル ノードで、新しい構成ファイルの場所を指すように systemd サービス ファイルを変更します。</block>
   <block id="760227a7004e496325b2f514c87bac85" category="list-text">systemdをリロードします：</block>
   <block id="646e4bd8a5a1e652f70a596665ff0bb6" category="list-text">管理サービスを実行している各ファイル ノードに対して、管理サービスの gRPC 通信用にポート 8010 を開きます。</block>
-  <block id="41f3c09bab0f85c94d11644c293642a3" category="list-text">ポート 8010/tcp を beegfs ゾーンに追加します：</block>
   <block id="ec2670f7d6113bbfe60f842eeab5c05f" category="list-text">変更を適用するには、ファイアウォールをリロードします：</block>
   <block id="64bb116e2e1b9499ef38ffc848a01cf0" category="section-title">BeeGFSモニタースクリプトを更新する</block>
-  <block id="d455873557f60c6cf58e02cd25da85af" category="paragraph">Pacemaker<block ref="2aa0098b2c775ff5e1bd67c26714b0dd" prefix=" " category="inline-code"></block> OCFスクリプトは、新しいTOML構成形式とsystemdサービス管理をサポートするために更新が必要です。クラスター内の1つのノードでスクリプトを更新し、更新したスクリプトを他のすべてのノードにコピーしてください。</block>
   <block id="ac00f8115d590b3190d3952574454348" category="list-text">現在のスクリプトのバックアップを作成します：</block>
   <block id="cb7f1e2621a8924bc83c17974a2fe605" category="list-text">管理構成ファイルのパスを<block ref="a2b11a8323f2bacebd54851aea409219" prefix=" " category="inline-code"></block>から<block ref="86431a16259f2b9f3e0c7768bba1815e" prefix=" " category="inline-code"></block>に更新します：</block>
   <block id="738b30b0ea984e1171e42cc34529c94a" category="paragraph">または、スクリプト内で次のブロックを手動で見つけます：</block>
@@ -2197,39 +2100,22 @@
   <block id="1582f7bd6a974d5b9680a0fc3528a717" category="list-text"><block ref="ff1fb61ee10ea25a52900ed05c17849f" prefix=" " category="inline-code"></block>から<block ref="636aed53699178358bbb8d148298dcb8" prefix=" " category="inline-code"></block>の終わりまで、両方の関数全体を削除します。</block>
   <block id="41a24f00bb79b71db9b44b2efc455643" category="list-text">次の更新された関数をコピーして、その場所に貼り付けます：</block>
   <block id="80bba508098aacc750ddaa8172a65343" category="list-text">テキストエディターを保存して終了します。</block>
-  <block id="d8aa91bc96dc8186d9a6d75f337a2afc" category="list-text">続行する前に、次のコマンドを実行してスクリプトの構文エラーを確認してください。出力がない場合は、スクリプトの構文が正しいことを示します。</block>
-  <block id="2fbb5e6ece83043935263a0d8b2686ad" category="list-text">更新された<block ref="2aa0098b2c775ff5e1bd67c26714b0dd" prefix=" " category="inline-code"></block> OCF スクリプトをクラスター内の他のすべてのノードにコピーして一貫性を確保します：</block>
   <block id="273e9623e44e84dba0a057ef5ea26468" category="section-title">クラスタをオンラインに戻す</block>
-  <block id="e16aadf99e427f29bd70c469ce4f4888" category="list-text">これまでのアップグレード手順がすべて完了したら、すべてのノードで BeeGFS サービスを開始して、クラスターをオンラインに戻します。</block>
   <block id="d72f640684af03f7ffab3c61a2c12e4a" category="list-text"><block ref="973c8e6117483c73f2930aa71593d20e" prefix=" " category="inline-code"></block>サービスが正常に開始されたことを確認します：</block>
   <block id="be9cee3096dadc2de039a245f83d09b6" category="paragraph">予想される出力には次のような行が含まれます：</block>
-  <block id="53f6f7d21d71044bd2a6b988acf192a4" category="paragraph">ジャーナル ログにエラーが表示される場合は、管理構成ファイルのパスを確認し、すべての値が BeeGFS 7 構成ファイルから正しく転送されていることを確認します。</block>
   <block id="e00e840efc23d41d6ef10d9a2b7eda68" category="list-text">実行<block ref="fcad1c87c23363c990849a7aaf9d6cd9" prefix=" " category="inline-code"></block>して、クラスターが正常であり、優先ノードでサービスが開始されていることを確認します。</block>
   <block id="93e1fb6324daa48368310bc44c4bdb40" category="list-text">クラスターが正常であることが確認されたら、STONITH を再度有効にします：</block>
-  <block id="9d61344b9327fac9664d92d10ec0e2ed" category="list-text">次のセクションに進み、クラスター内の BeeGFS クライアントをアップグレードし、BeeGFS クラスターの健全性を確認します。</block>
   <block id="a32dbb23626ff6e462a56006c1c24e69" category="section-title">BeeGFSクライアントのアップグレード</block>
-  <block id="9d78f8c4b2d3fbdb574d3b9ee5760b8a" category="paragraph">クラスターを BeeGFS v8 に正常にアップグレードした後、すべての BeeGFS クライアントもアップグレードする必要があります。</block>
-  <block id="c04a695b8ad5bd22a3885bbf63315acb" category="paragraph">次の手順では、Ubuntu ベースのシステムで BeeGFS クライアントをアップグレードするプロセスの概要を説明します。</block>
-  <block id="54f2b22e4c99c0380f12fd41fb0d32ab" category="list-text">まだ行っていない場合は、BeeGFS クライアント サービスを停止します：</block>
-  <block id="0ff7f525a25c19f71e75f4fe013e6803" category="inline-link-macro">^BeeGFSダウンロードページ</block>
-  <block id="f64e8e78e5b1233ad13f02d61407dad4" category="list-text">お使いのLinuxディストリビューションにBeeGFS v8パッケージリポジトリを追加してください。公式BeeGFSリポジトリの使い方については、<block ref="7f199dac39af63df53ff837e50409d64" category="inline-link-macro-rx"></block>をご覧ください。それ以外の場合は、ローカルのBeeGFSミラーリポジトリを適切に設定してください。</block>
-  <block id="760a15dae0d80dcb7a99cb5d5a1e6273" category="paragraph">次の手順では、Ubuntu ベースのシステム上の公式 BeeGFS 8.2 リポジトリを使用します：</block>
-  <block id="f0505292a1882adade77b3183f3cd65f" category="list-text">リポジトリ ファイルをダウンロードします：</block>
   <block id="9c836ceb608a4bcb8873f8f3d258baa9" category="list-text">BeeGFS クライアント パッケージをアップグレードします：</block>
-  <block id="b50b5520bd361f399321c6f8d9150d1d" category="list-text">クライアントのTLSを設定します。BeeGFS CLIを使用するにはTLSが必要です。<block ref="8bc1b693654da46b4eca0c41a6289247" category="inline-link-macro-rx"></block>の手順を参照して、クライアントでTLSを設定してください。</block>
   <block id="10aac1aa74c5ccff3f536bca41b37a72" category="list-text">BeeGFS クライアント サービスを開始します：</block>
   <block id="814374feea0e9220b1cc03515aff046f" category="section-title">アップグレードを確認する</block>
-  <block id="0764a11d9a8006e930e299cd1f32908b" category="paragraph">BeeGFS v8 へのアップグレードが完了したら、次のコマンドを実行して、アップグレードが成功したことを確認します。</block>
   <block id="8c1b5d38a2fdb9976b52271dd7bafcfb" category="list-text">ルートinodeが以前と同じメタデータノードによって所有されていることを確認します。管理サービスで<block ref="053892c553ba90a8f8e6f6c5c5fa6bda" prefix=" " category="inline-code"></block>機能を使用した場合、これは自動的に行われるはずです：</block>
-  <block id="525503125442ab6ea3c885ff56ded67f" category="list-text">すべてのノードとターゲットがオンラインで、良好な状態であることを確認します：</block>
   <block id="57f7fb5574ece7538f5300530b750eba" category="paragraph">「使用可能な容量」チェックでターゲットの空き容量が少ないという警告が表示された場合は、<block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>ファイルに定義されている「容量プール」しきい値を調整して、環境に適したものにすることができます。</block>
   <block id="154e9d0e8841f77bbfae34e380ea800e" category="doc">BeeGFS サービスのアップグレード</block>
   <block id="01fc91c8305e212c539f48bdf3273343" category="paragraph">Ansible を使用して、HA クラスターで実行されている BeeGFS バージョンを更新します。</block>
   <block id="8a90adccef7e4be8404c3ce2b6a81f2e" category="paragraph">BeeGFSのすべてのアップグレードにはAnsibleを使用する必要があります。これには、BeeGFSのメジャーバージョン、マイナーバージョン、パッチバージョン間の移行も含まれます。BeeGFSをアップデートするには、まずBeeGFS Ansibleコレクションをアップデートする必要があります。これにより、デプロイメント/管理自動化と基盤となるHAクラスタの最新の修正と機能強化も取得されます。コレクションを最新バージョンにアップデートした後でも、<block ref="1c5a0082b7b70fba66dc89c5dcadda70" prefix=" " category="inline-code"></block>を設定して<block ref="6afa1ad605a4192ba2e50e8be9966e68" prefix=" " category="inline-code"></block>を実行するまでBeeGFSはアップグレードされません。各アップグレードの詳細については、現在のバージョンの<block ref="8574fc3a2a061b998ddd0369208f121a" category="inline-link-macro-rx"></block>を参照してください。</block>
-  <block id="d98fd4c1aba10a753c44be5f3d61c861" category="admonition">BeeGFS v8 にアップグレードする場合は、代わりに<block ref="a7db7e2d74c4b50caf08bcd6139f45fb" category="inline-link-macro-rx"></block>手順を参照してください。</block>
   <block id="df5b59dd5d3368fecd78324de057e2d1" category="paragraph">次のアップグレード パスがテストおよび検証されています：</block>
   <block id="585375c1448bfa3494298bdd79408081" category="cell">8.0</block>
-  <block id="09afc55dc9f238ad88da176b5d6a4311" category="cell"><block ref="a7db7e2d74c4b50caf08bcd6139f45fb" category="inline-link-macro-rx"></block>手順の指示に従ってアップグレードします。</block>
   <block id="d6422a625045167156b3c0d85ca23ebf" category="cell">8.1</block>
   <block id="2a568439f8e6ff92daa9925ce8a03adf" category="cell">8.2</block>
   <block id="596d14e0a94e096fde31c3366ba09817" category="paragraph">クラスタのAnsibleインベントリファイルに必要な更新や希望する更新を行ってください。具体的なアップグレード要件の詳細については、以下の<block ref="0be8127854ff2098fdbb2033e853b823" category="inline-xref-macro-rx"></block>セクションをご覧ください。BeeGFS HAインベントリの設定に関する一般的な情報については、<block ref="f7bda10e421919e9d8ced89dacaba34f" category="inline-link-macro-rx"></block>セクションをご覧ください。</block>
@@ -2244,30 +2130,13 @@
   <block id="95712f9054006b049af0552764f21b2c" category="admonition"><block ref="84f7933b4ff9fefcfc60fd5fff4b3b54" prefix=" " category="inline-code"></block>ロールを使用してクライアントを設定しなかった場合は、各クライアントに認証ファイルを手動で配布し、<block ref="1b33ed41c854e3144951352c24ab4653" prefix=" " category="inline-code"></block>ファイル内の<block ref="6097b6e95af2579f2147a330c21f7b59" prefix=" " category="inline-code"></block>設定を構成する必要があります。接続ベースの認証がないBeeGFSバージョンからアップグレードする場合、<block ref="4003590e6e5408f8e5272e50f909dfac" prefix=" " category="inline-code"></block>で<block ref="2ff6bdfeb6b3a41d28029b9ff7bdb93c" prefix=" " category="inline-code"></block>を設定してアップグレード中に接続ベースの認証を無効にしない限り、クライアントはアクセスできなくなります（推奨されません）。</block>
   <block id="d8d8fb7a9efc68485c1ad2cda7b256df" category="paragraph">追加の詳細と代替構成オプションについては、<block ref="dc7fd2b3ea1b2b4a060b953a1b281371" category="inline-link-macro-rx"></block> セクションの接続認証構成手順を参照してください。</block>
   <block id="5e830405a8a4b99931749f47bce6b884" category="summary">BeeGFS サービスとクライアント間の安全な通信のために TLS 暗号化を構成します。</block>
-  <block id="7e9af7bb9a905e218e0b4c18e6f4bba3" category="doc">BeeGFS v8のTLS暗号化を設定する</block>
-  <block id="0b080bc1eddf74111ec1399e1da75a61" category="paragraph">BeeGFS v8 管理サービスとクライアント間の通信を保護するために TLS 暗号化を構成します。</block>
-  <block id="f7c03076ecc1b9d63be8a044cea808b6" category="paragraph">BeeGFS v8では、管理ツール（<block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block>コマンドラインユーティリティなど）とBeeGFSサーバーサービス（ManagementやRemoteなど）間のネットワーク通信を暗号化するためのTLSサポートが導入されました。このガイドでは、3つのTLS設定方法を使用して、BeeGFSクラスターでTLS暗号化を設定する方法について説明します：</block>
-  <block id="0983a151653aa2ddcf26a1193b213e5e" category="list-text">**信頼できる証明機関の使用：** BeeGFS クラスターで既存の CA 署名証明書を使用します。</block>
-  <block id="a26c922e2bbf8053362c1f6d2b697eb0" category="list-text">**ローカル認証局の作成：** ローカル認証局を作成し、それを使用してBeeGFSサービスの証明書に署名します。このアプローチは、外部CAに依存せずに独自の信頼チェーンを管理したい環境に適しています。</block>
-  <block id="96dbe913665e5975ca1331a5139eddfc" category="list-text">**TLS 無効：** 暗号化が不要な環境やトラブルシューティングを行う場合は、TLS を完全に無効にしてください。内部ファイルシステムの構造や設定に関する機密情報が平文で公開される可能性があるため、この方法は推奨されません。</block>
   <block id="cf6b910ca739d55b95e514c4bc34bf30" category="inline-link-macro">BeeGFS TLS</block>
   <block id="13fe86fc8186dca1068e89bfe1e1787e" category="paragraph">環境と組織のポリシーに最適な方法を選択してください。詳細については、<block ref="48ecd83e15b4ebe67cc1ae0ffc0d7d9a" category="inline-link-macro-rx"></block>ドキュメントを参照してください。</block>
-  <block id="222d9cfd1fb6407d8b79705cdfd1323b" category="paragraph"><block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>サービスを実行しているマシンでは、BeeGFS ファイルシステムをマウントするために TLS は必要ありません。BeeGFS CLI や、リモートや同期などの他の beegfs サービスを利用するには、TLS を設定する必要があります。</block>
   <block id="3c7e30930d5d380b05de397eaf8d2414" category="section-title">信頼できる証明機関の使用</block>
-  <block id="6d40e36ff6b83793db2e082cb19a5145" category="paragraph">信頼できる証明機関（CA）によって発行された証明書（社内のエンタープライズ CA またはサードパーティ プロバイダーの CA）にアクセスできる場合は、自己署名証明書を生成する代わりに、これらの CA 署名証明書を使用するように BeeGFS v8 を構成できます。</block>
-  <block id="46898ba1e2ae09d92111277bc80b4fc9" category="section-title">新しい BeeGFS v8 クラスターのデプロイ</block>
-  <block id="c7a4b0f78b3429d7391701776b295f1d" category="paragraph">新しい BeeGFS v8 クラスターのデプロイメントでは、Ansible インベントリの<block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block>ファイルを設定して CA 署名付き証明書を参照します：</block>
   <block id="57f218bf1d9272c392ff8de89601aa7c" category="paragraph"><block ref="3fba26881c129c7a61c1355ee283e007" prefix=" " category="inline-code"></block>が空でない場合、Ansibleは指定されたalt_namesを証明書のサブジェクト別名（SAN）として使用し、自己署名TLS証明書と鍵を自動的に生成します。<block ref="8c63fee4ff0266eda34ba71cc0137dbb" prefix=" " category="inline-code"></block>および<block ref="cdc68b3e3f2fb7764759f777a63b2c58" prefix=" " category="inline-code"></block>で指定された独自のカスタムTLS証明書と鍵を使用するには、<block ref="d17aaec84437019fc2fc4d8542822c21" prefix=" " category="inline-code"></block>セクション全体をコメントアウトするか削除する必要があります。そうしないと、自己署名証明書の生成が優先され、カスタム証明書と鍵は使用されません。</block>
-  <block id="bc46d344cb17649a24c28a55096101ec" category="section-title">既存の BeeGFS v8 クラスターの構成</block>
-  <block id="7221232e564dd67df3114fb900fc7473" category="paragraph">既存の BeeGFS v8 クラスターの場合は、BeeGFS 管理サービスの設定ファイル内のパスをファイルノードの CA 署名証明書に設定します：</block>
-  <block id="8c30ce25b82a79e3e34b56b48b2091b3" category="section-title">CA署名証明書を使用したBeeGFS v8クライアントの構成</block>
-  <block id="e0fb1f001c3b49be06450c70ccaa0531" category="paragraph">BeeGFS v8クライアントがシステムの証明書プールを使用してCA署名証明書を信頼するように設定するには、各クライアントの設定で tls-cert-file = "" を設定します。システム証明書プールを使用していない場合は、tls-cert-file = &lt;local cert&gt; を設定してローカル証明書へのパスを指定します。この設定により、クライアントはBeeGFS管理サービスによって提示された証明書を認証できるようになります。</block>
   <block id="c8ee2c6fdd4785c4e97bcd5d41f9a648" category="section-title">ローカル認証局の作成</block>
-  <block id="58c0329017216fbff4d9ca37b5c1ac86" category="paragraph">BeeGFSクラスタ用に独自の証明書インフラストラクチャを構築する場合は、ローカル証明機関（CA）を作成して、BeeGFSクラスタ用の証明書の発行と署名を行うことができます。このアプローチでは、BeeGFS管理サービスの証明書に署名するCAを作成し、署名された証明書をクライアントに配布して信頼チェーンを確立します。以下の手順に従ってローカルCAを設定し、既存または新規のBeeGFS v8クラスタに証明書を展開してください。</block>
-  <block id="ca8128c267d1f68ccc95bf0b06eadea1" category="paragraph">BeeGFS v8の新規デプロイメントでは、<block ref="ec892555a981d412f5bdffa7fba2b850" prefix=" " category="inline-code"></block> Ansibleロールがコントロールノード上のローカルCAの作成と、管理サービスに必要な証明書の生成を処理します。これは、Ansibleインベントリの<block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block> ファイルで以下のパラメータを設定することで有効化できます：</block>
   <block id="2e070f2245424e2c92740fdea81fccb5" category="paragraph"><block ref="3fba26881c129c7a61c1355ee283e007" prefix=" " category="inline-code"></block>が指定されていない場合、Ansibleは指定された証明書/キーパス内の既存の証明書の使用を試みます。</block>
   <block id="b1c3f1eef9e5337689500b8f6dd1a137" category="paragraph">既存のBeeGFSクラスタでは、ローカル証明機関を作成し、管理サービスに必要な証明書を生成することでTLSを統合できます。BeeGFS管理サービスの設定ファイル内のパスを、新しく作成した証明書を指すように更新してください。</block>
-  <block id="054548cd00d0e25b7cf0d74b2262672a" category="paragraph">このセクションの手順は参考としてご利用ください。秘密鍵と証明書を扱う際には、適切なセキュリティ対策を講じてください。</block>
   <block id="5c1fb02f00efe137a3625f359ffb0696" category="section-title">認証局を作成する</block>
   <block id="620ea7c3489e9142406af99086204787" category="paragraph">信頼できるマシンに、BeeGFS管理サービスの証明書に署名するためのローカル証明機関（CA）を作成します。CA証明書はクライアントに配布され、信頼関係を確立し、BeeGFSサービスとの安全な通信を可能にします。</block>
   <block id="7541f8c8863f08c95773067864d52dd9" category="paragraph">次の手順は、RHEL ベースのシステムでローカル認証局を作成するためのリファレンスです。</block>
@@ -2275,14 +2144,12 @@
   <block id="e192af73f76222565af30fe3b9e294d3" category="list-text">証明書ファイルを保存するための作業ディレクトリを作成します：</block>
   <block id="54fff92d24feb15755beaac9e2822488" category="list-text">CA 秘密キーを生成します：</block>
   <block id="404ee651d3818333d1eba62af4f325fa" category="list-text"><block ref="408a8c53c3c88f2197b1a8998e2ea742" prefix=" " category="inline-code"></block>という名前の CA 構成ファイルを作成し、識別名フィールドを組織に合わせて調整します：</block>
-  <block id="fd3d00f7fdab63a01ec90d0de5d79f31" category="list-text">CA証明書を生成します。この証明書はシステムの運用期間中有効である必要があります。有効でない場合は、有効期限が切れる前に証明書を再生成する必要があります。証明書の有効期限が切れると、一部のコンポーネント間の通信が不可能になり、TLS証明書の更新を完了するには通常、サービスの再起動が必要になります。</block>
   <block id="48eee0bfce30bf8015335f6def531efb" category="paragraph">次のコマンドは、1 年間有効な CA 証明書を生成します：</block>
   <block id="32566669ae66a44b6cc80a04d7168f54" category="admonition">この例では、簡潔にするために 1 年間の有効期間を使用していますが、組織のセキュリティ要件に応じて<block ref="4087869cd68f54510d4827e54488a4dc" prefix=" " category="inline-code"></block>パラメータを調整し、証明書の更新プロセスを確立する必要があります。</block>
   <block id="f4e3903d8bf4731fec22ce51123ad389" category="section-title">管理サービス証明書を作成する</block>
   <block id="390143f21beb27194badab58238eb471" category="paragraph">BeeGFS管理サービス用の証明書を生成し、作成したCAで署名します。これらの証明書は、BeeGFS管理サービスを実行するファイルノードにインストールされます。</block>
   <block id="e46e12d5c75d7b2dfbff51cff876cdcc" category="list-text">管理サービスの秘密キーを生成します：</block>
   <block id="9a640017cb4f5d6a79f4689650ba7bfa" category="list-text"><block ref="76235dd3c42097e32f5c158ec7080f5b" prefix=" " category="inline-code"></block>という名前の証明書構成ファイルを作成し、すべての管理サービス IP アドレスに対してサブジェクト別名（SAN）を設定します：</block>
-  <block id="2d514407c5add21e2d757972ab6d2ed4" category="paragraph">識別名フィールドを更新して、CA 構成と<block ref="5cb62dfdaa16bd51f4f1b7a738a0f210" prefix=" " category="inline-code"></block>および<block ref="4eb2ee17c10e6b738537e69e439e9bf6" prefix=" " category="inline-code"></block>値を管理サービスの IP アドレスと一致させます。</block>
   <block id="3b94b40b121cb65329db7bfd2370b11e" category="list-text">証明書署名要求（CSR）を生成します：</block>
   <block id="10a743991d2e5ff63353d0575b2d404e" category="list-text">CA を使用して証明書に署名します（有効期間 1 年）：</block>
   <block id="b33c9f683103e39f04d0b38a1c011d9f" category="admonition">組織のセキュリティポリシーに基づいて証明書の有効期間<block ref="ceb6ef24743816071de4a908ace84143" prefix="(" category="inline-code"></block>を調整してください。多くの組織では、1～2年ごとに証明書のローテーションが必要です。</block>
@@ -2294,18 +2161,152 @@
   <block id="e24baf1eae9e037ef707fe54ef7f821b" category="section-title">管理サービスをTLS証明書に指定する</block>
   <block id="fe059abb6aa5084fa032d24415009679" category="paragraph">BeeGFS 管理サービスの構成を更新して TLS を有効にし、作成された TLS 証明書を参照します。</block>
   <block id="e0ad10deb7d112ce2d0fd225743c4a78" category="list-text">BeeGFS 管理サービスを実行しているファイルノードから、管理サービス構成ファイル（例：<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>）を編集します。次の TLS 関連パラメータを追加または更新します：</block>
-  <block id="1d073d3a4e0489b82cade621b6f667b8" category="list-text">変更を有効にするには、適切なアクションを実行して BeeGFS 管理サービスを安全に再起動してください：</block>
   <block id="daa0ecf1b3b5ad49a3db9e49064ef338" category="list-text">管理サービスが正常に開始されたことを確認します：</block>
   <block id="14ac4331b033636a7b6591335549c611" category="paragraph">TLS の初期化と証明書の読み込みが成功したことを示すログエントリを探します。</block>
-  <block id="8689a08f1beea73bd145fed7d7109beb" category="section-title">BeeGFS v8クライアントのTLSを設定する</block>
-  <block id="7ad16729d3544a2421669dd740d85bac" category="paragraph">BeeGFS 管理サービスとの通信を必要とするすべての BeeGFS クライアントに、ローカル CA によって署名された証明書を作成して配布します。</block>
-  <block id="588299d2800c3308acbd2e9beb760d1d" category="list-text">上記の管理サービス証明書と同じプロセスを使用してクライアントの証明書を生成しますが、Subject Alternative Name（SAN）フィールドにクライアントの IP アドレスまたはホスト名を指定します。</block>
-  <block id="7e149778506ad674e9167e6a9ede4c50" category="list-text">クライアントの証明書をクライアントに安全にリモートコピーし、クライアント上で証明書の名前を<block ref="691869bca85baab2f31b7f268617f791" prefix=" " category="inline-code"></block>に変更します：</block>
   <block id="9a8f498ef2f8533780a49bdb44bb0454" category="list-text">すべてのクライアントで BeeGFS クライアント サービスを再起動します：</block>
-  <block id="fa1d20e2b4fca12fce86d5372a0621e2" category="list-text"><block ref="75d0bc4c4ec9c5f71d6f1455a6f8e277" prefix=" " category="inline-code"></block>コマンドを実行して、クライアントの接続を確認します。次に例を示します：</block>
   <block id="44a2fcbbf437fc6826e6360bc761605f" category="section-title">TLSの無効化</block>
-  <block id="a243eee09ea504b9a1b1e0e8b93843e5" category="paragraph">TLSはトラブルシューティングのため、またはユーザーの希望に応じて無効にすることができます。ただし、内部ファイルシステムの構造や設定に関する機密情報が平文で公開される可能性があるため、無効にすることは推奨されません。既存または新規のBeeGFS v8クラスターでTLSを無効にするには、以下の手順に従ってください。</block>
-  <block id="75fcac7cefc40e8fed5deeae5aabf145" category="paragraph">新しい BeeGFS クラスターのデプロイメントでは、Ansible インベントリの<block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block>ファイルで次のパラメーターを設定することで、TLS を無効にしてクラスターをデプロイできます：</block>
-  <block id="4878cc75036d357f750a8f351d09c5bb" category="paragraph">既存のBeeGFS v8クラスタの場合は、管理サービスの設定ファイルを編集します。例えば、<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>のファイルを編集し、以下のように設定します：</block>
-  <block id="4db72f0968cf45cd9184a3db764f16e1" category="paragraph">変更を有効にするには、適切な処置を行って管理サービスを安全に再起動してください。</block>
+  <block id="72253fa321ba87c867bef62316da9c27" category="summary">BeeGFS 7.4からBeeGFS 8へのアップデート。</block>
+  <block id="8e96631d30847a878d1fd0c115dc2648" category="doc">BeeGFS 8にアップグレード</block>
+  <block id="487ba15adaaba126338aaa7dbcd5f2db" category="paragraph">BeeGFS HA クラスタを BeeGFS 7.4 から BeeGFS 8 にアップグレードするには、次の手順を実行します。</block>
+  <block id="7b50f0fcc5d414b350635116192b1637" category="paragraph">BeeGFS 8では、BeeGFS 7からアップグレードする前に追加の設定が必要となる重要な変更点がいくつか導入されています。このドキュメントでは、BeeGFS 8の新しい要件に合わせてクラスタを準備し、その後BeeGFS 8にアップグレードする手順について説明します。</block>
+  <block id="8e50e2820ee60dbe7a5700b68534623b" category="inline-link-macro">BeeGFS 7.4にアップグレードする</block>
+  <block id="f3e3e62a255a3c2e763f6ca630077a08" category="admonition">BeeGFS 8にアップグレードする前に、システムに少なくともBeeGFS 7.4がインストールされていることを確認してください。BeeGFS 7.4より前のリリースを実行しているクラスターは、BeeGFS 8にアップグレードする前に、まず<block ref="91a6f7fdd1bd61acca223807d3b77638" category="inline-link-macro-rx"></block>を実行する必要があります。</block>
+  <block id="bc45e6a4accbe1005ca99695d3b703ff" category="section-title">BeeGFS 8の主な変更点</block>
+  <block id="7f1a2167b15e6b93fd9a5189bad4a53f" category="paragraph">BeeGFS 8では、以下の主要な変更点が導入されています：</block>
+  <block id="0293a1414ea4be36f3890e608e258076" category="list-text">**ライセンスの適用：** BeeGFS 8 では、ストレージプール、リモートストレージターゲット、BeeOND などのプレミアム機能を使用するにはライセンスが必要です。アップグレードする前に、BeeGFS クラスター用の有効なライセンスを取得してください。必要に応じて、BeeGFS 8 の一時的な評価ライセンスを<block ref="45463b3c38760d5d45ce59919bf1b841" category="inline-link-macro-rx"></block>から取得できます。</block>
+  <block id="aecd925640dac505f71763cdbaca5a7d" category="list-text">**管理サービスデータベースの移行：** BeeGFS 8 で新しい TOML ベースのフォーマットを使用して構成を有効にするには、BeeGFS 7 の管理サービスデータベースを更新された BeeGFS 8 フォーマットに手動で移行する必要があります。</block>
+  <block id="dfe55ffdf5dd132f14e527cc47412cee" category="list-text">**TLS暗号化：** BeeGFS 8では、サービス間の安全な通信のためにTLSが導入されました。アップグレードの一環として、BeeGFS管理サービスと<block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block>コマンドラインユーティリティ用のTLS証明書を生成して配布する必要があります。</block>
+  <block id="973bf53b2e146c728409e109a7e8c6ea" category="inline-link-macro">BeeGFS 8.0.0 アップグレードガイド</block>
+  <block id="2ff73e03792971e750c326cb9bd1a8ba" category="paragraph">BeeGFS 8 の詳細と追加の変更については、<block ref="5a86e8ec6681433abb7812184707bc7f" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="d347bb229366d2cd39d8268b7979c440" category="paragraph">BeeGFS 8へのアップグレードにはクラスタのダウンタイムが必要であり、BeeGFS 7クライアントはBeeGFS 8クラスタに接続できません。運用への影響を最小限に抑えるため、アップグレードのタイミングを慎重に調整してください。</block>
+  <block id="e70cdaccb10a5ae6b1e9e3819990c388" category="inline-link-macro">サポートされている Linux ディストリビューションとカーネルバージョン</block>
+  <block id="03c709b2357165dd01344d247dfff304" category="list-text">すべてのサーバーとクライアントが BeeGFS 8 用の<block ref="90e5931eb52b4a894ab726deaac9e6c3" category="inline-link-macro-rx"></block>を使用していることを確認してください。</block>
+  <block id="619c5c28e4d8acedcbb630b98da47455" category="list-text">クラスタ構成を記録し、バックアップしてください。BeeGFS管理サービスのデータは、管理データベースのアップグレードプロセスの一環として、後日バックアップされます。</block>
+  <block id="3dc6d3cb4d8ab68ff293bf6c6bb25ccb" category="list-text">BeeGFSクライアントで以下のコマンドを実行し、出力結果を参考のために保存してください：</block>
+  <block id="8921161ba5183711ee64033dc857fbe1" category="list-text">ミラーリングを使用している場合は、両方のミラーメンバーが「再同期が必要」状態になった場合に元のプライマリターゲットを特定できるように、詳細な状態情報を収集してください：</block>
+  <block id="76d4c0df335a6e6c36c38392b0ea1d0e" category="list-text">ミラーリングを使用している場合は、アップグレードを進める前に、すべてのバディグループが<block ref="45802158e78dd9584161629098018fe8" prefix=" " category="inline-code"></block>状態であることを確認してください。</block>
+  <block id="68a0d3efc72114ee4f244894d95f383a" category="list-text">BeeGFSシステムを以下の順序で停止します：</block>
+  <block id="3deddcac68f3d763246b32b6548c4362" category="list-text">各クライアントで、BeeGFSファイルシステムをアンマウントし、<block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>サービスを停止します。クライアントごとに以下を実行します：</block>
+  <block id="60e4d9dc6105a05d39d2c268e7cefd68" category="list-text">各Pacemakerクラスターについて、STONITHを無効にして、不要なノードの再起動をトリガーすることなく、アップグレード後にクラスターの整合性を検証できるようにします：</block>
+  <block id="7e79adae590f71b278e4eb8ef314e346" category="list-text">すべてのPacemakerクラスターで、クラスターを停止します：</block>
+  <block id="17eafe0d1cb91108ed6d807530b492e8" category="section-title">BeeGFS管理パッケージをアップグレードする</block>
+  <block id="61280aa1ae3b91eeea817a5957fbd463" category="paragraph">クラスター内のすべてのファイルノードに、お使いのLinuxディストリビューション用のBeeGFS 8パッケージリポジトリを追加してください。Linux ディストリビューションに公式 BeeGFS リポジトリを追加する手順は、<block ref="8e84e2db8ba21bb6829cde407c9405a0" category="inline-link-macro-rx"></block>にあります。そうでない場合は、ローカルのBeeGFSミラーリポジトリを適切に設定してください。</block>
+  <block id="05344b8c4b6a7c32c9cd1626e8181e01" category="list-text">クラスタの最初の 2 つのファイルノードで、 BeeGFS 管理デーモンパッケージのみを BeeGFS 8 に更新します。</block>
+  <block id="ae4947080edc0d293d37b0648c83a267" category="paragraph">RHEL の場合、 BeeGFS リポジトリを設定した後、次のコマンドを実行します。</block>
+  <block id="91ab38a502484bc59e054a71e469c62a" category="paragraph">BeeGFS管理サービスを実行しているファイルノードのいずれかで、以下の手順に従って管理データベースをBeeGFS 7からBeeGFS 8に移行します。</block>
+  <block id="a60d64a20c659165cf4e992505615a93" category="list-text">すべてのNVMeデバイスを一覧表示し、管理対象を特定します：</block>
+  <block id="60d9acf76d55f05b287ee9f15d9cf6eb" category="paragraph">出力からデバイスパスをメモしてください（例：<block ref="bfa5022fa2a135155356c86af66dcec1" prefix=" " category="inline-code"></block>）。</block>
+  <block id="a46e3e4e2ebf534395d2f9672e9b878a" category="list-text">管理データディレクトリのバックアップを実行します：</block>
+  <block id="3c987359ca72b9c0e08c87935c635064" category="paragraph">BeeGFS 8では検証要件が厳格化されたため、自動インポートが必ずしも成功するとは限りません。例えば、存在しないストレージプールにターゲットが割り当てられた場合、インポートは失敗します。移行が失敗した場合は、アップグレードを続行しないでください。NetAppサポートに連絡して、データベース移行の問題の解決についてサポートを受けてください。問題が解決されるまでの間、BeeGFS 8の管理パッケージをダウングレードして、BeeGFS 7を引き続き使用することができます。</block>
+  <block id="603d83581d54d474792b0477e4f3d6ea" category="paragraph">以下のセクションのライセンスおよびTLS設定手順を完了した後、<block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>設定ファイルを準備します。</block>
+  <block id="b33b3524c7d5f9f7273201fa2f379e0d" category="section-title">残りのBeeGFSパッケージをアップグレードする</block>
+  <block id="7caf087ac23fad2c3d1329943412ac95" category="paragraph">管理データベースの移行が完了したら、クラスタ内のすべてのファイルノードで残りのBeeGFSパッケージをアップグレードします。RHELの場合、BeeGFSリポジトリを設定した後、以下のコマンドを実行してください：</block>
+  <block id="8f7ccc70867bdcb06bb8acbaf7cb0ca8" category="list-text">BeeGFS管理サービスを実行しているすべてのノードに、BeeGFSライセンスパッケージをインストールしてください。これは通常、クラスタの最初の2つのファイルノードです：</block>
+  <block id="8d8cec241b3edacf096ebaa37339f828" category="list-text">BeeGFS 8のライセンスファイルを管理ノードにダウンロードし、以下の場所に配置してください：</block>
+  <block id="9799d69d7fb5e11e638f64935f27974b" category="paragraph">BeeGFS 8では、管理サービスとBeeGFS CLIツール<block ref="fc175616be221be5011002280876bbd0" prefix="(" category="inline-code"></block>間の安全な通信のためにTLS暗号化が必要です。次の3つの構成方法から1つを選択してください：信頼できる認証局によって署名された証明書を使用する、独自のローカル認証局を作成してBeeGFSクラスターの証明書に署名する、またはトラブルシューティングのためにTLSを完全に無効にする（本番環境では推奨されません）。</block>
+  <block id="414c4d2cf650dac4794db6f1cce9f4e6" category="paragraph">ファイルノードの管理サービスに対してTLS暗号化を設定するには、<block ref="e3c7ea953a175f52b03d1d2c1e8cb9ae" category="inline-link-macro-rx"></block>ガイドを使用します。</block>
+  <block id="9ebd0e647c42510b28d125669b844857" category="paragraph">クライアントTLS設定は、BeeGFSクライアントのアップグレード後に完了します。この段階では、ファイルノード上の管理サービスとbeegfs-toolに対してのみTLSを設定します。</block>
+  <block id="ce499b67cd2459e0ee3565b552f21436" category="paragraph">BeeGFS 7 の設定ファイルから設定を手動で<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>ファイルに転送して、BeeGFS 8 管理サービス設定ファイルを準備します。</block>
+  <block id="ef94f29e33889f2fcf9fa365d6d12729" category="list-text">管理ターゲットがマウントされている管理ノードで、<block ref="eaa3ac0f6fad8fb99f543716d1ae91f4" prefix=" " category="inline-code"></block>管理サービスファイルでBeeGFS 7を参照し、すべての設定を<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>ファイルに転送します。基本的なセットアップの場合、<block ref="6b99a83e5fac72ae948428a59578af2f" prefix=" " category="inline-code"></block>は次のようになります：</block>
+  <block id="b799b9cba47e213306792774b923941f" category="list-text">beegfsゾーンにTCPポート8010を追加します：</block>
+  <block id="32f19259d232262285179ae72e6587b3" category="paragraph">Pacemaker<block ref="2aa0098b2c775ff5e1bd67c26714b0dd" prefix=" " category="inline-code"></block> Open Cluster Framework（OCF）スクリプトは、新しいTOML設定フォーマットとsystemdサービス管理をサポートするために更新が必要です。クラスター内の1つのノードでスクリプトを更新し、更新されたスクリプトを他のすべてのノードにコピーします。</block>
+  <block id="ea388b4ca424bcbc3897bc1825c1cb04" category="list-text">先に進む前に、以下のコマンドを実行してスクリプトの構文エラーをチェックしてください。何も出力されない場合は、スクリプトの構文は正しいです。</block>
+  <block id="698f27c1e497d30737c19616610810f5" category="list-text">更新された<block ref="2aa0098b2c775ff5e1bd67c26714b0dd" prefix=" " category="inline-code"></block> OCF スクリプトをクラスター内の他のすべてのノードにコピーします：</block>
+  <block id="ecfec930ef8f44608329e77872f9b9d7" category="list-text">これまでのアップグレード手順をすべて完了したら、すべてのノードでBeeGFSサービスを開始して、クラスタをオンラインに戻してください。</block>
+  <block id="382e1191fe70f75ab56fe71ed6cd44b1" category="paragraph">ジャーナルログにエラーが表示された場合は、管理構成ファイルのパスを確認し、BeeGFS 7構成ファイルからすべての値が正しく転送されたことを確認してください。</block>
+  <block id="f0881e86a89427ef3c69efc3a7dd7424" category="list-text">次のセクションに進み、BeeGFSクライアントをアップグレードして、クラスタの健全性を確認してください。</block>
+  <block id="62a0d88b5dfd4415e5aa2db6cb3ebc6b" category="paragraph">クラスターを BeeGFS 8 にアップグレードした後は、すべての BeeGFS クライアントもアップグレードする必要があります。</block>
+  <block id="dee3defe9fbfb48125695f924fa113c7" category="list-text">BeeGFSクライアントサービスをまだ停止していない場合は、今すぐ停止してください：</block>
+  <block id="b9d6ce4eced944cff6cda0825445eb27" category="list-text">お使いのLinuxディストリビューションにBeeGFS 8パッケージリポジトリを追加してください。公式BeeGFSリポジトリを追加する手順は、<block ref="8e84e2db8ba21bb6829cde407c9405a0" category="inline-link-macro-rx"></block>を参照してください。そうでない場合は、ローカルのBeeGFSミラーリポジトリを適切に設定してください。</block>
+  <block id="15c708dae6016499ca8bb40defa88de0" category="paragraph">Ubuntu/Debianの場合：</block>
+  <block id="cdf7e1686dc1f1a54dbd96f243f13e04" category="inline-link-macro">BeeGFS 8クライアント向けにTLSを設定する</block>
+  <block id="7eccc333ed2b2a63b6ef04af78507bb3" category="list-text">クライアントに対してTLSを設定します。クライアントノードからBeeGFS CLIを使用するには、TLSが必要です。TLS導入ガイドの<block ref="ff98af96113fffbeab7c963b2f698c8b" category="inline-link-macro-rx"></block>セクションを参照してください。</block>
+  <block id="f76d790b691c2b5909c5fb2375c02430" category="paragraph"><block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>サービスがBeeGFSファイルシステムをマウントする際にTLSは必須ではありません。TLSは、BeeGFS CLIツールやその他の管理サービスを使用する場合にのみ必要です。</block>
+  <block id="793b08502db5ac83374b9c9f149e4bf8" category="paragraph">BeeGFSのマウントに失敗した場合は、システムジャーナルにエラーがないか確認してください。「ルートメタデータノードが正常に動作していないため、処理を続行できません」または「リモートI/Oエラー」などのメッセージが表示される場合、BeeGFS 7のインポートが正常に完了していない可能性があります。NetAppサポートにお問い合わせください。</block>
+  <block id="c346e24b2fd9ba14619c772ed8c19676" category="list-text">（オプション）BeeGFS管理コマンドを実行するクライアントノードまたはその他のシステムに、新しい<block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block> CLIツールをインストールして設定します：</block>
+  <block id="07d530180bfae42a4e9f934dcd407b50" category="list-text"><block ref="115fa7c26bd8ea199e43b9f59792679b" prefix=" " category="inline-code"></block>パッケージをインストールします：</block>
+  <block id="f97aee806483e960f62084493a6d95a4" category="list-text"><block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block>ツールのTLSを設定します。クライアントノードからBeeGFS CLIを使用するには、TLSが必要です。TLS導入ガイドの<block ref="ff98af96113fffbeab7c963b2f698c8b" category="inline-link-macro-rx"></block>セクションを参照してください。</block>
+  <block id="f410ef6363be732849ed5e3dbd027b17" category="paragraph">BeeGFS 8へのアップグレードが完了したら、以下のコマンドを実行してアップグレードが成功したことを確認してください。</block>
+  <block id="8b42a518a5292afc8e0145ee5294bf23" category="list-text">すべてのノードとターゲットがオンラインで正常な状態であることを確認してください：</block>
+  <block id="1167fcb1143e77c4f2ea67e9f5a674e3" category="admonition">BeeGFS 8にアップグレードする場合は、<block ref="554c069750f22866df129b110bbafec1" category="inline-link-macro-rx"></block>の手順を参照してください。</block>
+  <block id="373eee0000ce2875462c27810b26b166" category="cell"><block ref="554c069750f22866df129b110bbafec1" category="inline-link-macro-rx"></block>手順の指示に従ってアップグレードします。</block>
+  <block id="2b6f6409e949b4de2a4d8346be522b48" category="paragraph">BeeGFS 8の管理サービスとクライアント間の通信を保護するために、TLS暗号化を設定します。</block>
+  <block id="954750d4740ace3318d7adb7b79dbcca" category="paragraph">BeeGFS 8 では、管理ツール（<block ref="fc175616be221be5011002280876bbd0" prefix=" " category="inline-code"></block>コマンドラインユーティリティなど）と Management や Remote などの BeeGFS サーバーサービス間のネットワーク通信を暗号化するための TLS サポートが導入されています。BeeGFS クラスターで TLS 暗号化を設定するには、次の 3 つの方法のいずれかを使用します：</block>
+  <block id="673eb205082d0eb91b1b5786b274211c" category="list-text">*信頼できる認証局を使用する：* BeeGFS クラスターで既存の CA 署名付き証明書を使用します。</block>
+  <block id="ed34b503bbe2a3eee3232d65d05c25fe" category="list-text">*ローカル Certificate Authority の作成：* ローカル Certificate Authority を作成し、それを使用して BeeGFS サービスの証明書に署名します。この方法は、外部の CA に頼らずに独自の信頼チェーンを管理したい環境に適しています。</block>
+  <block id="737927a6e6034067fd15a2021053c565" category="list-text">*TLS 無効：* 暗号化が不要な環境やトラブルシューティングのために、TLS を完全に無効にします。このオプションは、ファイルシステムの構造や構成に関する機密情報を平文で公開してしまう可能性があるため、本番環境では避けてください。</block>
+  <block id="862f711cf6d5d20d52d0627a1e10dcda" category="paragraph"><block ref="976bae16a27bdb18aba01a29b5cc2d4e" prefix=" " category="inline-code"></block>サービスを実行しているクライアントは、BeeGFSファイルシステムをマウントするためにTLSを必要としません。BeeGFS CLIおよびRemoteやSyncなどのその他のBeeGFSサービスを使用するには、TLSが必要です。</block>
+  <block id="aa2a5b840fe0c679fe38202f937b3107" category="paragraph">信頼できる認証局（CA）が発行した証明書（社内のエンタープライズCAまたはサードパーティプロバイダーの証明書）にアクセスできる場合は、自己署名証明書を生成する代わりに、これらのCA署名付き証明書を使用するようにBeeGFS 8を設定できます。</block>
+  <block id="61e951d08f0a05993867e0bf9a2f1322" category="section-title">新しいBeeGFS 8クラスタの導入</block>
+  <block id="3fb2817111189db4a8e6ee85190a07cb" category="paragraph">新しい BeeGFS 8 クラスタの導入では、Ansible インベントリの<block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block>ファイルを設定して、CA 署名付き証明書を参照します：</block>
+  <block id="f9ce69a9dd4eedff93db8898166a5f54" category="section-title">既存のBeeGFS 8クラスタの設定</block>
+  <block id="84387864bc1fc6ab2e4935c32924d6a2" category="paragraph">既存のBeeGFS 8クラスタの場合、BeeGFS管理サービスの構成ファイル内のパスを、ファイルノードのCA署名付き証明書に設定します：</block>
+  <block id="4e1df9b78a0f5614be074aecc19d6433" category="section-title">CA署名付き証明書を使用したBeeGFS 8クライアントの設定</block>
+  <block id="f1b9839a9365e95cb687403cb8d37044" category="paragraph">既存の BeeGFS 7 クラスターを BeeGFS 8 にアップグレードする場合は、<block ref="76d184c6fdb20afaf15fe2ab8037ab93" category="inline-link-macro-rx"></block>の手順に従ってください。アップグレード手順で指示されるまで、クライアント TLS を設定しないでください。</block>
+  <block id="f8de778bc9cbc5b8095e2fe165c8d2f9" category="paragraph">BeeGFS 8 クライアントがシステムの証明書プールを使用して CA 署名付き証明書を信頼するように構成するには、各クライアントの構成で tls-cert-file = "" を設定します。システム証明書プールが使用されていない場合は、tls-cert-file = &lt;local cert&gt;を設定してローカル証明書へのパスを指定します。この設定により、クライアントはBeeGFS管理サービスから提示された証明書を認証できるようになります。</block>
+  <block id="6f96126337b5fc563fd3b0362bb62f4f" category="paragraph">BeeGFSクラスタ用に独自の証明書インフラストラクチャを構築する場合は、ローカル証明機関（CA）を作成して、BeeGFSクラスタ用の証明書の発行と署名を行うことができます。このアプローチでは、BeeGFS管理サービスの証明書に署名するCAを作成し、署名された証明書をクライアントに配布して信頼チェーンを確立します。</block>
+  <block id="bf80a924574ce14834987121182cfb36" category="paragraph">新しい BeeGFS 8 の展開では、<block ref="ec892555a981d412f5bdffa7fba2b850" prefix=" " category="inline-code"></block> Ansible ロール（BeeGFS HA コレクションに含まれています）は、制御ノード上にローカル CA を作成し、管理サービスに必要な証明書を生成します。Ansible インベントリの<block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block>ファイルで以下のパラメータを設定することで、これを有効にできます：</block>
+  <block id="a384a46ebf47985236c178f873078aba" category="paragraph">これらの手順を参考にしてください。秘密鍵や証明書を取り扱う際は、適切なセキュリティ対策を講じてください。</block>
+  <block id="89f77c68f3de67e825c22d30f26ce860" category="list-text">CA証明書を生成します。この証明書は、システムの稼働期間中有効である必要があります。証明書の有効期限が切れる前に、再発行する計画を立ててください。証明書の有効期限が切れると、一部のコンポーネント間の通信が失敗します。TLS証明書を更新するには、通常、サービスの再起動が必要です。</block>
+  <block id="e4397441a347f06497cfe052ec878197" category="paragraph">CA 構成に一致するように識別名フィールドを更新し、<block ref="5cb62dfdaa16bd51f4f1b7a738a0f210" prefix=" " category="inline-code"></block>と<block ref="4eb2ee17c10e6b738537e69e439e9bf6" prefix=" " category="inline-code"></block>の値を管理サービスの IP アドレスに置き換えます。</block>
+  <block id="c4581ee7a54bd38e5809c49fb22426ae" category="list-text">BeeGFS管理サービスを再起動します。</block>
+  <block id="41b869a664d853be32188b055da18994" category="paragraph">BeeGFS管理サービスとの通信を必要とするすべてのBeeGFSクライアントに対し、ローカルCAによって署名された証明書を作成し、配布する。</block>
+  <block id="40faa4e394e25939a84f7a4af84e210e" category="list-text"><block ref="122ac6d6f39e0a068dca0c04a36892a7" category="inline-xref-macro-rx"></block>に記載されているのと同じプロセスを使用してクライアント証明書を生成し、Subject Alternative Name（SAN）フィールドにクライアントのIPアドレスまたはホスト名を代入します。</block>
+  <block id="03036b756bd8bf1285fbe7cf5d593a4c" category="list-text">クライアント証明書をクライアントノードにコピーして、名前を<block ref="691869bca85baab2f31b7f268617f791" prefix=" " category="inline-code"></block>に変更します：</block>
+  <block id="d58f14aa5a632979dea0fe80d7f21d75" category="list-text">BeeGFS CLIコマンドを実行して、クライアントの接続性を確認します。次に例を示します。</block>
+  <block id="aa5666a197918e61cf83bf2ec2bbc4dd" category="paragraph">トラブルシューティングのため、または環境で暗号化が不要な場合は、TLSを無効にしてください。このオプションは、ファイルシステムの構造や構成に関する機密情報を平文で公開してしまう可能性があるため、本番環境では避けてください。</block>
+  <block id="6ba6045a6a127818d1a8a2cc4425c72b" category="paragraph">新しい BeeGFS クラスターのデプロイでは、Ansible インベントリの<block ref="c7135bdf90abac7415c772ec8dcfeba9" prefix=" " category="inline-code"></block>ファイルで次のパラメータを設定して TLS を無効にします：</block>
+  <block id="0c9adf6b0565c1d4304a5a5a88a44780" category="paragraph">既存のBeeGFS 8クラスターの場合は、管理サービス構成ファイルを編集してください。例えば、以下のファイルを編集します。<block ref="72236c874d89b43c28121363169fbad7" prefix=" " category="inline-code"></block>そして設定します：</block>
+  <block id="972c9c876288f75240fbe7504363d427" category="paragraph">変更を有効にするには、管理サービスを再起動してください。</block>
+  <block id="e67619627e47cd216196235b1a0f2669" category="section-title">要件の概要</block>
+  <block id="b0bd6012e99dc036bc7b9a7733b52448" category="paragraph">このページでは、NetApp 構成要素に BeeGFS を実装するためのハードウェア、ソフトウェア、ファームウェアの要件について詳しく説明します。要件は以下のセクションに分けられています：</block>
+  <block id="2e4750ad5b034d585cf9cda6ab0274fc" category="list-text"><block ref="9ff533a308c0ff498b54a0f37e1b561b" category="inline-xref-macro-rx"></block> - ファイルノード（ハードウェア/ソフトウェア/ファームウェア）、ブロックノード（ハードウェア/ファームウェア）、ネットワーク、およびケーブル配線</block>
+  <block id="17fef7322c7d63e44bec1b8d162a71ed" category="list-text"><block ref="1d6d93c917cd7c598919c2db6fbe9c43" category="inline-xref-macro-rx"></block> - Ansibleでデプロイされたコンポーネント</block>
+  <block id="ca5e93c0d1c69cb3e012459b9816be56" category="list-text"><block ref="be0065c7761ef2b223096998be6ad266" category="inline-xref-macro-rx"></block> - コントロールノードソフトウェアのバージョン</block>
+  <block id="64213f806dbb3535ceada7e44b199e6d" category="paragraph">開始する前に、ハードウェアがNetAppソリューション上のBeeGFSの単一ビルディングブロック設計の以下の仕様を満たしていることを確認してください。特定の導入における具体的な構成要素は、顧客の要件に基づいて異なる場合があります。期待される性能を達成するには、各ファイルノードはこれらの仕様を満たすか、それを上回る必要があります。</block>
+  <block id="b36d2184563e1bcc51472085da9e4a72" category="cell">仕様</block>
+  <block id="2af805027d0e366bdf84789ed4597621" category="paragraph">*ハードウェア：*</block>
+  <block id="940cc4b439cc0d7c479f5b63c6ba0193" category="list-text">*プロセッサ：* 2x AMD EPYC 9124 16C 3.0 GHz（2つのNUMAゾーンとして構成）</block>
+  <block id="5f17ba443899aeb352517da2953b3a9e" category="list-text">*HCA Cards：* 4x MCX755106AS-HEAT ConnectX-7、NDR200、QSFP112、2ポート、PCIe Gen5 x16、InfiniBandアダプタ</block>
+  <block id="4eb8a12cb113dbaf2c64b7c7c3200cbd" category="list-text">*ストレージ：* OS用にRAID 1構成のドライブ2台（1TB 7.2K SATA以上）</block>
+  <block id="f9056d8c14964eb81b45438cf782d034" category="list-text">*管理：* インバンドOS管理用の1GbEポート</block>
+  <block id="c7f88301e585c9464204935159e7ddd9" category="list-text">*BMC：* 1GbE BMC と Redfish API による帯域外サーバー管理</block>
+  <block id="e5ee8dc94acd119da3076f38a47eec81" category="list-text">*パワー：*デュアル ホット スワップ電源ユニットとパフォーマンス ファン</block>
+  <block id="62a335d848ecec1fb772b590af02bbdd" category="paragraph">*ソフトウェアおよびファームウェア：*</block>
+  <block id="e07fd8d767f1c119203e0faf12a8c506" category="list-text">*オペレーティング システム：* Red Hat 9.4 Server Physical with High Availability（2 socket）</block>
+  <block id="db535ed6f35edd0ef13295f8de092004" category="list-text">*Linux Kernel：* 5.14.0-427.42.1.el9_4.x86_64</block>
+  <block id="000cdd92b9cd009a3caac741716dbb2a" category="list-text">*HCA ファームウェア：* FW：28.46.1006、PXE：3.8.0100、UEFI：14.39.0013</block>
+  <block id="359b85bdaa40813abfcf68136e436422" category="admonition">ファイル ノードには、有効な Red Hat Enterprise Linux Server サブスクリプションと Red Hat Enterprise Linux High Availability Add-On が必要です。</block>
+  <block id="aa8884b6bbe0d714ded5b1498defb4d6" category="section-title">ブロックノードの要件</block>
+  <block id="868087ec71be4b3eadc720c493a93a63" category="paragraph">各ビルディング ブロックには、同じモデルの E-Series アレイが 2 つ必要です。同じビルディング ブロック内でアレイ モデルを混在させないでください。</block>
+  <block id="a559b87068921eec05086ce5485e9784" category="cell">モデル</block>
+  <block id="8c2572494cd8e2b146b24821b42e7fbe" category="cell">EF80</block>
+  <block id="47afcbee406934178b3a46d7784f3c8e" category="list-text">*メモリ：* 128GB（コントローラあたり64GB）</block>
+  <block id="67b11734faa34133649bc65b7e11c281" category="list-text">*アダプター：* 2x 2ポート200Gb/NDR（NVMe/IB）</block>
+  <block id="5aedf4de6b8ec88d24c739d67bef73c2" category="list-text">*ドライブ：* 希望するメタデータとストレージ容量に合わせて構成されています</block>
+  <block id="ac256a0dbe7e552ca052ec7fb099aa33" category="paragraph">*ファームウェア：*</block>
+  <block id="b9eef6b8a532e155dc104f96f4ad1c86" category="list-text">*SANtricity OS：* 12.00</block>
+  <block id="d9b7e1de7caa03957dbc662965b2ff88" category="list-text">*NVSRAM：* NEF80-200834-D00</block>
+  <block id="35b6e7d8c6d4e6c3921f12c7d3c5a66a" category="list-text">*ドライブファームウェア：*お使いのドライブモデルで利用可能な最新版（<block ref="dc6c914f008159d5969a25304ddfb479" category="inline-link-macro-rx"></block>参照）</block>
+  <block id="ae149e14affd7d147aaaac4e778a78b9" category="cell">EF600</block>
+  <block id="93b110f46914a05daac9aea23fc3d2ed" category="list-text">*メモリ：* 256GB（コントローラあたり128GB）</block>
+  <block id="8db28be59a9d835b543adcfbc5bff0c1" category="list-text">*アダプター：* 2ポート200Gb/HDR（NVMe/IB）</block>
+  <block id="eee833cef48ecf29f71b13b60f696a30" category="list-text">*SANtricity OS：* 11.90R5</block>
+  <block id="4630012110960ebde581b84f69d6bdff" category="list-text">*NVSRAM：* N6000-890834-D02</block>
+  <block id="2618dac0ed09460ae4b3991e9cf26f4b" category="section-title">ストレージ ネットワーク スイッチの要件</block>
+  <block id="be220d8fe159330d95cef788d5a315b2" category="paragraph">*NVIDIA QM9700 Quantum 2 NDR InfiniBand スイッチ*</block>
+  <block id="757b798ba877c3623266d13b08a44ec0" category="paragraph">ストレージ ネットワーク スイッチは200Gb/s InfiniBand速度に対応している必要があります。NVIDIA QM9700は、クラスター用途に推奨されるスイッチです。</block>
+  <block id="8deaae22d76453b17a29b5833b362b40" category="admonition">NVIDIA MQM8700 Quantumなどの代替スイッチを使用することもできますが、異なるケーブルが必要です。</block>
+  <block id="15c648a5d5dbf82c158e6c48e82994d7" category="section-title">ブロックノードからファイルノードへのケーブル</block>
+  <block id="c57532676b04d14214d3d2a89b1e90d4" category="paragraph">ブロックノードからファイルノードへの直接接続には、以下のケーブルが必要です：</block>
+  <block id="5c8883d2963443d7244bd81a1e110519" category="cell">ケーブル仕様</block>
+  <block id="74c47af9384006b279a923b5d7a78d53" category="cell">MCP1650-H001E30 - NVIDIA パッシブ銅ケーブル、QSFP56、200Gb/s</block>
+  <block id="d3402f558c2f4a0c522c4374c40173dd" category="section-title">ファイル ノードとストレージ スイッチ間のケーブル</block>
+  <block id="b6d7c30a41e805e17ff0ce4bde483c55" category="paragraph">NVIDIA QM9700 Quantum 2スイッチには、次のケーブルタイプが推奨されます。要件に応じて、アクティブファイバーまたはパッシブ銅のいずれかを選択してください。数量はビルディングブロックあたりです。</block>
+  <block id="c1ca36cf48f6569dac617b418f94f9da" category="cell">8.2.2</block>
+  <block id="d1d90da11d99e32fc537b57f80cbcf54" category="cell">DOCA-OFED-25.04-0.6.1</block>
+  <block id="7faeec3d272571635e8c36c41572e3bd" category="cell">&gt;= 2.19.0</block>
+  <block id="a2bf67683e2950dfa2205ae8f12469f9" category="cell">3.12</block>
+  <block id="a723d09c4a79d2251b5f988c605243d1" category="cell">Cryptography-46.0.3、netaddr-1.3.0、ipaddr-2.2.0</block>
+  <block id="495063beeac89309a2247ce9c13ed292" category="cell">4.0.0</block>
 </blocks>
