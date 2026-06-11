@@ -202,7 +202,7 @@ CAUTION: インターフェイスの名前を変更したときの競合を回�
 
 +
 
-NOTE: 検証済みファイルノードモデルを使用している場合は、をクリックします link:https://docs.netapp.com/us-en/beegfs/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["こちらをご覧ください"^] PCIeアドレスと論理ポートのマッピングの例
+NOTE: 検証済みのファイルノードモデルを使用している場合は、link:https://docs.netapp.com/us-en/beegfs/second-gen/beegfs-deploy-create-inventory.html#step-4-define-configuration-that-should-apply-to-all-file-nodes["こちらをご覧ください"^]をクリックしてください（PCIeアドレスと論理ポートのマッピングなど）。
 
 
 
@@ -255,7 +255,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
-をクリックします link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/ha_cluster.yml["こちらをご覧ください"^] 一般的なファイルノード設定を表す完全なインベントリファイルの例を次に示します。
+link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/group_vars/ha_cluster.yml["こちらをご覧ください"^]をクリックすると、一般的なファイルノード構成を表す完全なインベントリファイルの例が表示されます。
 
 
 

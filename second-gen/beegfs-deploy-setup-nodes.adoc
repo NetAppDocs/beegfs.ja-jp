@@ -49,7 +49,7 @@ NOTE: 厳密には必須ではありませんが、以降のセクションで�
 ....
 subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpms --add=enabled:1
 ....
-. ガイドの使用link:..administer/clusters-update-hca-firmware.html["ファイルノードアダプタファームウェアの更新"^]で推奨されているバージョンにすべてのHCAファームウェアを更新しますlink:beegfs-technology-requirements.html["テクノロジ要件"]。
+. link:beegfs-technology-requirements.html["テクノロジ要件"]で推奨されているバージョンにすべてのHCAファームウェアをlink:../administer/clusters-update-hca-firmware.html["ファイルノードアダプタファームウェアの更新"^]ガイドを使用してアップデートしてください。
 
 
 

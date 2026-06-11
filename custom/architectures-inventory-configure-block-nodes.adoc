@@ -132,7 +132,7 @@ eseries_controller_nvme_roce_port_speed: auto            # General interface spe
 
 iSCSI CHAPの設定など、HICポートとホストプロトコルを設定するその他のオプションについては、を参照してください link:https://github.com/netappeseries/santricity/tree/release-1.3.1/roles/nar_santricity_host#role-variables["ドキュメント"^] SANtricity コレクションに含まれています。注：BeeGFSを導入する場合は'ストレージ・プール'ボリューム構成'その他のプロビジョニング・ストレージの設定は他の場所で行いますこのファイルでは定義しないでください
 
-をクリックします link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/host_vars/ictad22a01.yml["こちらをご覧ください"^] たとえば、1つのブロックノードを表す完全なインベントリファイルなどです。
+link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/host_vars/netapp_01.yml["こちらをご覧ください"^]をクリックすると、単一のブロックノードを表す完全なインベントリファイルの例が表示されます。
 
 
 

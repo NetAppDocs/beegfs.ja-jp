@@ -120,7 +120,7 @@ NOTE: BeeGFS HAロールは、サポートされるメジャーマイナーバ�
 . オプション：追加のタスクを定義する場合は、タスクの指示を考慮してください `all` ホスト（Eシリーズストレージシステムを含む）またはファイルノードのみ。必要に応じて、を使用して、ファイルノードを対象とした新しいプレイを定義します `- hosts: ha_cluster`。
 
 
-をクリックします link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/playbook.yml["こちらをご覧ください"^] に、完全なPlaybookファイルの例を示します。
+link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_playbook.yml["こちらをご覧ください"^]をクリックすると、完全なプレイブックファイルの例が表示されます。
 
 
 

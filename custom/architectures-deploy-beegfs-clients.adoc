@@ -165,7 +165,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
-サポートされるパラメータの一覧およびその他の詳細については、を参照してください link:https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_client["BeeGFSクライアントの完全なドキュメント"^]。クライアントインベントリの完全な例については、をクリックしてください link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/client_inventory.yml["こちらをご覧ください"^]。
+サポートされているパラメータの完全なリストと詳細については、link:https://github.com/NetApp/beegfs/tree/master/roles/beegfs_client["BeeGFSクライアントの完全なドキュメント"^]を参照してください。クライアントインベントリの完全な例については、link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_client/beegfs_client_inventory.yml["こちらをご覧ください"^]をクリックしてください。
 
 
 
@@ -223,7 +223,7 @@ beegfs_ha_conn_auth_enabled: false
 ----
 
 
-クライアントのプレイブックの完全な例については、をクリックしてください link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/client_playbook.yml["こちらをご覧ください"^]。
+クライアントプレイブックの完全な例については、link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_client/beegfs_client_playbook.yml["こちらをご覧ください"^]をクリックしてください。
 
 
 

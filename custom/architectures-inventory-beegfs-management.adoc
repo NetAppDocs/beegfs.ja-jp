@@ -85,4 +85,4 @@ beegfs_targets:
           - size: <PERCENT> # Percent of the pool or volume group to allocate to this volume. Ex. 1
             owning_controller: <CONTROLLER> # One of: A, B
 ----
-をクリックします link:https://github.com/netappeseries/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/group_vars/mgmt.yml["こちらをご覧ください"^] たとえば、BeeGFS管理サービスを表す完全なインベントリファイルの例を示します。
+link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_netapp/gen2/H2_DAC_IB_A2_EF600/beegfs_cluster_building_blocks/beegfs_ha_building_block_cluster_1/group_vars/mgmt.yml["こちらをご覧ください"^]をクリックすると、BeeGFS管理サービスを表す完全なインベントリファイルの例が表示されます。
