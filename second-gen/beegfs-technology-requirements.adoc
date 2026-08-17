@@ -18,6 +18,7 @@ BeeGFS on NetAppソリューションを実装するには、本ドキュメン�
 
 
 
+[[requirements-overview]]
 == 要件の概要
 
 このページでは、NetApp 構成要素に BeeGFS を実装するためのハードウェア、ソフトウェア、ファームウェアの要件について詳しく説明します。要件は以下のセクションに分けられています：
@@ -29,12 +30,14 @@ BeeGFS on NetAppソリューションを実装するには、本ドキュメン�
 
 
 
+[[hardware-requirements]]
 == ハードウェア要件
 
 開始する前に、ハードウェアがNetAppソリューション上のBeeGFSの単一ビルディングブロック設計の以下の仕様を満たしていることを確認してください。特定の導入における具体的な構成要素は、顧客の要件に基づいて異なる場合があります。期待される性能を達成するには、各ファイルノードはこれらの仕様を満たすか、それを上回る必要があります。
 
 
 
+[[file-node-requirements]]
 === ファイルのノード要件
 
 [cols="10%,90%"]
@@ -70,6 +73,7 @@ IMPORTANT: ファイル ノードには、有効な Red Hat Enterprise Linux Ser
 
 
 
+[[block-node-requirements]]
 === ブロックノードの要件
 
 各ビルディング ブロックには、同じモデルの E-Series アレイが 2 つ必要です。同じビルディング ブロック内でアレイ モデルを混在させないでください。
@@ -97,6 +101,7 @@ IMPORTANT: ファイル ノードには、有効な Red Hat Enterprise Linux Ser
 |===
 
 
+[[storage-network-switch-requirements]]
 === ストレージ ネットワーク スイッチの要件
 
 [cols="10%,90%"]
@@ -115,12 +120,14 @@ NOTE: NVIDIA MQM8700 Quantumなどの代替スイッチを使用することも�
 
 
 
+[[cabling-requirements]]
 === ケーブル要件
 
 
 
 ==== ブロックノードからファイルノードへのケーブル
 
+[[block-file-cables]]
 ブロックノードからファイルノードへの直接接続には、以下のケーブルが必要です：
 
 [cols="15%,60%,25%"]
@@ -134,6 +141,7 @@ NOTE: NVIDIA MQM8700 Quantumなどの代替スイッチを使用することも�
 
 ==== ファイル ノードとストレージ スイッチ間のケーブル
 
+[[file-switch-cables]]
 NVIDIA QM9700 Quantum 2スイッチには、次のケーブルタイプが推奨されます。要件に応じて、アクティブファイバーまたはパッシブ銅のいずれかを選択してください。数量はビルディングブロックあたりです。
 
 [cols="20%,15%,10%,55%"]
@@ -154,6 +162,7 @@ NVIDIA QM9700 Quantum 2スイッチには、次のケーブルタイプが推奨
 |===
 
 
+[[software-deployment-requirements]]
 === ソフトウェア導入の要件
 
 次の表に、AnsibleベースのBeeGFS導入の一環として自動的に導入されるソフトウェア要件を示します。
@@ -179,6 +188,7 @@ NVIDIA QM9700 Quantum 2スイッチには、次のケーブルタイプが推奨
 |===
 
 
+[[ansible-control-node-requirements]]
 === Ansibleの制御ノード要件
 
 NetApp解決策 のBeeGFSは、Ansible制御ノードから導入して管理します。詳細については、を参照してください https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html["Ansibleのドキュメント"^]。

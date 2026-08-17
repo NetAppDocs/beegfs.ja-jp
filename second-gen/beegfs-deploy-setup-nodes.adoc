@@ -18,6 +18,7 @@ summary: 各サーバのBaseboard Management Controller（BMC；ベースボー�
 
 
 
+[[set-up-file-nodes]]
 == ファイルノードをセットアップします
 
 . 各サーバのベースボード管理コントローラ（BMC）のネットワークを設定します。
@@ -54,6 +55,7 @@ subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpm
 
 
 
+[[set-up-block-nodes]]
 == ブロックノードをセットアップする
 
 各コントローラの管理ポートを設定してEF600ブロックノードをセットアップします。

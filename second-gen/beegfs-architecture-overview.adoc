@@ -18,6 +18,7 @@ NetApp解決策 のBeeGFSには、検証済みのワークロードをサポー�
 
 
 
+[[building-block-architecture]]
 == ビルディングブロックアーキテクチャ
 
 BeeGFSファイルシステムは、ストレージ要件に応じてさまざまな方法で導入および拡張できます。たとえば、主に多数の小さなファイルを扱うユースケースでは、メタデータのパフォーマンスと容量を強化できますが、大容量ファイルが少ないユースケースでは、実際のファイル内容よりも多くのストレージ容量とパフォーマンスを優先的に使用できます。このような複数の考慮事項は並列ファイルシステム環境のさまざまな次元に影響するため、ファイルシステムの設計と導入が複雑になります。
@@ -35,6 +36,7 @@ BeeGFSファイルシステムは、ストレージ要件に応じてさまざ�
 
 
 
+[[file-system-services]]
 == ファイルシステムサービス
 
 BeeGFSファイルシステムには、次の主要サービスが含まれます。
@@ -55,6 +57,7 @@ BeeGFSは、並列ファイルシステムとして、複数のサーバノー�
 
 
 
+[[ha-architecture]]
 == HAアーキテクチャ
 
 BeeGFS on NetAppは、共有ディスクハイアベイラビリティ（HA）アーキテクチャを実現するネットアップハードウェアと完全に統合された解決策 を作成することで、BeeGFSエンタープライズエディションの機能を拡張します。
@@ -70,6 +73,7 @@ image:beegfs-design-image1.png["HAアーキテクチャの比較"]
 
 
 
+[[verified-nodes]]
 == ノードを確認しました
 
 BeeGFS on NetAppソリューションでは、以下のノードが検証されました。
@@ -89,6 +93,7 @@ BeeGFS on NetAppソリューションでは、以下のノードが検証され�
 |===
 
 
+[[verified-hardware-design]]
 == ハードウェアの設計を確認した
 
 このソリューションのビルディングブロック（次の図を参照）では、BeeGFSファイルレイヤ用に検証済みファイルノードサーバを使用し、2台のEF600ストレージシステムをブロックレイヤとして使用します。
@@ -106,6 +111,7 @@ image:beegfs-design-image3.png["BeeGFS HAクラスタの拡張"]
 
 
 
+[[ansible]]
 == Ansible
 
 ネットアップのBeeGFSは、Ansible Automationを使用して提供および導入されます。この自動化はGitHubとAnsible Galaxy（BeeGFSコレクションはから入手できます https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^] および https://github.com/netappeseries/beegfs/["ネットアップのEシリーズGitHub"^]）。Ansibleは、主にBeeGFSビルディングブロックの構築に使用するハードウェアでテストされますが、サポートされているLinuxディストリビューションを使用して、ほぼすべてのx86ベースのサーバで実行するように設定できます。

@@ -20,6 +20,7 @@ summary: パフォーマンスを最大化するために、ファイルノー�
 
 
 
+[[use-the-uefi-interface-to-tune-system-settings]]
 == UEFIインターフェイスを使用して、システム設定を調整します
 
 Lenovo SR665 V3 サーバーのシステム ファームウェアには、UEFI インターフェイスを通じて設定できる多数のチューニング パラメーターが含まれています。これらのチューニングパラメータは、サーバの機能とサーバのパフォーマンスのすべての側面に影響を与える可能性があります。
@@ -28,6 +29,7 @@ UEFI Setup（UEFIセットアップ）> System Settings（システム設定）*
 
 
 
+[[operating-mode-menu]]
 === Operating Mode（操作モード）メニュー
 
 [cols=","]
@@ -113,6 +115,7 @@ NPS1
 |===
 
 
+[[devices-and-io-ports-menu]]
 === デバイスとI/Oポートのメニュー
 
 [cols=","]
@@ -128,6 +131,7 @@ IOMMUを使用します
 |===
 
 
+[[power-menu]]
 === 電源メニュー
 
 [cols=","]
@@ -143,6 +147,7 @@ PCIeパワーブレーキ
 |===
 
 
+[[processors-menu]]
 === [プロセッサ]メニュー
 
 [cols=","]
@@ -179,6 +184,7 @@ CPPC
 |===
 
 
+[[use-redfish-api-to-tune-system-settings]]
 == Redfish APIを使用して、システム設定を調整します
 
 UEFIセットアップのほかに、Redfish APIを使用してシステム設定を変更することもできます。

@@ -18,6 +18,7 @@ HAクラスタのEシリーズストレージアレイのコンポーネント�
 
 
 
+[[overview]]
 == 概要
 
 HAクラスタのNetApp Eシリーズストレージアレイを最新のファームウェアで最新の状態に保つことで、最適なパフォーマンスとセキュリティが確保されます。ストレージアレイのファームウェア更新は、SANtricity OS、NVSRAM、およびドライブファームウェアファイルを使用して適用されます。
@@ -27,6 +28,7 @@ NOTE: ストレージアレイはHAクラスタをオンラインにしたまま
 
 
 
+[[block-node-upgrade-steps]]
 == ブロックノードのアップグレード手順
 
 次の手順は `Netapp_Eseries.Santricity`、Ansibleコレクションを使用してストレージアレイのファームウェアを更新する方法の概要です。次の手順に進む前に、を参照してlink:https://docs.netapp.com/us-en/e-series/upgrade-santricity/overview-upgrade-consider-task.html["アップグレード時の考慮事項"^]E-Seriesシステムを更新してください。

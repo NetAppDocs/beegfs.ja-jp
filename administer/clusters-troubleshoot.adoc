@@ -18,16 +18,19 @@ BeeGFS HAクラスタのトラブルシューティング
 
 
 
+[[overview]]
 == 概要
 
 このセクションでは、BeeGFS HAクラスタの運用中に発生する可能性のあるさまざまな障害やその他のシナリオを調査してトラブルシューティングする方法を説明します。
 
 
 
+[[troubleshooting-guides]]
 == トラブルシューティングガイド
 
 
 
+[[investigating-unexpected-failovers]]
 === 予期しないフェイルオーバーを調査してい
 
 ノードが予期せずフェンシングされていてサービスが別のノードに移動された場合は、の下部でクラスタがリソース障害を示していないかどうかを最初に確認する必要があります `pcs status`。通常、フェンシングが正常に完了し、リソースが別のノードで再起動された場合、何も表示されません。
@@ -135,6 +138,7 @@ Jul 01 16:18:14 beegfs_01 pacemaker-controld[9247]:  notice: Peer beegfs_02 was 
 
 
 
+[[address-failed-resource-actions-found-at-the-bottom-of-pcs-status]]
 === Address Failed Resource Actions（PCステータスの下部にある）
 
 BeeGFSサービスの実行に必要なリソースに障害が発生すると、BeeGFSモニタによってフェイルオーバーがトリガーされます。この場合は、の下部に[Failed Resource Actions]が表示されない可能性があり `pcs status`ます。[How to]の手順を参照してください。link:clusters-failover-failback.html["計画外フェイルオーバー後のフェイルバック"^]
@@ -211,10 +215,12 @@ BeeGFSサービスの実行に必要なリソースに障害が発生すると�
 
 
 
+[[common-issues]]
 == 一般的な問題
 
 
 
+[[beegfs-services-dont-failover-or-failback-when-requested]]
 === BeeGFSサービスは、要求されたときにフェイルオーバーやフェイルバックを行いません
 
 *可能性の高い問題 ：* `pcs resource relocate` 実行コマンドは実行されましたが、正常に終了しませんでした。
@@ -225,6 +231,7 @@ BeeGFSサービスの実行に必要なリソースに障害が発生すると�
 
 
 
+[[one-node-in-pcs-status-shows-standby-on-fail-when-fencing-is-disabled]]
 === フェンシングが無効な場合、PCステータスの一方のノードに「standby (on-fail)」と表示されます
 
 *考えられる問題 ：* Pacemakerは、障害が発生したノードですべてのリソースが停止していることを正常に確認できませんでした。
@@ -237,6 +244,7 @@ BeeGFSサービスの実行に必要なリソースに障害が発生すると�
 
 
 
+[[after-an-unexpected-failover-resources-show-started-on-fail-in-pcs-status-when-fencing-is-enabled]]
 === 想定外のフェイルオーバーが発生すると、フェンシングが有効になっている場合、PCのステータスに「started（on-fail）」と表示されます
 
 *問題 の可能性：*フェールオーバーをトリガーしたが、Pacemakerがノードをフェンシングしていることを確認できなかった問題が発生しました。フェンシングが正しく設定されていないか、フェンシングエージェントを含む問題 が存在することが原因で発生します（例：PDUがネットワークから切断されています）。
@@ -255,10 +263,12 @@ CAUTION: 指定したノードが実際にはオフになっておらず、ク�
 
 
 
+[[common-troubleshooting-tasks]]
 == 一般的なトラブルシューティングタスク
 
 
 
+[[restart-individual-beegfs-services]]
 === BeeGFSサービスを個別に再起動します
 
 通常、BeeGFSサービスを再起動（設定変更を容易にするためなど）する必要がある場合は、Ansibleインベントリを更新してプレイブックを再実行します。一部のシナリオでは、個 々 のサービスを再起動して迅速なトラブルシューティングを実現したい場合があります。たとえば、プレイブック全体の実行を待たずにログレベルを変更する場合などです。

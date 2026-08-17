@@ -48,7 +48,7 @@ image:driveslots.png["EF600ドライブスロット"]
 
 
 
-. 次の図に示すトポロジと一致するように、を使用してブロックノードとファイルノードを接続します link:beegfs-technology-requirements.html#block-file-cables["1M InfiniBand HDR 200GB直接接続銅ケーブル"]。
+. ブロックノードとファイルノードをlink:beegfs-technology-requirements.html#file-node-requirements["1M InfiniBand HDR 200GB直接接続銅ケーブル"]を使用して接続し、次の図に示すトポロジーと一致するようにします。
 +
 image:directattachcable-sr665v3.png["SR665V3直接接続ケーブル"]
 
@@ -56,7 +56,7 @@ image:directattachcable-sr665v3.png["SR665V3直接接続ケーブル"]
 
 NOTE: 複数のビルディングブロックを横断するノードが直接接続されることはありません。各ビルディングブロックはスタンドアロンユニットとして扱われ、ビルディングブロック間のすべての通信はネットワークスイッチを介して行われます。
 
-. InfiniBandストレージスイッチに固有のを使用して、ファイルノードの残りのInfiniBandポートをストレージネットワークのInfiniBandスイッチに接続します link:beegfs-technology-requirements.html#file-switch-cables["2M InfiniBandケーブル"] 。
+. ファイルノード上の残りのInfiniBandポートを、お客様のInfiniBandストレージスイッチに固有のlink:beegfs-technology-requirements.html#storage-network-switch-requirements["2M InfiniBandケーブル"]を使用して、ストレージ ネットワークのInfiniBandスイッチに接続します。
 +
 スプリッタケーブルを使用してストレージスイッチとファイルノードを接続する場合は、スイッチから1本のケーブルが分岐し、ライトグリーンで示されているポートに接続する必要があります。別のスプリッタケーブルがスイッチから分岐し、濃い緑色で示されているポートに接続する必要があります。
 

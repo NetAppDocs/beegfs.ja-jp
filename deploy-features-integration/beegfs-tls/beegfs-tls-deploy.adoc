@@ -18,6 +18,7 @@ BeeGFS 8の管理サービスとクライアント間の通信を保護するた
 
 
 
+[[overview]]
 == 概要
 
 BeeGFS 8 では、管理ツール（ `beegfs`コマンドラインユーティリティなど）と Management や Remote などの BeeGFS サーバーサービス間のネットワーク通信を暗号化するための TLS サポートが導入されています。BeeGFS クラスターで TLS 暗号化を設定するには、次の 3 つの方法のいずれかを使用します：
@@ -36,12 +37,15 @@ BeeGFS 8 では、管理ツール（ `beegfs`コマンドラインユーティ�
 ====
 
 
+[[using-a-trusted-certificate-authority]]
+[[using-trusted-ca]]
 == 信頼できる証明機関の使用
 
 信頼できる認証局（CA）が発行した証明書（社内のエンタープライズCAまたはサードパーティプロバイダーの証明書）にアクセスできる場合は、自己署名証明書を生成する代わりに、これらのCA署名付き証明書を使用するようにBeeGFS 8を設定できます。
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 新しいBeeGFS 8クラスタの導入
 
 新しい BeeGFS 8 クラスタの導入では、Ansible インベントリの `user_defined_params.yml`ファイルを設定して、CA 署名付き証明書を参照します：
@@ -63,6 +67,7 @@ beegfs_ha_tls_key_src_path: files/beegfs/cert/mgmtd_tls_key.pem
 ====
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 既存のBeeGFS 8クラスタの設定
 
 既存のBeeGFS 8クラスタの場合、BeeGFS管理サービスの構成ファイル内のパスを、ファイルノードのCA署名付き証明書に設定します：
@@ -74,6 +79,7 @@ tls-key-file = /path/to/key.pem
 ----
 
 
+[[configuring-beegfs-8-clients-with-ca-signed-certificates]]
 === CA署名付き証明書を使用したBeeGFS 8クライアントの設定
 
 [IMPORTANT]
@@ -85,12 +91,15 @@ BeeGFS 8 クライアントがシステムの証明書プールを使用して C
 
 
 
+[[creating-a-local-certificate-authority]]
+[[creating-local-ca]]
 == ローカル認証局の作成
 
 BeeGFSクラスタ用に独自の証明書インフラストラクチャを構築する場合は、ローカル証明機関（CA）を作成して、BeeGFSクラスタ用の証明書の発行と署名を行うことができます。このアプローチでは、BeeGFS管理サービスの証明書に署名するCAを作成し、署名された証明書をクライアントに配布して信頼チェーンを確立します。
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 新しいBeeGFS 8クラスタの導入
 
 新しい BeeGFS 8 の展開では、 `beegfs_8` Ansible ロール（BeeGFS HA コレクションに含まれています）は、制御ノード上にローカル CA を作成し、管理サービスに必要な証明書を生成します。Ansible インベントリの `user_defined_params.yml`ファイルで以下のパラメータを設定することで、これを有効にできます：
@@ -115,6 +124,7 @@ beegfs_ha_tls_config_options:
 ====
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 既存のBeeGFS 8クラスタの設定
 
 既存のBeeGFSクラスタでは、ローカル証明機関を作成し、管理サービスに必要な証明書を生成することでTLSを統合できます。BeeGFS管理サービスの設定ファイル内のパスを、新しく作成した証明書を指すように更新してください。
@@ -190,6 +200,7 @@ NOTE: この例では、簡潔にするために 1 年間の有効期間を使�
 
 
 
+[[create-management-service-certificates]]
 ==== 管理サービス証明書を作成する
 
 BeeGFS管理サービス用の証明書を生成し、作成したCAで署名します。これらの証明書は、BeeGFS管理サービスを実行するファイルノードにインストールされます。
@@ -316,6 +327,7 @@ Successfully loaded license certificate: TMP-XXXXXXXXXX
 
 
 
+[[configure-tls-for-beegfs-8-clients]]
 === BeeGFS 8クライアント向けにTLSを設定する
 
 [IMPORTANT]
@@ -348,12 +360,14 @@ beegfs health check
 
 
 
+[[disabling-tls]]
 == TLSの無効化
 
 トラブルシューティングのため、または環境で暗号化が不要な場合は、TLSを無効にしてください。このオプションは、ファイルシステムの構造や構成に関する機密情報を平文で公開してしまう可能性があるため、本番環境では避けてください。
 
 
 
+[[deploying-a-new-beegfs-8-cluster]]
 === 新しいBeeGFS 8クラスタの導入
 
 新しい BeeGFS クラスターのデプロイでは、Ansible インベントリの `user_defined_params.yml`ファイルで次のパラメータを設定して TLS を無効にします：
@@ -364,6 +378,7 @@ beegfs_ha_tls_enabled: false
 ----
 
 
+[[configuring-an-existing-beegfs-8-cluster]]
 === 既存のBeeGFS 8クラスタの設定
 
 既存のBeeGFS 8クラスターの場合は、管理サービス構成ファイルを編集してください。例えば、以下のファイルを編集します。 `/mnt/mgmt_tgt_mgmt01/mgmt_config/beegfs-mgmtd.toml`そして設定します：

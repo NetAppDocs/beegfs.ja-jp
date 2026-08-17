@@ -21,6 +21,7 @@ TIP: このセクションで使用される用語の定義については、lin
 
 
 
+[[introduction]]
 == はじめに
 
 link:../second-gen/beegfs-solution-overview.html["NetApp Verified Architectureレポート"]事前定義されたリファレンス構成とサイジングガイダンスが提供されますが、一部のお客様やパートナー様は、特定の要件やハードウェアの好みにより適したカスタムアーキテクチャを設計したい場合があります。ネットアップでBeeGFSを選択する主なメリットの1つは、Ansibleを使用してBeeGFS共有ディスクHAクラスタを導入できることです。これにより、クラスタ管理が簡易化され、ネットアップがオーサリングするHAコンポーネントによって信頼性が向上します。ネットアップへのカスタムBeeGFSアーキテクチャの導入はAnsibleでも実行されるため、アプライアンスと同様のアプローチでハードウェアを柔軟に選択することができます。
@@ -29,6 +30,7 @@ link:../second-gen/beegfs-solution-overview.html["NetApp Verified Architecture�
 
 
 
+[[deployment-overview]]
 == 導入の概要
 
 通常、BeeGFSファイルシステムを導入するには、次の手順を実行します。
@@ -63,6 +65,7 @@ Ansibleは、ソフトウェアのプロビジョニングタスクと設定タ�
 ====
 
 
+[[requirements]]
 == 要件
 
 AnsibleでBeeGFSがサポートされるようになりました link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"] BeeGFS HAクラスタのエンドツーエンドの導入と管理を自動化するロールとモジュールの集合として。
@@ -71,6 +74,7 @@ BeeGFS自体は、<major> .BeeGFSバージョンに準拠してバージョン�
 
 
 
+[[ansible-control-node]]
 === Ansibleコントロールノード
 
 このノードには、BeeGFSの管理に使用するインベントリとプレイブックが含まれます。次のものが必要です。
@@ -84,6 +88,7 @@ BeeGFS自体は、<major> .BeeGFSバージョンに準拠してバージョン�
 
 
 
+[[beegfs-file-nodes]]
 === BeeGFSファイルノード
 
 ファイルノードはRed Hat Enterprise Linux (RHEL) 9.4を実行し、必要なパッケージ（pacemaker、corosync、fence-agents-all、resource-agents）を含むHAリポジトリにアクセスできる必要があります。例えば、RHEL 9で適切なリポジトリを有効にするには、以下のコマンドを実行します。
@@ -94,6 +99,7 @@ subscription-manager repo-override repo=rhel-9-for-x86_64-highavailability-rpms 
 ----
 
 
+[[beegfs-client-nodes]]
 === BeeGFSクライアントノード
 
 BeeGFSクライアントのAnsibleロールを使用して、BeeGFSクライアントパッケージをインストールし、BeeGFSマウントを管理できます。このロールは、RHEL 9.4 および Ubuntu 22.04 でテストされています。

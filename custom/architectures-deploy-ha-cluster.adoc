@@ -18,16 +18,19 @@ summary: プレイブックを使用してBeeGFS HAクラスタを導入する�
 
 
 
+[[overview]]
 == 概要
 
 このセクションでは、ネットアップでBeeGFSを導入/管理するために使用する標準的なプレイブックを組み立てる方法について説明します。
 
 
 
+[[steps]]
 == 手順
 
 
 
+[[create-the-ansible-playbook]]
 === Ansible Playbookを作成
 
 ファイルを作成します `playbook.yml` 次のように入力します。
@@ -124,6 +127,7 @@ link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_neta
 
 
 
+[[install-the-netapp-ansible-collections]]
 === NetApp Ansibleコレクションをインストールします
 
 AnsibleのBeeGFSコレクションとすべての依存関係は維持されます link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^]。Ansibleコントロールノードで次のコマンドを実行して最新バージョンをインストールします。
@@ -140,6 +144,7 @@ ansible-galaxy collection install netapp_eseries.beegfs:==<MAJOR>.<MINOR>.<PATCH
 ----
 
 
+[[run-the-playbook]]
 === Playbookを実行してください
 
 を含むAnsibleコントロールノードのディレクトリから `inventory.yml` および `playbook.yml` ファイルでは、次のようにプレイブックを実行します。

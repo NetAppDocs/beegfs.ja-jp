@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-tshoot.html 
+permalink: deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-tshoot.html 
 keywords: BeeGFS Features, CSI, Driver, Troubleshoot, Troubleshooting 
 summary: BeeGFS CSI ドライバーの展開のトラブルシューティング。 
 ---
@@ -26,6 +26,7 @@ BeeGFS CSI ドライバーの展開に関する問題をトラブルシューテ
 
 
 
+[[kubernetes-setup-common-error-scenarios]]
 == Kubernetes のセットアップ - よくあるエラーのシナリオ
 
 ノード上で現在実行中のすべてのポッドを取得しようとしたときのエラーの例:
@@ -48,6 +49,7 @@ E0829 14:30:28.644318 5617 memcache.go:265)] "Unhandled Error" err="couldn't get
 
 
 
+[[error-in-containerd]]
 == containerd のエラー
 
 containerd デーモンのステータスを確認します。
@@ -75,6 +77,7 @@ journalctl -u containerd
 ----
 
 
+[[error-in-kubelet]]
 == kubeletのエラー
 
 kubelet サービスのステータスを確認します。
@@ -112,6 +115,7 @@ tail -f /var/log/syslog | grep kubelet
 ----
 
 
+[[swap-issue]]
 == スワップ問題
 
 「スワップ」に関連するエラーが発生した場合は、スワップを無効にして kubelet を再起動します。
@@ -146,6 +150,7 @@ NOTE: スワップは通常、オペレーティングシステムのインス�
 
 
 
+[[troubleshooting-beegfs-client-and-helperd-configuration]]
 == BeeGFSクライアントとHelperd設定のトラブルシューティング
 
 . 設定を確認する `/etc/beegfs/beegfs-client.conf`。
@@ -232,6 +237,7 @@ tuneNumWorkers                = 2
 
 
 
+[[troubleshooting-beegfs-controller-issues]]
 == BeeGFSコントローラーの問題のトラブルシューティング
 
 オーバーレイをデプロイした後、kubectl get all の出力に PENDING ステータスのリソースがいくつか表示される場合があります。
@@ -256,6 +262,7 @@ kubectl describe pod <pod-name> -n beegfs-csi | grep -i image
 ----
 
 
+[[checking-pod-logs]]
 === ポッドログの確認
 
 ポッドが起動していないか、 `CrashLoopBackOff` 状態の詳細についてはログを確認してください。

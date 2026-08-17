@@ -18,6 +18,7 @@ summary: ネットアップのBeeGFSのソフトウェア設定には、BeeGFS�
 
 
 
+[[beegfs-network-configuration]]
 == BeeGFSネットワーク設定
 
 BeeGFSネットワーク設定は、次のコンポーネントで構成されます。
@@ -68,6 +69,7 @@ Stripe pattern details:
 ....
 
 
+[[ef600-block-node-configuration]]
 == EF600ブロックノード構成
 
 ブロックノードは、同じドライブセットへの共有アクセスを持つ2つのアクティブ/アクティブRAIDコントローラで構成されます。通常、各コントローラにはシステムに設定されているボリュームの半分が所有されますが、必要に応じてもう一方のコントローラがテイクオーバーできます。
@@ -86,6 +88,7 @@ image:beegfs-design-image10.png["BeeGFSサービスのボリューム所有権"]
 
 
 
+[[beegfs-file-node-configuration]]
 == BeeGFSファイルのノード設定
 
 BeeGFSファイルノードは、複数のファイルノード間でBeeGFSサービスのフェイルオーバーを容易にするために、ハイアベイラビリティ（HA）クラスタに構成されます。
@@ -96,6 +99,7 @@ HAクラスタは、広く使用されている2つのLinux HAプロジェクト
 
 
 
+[[beegfs-ha-clusters]]
 == BeeGFS HA clusters（BeeGFS HAクラスタ
 
 通常、BeeGFSサービスを（HAの有無にかかわらず）開始するときは、次のようなリソースが必要になります。

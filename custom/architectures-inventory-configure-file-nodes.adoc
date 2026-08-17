@@ -18,6 +18,7 @@ summary: ホスト変数（host_vars）を使用して、個 々 のファイル
 
 
 
+[[overview]]
 == 概要
 
 このセクションでは、の入力手順について説明します `host_vars/<FILE_NODE_HOSTNAME>.yml` クラスタ内の各ファイルノードのファイル。これらのファイルには、特定のファイルノードに固有の設定のみを含める必要があります。これには、次のような一般
@@ -33,6 +34,7 @@ summary: ホスト変数（host_vars）を使用して、個 々 のファイル
 
 
 
+[[steps]]
 == 手順
 
 link:architectures-plan-file-system.html["ファイルシステムを計画"]セクションで定義したIPアドレス指定方式を参照して、クラスタ内のファイルノードごとにファイルを作成し `host_vars/<FILE_NODE_HOSTNAME>/yml`、次のように設定します。
@@ -141,9 +143,10 @@ link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_neta
 
 
 
+[[advanced-toggling-nvidia-connectx-vpi-adapters-between-ethernet-and-infiniband-mode]]
 === Advanced：イーサネットとInfiniBandモードの間でNVIDIA ConnectX VPIアダプタを切り替えます
 
-NVIDIA ConnectX-Virtual Protocol Interconnect &reg;（VPI）アダプタは、InfiniBandとイーサネットの両方をトランスポートレイヤとしてサポートします。モード間の切り替えは自動的にはネゴシエートされないため、に含まれているオープンソースパッケージを使用して設定する必要があります `mstconfig` `mstflint` link:https://docs.nvidia.com/networking/display/mftv4270/mft+supported+configurations+and+parameters["NVIDIAファームウェアツール(MFT)"^]。アダプタのモードを変更する必要があるのは一度だけです。これは手動で行うことも、インベントリのセクションを使用して設定されたインターフェイスの一部としてAnsibleインベントリに含めることもでき `eseries-[ib|ib_iser|ipoib|nvme_ib|nvme_roce|roce]_interfaces:` 、自動的にチェック/適用されます。
+NVIDIA ConnectX-Virtual Protocol Interconnect® (VPI) アダプタは、トランスポート層として InfiniBand とイーサネットの両方をサポートしています。モードの切り替えは自動的にネゴシエートされないため、 `mstconfig` に含まれるツールを使用して設定する必要があります。 `mstflint` は、link:https://network.nvidia.com/products/adapter-software/firmware-tools/["NVIDIAファームウェアツール(MFT)"^] の一部であるオープンソースパッケージです。アダプターのモード変更は一度だけ行えばよい。これは手動で行うことも、インベントリの  `eseries-[ib|ib_iser|ipoib|nvme_ib|nvme_roce|roce]_interfaces:` セクションを使用して設定されたインターフェースの一部として Ansible インベントリに含め、自動的にチェック／適用されるようにすることもできます。
 
 たとえば、InfiniBandモードのインターフェイスをイーサネットに変更して、RoCEに使用できるようにするには、次のコマンドを実行します。
 

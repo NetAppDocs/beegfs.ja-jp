@@ -18,6 +18,7 @@ summary: ファイルノードとブロックノードの設定を定義する�
 
 
 
+[[step-1-define-configuration-for-all-building-blocks]]
 == 手順1：すべてのビルディングブロックの構成を定義します
 
 どの構成プロファイルを個別に適用できるかに関係なく、環境 のすべての構成ブロックを定義します。
@@ -78,6 +79,7 @@ bmc_password: <PASSWORD>
 
 
 
+[[step-2-define-configuration-for-individual-file-and-block-nodes]]
 == 手順2：個々のファイルノードとブロックノードの設定を定義する
 
 環境 の個々のファイルノードおよび個々のビルディングブロックノードの構成を定義します。
@@ -174,6 +176,7 @@ eseries_controller_nvme_ib_port:
 
 
 
+[[step-3-define-configuration-that-should-apply-to-all-file-and-block-nodes]]
 == 手順3：すべてのファイルノードとブロックノードに適用する設定を定義する
 
 グループに対応するファイル名に'GROLE_vars'の下にあるホストのグループに共通する構成を定義できますこれにより、複数の場所で共有設定を繰り返す必要がなくなります。
@@ -194,6 +197,7 @@ beegfs_ha_ntp_server_pools:  # Modify the NTP server addressess if desired.
 ....
 
 
+[[step-4-define-configuration-that-should-apply-to-all-file-nodes]]
 == 手順4：すべてのファイルノードに適用する設定を定義する
 
 ファイル・ノードの共有構成は'ha_cluster'というグループで定義されますこのセクションの手順では'group_vars/ha_cluster.yml`ファイルに含める必要がある構成を構築します
@@ -366,6 +370,7 @@ NOTE: 検証テストでは'通常'randomrobinを使用して'パフォーマン
 
 
 
+[[step-5-define-the-configuration-for-the-common-block-node]]
 == 手順5：共通ブロックノードの設定を定義する
 
 ブロック・ノードの共有構成は'eseries_storage_systems'というグループで定義されますこのセクションの手順では'group_vars/eseries_storage_systems.yml`ファイルに含める必要がある構成を構築します

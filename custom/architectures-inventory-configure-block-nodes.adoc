@@ -18,6 +18,7 @@ summary: ホスト変数（host_vars）を使用して個 々 のブロックノ
 
 
 
+[[overview]]
 == 概要
 
 このセクションでは、の入力手順について説明します `host_vars/<BLOCK_NODE_HOSTNAME>.yml` クラスタ内のブロックノードごとにファイルを作成します。これらのファイルに含まれるのは、特定のブロックノードに固有の設定のみである必要があります。これには、次のような一般
@@ -30,6 +31,7 @@ summary: ホスト変数（host_vars）を使用して個 々 のブロックノ
 
 
 
+[[steps]]
 == 手順
 
 link:architectures-plan-file-system.html["ファイルシステムを計画"^]セクションで定義したIPアドレス指定方式を参照して、クラスタ内のブロックノードごとにファイルを作成し `host_vars/<BLOCK_NODE_HOSTNAME>/yml`、次のように設定します。
@@ -136,6 +138,7 @@ link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_neta
 
 
 
+[[using-hdr-200gb-infiniband-or-200gb-roce-with-netapp-ef600-block-nodes]]
 === NetApp EF600ブロックノードでHDR（200GB）InfiniBandまたは200GB RoCEを使用：
 
 EF600でHDR（200GB）InfiniBandを使用するには、物理ポートごとに2つ目の「仮想」IPを設定する必要があります。以下は、デュアルポートInfiniBand HDR HICを搭載したEF600の正しい設定方法の例です。

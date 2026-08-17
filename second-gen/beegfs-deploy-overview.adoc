@@ -18,6 +18,7 @@ NetApp上のBeeGFSは、NetAppのBeeGFSビルディングブロック設計とAn
 
 
 
+[[ansible-collections-and-roles]]
 == Ansibleのコレクションとロール
 
 BeeGFS on NetAppソリューションは、アプリケーションの導入を自動化する一般的なIT自動化エンジンであるAnsibleを使用して導入されます。Ansibleでは、総称してインベントリと呼ばれる一連のファイルを使用して、導入するBeeGFSファイルシステムをモデル化します。
@@ -31,6 +32,7 @@ NOTE: NetApp解決策 へのBeeGFSの導入には多数の手順が含まれる�
 
 
 
+[[configuration-profiles-for-beegfs-building-blocks]]
 == BeeGFSビルディングブロックの構成プロファイル
 
 導入手順では、次の設定プロファイルについて説明します。
@@ -44,6 +46,7 @@ NOTE: NetApp解決策 へのBeeGFSの導入には多数の手順が含まれる�
 
 
 
+[[overview-of-deployment-steps]]
 == 導入手順の概要
 
 の導入では、次の作業を実行します。

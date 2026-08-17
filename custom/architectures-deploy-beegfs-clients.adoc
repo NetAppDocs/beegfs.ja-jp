@@ -18,16 +18,19 @@ summary: また、Ansibleを使用してBeeGFSクライアントを設定し、�
 
 
 
+[[overview]]
 == 概要
 
 BeeGFSファイルシステムにアクセスするには、ファイルシステムをマウントする必要のある各ノードにBeeGFSクライアントをインストールして設定する必要があります。このセクションでは、使用可能なを使用してこれらのタスクを実行する方法について説明します link:https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_client["Ansibleのロール"^]。
 
 
 
+[[steps]]
 == 手順
 
 
 
+[[create-the-client-inventory-file]]
 === クライアントインベントリファイルを作成します
 
 . 必要に応じて、Ansibleコントロールノードから、BeeGFSクライアントとして設定する各ホストにパスワードなしのSSHを設定します。
@@ -169,6 +172,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
+[[create-the-beegfs-client-playbook-file]]
 === BeeGFS Client Playbookファイルを作成します
 
 . 新しいファイルを作成します `client_playbook.yml`
@@ -227,6 +231,7 @@ beegfs_ha_conn_auth_enabled: false
 
 
 
+[[run-the-beegfs-client-playbook]]
 === BeeGFS Client Playbookを実行します
 
 クライアントをインストール/ビルドしてBeeGFSをマウントするには、次のコマンドを実行します。

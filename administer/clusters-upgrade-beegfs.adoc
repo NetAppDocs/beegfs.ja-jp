@@ -18,6 +18,7 @@ Ansible を使用して、HA クラスターで実行されている BeeGFS バ�
 
 
 
+[[overview]]
 == 概要
 
 BeeGFSには `major.minor.patch`バージョン管理方式が採用されています。BeeGFS HA Ansibleのロールは、サポートされる `major.minor`バージョンごとに用意されています（ `beegfs_ha_7_2`やなど `beegfs_ha_7_3`）。各HAロールは、Ansibleコレクションのリリース時に利用可能な最新のBeeGFSパッチバージョンに固定されています。
@@ -29,6 +30,7 @@ NOTE: BeeGFS 8にアップグレードする場合は、link:clusters-upgrade-be
 
 
 
+[[tested-upgrade-paths]]
 == テスト済みのアップグレードパス
 
 次のアップグレード パスがテストおよび検証されています：
@@ -69,12 +71,14 @@ NOTE: BeeGFS 8にアップグレードする場合は、link:clusters-upgrade-be
 |===
 
 
+[[beegfs-upgrade-steps]]
 == BeeGFSのアップグレード手順
 
 次のセクションでは、BeeGFS AnsibleコレクションとBeeGFS自体を更新する手順を示します。BeeGFSのメジャーバージョンまたはマイナーバージョンを更新する際は、特に注意してください。
 
 
 
+[[step-1-upgrade-beegfs-collection]]
 === 手順1：BeeGFSコレクションをアップグレードする
 
 へのアクセスによる収集のアップグレード link:https://galaxy.ansible.com/netapp_eseries/beegfs["Ansible Galaxy"^]を使用して、次のコマンドを実行します。
@@ -93,12 +97,14 @@ ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgra
 
 
 
+[[step-2-update-ansible-inventory]]
 === ステップ2：Ansibleインベントリを更新する
 
 クラスタのAnsibleインベントリファイルに必要な更新や希望する更新を行ってください。具体的なアップグレード要件の詳細については、以下の<<バージョンのアップグレードに関する注意事項>>セクションをご覧ください。BeeGFS HAインベントリの設定に関する一般的な情報については、link:../custom/architectures-inventory-overview.html["Ansibleのインベントリの概要"^]セクションをご覧ください。
 
 
 
+[[step-3-update-ansible-playbook-when-updating-major-or-minor-versions-only]]
 === 手順3：Ansible Playbookを更新する（メジャーバージョンまたはマイナーバージョンを更新する場合のみ）
 
 メジャーバージョンとマイナーバージョンを切り替える場合は、クラスタの導入とメンテナンスに使用するファイルで、 `playbook.yml` ロールの名前を目的のバージョンに合わせて更新し `beegfs_ha_<VERSION>` ます。たとえば、BeeGFS 7.4を導入する場合は、次のようになり `beegfs_ha_7_4`ます。
@@ -119,6 +125,7 @@ ansible-galaxy collection install netapp_eseries-beegfs-<VERSION>.tar.gz --upgra
 
 
 
+[[step-4-run-the-beegfs-upgrade]]
 === 手順4：BeeGFSのアップグレードを実行する
 
 BeeGFSアップデートを適用するには：
@@ -144,10 +151,12 @@ BeeGFS HAの役割では、次の処理が行われます。
 
 
 
+[[version-upgrade-notes]]
 == バージョンのアップグレードに関する注意事項
 
 
 
+[[upgrading-from-beegfs-version-7-2-6-or-7-3-0]]
 === BeeGFSバージョン7.2.6または7.3.0からアップグレードしています
 
 

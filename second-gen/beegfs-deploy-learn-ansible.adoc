@@ -20,6 +20,7 @@ Ansibleインベントリは、導入するBeeGFSファイルシステムのフ�
 
 
 
+[[ansible-modules-and-roles]]
 == Ansibleのモジュールとロール
 
 Ansibleインベントリに記載されている構成を適用するには、エンドツーエンドのソリューションを導入するNetApp EシリーズAnsibleコレクション（から入手可能）に含まれているさまざまなAnsibleモジュールとロールを使用し https://github.com/netappeseries/beegfs/tree/master/roles/beegfs_ha_7_4["NetApp EシリーズBeeGFS GitHub"^]ます。
@@ -33,6 +34,7 @@ NOTE: 導入手順でAnsibleの使用経験が十分に細かい情報を提供�
 
 
 
+[[inventory-layout-for-a-beegfs-ha-cluster]]
 == BeeGFS HAクラスタのインベントリレイアウト
 
 Ansibleのインベントリ構造を使用してBeeGFS HAクラスタを定義します。

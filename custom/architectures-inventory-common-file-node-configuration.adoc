@@ -18,6 +18,7 @@ summary: グループ変数（group_vars）を使用して共通ファイルノ�
 
 
 
+[[overview]]
 == 概要
 
 Appleがすべてのファイルノードに適用される構成は、で定義されます `group_vars/ha_cluster.yml`。一般的には次のものが含ま
@@ -36,6 +37,7 @@ NOTE: このファイルで設定したオプションは、たとえば、異�
 
 
 
+[[steps]]
 == 手順
 
 ファイルを作成します `group_vars/ha_cluster.yml` 次のように入力します。
@@ -259,6 +261,7 @@ link:https://github.com/NetApp/beegfs/blob/master/getting_started/beegfs_on_neta
 
 
 
+[[using-hdr-200gb-infiniband-with-netapp-ef600-block-nodes]]
 === NetApp EF600ブロックノードでHDR（200GB）InfiniBandを使用：
 
 EF600でHDR（200GB）InfiniBandを使用するには、サブネットマネージャが仮想化をサポートしている必要があります。ファイルノードとブロックノードがスイッチを使用して接続されている場合は、ファブリック全体に対してサブネットマネージャで有効にする必要があります。

@@ -31,6 +31,7 @@ image:beegfs-design-image12.png["BeeGFS検証設定"]
 
 
 
+[[beegfs-file-striping]]
 == BeeGFSファイルのストライピング
 
 並列ファイルシステムの利点は、複数のストレージターゲットに個別のファイルをストライプすることです。これは、同一または異なる基盤となるストレージシステム上のボリュームを表すことができます。
@@ -41,6 +42,7 @@ BeeGFSでは'各ファイルに使用するターゲットの数を制御し'各
 
 
 
+[[ior-bandwidth-tests-multiple-clients]]
 == IOR帯域幅テスト：複数のクライアント
 
 IOR帯域幅テストでは、OpenMPIを使用して、統合I/OジェネレータツールIOR（から入手可能）の並列ジョブを実行しました https://github.com/hpc/ior["HPC GitHub"^]）を使用して、10のすべてのクライアントノードから1つ以上のBeeGFSビルディングブロックにアクセスします。特に明記されていない限り：
@@ -78,6 +80,7 @@ image:beegfs-design-image16.png["BeeGFSビルディングブロックの3つのI
 
 
 
+[[ior-bandwidth-tests-single-client]]
 == IOR帯域幅テスト：単一クライアント
 
 IOR帯域幅テストでは、OpenMPIを使用して、1台の高性能GPUサーバを使用して複数のIORプロセスを実行し、1台のクライアントで実現可能なパフォーマンスを検証しました。
@@ -97,6 +100,7 @@ NOTE: これらのテストのBeeGFSストライピングは'ファイルあた�
 
 
 
+[[metadata-performance-test]]
 == メタデータパフォーマンステスト
 
 メタデータパフォーマンステストでは、MDTestツール（IORの一部として含まれる）を使用してBeeGFSのメタデータパフォーマンスを測定しました。テストでは、OpenMPIを使用して、10個のクライアントノードすべてで並列ジョブを実行しました。
@@ -120,6 +124,7 @@ image:beegfs-design-image19.png["2つのBeeGFSメタデータとストレージ�
 
 
 
+[[functional-validation]]
 == 機能検証
 
 このアーキテクチャの検証の一環として、ネットアップは次の機能テストをいくつか実施しました。
@@ -137,6 +142,7 @@ NOTE: 既知の問題 がある（を参照） https://github.com/netappeseries/
 
 
 
+[[nvidia-dgx-superpod-and-basepod-validation]]
 == NVIDIA DGX SuperPODとBasePODの検証
 
 ネットアップでは、3つのビルディングブロックにメタデータとストレージ構成プロファイルが適用されたBeeGFSファイルシステムを使用して、NVDIA DGX A100 SuperPOD向けのストレージ解決策 の検証を実施しました。認定には、このNVAで説明した解決策 を、さまざまなストレージ、機械学習、ディープラーニングのベンチマークを実行している20台のDGX A100 GPUサーバでテストすることが含まれます。NVIDIAのDGX A100 SuperPODで確立された検証に基づいて、BeeGFS on NetAppソリューションは、DGX SuperPOD H100、H200、B200システムでの使用が承認されました。この拡張は、NVIDIA DGX A100で検証された、以前に確立されたベンチマークとシステム要件を満たすことに基づいています。

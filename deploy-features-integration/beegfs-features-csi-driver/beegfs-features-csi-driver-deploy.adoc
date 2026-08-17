@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: deploy-features-integration/beegfs-csi-driver/csi-driver-deploy.html 
+permalink: deploy-features-integration/beegfs-features-csi-driver/beegfs-features-csi-driver-deploy.html 
 keywords: BeeGFS Features, CSI, Driver 
 summary: BeeGFS CSI ドライバーの展開手順。 
 ---
@@ -18,12 +18,14 @@ BeeGFS CSI ドライバーを Kubernetes 環境にデプロイする手順。
 
 
 
+[[air-gapped-deployment]]
 == エアギャップ展開
 
 エアギャップ (オフライン) デプロイメントを実行するには、Kubernetes YAML 構成ファイルと必要なコンテナ イメージの両方を、インターネットにアクセスできるシステムに事前にダウンロードしておく必要があります。これらのファイルは、CSI ドライバーがインストールされるターゲット ノードに転送する必要があります。
 
 
 
+[[retrieve-the-driver-and-images]]
 === ドライバーとイメージを取得する
 
 BeeGFS CSI ドライバーをエアギャップ環境に展開するには、次の手順を実行します。
@@ -83,6 +85,7 @@ ctr -n k8s.io images export csi-node-driver-registrar_<latest-tag>.tar registry.
 
 
 
+[[import-the-required-images]]
 === 必要な画像をインポートする
 
 . に移動 `/home/<User>/beegfs-csi-images` 画像が保存されているディレクトリに移動し、containerd を使用して各画像をインポートします。例えば：
@@ -105,6 +108,7 @@ crictl images
 
 
 
+[[configure-and-deploy-the-csi-driver-overlays]]
 === CSI ドライバー オーバーレイの構成と展開
 
 . に移動 `/home/<User>/beegfs-csi-driver` ディレクトリ。
@@ -189,6 +193,7 @@ NOTE: その `patchesStrategicMerge` セクションでは、カスタムパッ�
 
 
 
+[[install-the-beegfs-csi-driver]]
 === BeeGFS CSIドライバーをインストールする
 
 . カスタマイズしたオーバーレイを使用して BeeGFS CSI ドライバーをインストールします。この手順では、ローカルにインポートされたイメージの使用や更新されたイメージ プル ポリシーなど、すべての構成の変更が適用されます。
@@ -205,12 +210,14 @@ kubectl apply -k deploy/k8s/overlays/beegfs-overlay
 
 
 
+[[online-deployment]]
 == オンライン展開
 
 Kubernetes ノードがインターネットにアクセスできる場合は、コンテナ イメージを手動でダウンロードまたは転送する必要なく、BeeGFS CSI ドライバーを直接デプロイできます。ポッドがデプロイされると、イメージハブからイメージが自動的にダウンロードされ、必要なサービスが起動されます。
 
 
 
+[[retrieve-the-driver-repository]]
 === ドライバーリポジトリを取得する
 
 . BeeGFS CSI ドライバー GitHub リポジトリをローカル システムにクローンします。
@@ -223,6 +230,7 @@ git clone https://github.com/ThinkParQ/beegfs-csi-driver.git
 
 
 
+[[configure-the-driver]]
 === ドライバーを構成する
 
 . クローンされたリポジトリ ディレクトリに移動し、必要に応じて、デフォルトのオーバーレイ ディレクトリ内の構成ファイルを更新します。
@@ -258,6 +266,7 @@ NOTE: CSIドライバでは、設定ファイルが次の場所にある必要�
 
 
 
+[[install-the-beegfs-csi-driver]]
 === BeeGFS CSIドライバーをインストールする
 
 . デフォルトのオーバーレイをインストールするには `kubectl`。これにより、それぞれのレジストリから必要なイメージが自動的にプルされ、必要なすべての Kubernetes リソースが作成されます。
@@ -298,12 +307,14 @@ NOTE: 使用 `kubectl apply -k` オーバーレイ用（ `kustomization.yaml` �
 
 
 
+[[deploy-example-application]]
 == サンプルアプリケーションのデプロイ
 
 BeeGFS CSI ドライバー (エアギャップまたはオンライン) をインストールした後、サンプル アプリケーションをデプロイしてセットアップを検証できます。この例には、StorageClass、PersistentVolumeClaim (PVC)、および BeeGFS CSI ドライバーを使用するポッドが含まれています。
 
 
 
+[[before-deploying]]
 === 展開する前に:
 
 . BeeGFS 管理ノードの IP アドレスを取得します。
@@ -355,6 +366,7 @@ allowVolumeExpansion: true
 
 
 
+[[deploy]]
 === 導入
 
 . サンプルアプリケーション ファイルをデプロイします。

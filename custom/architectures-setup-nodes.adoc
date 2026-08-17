@@ -18,10 +18,12 @@ Ansibleを実行する前に、ファイルノードとブロックノードを�
 
 
 
+[[file-nodes]]
 == ファイルノード
 
 
 
+[[configure-the-baseboard-management-controller-bmc]]
 === ベースボード管理コントローラ（BMC）の設定
 
 ベースボード管理コントローラ（BMC）は、サービスプロセッサとも呼ばれ、オペレーティングシステムがインストールされていない場合やアクセスできない場合でもリモートアクセスを提供できるさまざまなサーバプラットフォームに組み込まれているアウトオブバンド管理機能の一般的な名前です。ベンダーは通常、この機能を独自のブランドで販売しています。たとえば、Lenovo SR665では、BMCはLenovo XClarity Controller（XCC）と呼ばれています。
@@ -33,12 +35,14 @@ NOTE: Redfishを使用したBMCベースのフェンシングが必要な場合�
 
 
 
+[[tune-system-settings]]
 === システム設定を調整します
 
 セットアップユーティリティ（BIOS/UEFI）インターフェイスを使用して、パフォーマンスを最大化するように設定されていることを確認します。正確な設定と最適な値は、使用しているサーバーモデルによって異なります。ガイダンスはのために提供されてlink:../second-gen/beegfs-deploy-file-node-tuning.html["ファイルノードモデルを確認しました"^]います。それ以外の場合は、サーバベンダーのドキュメントと、お使いのモデルに基づいたベストプラクティスを参照してください。
 
 
 
+[[install-an-operating-system]]
 === オペレーティングシステムをインストールします
 
 リストされているファイルノードの要件に基づいて、サポートされているオペレーティングシステムをインストールしlink:../second-gen/beegfs-technology-requirements.html#file-node-requirements["こちらをご覧ください"^]ます。Linuxディストリビューションに基づいて、以下の追加手順を参照してください。
@@ -56,6 +60,7 @@ subscription-manager repo-override --repo=rhel-9-for-x86_64-highavailability-rpm
 ....
 
 
+[[configure-management-network]]
 === 管理ネットワークを設定します
 
 オペレーティングシステムのインバンド管理に必要なネットワークインターフェイスを設定します。具体的な手順は、使用しているLinuxのディストリビューションとバージョンによって異なります。
@@ -65,12 +70,14 @@ NOTE: SSHが有効になっていて、Ansibleコントロールノードから�
 
 
 
+[[update-hca-and-hba-firmware]]
 === HCAとHBAファームウェアを更新します
 
 すべてのHBAおよびHCAでに記載されているサポート対象のファームウェアバージョンが実行されていることを確認しlink:https://imt.netapp.com/matrix/["NetApp Interoperability Matrix を参照してください"^]、必要に応じてアップグレードします。NVIDIA ConnectXアダプタに関するその他の推奨事項についてはlink:../second-gen/beegfs-technology-requirements.html#file-node-requirements["こちらをご覧ください"^]、こちらを参照してください。
 
 
 
+[[block-nodes]]
 == ブロックノード
 
 手順~を実行します link:https://docs.netapp.com/us-en/e-series/getting-started/getup-run-concept.html["Eシリーズの運用を開始"^] 各ブロックノードコントローラに管理ポートを設定し、必要に応じて各システムのストレージアレイ名を設定します。

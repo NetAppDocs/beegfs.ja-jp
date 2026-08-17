@@ -18,12 +18,14 @@ Ansibleを使用したBeeGFS HAクラスタの導入と管理
 
 
 
+[[overview]]
 == 概要
 
 前のセクションでは、BeeGFS HAクラスタを表すAnsibleインベントリを構築するために必要な手順を説明しました。このセクションでは、ネットアップがクラスタの導入と管理を行うAnsibleによる自動化を紹介します。
 
 
 
+[[ansible-key-concepts]]
 == Ansible：重要な概念
 
 開始する前に、Ansibleの主要な概念を理解しておくと役立ちます。
@@ -53,6 +55,7 @@ Ansibleを使用したBeeGFS HAクラスタの導入と管理
 
 
 
+[[beegfs-ha-role-for-ansible-key-concepts]]
 == AnsibleのBeeGFS HAロール：主な概念
 
 ネットアップ上のBeeGFSの各バージョンの導入と管理に必要なすべての自動化機能がAnsibleのロールとしてパッケージ化され、の一部として提供されます link:https://galaxy.ansible.com/netapp_eseries/beegfs["BeeGFSに対応したNetApp EシリーズAnsibleコレクション"^]：

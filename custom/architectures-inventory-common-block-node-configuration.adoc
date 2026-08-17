@@ -18,6 +18,7 @@ summary: グループ変数（group_vars）を使用して共通ブロックノ�
 
 
 
+[[overview]]
 == 概要
 
 すべてのブロックノードに対してAppleが実施する必要がある設定は、で定義します `group_vars/eseries_storage_systems.yml`。一般的には次のものが含ま
@@ -32,6 +33,7 @@ NOTE: このファイルで設定したオプションは、個 々 のブロッ
 
 
 
+[[steps]]
 == 手順
 
 ファイルを作成します `group_vars/eseries_storage_systems.yml` 次のように入力します。
