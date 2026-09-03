@@ -798,7 +798,6 @@
   <block id="800f7da804cf784ad962d085fbc70486" category="section-title">ハードウェアとソフトウェアの設定</block>
   <block id="90f177623f1131fc7f45e82db6189a1b" category="paragraph">大容量ビルディングブロック用のハードウェアとソフトウェアの設定は標準です。ただし、EF600コントローラをEF300コントローラに交換し、各ストレージアレイ用に60本のドライブを搭載した1 ~ 7個のIOM拡張トレイを取り付けることができます。ビルディングブロックあたり2～14台の拡張トレイを搭載。</block>
   <block id="467fccc62f2ea7630303f15d47a54aa7" category="paragraph">大容量のビルディングブロック設計を導入する場合、使用されるのは、BeeGFSの管理、メタデータ、ストレージの各サービスで構成される基本ビルディングブロック形式の設定のみです。コスト効率を高めるために、大容量のストレージノードでは、EF300コントローラエンクロージャ内のNVMeドライブにメタデータボリュームをプロビジョニングし、拡張トレイ内のNL-SASドライブにストレージボリュームをプロビジョニングする必要があります。</block>
-  <block id="774f4231e5651061791e65cf90314897" category="paragraph"><block ref="774f4231e5651061791e65cf90314897" category="inline-image-macro-rx" type="image"></block></block>
   <block id="267aa4fef181a2097a06345c854cc106" category="paragraph">これらのサイジングガイドラインでは、大容量のビルディングブロックが、ベースEF300エンクロージャ内のメタデータ用に2+2のNVMe SSDボリュームグループ1つ、ストレージ用にIOM拡張トレイあたり6x8+2のNL-SASボリュームグループ1つで構成されていることを前提としています。</block>
   <block id="963320465e8fcfa25188a669a43858c4" category="cell">ドライブサイズ（大容量HDD）</block>
   <block id="55fd8e839de07671a6869fad80279ab9" category="cell">BBあたりの容量(1トレイ)</block>
@@ -2304,4 +2303,6 @@
   <block id="39e82490f86540625468057a5c9e178f" category="admonition">ボリュームサイズは、ストレージプール全体（ボリュームグループとも呼ばれる）に対する割合として指定されます。NetApp では、SSD のオーバープロビジョニングのための余裕を持たせるため、各プールにいくらかの空き容量を残しておくことを強くお勧めします（詳細については、<block ref="b9c1bd6e1c1f792f57ed93348fcb8733" category="inline-link-rx"></block>を参照してください）。ストレージプール、<block ref="7ef878b8d47cf2658a8b7e4c1b8f133d" prefix=" " category="inline-code"></block>は、プール容量の 1% を管理サービスに割り当てます。したがって、ストレージプール、<block ref="7ef878b8d47cf2658a8b7e4c1b8f133d" prefix=" " category="inline-code"></block>内のメタデータボリュームについては、1.92TB または 3.84TB ドライブを使用する場合はこの値を<block ref="6950471ad34ba84d94045961d34ad16b" prefix=" " category="inline-code"></block>に設定し、7.65TB ドライブの場合はこの値を<block ref="6d61e9b2e679326dd5a7a5a155cce414" prefix=" " category="inline-code"></block>に設定し、15.3TB ドライブの場合はこの値を<block ref="c350ffebb2160c4726034bf20ba7520f" prefix=" " category="inline-code"></block>に設定します。</block>
   <block id="898b73a1917e274962eb06b63e1f1a15" category="list-text">ブロックノードとファイルノードを<block ref="472d38a98c7fba32714d0269e6ad819a" category="inline-link-macro-rx"></block>を使用して接続し、次の図に示すトポロジーと一致するようにします。</block>
   <block id="c6c1a150fe2c0ea553b51e7aa7980236" category="list-text">ファイルノード上の残りのInfiniBandポートを、お客様のInfiniBandストレージスイッチに固有の<block ref="6641f55c02ab74028026a655dbf4927b" category="inline-link-macro-rx"></block>を使用して、ストレージ ネットワークのInfiniBandスイッチに接続します。</block>
+  <block id="bba78d7694815dc44320a2e751daa486" category="inline-image-macro">EF300 NVMeおよびNL-SAS IOM拡張トレイを備えたBeeGFSの大容量ラックを示す図</block>
+  <block id="1155b61fff96aa3c1a731c367cdcc208" category="paragraph"><block ref="1155b61fff96aa3c1a731c367cdcc208" category="inline-image-macro-rx" type="image"></block></block>
 </blocks>
