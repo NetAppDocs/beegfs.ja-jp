@@ -2305,4 +2305,5 @@
   <block id="c6c1a150fe2c0ea553b51e7aa7980236" category="list-text">ファイルノード上の残りのInfiniBandポートを、お客様のInfiniBandストレージスイッチに固有の<block ref="6641f55c02ab74028026a655dbf4927b" category="inline-link-macro-rx"></block>を使用して、ストレージ ネットワークのInfiniBandスイッチに接続します。</block>
   <block id="bba78d7694815dc44320a2e751daa486" category="inline-image-macro">EF300 NVMeおよびNL-SAS IOM拡張トレイを備えたBeeGFSの大容量ラックを示す図</block>
   <block id="1155b61fff96aa3c1a731c367cdcc208" category="paragraph"><block ref="1155b61fff96aa3c1a731c367cdcc208" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5d19eac40cba34daeadf75a699707ab3" category="summary">BeeGFS HAクラスタを管理する際に、Ansibleとpcsコマンドラインツールのどちらを使用するかを決定します。デプロイと構成変更にはAnsibleを、一時的なクラスタ状態の変更にはpcsを使用してください。</block>
 </blocks>

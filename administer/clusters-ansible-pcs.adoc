@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: administer/clusters-ansible-pcs.html 
 keywords: BeeGFS on NetApp, HA, Cluster, Administration, pcs, Ansible 
-summary: HAクラスタの管理にAnsibleとPCコマンドラインツールを使用する必要があるのはどのような場合ですか？ 
+summary: BeeGFS HAクラスタを管理する際に、Ansibleとpcsコマンドラインツールのどちらを使用するかを決定します。デプロイと構成変更にはAnsibleを、一時的なクラスタ状態の変更にはpcsを使用してください。 
 ---
 = AnsibleとPCSツールを使用するタイミング
 :hardbreaks:
