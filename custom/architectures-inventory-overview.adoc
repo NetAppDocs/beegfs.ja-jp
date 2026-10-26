@@ -21,7 +21,7 @@ Ansibleインベントリは、必要なBeeGFS HAクラスタを定義する一�
 [[overview]]
 == 概要
 
-の編成については、Ansibleの標準的な手法に従うことを推奨します link:https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html["在庫"]の使用を含む link:https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#organizing-host-and-group-variables["サブディレクトリ/ファイル"] インベントリ全体を1つのファイルに格納する必要はありません。
+link:https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html["在庫"] を整理する際は、インベントリ全体を1つのファイルに保存するのではなく link:https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html#organizing-host-and-group-variables["サブディレクトリ/ファイル"] を使用するなど、標準的な Ansible の慣行に従うことをお勧めします。
 
 単一のBeeGFS HAクラスタのAnsibleインベントリは、次のように構成されます。
 

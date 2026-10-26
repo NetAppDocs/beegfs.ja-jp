@@ -1172,7 +1172,6 @@
   <block id="787446c6f7e5e0f4a50705b5035eba79" category="admonition">このファイルで設定したオプションは、たとえば、異なるハードウェアモデルを混在させる場合や、ノードごとに異なるパスワードを設定する場合など、個 々 のファイルノードに定義することもできます。個 々 のファイルノードの設定は、このファイルの設定よりも優先されます。</block>
   <block id="0971602076ba9dff100f7cfc2d9e6059" category="paragraph">ファイルを作成します<block ref="4003590e6e5408f8e5272e50f909dfac" prefix=" " category="inline-code"></block> 次のように入力します。</block>
   <block id="84531cf8a820148a6599e174baf94979" category="list-text">リモートホストでAnsible Controlノードがどのように認証されるかを指定します。</block>
-  <block id="2d33afd54604fb6475c44a1bc47fe2b1" category="admonition">特に本番環境では、パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（を参照） <block ref="37147a1e5d41497ae56472e8a2868a2a" category="inline-link-macro-rx"></block>）またはをクリックします<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> プレイブックを実行する際のオプション。状況に応じて<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> はすでにrootであるため、必要に応じてを省略できます<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>。</block>
   <block id="0a94da3169c04bc12f2c561654269433" category="list-text">イーサネットインターフェイスまたはInfiniBandインターフェイス（クラスタIPなど）に静的IPを設定していて、複数のインターフェイスが同じIPサブネットにある場合（たとえば、ib0が192.168.1.10/24を使用し、ib1が192.168.1.11/24を使用している場合）、マルチホームサポートが正常に機能するためには、追加のIPルーティングテーブルとルールを設定する必要があります。提供されているネットワークインターフェイス設定フックを次のように有効にします。</block>
   <block id="502d35f94d5c17779c9050bbed75f65f" category="list-text">クラスタを導入する際は、ストレージプロトコルによっては、リモートブロックデバイスを検出しやすくするためにノードをリブートしたり（Eシリーズボリューム）、構成の他の要素を適用したりする必要があります。デフォルトでは、ノードはリブート前にプロンプトを表示しますが、次の項目を指定することでノードの自動再起動を許可できます。</block>
   <block id="ff31dc05d095d346c18f3e8f2d758fe0" category="list-text">リブート後のデフォルトでは、ブロックデバイスやその他のサービスの準備ができていることを確認するために、Ansibleはsystemdまで待機します<block ref="dbd7cb25a43d1cd2bbc3bac871dad694" prefix=" " category="inline-code"></block> は、導入を続行する前に到達しています。NVMe/IBを使用する場合は、リモートデバイスの初期化、検出、および接続に時間がかかることがあります。その結果、導入の途中で自動化が失敗し続ける可能性があります。NVMe/IBを使用する場合にこの問題を回避するには、以下の条件も定義します。</block>
@@ -1287,7 +1286,6 @@
   <block id="e520383c76f5e72226ebb572b987380c" category="doc">Ansibleのインベントリの概要</block>
   <block id="7a1eabc3deb7fd02ceb1e16eafc41073" category="inline-link-macro">在庫</block>
   <block id="283c77f47e33325beac16dfcff1fbdc4" category="inline-link-macro">サブディレクトリ/ファイル</block>
-  <block id="3a6e55a49a2cdf7c86076b810d565fc2" category="paragraph">の編成については、Ansibleの標準的な手法に従うことを推奨します <block ref="6c37acba8ff27fe32f3259d928e2df83" category="inline-link-macro-rx"></block>の使用を含む <block ref="0b746a370389b97701184b02d91b44b0" category="inline-link-macro-rx"></block> インベントリ全体を1つのファイルに格納する必要はありません。</block>
   <block id="21c8e198e85188d23c3e8ec1332bc84c" category="paragraph">単一のBeeGFS HAクラスタのAnsibleインベントリは、次のように構成されます。</block>
   <block id="8c57469570cfaa1ea4910df225230163" category="admonition">1つのBeeGFSファイルシステムは複数のHAクラスタにまたがることができるため、大規模なインストールで複数のAnsibleインベントリを使用することが可能です。一般に、問題を回避するために複数のHAクラスタを単一のAnsibleインベントリとして定義することは推奨されません。</block>
   <block id="1b1ad4049313d49cd09961eea7b62a6f" category="list-text">Ansibleコントロールノードで、導入するBeeGFSクラスタのAnsibleインベントリを含む空のディレクトリを作成します。</block>
@@ -2306,4 +2304,6 @@
   <block id="bba78d7694815dc44320a2e751daa486" category="inline-image-macro">EF300 NVMeおよびNL-SAS IOM拡張トレイを備えたBeeGFSの大容量ラックを示す図</block>
   <block id="1155b61fff96aa3c1a731c367cdcc208" category="paragraph"><block ref="1155b61fff96aa3c1a731c367cdcc208" category="inline-image-macro-rx" type="image"></block></block>
   <block id="5d19eac40cba34daeadf75a699707ab3" category="summary">BeeGFS HAクラスタを管理する際に、Ansibleとpcsコマンドラインツールのどちらを使用するかを決定します。デプロイと構成変更にはAnsibleを、一時的なクラスタ状態の変更にはpcsを使用してください。</block>
+  <block id="513599b281713978d80226e0f56f9c0a" category="admonition">特に本番環境では、パスワードを平文で保存しないでください。代わりに、プレイブックの実行時にAnsible Vault（<block ref="4b111299cca4fdd006b43308bd1ab354" category="inline-link-macro-rx"></block>を参照）または<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block>オプションを使用してください。<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block>がすでにrootである場合は、必要に応じて<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>を省略できます。</block>
+  <block id="85efe1210965d4287331f2ab6df5e168" category="paragraph"><block ref="54994086eb4d51da014367d96b838ce1" category="inline-link-macro-rx"></block> を整理する際は、インベントリ全体を1つのファイルに保存するのではなく <block ref="4e9b100ee0802974cbea117806855df2" category="inline-link-macro-rx"></block> を使用するなど、標準的な Ansible の慣行に従うことをお勧めします。</block>
 </blocks>

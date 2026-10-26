@@ -51,7 +51,7 @@ ansible_become_password: <PASSWORD>
 ----
 +
 
-WARNING: 特に本番環境では、パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（を参照） link:https://docs.ansible.com/ansible/latest/vault_guide/index.html["Ansible Vaultを使用したコンテンツの暗号化"^]）またはをクリックします `--ask-become-pass` プレイブックを実行する際のオプション。状況に応じて `ansible_ssh_user` はすでにrootであるため、必要に応じてを省略できます `ansible_become_password`。
+WARNING: 特に本番環境では、パスワードを平文で保存しないでください。代わりに、プレイブックの実行時にAnsible Vault（link:https://docs.ansible.com/projects/ansible/latest/vault_guide/index.html["Ansible Vaultを使用したコンテンツの暗号化"^]を参照）または `--ask-become-pass`オプションを使用してください。 `ansible_ssh_user`がすでにrootである場合は、必要に応じて `ansible_become_password`を省略できます。
 
 . イーサネットインターフェイスまたはInfiniBandインターフェイス（クラスタIPなど）に静的IPを設定していて、複数のインターフェイスが同じIPサブネットにある場合（たとえば、ib0が192.168.1.10/24を使用し、ib1が192.168.1.11/24を使用している場合）、マルチホームサポートが正常に機能するためには、追加のIPルーティングテーブルとルールを設定する必要があります。提供されているネットワークインターフェイス設定フックを次のように有効にします。
 +
