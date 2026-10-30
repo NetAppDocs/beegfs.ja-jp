@@ -191,7 +191,7 @@ NVIDIA QM9700 Quantum 2スイッチには、次のケーブルタイプが推奨
 [[ansible-control-node-requirements]]
 === Ansibleの制御ノード要件
 
-NetApp解決策 のBeeGFSは、Ansible制御ノードから導入して管理します。詳細については、を参照してください https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html["Ansibleのドキュメント"^]。
+BeeGFS on NetAppソリューションは、Ansibleコントロールノードからデプロイおよび管理されます。詳細については、 https://docs.ansible.com/projects/ansible/latest/network/getting_started/basic_concepts.html["Ansibleのドキュメント"^]を参照してください。
 
 次の表に示すソフトウェア要件は、以下に記載するNetApp BeeGFSコレクションのバージョンに固有のものです。
 

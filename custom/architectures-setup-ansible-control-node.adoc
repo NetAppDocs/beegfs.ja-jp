@@ -24,7 +24,7 @@ summary: ファイルシステムを導入および管理するためのAnsible�
 Ansible制御ノードは、クラスタの管理に使用される物理または仮想Linuxマシンです。次の要件を満たしている必要があります。
 
 * link:../second-gen/beegfs-technology-requirements.html#ansible-control-node-requirements["要件"^]BeeGFS HAロール（インストールされているAnsible、Python、その他のPythonパッケージなど）のを確認します。
-* 公式情報をご確認ください link:https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-node-requirements["Ansibleの制御ノード要件"^] オペレーティングシステムのバージョンも含まれます。
+* オペレーティングシステムのバージョンを含む、公式のlink:https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html#control-node-requirements["Ansibleの制御ノード要件"^]を満たしてください。
 * すべてのファイルノードとブロックノードに、SSHとHTTPSでアクセスできます。
 
 

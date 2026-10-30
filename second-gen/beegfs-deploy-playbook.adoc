@@ -103,7 +103,7 @@ ansible-playbook -i inventory.yml playbook.yml --forks 20
 ....
 +
 
-NOTE: 特に大規模な環境では、 `forks`Ansibleが並行して構成するホストの数を増やすために、パラメータを使用してデフォルトのフォーク数（5）を上書きすることを推奨します。（詳細については、を参照して https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html["プレイブックの実行を制御する"^]ください）。最大値の設定は、Ansibleコントロールノードで使用可能な処理能力によって異なります。上記の例では、CPUを4つ搭載した仮想Ansibleコントロールノード（インテル（R）Xeon（R）Gold 6146 CPU @ 3.20GHz）上で20を実行しています。
+NOTE: 特に大規模な環境では、Ansibleが並行して設定するホストの数を増やすために、 `forks`パラメータを使用してデフォルトのフォーク数（5）を上書きすることが推奨されます。（詳細については、 https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_strategies.html["プレイブックの実行を制御する"^]を参照してください。）最大値の設定は、Ansibleコントロールノードで使用可能な処理能力によって異なります。上記の20という例は、4つのCPU（Intel(R) Xeon(R) Gold 6146 CPU @ 3.20GHz）を搭載した仮想Ansibleコントロールノードで実行されました。
 
 +
 導入のサイズと、Ansible制御ノードとBeeGFSファイルおよびブロックノードの間のネットワークパフォーマンスによって、導入時間が異なる場合があります。

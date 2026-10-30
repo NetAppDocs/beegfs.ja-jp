@@ -49,7 +49,7 @@ The defaults set by the BeeGFS HA role are based on the testing performed as par
 ....
 +
 
-NOTE: パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（のAnsibleのドキュメントを参照してください） https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansible Vaultを使用したコンテンツの暗号化"^])または'プレイブックを実行するときに'--Ask -bece-pass`オプションを使用します
+NOTE: パスワードは平文で保存しないでください。代わりに、Ansible Vaultを使用するか（ https://docs.ansible.com/projects/ansible/latest/vault_guide/index.html["Ansible Vaultを使用したコンテンツの暗号化"^]に関するAnsibleのドキュメントを参照）、プレイブックの実行時に `--ask-become-pass`オプションを使用してください。
 
 . 「client_inventory.yml」ファイルで、「beegfs_clients」グループの下にBeeGFSクライアントとして設定する必要があるすべてのホストを一覧表示し、BeeGFSクライアントカーネルモジュールの構築に必要な追加の設定を指定します。
 +

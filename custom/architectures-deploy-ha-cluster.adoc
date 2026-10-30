@@ -35,7 +35,7 @@ summary: プレイブックを使用してBeeGFS HAクラスタを導入する�
 
 ファイルを作成します `playbook.yml` 次のように入力します。
 
-. 最初に、一連のタスクを定義します（一般的には、と呼ばれます） link:https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html#playbook-syntax["再生"^]）が実行されるのはNetApp Eシリーズのブロックノードだけです。インストールを実行する前に確認を求めて（誤ってプレイブックが実行されないように）、をインポートします `nar_santricity_management` ロール。このロールは、で定義されている一般的なシステム構成の適用を処理します `group_vars/eseries_storage_systems.yml` または個人 `host_vars/<BLOCK NODE>.yml` ファイル。
+. まず、NetApp Eシリーズブロックノードでのみ実行される一連のタスク（一般にlink:https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_intro.html#playbook-syntax["再生"^]と呼ばれます）を定義します。インストールを実行する前に一時停止タスクを使用してプロンプトを表示し（誤ってプレイブックが実行されないようにするため）、次に `nar_santricity_management`ロールをインポートします。このロールは、 `group_vars/eseries_storage_systems.yml`または個別の `host_vars/<BLOCK NODE>.yml`ファイルで定義された一般的なシステム構成を適用する処理を行います。
 +
 [source, yaml]
 ----

@@ -19,7 +19,6 @@
   <block id="d95adee972ae170512bd3bdbce557054" category="cell">ペースメーカー</block>
   <block id="13f2a3097f055e043d74b20940df2658" category="section-title">Ansibleの制御ノード要件</block>
   <block id="c3ee5ddf91e65773d3e9d27f9e627350" category="inline-link">Ansibleのドキュメント</block>
-  <block id="83d32979307efd813f41ef5070206fd3" category="paragraph">NetApp解決策 のBeeGFSは、Ansible制御ノードから導入して管理します。詳細については、を参照してください<block ref="4410f583cbabaee2389115371eb2ab02" category="inline-link-rx"></block>。</block>
   <block id="158a122309f0454b31e4853755a5962a" category="paragraph">次の表に示すソフトウェア要件は、以下に記載するNetApp BeeGFSコレクションのバージョンに固有のものです。</block>
   <block id="d51d5ee15f404c2f4f7863bebcde1fac" category="cell">Ansible</block>
   <block id="a7f5f35426b927411fc9231b56382173" category="cell">Python</block>
@@ -226,7 +225,6 @@
   <block id="05c8acf59a637c421ef21a4a37d674de" category="list-text">「host_vars/`」の下で、「&lt;hostname&gt;.yml」という名前のBeeGFSクライアントごとに、次の内容でファイルを作成し、環境に適した情報をプレースホルダテキストに入力します。</block>
   <block id="ca6b4577e851d5587e19a3d017db68b1" category="list-text">新しいファイル'client_inventory.yml'を作成し'上部に次のパラメータを設定します</block>
   <block id="ec6e88f08b026e04d1ce5f5f31493b21" category="inline-link">Ansible Vaultを使用したコンテンツの暗号化</block>
-  <block id="d424a4948912165baf5c9641ad4de044" category="admonition">パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（のAnsibleのドキュメントを参照してください）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>)または'プレイブックを実行するときに'--Ask -bece-pass`オプションを使用します</block>
   <block id="8f27eda73b5d4e7594b05bed1b90a053" category="list-text">「client_inventory.yml」ファイルで、「beegfs_clients」グループの下にBeeGFSクライアントとして設定する必要があるすべてのホストを一覧表示し、BeeGFSクライアントカーネルモジュールの構築に必要な追加の設定を指定します。</block>
   <block id="42d868a1eb5776ce2eb9b95938bcc056" category="inline-link">RDMAのサポート</block>
   <block id="b9d3c4e1c18127cf36ad951b208d45bb" category="list-text">'client_inventory.yml'ファイルに'以前に定義したすべての変数の一番下にマウントするBeeGFSファイル・システムを一覧表示します</block>
@@ -659,7 +657,6 @@
   <block id="a79b02f70003beee254343e4cae10ad4" category="section-title">手順3：すべてのファイルノードとブロックノードに適用する設定を定義する</block>
   <block id="7a7623c76e8a35ad9b47b72876017ffc" category="paragraph">グループに対応するファイル名に'GROLE_vars'の下にあるホストのグループに共通する構成を定義できますこれにより、複数の場所で共有設定を繰り返す必要がなくなります。</block>
   <block id="b8250a298e8217ebff19d4f7c62cf654" category="inline-link">変数を使用します</block>
-  <block id="45c67f165a1990ff04bfa4ffd3ad1908" category="paragraph">ホストは複数のグループに含めることができ、実行時に、Ansibleは、変数の優先順位ルールに基づいて、特定のホストに適用する変数を選択します。（これらのルールの詳細については、Ansibleのドキュメントを参照してください<block ref="e846c866a706aed07204d4b81c43f562" category="inline-link-rx"></block>. ）</block>
   <block id="30670ef79ffcebf619cb84794bb9f467" category="paragraph">ホストとグループの割り当ては、実際のAnsibleインベントリファイルに定義されます。このファイルは、この手順 の末尾に作成されます。</block>
   <block id="13fe78da26730165534ca728d16729df" category="paragraph">Ansibleでは、すべてのホストに適用する構成は「all」というグループで定義できます。次の内容で'ファイル'group_vars/all.yml'を作成します</block>
   <block id="970c2de774d4cba551050f0b96346cc6" category="section-title">手順4：すべてのファイルノードに適用する設定を定義する</block>
@@ -1076,7 +1073,6 @@
   <block id="2f4c1ac28e39c823ee4c1a07b7cd93aa" category="paragraph">へのアクセスによる収集のアップグレード <block ref="d8617fd1dfbd628e2360b843d6070e54" category="inline-link-macro-rx"></block>を使用して、次のコマンドを実行します。</block>
   <block id="c199206a11a9882502e88de065338656" category="paragraph">オフラインでの収集アップグレードの場合は、から収集をダウンロードします <block ref="d8617fd1dfbd628e2360b843d6070e54" category="inline-link-macro-rx"></block> 目的のをクリックします<block ref="5ab34c986ae1945ee0c548bc8d6ac4a8" prefix=" " category="inline-code"></block> 次に<block ref="80af28150f2ffd9a902b18cd4e9b6656" prefix=" " category="inline-code"></block>。tarballをAnsibleコントロールノードに転送し、次のコマンドを実行します。</block>
   <block id="dd26fb41f43f69172e0099b87c9d0732" category="inline-link-macro">コレクションのインストール</block>
-  <block id="6aa260cc14fabe54e7e9f6efd513b871" category="paragraph">を参照してください <block ref="78e19afa50f5104f13264e857fffab2b" category="inline-link-macro-rx"></block> を参照してください。</block>
   <block id="800371603b58ee549a4a9674cd231cfd" category="inline-link-macro">BeeGFS HAクラスタを導入します</block>
   <block id="5c349c42761230bd8e50fff98f6e7508" category="paragraph">BeeGFSアップデートを適用するには：</block>
   <block id="a2dd7653f3025e7feb8e282bcc0bde84" category="paragraph">BeeGFS HAの役割では、次の処理が行われます。</block>
@@ -1344,7 +1340,6 @@
   <block id="9cdd817721bc924d0da9d43995b6cf7d" category="doc">Ansible Control Nodeをセットアップします</block>
   <block id="31996051b4f5b99834fd90885ae099c1" category="paragraph">Ansible制御ノードは、クラスタの管理に使用される物理または仮想Linuxマシンです。次の要件を満たしている必要があります。</block>
   <block id="b4851e92b19af0c5c82447fc0937709d" category="inline-link-macro">要件</block>
-  <block id="5f4740da5b8ab13112ebf332f879cc6e" category="list-text">公式情報をご確認ください <block ref="37e11d19f014e84f10fff4770a09b235" category="inline-link-macro-rx"></block> オペレーティングシステムのバージョンも含まれます。</block>
   <block id="2bce5080fcc3d6b8a54a49745dd28d52" category="list-text">すべてのファイルノードとブロックノードに、SSHとHTTPSでアクセスできます。</block>
   <block id="9635e0061cd355a35e70799e909727af" category="summary">Ansibleを実行する前に、ファイルノードとブロックノードを手動でセットアップする必要があります。</block>
   <block id="f5878e619c266b2ac6254dd1e4d95bfb" category="doc">ファイルノードとブロックノードをセットアップします</block>
@@ -1372,7 +1367,6 @@
   <block id="7dc2ac40c1549980b4ac09d940856f47" category="list-text">の下<block ref="4d729f58293c8a48f1f8d918cdd1d28f" prefix=" " category="inline-code"></block>をクリックし、という名前のBeeGFSクライアントごとにファイルを作成します<block ref="a0253f5b8f5dd7be8b02cda13da40729" prefix=" " category="inline-code"></block> 次の内容を使用して、プレースホルダテキストに環境に適した情報を入力します。</block>
   <block id="689b0940ce8c21b1ecd3dafd9cc19d56" category="list-text">NetApp Eシリーズホストコレクションのロールを使用して、クライアントがBeeGFSファイルノードに接続するためのInfiniBandインターフェイスまたはイーサネットインターフェイスを設定する場合は、オプションで次のいずれかを指定します。</block>
   <block id="825f3be2c17c36c0e4901143db982773" category="list-text">新しいファイルを作成します<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> さらに、Ansibleが各クライアントに接続するために使用するユーザを指定します。また、パスワードがAnsibleで権限の昇格（これにはが必要です<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block> rootにするか、sudo権限を持っているか）：</block>
-  <block id="c5a4ae1aa23001e8780b413f175b50b3" category="admonition">パスワードをプレーンテキストで保存しないでください。代わりにAnsible Vaultを使用します（を参照してください） <block ref="f2e33a881c3eb75b68333af99119c0b8" category="inline-link-macro-rx"></block> Ansible Vaultを使用してコンテンツを暗号化する場合）またはを使用します<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block> プレイブックを実行する際のオプション。</block>
   <block id="848f64fc57104cb2b416f6102d34e699" category="list-text">を参照してください<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> ファイルに、の下でBeeGFSクライアントとして設定する必要があるすべてのホストをリストします<block ref="fc2e11772a55c48ed2b4ec7bc5d94664" prefix=" " category="inline-code"></block> グループ化し、インラインコメントを参照して、BeeGFSクライアントカーネルモジュールをシステムに構築するために必要な追加設定のコメントを外します。</block>
   <block id="c378775497a55638adcb42719d8daddb" category="list-text">を参照してください<block ref="c28f9364916e661fea858844d2b96b81" prefix=" " category="inline-code"></block> ファイルで、以前に定義した任意の下にマウントするBeeGFSファイルシステムを一覧表示します<block ref="b63119da730344b345cdc8f62a4711e9" prefix=" " category="inline-code"></block>：</block>
   <block id="508ccac845ca75d6cdda20dfa455a2bd" category="inline-link-macro">共通ファイルノード構成</block>
@@ -1396,7 +1390,6 @@
   <block id="b3254ab5c14c4bb06dbb987f8ee20900" category="section-title">Ansible Playbookを作成</block>
   <block id="dc1e1a7b77e4fce07756f071e5ec7d8b" category="paragraph">ファイルを作成します<block ref="2f78c4e27feaf25ffb33d97e8ff7e7a6" prefix=" " category="inline-code"></block> 次のように入力します。</block>
   <block id="a3b34c0871dc2fd51eec5559b68f709d" category="inline-link-macro">再生</block>
-  <block id="3b4e65c5ca327e9a010b0e69fb90e476" category="list-text">最初に、一連のタスクを定義します（一般的には、と呼ばれます） <block ref="6d76655a02e5cb4ca885a92d78a5ab31" category="inline-link-macro-rx"></block>）が実行されるのはNetApp Eシリーズのブロックノードだけです。インストールを実行する前に確認を求めて（誤ってプレイブックが実行されないように）、をインポートします<block ref="504ead1cde99fc3bc223588114102919" prefix=" " category="inline-code"></block> ロール。このロールは、で定義されている一般的なシステム構成の適用を処理します<block ref="7bc866ffde9914c7ef21768fcf6f0683" prefix=" " category="inline-code"></block> または個人<block ref="7011fddbea4410953d6718ccf9ef966a" prefix=" " category="inline-code"></block> ファイル。</block>
   <block id="19c06a0dc65b61c783f73d77e193957e" category="list-text">すべてのファイルノードおよびブロックノードに対して実行する再生を定義します。</block>
   <block id="25296aae8975fe74b18a42af79a293d3" category="list-text">このアプローチでは、必要に応じて、HAクラスタを導入する前に実行する一連の「事前タスク」を定義できます。これは、Pythonなどの前提条件を確認してインストールするのに役立ちます。また、提供されたAnsibleタグがサポートされていることを確認するなど、任意のプリフライトチェックを実行することもできます。</block>
   <block id="adcd434b091e5725531891ba91d50193" category="list-text">最後に、導入するBeeGFSのバージョンに応じてBeeGFS HAロールをインポートします。</block>
@@ -1717,7 +1710,6 @@
   <block id="5c4a48e1bba2d7e97a5afb3329da8750" category="paragraph"><block ref="5c4a48e1bba2d7e97a5afb3329da8750" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ab0440e4421843b823481ec8c40114fa" category="inline-image-macro">大容量ドライブスロットの図</block>
   <block id="d471943365921fcc3ec56d2cb62b204d" category="paragraph"><block ref="d471943365921fcc3ec56d2cb62b204d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ce0bc242efa1f7752857cac8fae4d239" category="admonition">特に大規模な環境では、<block ref="448725115a83c589b33de77889e1e2f3" prefix=" " category="inline-code"></block>Ansibleが並行して構成するホストの数を増やすために、パラメータを使用してデフォルトのフォーク数（5）を上書きすることを推奨します。（詳細については、を参照して<block ref="2f92d47aead0a3ef15304d32faf6a032" category="inline-link-rx"></block>ください）。最大値の設定は、Ansibleコントロールノードで使用可能な処理能力によって異なります。上記の例では、CPUを4つ搭載した仮想Ansibleコントロールノード（インテル（R）Xeon（R）Gold 6146 CPU @ 3.20GHz）上で20を実行しています。</block>
   <block id="e5e317ea18fb59bd91370981078a2eb6" category="inline-image-macro">NUMA構成</block>
   <block id="b69049bad10aec8bac8579c94488a401" category="paragraph"><block ref="b69049bad10aec8bac8579c94488a401" category="inline-image-macro-rx" type="image"></block></block>
   <block id="12316ea7d4573c51756ec0fb8fe2d354" category="inline-image-macro">ネットワークのケーブル配線</block>
@@ -1750,7 +1742,6 @@
   <block id="362973e7a4fa534a7db69e8dfa0877a8" category="inline-image-macro">2つのBeeGFSメタデータとストレージビルディングブロックMDTestの結果</block>
   <block id="070cfbe37786e49518755132f73ded2c" category="paragraph"><block ref="070cfbe37786e49518755132f73ded2c" category="inline-image-macro-rx" type="image"></block></block>
   <block id="a00d274d551f6b74718d44ea2bb6e6c3" category="sidebar">HAクラスタコンポーネントの更新</block>
-  <block id="67f62a9c37bde591abc850b5a2b22b02" category="list-text">クラスタパスワード用のサブディレクトリを作成し、Ansible Vaultでファイルを暗号化して保護します（を参照）<block ref="69d38d4b5deda302461f6461c5317006" category="inline-link-rx"></block>。</block>
   <block id="8e7f7bdc10cb596910cce6b79c2e2ed6" category="list-text">サブディレクトリを作成し<block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>ます。</block>
   <block id="166355001b2692bdc29d698719b5f702" category="list-text"><block ref="fc7cb0a7b647c6ff35b553a10d616c4b" prefix=" " category="inline-code"></block>ディレクトリに、という名前のパスワードファイルを作成し<block ref="97a67fc90fe6d13cef22fa951de48f8d" prefix=" " category="inline-code"></block>ます。</block>
   <block id="da8d8318ceb4254068ec25272c92bc85" category="list-text">設定に応じて、すべてのユーザ名およびパスワードパラメータを置き換えて、に次の情報を入力<block ref="b8d32e4c2d78b6e404b69e5c1fbf3118" prefix=" " category="inline-code"></block>します。</block>
@@ -2306,4 +2297,13 @@
   <block id="5d19eac40cba34daeadf75a699707ab3" category="summary">BeeGFS HAクラスタを管理する際に、Ansibleとpcsコマンドラインツールのどちらを使用するかを決定します。デプロイと構成変更にはAnsibleを、一時的なクラスタ状態の変更にはpcsを使用してください。</block>
   <block id="513599b281713978d80226e0f56f9c0a" category="admonition">特に本番環境では、パスワードを平文で保存しないでください。代わりに、プレイブックの実行時にAnsible Vault（<block ref="4b111299cca4fdd006b43308bd1ab354" category="inline-link-macro-rx"></block>を参照）または<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block>オプションを使用してください。<block ref="f2bf771afbc16045e1951ded58c56f98" prefix=" " category="inline-code"></block>がすでにrootである場合は、必要に応じて<block ref="424240cd4e5c359372b7f199431603d5" prefix=" " category="inline-code"></block>を省略できます。</block>
   <block id="85efe1210965d4287331f2ab6df5e168" category="paragraph"><block ref="54994086eb4d51da014367d96b838ce1" category="inline-link-macro-rx"></block> を整理する際は、インベントリ全体を1つのファイルに保存するのではなく <block ref="4e9b100ee0802974cbea117806855df2" category="inline-link-macro-rx"></block> を使用するなど、標準的な Ansible の慣行に従うことをお勧めします。</block>
+  <block id="1b00c0fbcc4d60bbd7277cb567c38211" category="paragraph">詳細については、<block ref="924b11a36475c19725c786c8477e299b" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="d5049f679adf9836616b60ab4f80bae4" category="admonition">パスワードは平文で保存しないでください。代わりに、Ansible Vaultを使用するか（Ansible Vaultを使用したコンテンツの暗号化については<block ref="1b8edc2af96e25dedd2250ab0fa0090f" category="inline-link-macro-rx"></block>を参照）、プレイブックの実行時に<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block>オプションを使用してください。</block>
+  <block id="8f575bb30a5d00fe8cc4ee3594b86ba3" category="list-text">まず、NetApp Eシリーズブロックノードでのみ実行される一連のタスク（一般に<block ref="397c231d3a1481778f25f9061221a83c" category="inline-link-macro-rx"></block>と呼ばれます）を定義します。インストールを実行する前に一時停止タスクを使用してプロンプトを表示し（誤ってプレイブックが実行されないようにするため）、次に<block ref="504ead1cde99fc3bc223588114102919" prefix=" " category="inline-code"></block>ロールをインポートします。このロールは、<block ref="7bc866ffde9914c7ef21768fcf6f0683" prefix=" " category="inline-code"></block>または個別の<block ref="7011fddbea4410953d6718ccf9ef966a" prefix=" " category="inline-code"></block>ファイルで定義された一般的なシステム構成を適用する処理を行います。</block>
+  <block id="387375536e1e4239d68130ba9d73f7f6" category="list-text">オペレーティングシステムのバージョンを含む、公式の<block ref="9b2905d42e7e02207acde545f003b480" category="inline-link-macro-rx"></block>を満たしてください。</block>
+  <block id="9e93562436f5a02313017413b2d11ce1" category="admonition">パスワードは平文で保存しないでください。代わりに、Ansible Vaultを使用するか（<block ref="253e92ad6a52f8d4445e166c6d51e424" category="inline-link-rx"></block>に関するAnsibleのドキュメントを参照）、プレイブックの実行時に<block ref="13d87b4892426ec19bdc58a4643d3104" prefix=" " category="inline-code"></block>オプションを使用してください。</block>
+  <block id="ccb63594495dd5c0b63845b21d9de08e" category="list-text">クラスターパスワード用のサブディレクトリを作成し、Ansible Vaultで暗号化してファイルを保護します（参照<block ref="253e92ad6a52f8d4445e166c6d51e424" category="inline-link-rx"></block>）：</block>
+  <block id="2d2984c644cf99907ef9c12557e5c3d8" category="paragraph">ホストは複数のグループに属することができ、実行時にAnsibleは変数の優先順位ルールに基づいて、特定のホストに適用される変数を選択します。（これらのルールの詳細については、<block ref="2689963a2e7b1a28872abc6ea1f21787" category="inline-link-rx"></block>に関するAnsibleのドキュメントを参照してください。）</block>
+  <block id="bdb603eaf4ab7723ea729f70e1c9a54b" category="admonition">特に大規模な環境では、Ansibleが並行して設定するホストの数を増やすために、<block ref="448725115a83c589b33de77889e1e2f3" prefix=" " category="inline-code"></block>パラメータを使用してデフォルトのフォーク数（5）を上書きすることが推奨されます。（詳細については、<block ref="41c12765893df9e89a007e9df409a6e4" category="inline-link-rx"></block>を参照してください。）最大値の設定は、Ansibleコントロールノードで使用可能な処理能力によって異なります。上記の20という例は、4つのCPU（Intel(R) Xeon(R) Gold 6146 CPU @ 3.20GHz）を搭載した仮想Ansibleコントロールノードで実行されました。</block>
+  <block id="03bb7ed204775d08d0779d6d41a8790a" category="paragraph">BeeGFS on NetAppソリューションは、Ansibleコントロールノードからデプロイおよび管理されます。詳細については、<block ref="e078c558327cf2fc56228fd779b44a15" category="inline-link-rx"></block>を参照してください。</block>
 </blocks>

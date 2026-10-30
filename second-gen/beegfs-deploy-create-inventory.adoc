@@ -42,7 +42,7 @@ summary: ファイルノードとブロックノードの設定を定義する�
 +
 「パッケージ」
 
-. クラスタパスワード用のサブディレクトリを作成し、Ansible Vaultでファイルを暗号化して保護します（を参照） https://docs.ansible.com/ansible/latest/user_guide/vault.html["Ansible Vaultを使用したコンテンツの暗号化"^]。
+. クラスターパスワード用のサブディレクトリを作成し、Ansible Vaultで暗号化してファイルを保護します（参照 https://docs.ansible.com/projects/ansible/latest/vault_guide/index.html["Ansible Vaultを使用したコンテンツの暗号化"^]）：
 +
 .. サブディレクトリを作成し `group_vars/all`ます。
 ..  `group_vars/all`ディレクトリに、という名前のパスワードファイルを作成し `passwords.yml`ます。
@@ -182,7 +182,7 @@ eseries_controller_nvme_ib_port:
 グループに対応するファイル名に'GROLE_vars'の下にあるホストのグループに共通する構成を定義できますこれにより、複数の場所で共有設定を繰り返す必要がなくなります。
 
 .このタスクについて
-ホストは複数のグループに含めることができ、実行時に、Ansibleは、変数の優先順位ルールに基づいて、特定のホストに適用する変数を選択します。（これらのルールの詳細については、Ansibleのドキュメントを参照してください https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html["変数を使用します"^]. ）
+ホストは複数のグループに属することができ、実行時にAnsibleは変数の優先順位ルールに基づいて、特定のホストに適用される変数を選択します。（これらのルールの詳細については、 https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_variables.html["変数を使用します"^]に関するAnsibleのドキュメントを参照してください。）
 
 ホストとグループの割り当ては、実際のAnsibleインベントリファイルに定義されます。このファイルは、この手順 の末尾に作成されます。
 
