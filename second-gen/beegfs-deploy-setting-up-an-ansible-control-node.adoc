@@ -16,7 +16,7 @@ summary: Ansible制御ノードを設定するには、解決策 の設定に使
 [role="lead"]
 Ansible制御ノードをセットアップするには、BeeGFS on NetAppソリューション用に導入されたすべてのファイルノードとブロックノードにネットワークアクセスできる仮想マシンまたは物理マシンを指定する必要があります。
 
-推奨されるパッケージバージョンのリストについては、を参照してlink:beegfs-technology-requirements.html#ansible-control-node-requirements["技術要件"]ください。次の手順はUbuntu 22.04でテストされました。使用しているLinuxディストリビューションに固有の手順については、を参照してください https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html["Ansibleのドキュメント"^]。
+推奨パッケージバージョンのリストについては、link:beegfs-technology-requirements.html#ansible-control-node-requirements["技術要件"]を確認してください。以下の手順はUbuntu 22.04でテスト済みです。お使いのLinuxディストリビューション固有の手順については、 https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html["Ansibleのドキュメント"^]を参照してください。
 
 . Ansibleコントロールノードから、次のPythonおよびPython仮想環境パッケージをインストールします。
 +
